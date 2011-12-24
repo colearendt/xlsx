@@ -1,19 +1,23 @@
 #Frequently Asked Questions
 
-== I get an error when I try to read an xlsx file ==
+=== I get an error when I try to read an xlsx file ===
 
 If you just installed the package, make sure you have the dependent package *rJava* installed properly.  To check that, do 
 {{{
 require(rJava)
 .jcall('java.lang.System','S','getProperty','java.version')
 }}}
-If you don't get back a string with your java version, it means your *rJava* package is not installed correctly.  You will need to fix this before you can use this package.   
+If you don't get back a string with your java version, it means your *rJava* package is not installed correctly.  You will need to fix this before you can use the *xlsx* package.   
+
+=== I'm running out of java heap space when using write.xlsx ===
+
+This is probably the complaint I get most from users.  It happens when you try to write a large `data.frame` to file.  What large means depends on your machine.  Unfortunately, I don't understand why so much memory is used when writing.  If you run into problems, you can try to increase the amount of java heap space that `R` allocates before you load the package. 
+{{{
+options(java.parameters="-Xmx1024m")
+require(xlsx)
+}}}
+The default is `512m`, 512 MB.  If your computer has more RAM, increase it more and it may solve your problem.
+
+ 
 
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
