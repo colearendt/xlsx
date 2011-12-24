@@ -16,8 +16,12 @@ This is probably the complaint I get most from users.  It happens when you try t
 options(java.parameters="-Xmx1024m")
 require(xlsx)
 }}}
-The default is `512m`, 512 MB.  If your computer has more RAM, increase it more and it may solve your problem.
+The default is `Xmx512m`, 512 MB.  If your computer has more RAM, increase it more and it may solve your problem.
 
- 
+=== My write.xslx takes a long time === 
+
+Well, for every element of the `data.frame` you intend to write, a Java cell object will get created, and then serialized back into the XML file.  There is a lot of marshaling between R and Java and that slows things down.  
+
+The `write.xlsx2` is a version that uses Java internally for looping over the rows and the result is a significant improvement in performance.  However there are some limitations, so do read the documentation. 
 
 
