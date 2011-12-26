@@ -135,7 +135,7 @@ test.dataFormats <- function(wb)
 # 
 test.otherEffects <- function(wb)
 {
-  cat("Start testing other effects ... \n")
+  cat("Testing other effects ... \n")
 
   sheet1 <- createSheet(wb, "otherEffects1")
   rows   <- createRow(sheet1, 1:10)              # 10 rows
@@ -175,7 +175,25 @@ test.otherEffects <- function(wb)
   cat("Done.\n")
 }
 
+  
+#####################################################################
+# Test pictures
+# 
+test.picture <- function(wb)
+{
+  cat("Test embedding an R picture ...\n")
 
+  cat("Add log_plot.jpeg to a new xlsx...")
+  picname <- system.file("tests", "log_plot.jpeg", package="xlsx")
+  sheet <- createSheet(wb, "picture")
+
+  addPicture(picname, sheet)
+
+  xlsx:::.write_block(wb, sheet, iris)
+  cat("Done.\n")  
+}
+
+  
 #####################################################################
 # Test Ranges
 # 
@@ -235,6 +253,7 @@ test.ranges <- function()
   test.dataFormats(wb)
   test.ranges(wb)
   test.otherEffects(wb)
+  test.picture(wb)
   
   saveWorkbook(wb, outfile)
   cat("Wrote file", outfile, "\n\n")
