@@ -4,6 +4,8 @@
 # test.comments
 
 
+
+
 #####################################################################
 # Test Borders, Fonts, Colors, etc. 
 # 
@@ -148,7 +150,7 @@ test.otherEffects <- function(wb)
   cat("  set column width\n")
   setColumnWidth(sheet1, 1, 25)
   setCellValue(cells[[5,1]], paste("<-- the width of this column",
-    "is 20 characters wide.")
+    "is 20 characters wide."))
   
   cat("  set zoom\n")
   setCellValue(cells[[3,1]], "<-- the zoom on this sheet is 2:1.")
@@ -228,21 +230,9 @@ test.ranges <- function()
 
 
 #####################################################################
-#####################################################################
 #
-.main <- function()
+.main_lowlevel_export <- function()
 {
-  # best viewed with M-x hs-minor-mode
-
-  require(xlsx)
-  
-  DIR <- "H:/user/R/Adrian/"
-  DIR <- "/home/adrian/Documents/"
-  thisFile <- paste(DIR, "findataweb/temp/xlsx/trunk/inst/tests/",
-    "lib_tests_xlsx.R", sep="")
-  source(thisFile)
-
-  # test export
   outfile <- "/tmp/test_export.xlsx"
   if (file.exists(outfile)) unlink(outfile)
    
@@ -257,10 +247,83 @@ test.ranges <- function()
   
   saveWorkbook(wb, outfile)
   cat("Wrote file", outfile, "\n\n")
+}
+
+
+#####################################################################
+#####################################################################
+#
+.main <- function()
+{
+  # best viewed with M-x hs-minor-mode
+
+  require(xlsx)
+  
+  DIR <- "H:/user/R/Adrian/"
+  DIR <- "/home/adrian/Documents/"
+  thisFile <- paste(DIR, "findataweb/temp/xlsx/trunk/inst/tests/",
+    "lib_tests_xlsx.R", sep="")
+  source(thisFile)
+  
+  .main_lowlevel_export()  # where the meat is
+
+  .main_highlevel_export()
+
+  .main_speedtest_export()
 
   
 
 }
+
+
+
+
+
+
+
+## #####################################################################
+## # Test basic Java POI functionality - a bit redundant now
+## # 
+## test.basicJavaPOI <- function(wb)
+## {
+##   cat("Create an empty workbook ...\n") 
+##   wb <- .jnew("org/apache/poi/xssf/usermodel/XSSFWorkbook")
+##   #if (class(wb)=="jobjRef") cat("OK.\n")
+##   #.jmethods(wb)
+
+##   cat("Create a sheet called 'Sheet2' ...\n")
+##   sheet2 <- .jcall(wb, "Lorg/apache/poi/ss/usermodel/Sheet;",
+##     "createSheet", "Sheet2")
+##   #if (.jinstanceof(sheet2, "org.apache.poi.ss.usermodel.Sheet"))
+##   #  cat("OK.\n")  
+##   #.jmethods(sheet2)
+
+##   cat("Create row 1 ...\n")
+##   row <- .jcall(sheet2, "Lorg/apache/poi/ss/usermodel/Row;",
+##     "createRow", as.integer(0))
+##   #.jmethods(row)
+
+##   cat("Create cell [1,1] ...\n")
+##   cell <- .jcall(row, "Lorg/apache/poi/ss/usermodel/Cell;",
+##     "createCell", as.integer(0))
+
+##   cat("Put a value in cell [1,1] ... ")
+##   cell$setCellValue(1.23)
+
+##   cat("Add cell [1,2] and put a numeric value ... \n")
+##   .jcall(row, "Lorg/apache/poi/ss/usermodel/Cell;",
+##     "createCell", as.integer(1))$setCellValue(3.1415)
+
+##   cat("Add cell [1,3] and put a stringvalue ... \n")
+##   .jcall(row, "Lorg/apache/poi/ss/usermodel/Cell;",
+##     "createCell", as.integer(2))$setCellValue("A string")
+
+##   cat("Add cell [1,4] and put a boolean value ... \n")
+##   .jcall(row, "Lorg/apache/poi/ss/usermodel/Cell;",
+##     "createCell", as.integer(3))$setCellValue(TRUE)
+
+##   cat("Done.\n")
+## }
 
 
 
