@@ -129,6 +129,53 @@ test.dataFormats <- function(wb)
 }
 
 
+
+#####################################################################
+# Test other effects
+# 
+test.otherEffects <- function(wb)
+{
+  cat("Start testing other effects ... \n")
+
+  sheet1 <- createSheet(wb, "otherEffects1")
+  rows   <- createRow(sheet1, 1:10)              # 10 rows
+  cells  <- createCell(rows, colIndex=1:8)       # 8 columns
+
+  cat("  merge cells\n")
+  setCellValue(cells[[1,1]], "<-- a title that spans 3 columns")
+  addMergedRegion(sheet1, 1, 1, 1, 3)
+
+  cat("  set column width\n")
+  setColumnWidth(sheet1, 1, 25)
+  setCellValue(cells[[5,1]], paste("<-- the width of this column",
+    "is 20 characters wide.")
+  
+  cat("  set zoom\n")
+  setCellValue(cells[[3,1]], "<-- the zoom on this sheet is 2:1.")
+  setZoom(sheet1, 200, 100)
+
+  sheet2 <- createSheet(wb, "otherEffects2")
+  rows  <- createRow(sheet2, 1:10)              # 10 rows
+  cells <- createCell(rows, colIndex=1:8)       # 8 columns
+  #createFreezePane(sheet2, 1, 1, 1, 1)
+  createFreezePane(sheet2, 5, 5, 8, 8)
+  setCellValue(cells[[3,3]], "<-- a freeze pane")
+  
+  sheet3 <- createSheet(wb, "otherEffects3")
+  rows  <- createRow(sheet3, 1:10)              # 10 rows
+  cells <- createCell(rows, colIndex=1:8)       # 8 columns
+  createSplitPane(sheet3, 2000, 2000, 1, 1, "PANE_LOWER_LEFT")
+  setCellValue(cells[[3,3]], "<-- a split pane")
+  
+  cat("  add hyperlinks to a cell\n")
+  address <- "http://poi.apache.org/"
+  setCellValue(cells[[1,1]], "click me!")  
+  addHyperlink(cells[[1,1]], address)
+  
+  cat("Done.\n")
+}
+
+
 #####################################################################
 # Test Ranges
 # 
@@ -176,7 +223,8 @@ test.ranges <- function()
   thisFile <- paste(DIR, "findataweb/temp/xlsx/trunk/inst/tests/",
     "lib_tests_xlsx.R", sep="")
   source(thisFile)
- 
+
+  # test export
   outfile <- "/tmp/test_export.xlsx"
   if (file.exists(outfile)) unlink(outfile)
    
@@ -185,7 +233,8 @@ test.ranges <- function()
   test.cellStyles(wb)
   test.comments(wb)
   test.dataFormats(wb)
-  test.ranges()
+  test.ranges(wb)
+  test.otherEffects(wb)
   
   saveWorkbook(wb, outfile)
   cat("Wrote file", outfile, "\n\n")
