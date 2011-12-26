@@ -230,13 +230,52 @@ test.ranges <- function()
 
 
 #####################################################################
-#
-.main_lowlevel_export <- function()
+# Test highlevel export
+# 
+.main_highlevel_export <- function(ext="xlsx")
 {
-  outfile <- "/tmp/test_export.xlsx"
+  cat("Testing high level export ... \n")  
+  x <- data.frame(mon=month.abb[1:10], day=1:10, year=2000:2009,
+    date=seq(as.Date("2009-01-01"), by="1 month", length.out=10),
+    bool=ifelse(1:10 %% 2, TRUE, FALSE))
+
+  file <- paste(OUTDIR, "test_highlevel_export.", ext, sep="")
+  cat("  write an xlsx file with char, int, double, date, bool columns ...\n")
+  write.xlsx(x, file)
+
+  cat("  test the append argument by adding another sheet ... \n")
+  file <- paste(OUTDIR, "test_highlevel_export.", ext, sep="")
+  write.xlsx(USArrests, file, sheetName="usarrests", append=TRUE)
+  cat("Wrote file ", file, "\n\n")
+
+  cat("  test writing/reading data.frames with NA values ... \n") 
+  file <- paste(OUTDIR, "test_writeread_NA.", ext, sep="")
+  x <- data.frame(matrix(c(1.0, 2.0, 3.0, NA), 2, 2))
+  write.xlsx(x, file, row.names=FALSE)
+  xx <- read.xlsx(file, 1)
+  if (!identical(x,xx)) 
+    stop("Fix me!")
+
+  cat("  test speed ... \n")
+  file <- paste(OUTDIR, "test_exportSpeed.", ext, sep="")
+  x <- expand.grid(ind=1:30, letters=letters, months=month.abb)
+  x <- cbind(x, val=runif(nrow(x)))
+  cat("  timing write.xlsx:", system.time(write.xlsx(x, file)), "\n") # 206 s
+  cat("  timing write.xlsx2:", system.time(write.xlsx2(x, file)), "\n") # 31 s
+  cat("  wrote file ", file, "\n")
+  
+  cat("Done.\n")
+}
+
+
+#####################################################################
+#
+.main_lowlevel_export <- function(ext="xlsx")
+{
+  outfile <- paste(OUTDIR, "test_export.", ext, sep="")
   if (file.exists(outfile)) unlink(outfile)
    
-  wb <- createWorkbook(type=gsub(".*\\.(.*)", "\\1", outfile))
+  wb <- createWorkbook(type=ext)
 
   test.cellStyles(wb)
   test.comments(wb)
@@ -261,20 +300,32 @@ test.ranges <- function()
   
   DIR <- "H:/user/R/Adrian/"
   DIR <- "/home/adrian/Documents/"
-  thisFile <- paste(DIR, "findataweb/temp/xlsx/trunk/inst/tests/",
+  thisFile <- paste(DIR, "rexcel/trunk/inst/tests/",
     "lib_tests_xlsx.R", sep="")
   source(thisFile)
+
+  OUTDIR <<- "/tmp/"
   
-  .main_lowlevel_export()  # where the meat is
-
-  .main_highlevel_export()
-
-  .main_speedtest_export()
+  .main_lowlevel_export(ext="xlsx")  
+  .main_highlevel_export(ext="xlsx")
+  .main_speedtest_export(ext="xlsx")
+  
+  .main_lowlevel_export(ext="xls")  
+  .main_highlevel_export(ext="xls")
+  .main_speedtest_export(ext="xls")
 
   
 
 }
 
+
+
+##   cat("Test memory ...\n")
+##   file <- paste(outdir, "test_exportMemory.xlsx", sep="")
+##   x <- expand.grid(ind=1:1000, letters=letters, months=month.abb)
+##   cat("Writing object size: ", object.size(x), " uses all Java heap space\n")
+##   (time <- system.time(write.xlsx2(x, file)))
+##   cat("Wrote file ", file, "\n\n")
 
 
 
