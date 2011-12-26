@@ -1,5 +1,4 @@
 #summary Comments about the package and this project.
 
 
-I made public this package as my way to thank and give back to the R community.  If you are interested in this project and you want to report a bug, request a feature, or just want to stay in touch with the development branch, please join the Google group *R-package-xlsx*.  
-
+I made public this package as my way to thank and give back to the R community.  If you are interested in this project and you want to report a bug, request a feature, or just want to stay in touch with the development branch, please join the Google group *R-package-xlsx* [http://groups.google.com/group/r-package-xlsx].  
