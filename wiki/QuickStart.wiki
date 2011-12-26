@@ -1,0 +1,11 @@
+#summary High-level API description
+
+To read a file use
+{{{
+res <- read.xlsx("C:/Temp/infile.xlsx", sheetName="Sheet1")
+}}}
+
+To write a `data.frame` `x` to a file
+{{{
+write.xlsx(x, "C:/Temp/outfile.xlsx")
+}}}
