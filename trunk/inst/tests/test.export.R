@@ -69,12 +69,6 @@ test.export <- function(outdir="C:/Temp/", type="xlsx")
   ## (time <- system.time(write.xlsx(x, file)))
   ## cat("Wrote file ", file, "\n\n")
 
-##   cat("Test memory ...\n")
-##   file <- paste(outdir, "test_exportMemory.xlsx", sep="")
-##   x <- expand.grid(ind=1:1000, letters=letters, months=month.abb)
-##   cat("Writing object size: ", object.size(x), " uses all Java heap space\n")
-##   (time <- system.time(write.xlsx2(x, file)))
-##   cat("Wrote file ", file, "\n\n")
 
 
 
