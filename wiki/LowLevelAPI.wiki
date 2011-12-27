@@ -18,9 +18,9 @@ Use
 {{{
 sheet <- createSheet(wb, sheetName="Sheet1")
 }}} 
-to add a sheet.  Now your workbook contains an empty sheet.  The next step is to create some rows to the sheet. 
+to add a sheet.  Now your workbook contains an empty sheet.  The next step is to add some rows to the sheet. 
 
-To create 20 rows use 
+To create 12 rows use 
 {{{
 rows <- createRow(sheet, rowIndex=1:12)
 }}}
