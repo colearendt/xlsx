@@ -22,13 +22,13 @@ sheet <- createSheet(wb, sheetName="Sheet1")
 }}} 
 to add a sheet.  Now your workbook contains an empty sheet.  The next step is to add some rows to the sheet. 
 
-To create 12 rows use 
+For example, to create 12 rows use 
 {{{
 rows <- createRow(sheet, rowIndex=1:12)
 }}}
 By now, you should suspect that the rows are empty, that is they have no cells. 
 
-To create cells, say 10 cells in each row  
+To create 10 cells in each row do   
 {{{
 cells <- createCell(rows, colIndex=1:10)
 }}}
