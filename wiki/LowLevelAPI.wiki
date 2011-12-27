@@ -2,7 +2,7 @@
 
 <wiki:toc max_depth="3" /> 
 
-Using the low-level functions give you the ability to control what you read into R or what and how you export to a spreadsheet.  
+Using the low-level functions gives you the ability to control what you read into R or what and how you export to a spreadsheet.  
 
 = To create a spreadsheet from scratch = 
 
@@ -49,4 +49,3 @@ You can customize the appearance of content programatically by constructing a `C
 {{{
 CellStyle()
 }}}
-
