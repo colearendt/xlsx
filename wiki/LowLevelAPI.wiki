@@ -22,10 +22,25 @@ to add a sheet.  Now your workbook contains an empty sheet.  The next step is to
 
 To create 20 rows use 
 {{{
-rows <- createRow(sheet, rowIndex=1:20)
+rows <- createRow(sheet, rowIndex=1:12)
 }}}
+By now, you should suspect that the rows are empty, that is they have no cells. 
 
-== Create cells == 
+To create cells, say 10 cells in each row  
+{{{
+cells <- createCell(rows, colIndex=1:10)
+}}}
+Now your sheet has 20x10 empty cells.  Variable `cells` is an `R` matrix of java references.  
+
+To add some values to your cells you need to do something like
+{{{
+mapply(setCellValue, cells[1:12,1], month.name)
+}}}
+You've now filled the first column with the names of the months. 
+To set only one cell
+{{{
+setCellValue(cells[[2,2]], "I'm a special cell!")
+}}}
 
 == Customize cell appearance ==
 
