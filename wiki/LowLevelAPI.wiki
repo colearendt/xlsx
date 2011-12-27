@@ -2,31 +2,28 @@
 
 <wiki:toc max_depth="3" /> 
 
-Using the low-level functions give you the ability to control what you read into R or what and how you export to a spreadsheet. 
+Using the low-level functions give you the ability to control what you read into R or what and how you export to a spreadsheet.  
 
-= To write a spreadsheet from scratch = 
+= To create a spreadsheet from scratch = 
 
-You have some data in R that you want to export to Excel.  Here are the steps you need to follow.
+You have some data in `R` that you want to export to Excel.  Here are the steps you need to follow.  These steps mimic the Apache POI approach adapted to `R`. 
 
-=== Create a workbook ===
-
-Use 
+Create an empty workbook 
 {{{
 wb <- createWorkbook(type="xlsx")
 }}} 
-
-to create an empty workbook.  The workbook object `wb` is just a java reference.  You now need to add a sheet to it. 
-
-=== Create a sheet === 
+The workbook object `wb` is just a java reference.  You now need to add a sheet to it. 
 
 Use
 {{{
 sheet <- createSheet(wb, sheetName="Sheet1")
+}}} 
+to add a sheet.  Now your workbook contains an empty sheet.  The next step is to create some rows to the sheet. 
+
+To create 20 rows use 
+{{{
+rows <- createRow(sheet, rowIndex=1:20)
 }}}
-
-Now your workbook contains an empty sheet.  The next step is to create some rows to the sheet. 
-
-== Create rows == 
 
 == Create cells == 
 
