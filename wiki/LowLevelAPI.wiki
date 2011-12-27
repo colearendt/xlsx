@@ -32,15 +32,15 @@ cells <- createCell(rows, colIndex=1:10)
 }}}
 Now your sheet has 20x10 empty cells.  Variable `cells` is an `R` matrix of java references.  
 
-To add some values to your cells you need to do something like
+For example, to populate the first column with the names of the month do
 {{{
 mapply(setCellValue, cells[1:12,1], month.name)
 }}}
-You've now filled the first column with the names of the months. 
 To set only one cell
 {{{
 setCellValue(cells[[2,2]], "I'm a special cell!")
 }}}
+
 
 == Customize cell appearance ==
 
@@ -50,9 +50,3 @@ You can customize the appearance of content programatically by constructing a `C
 CellStyle()
 }}}
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
