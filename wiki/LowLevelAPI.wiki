@@ -6,7 +6,7 @@ Using the low-level functions gives you the ability to control what you read int
 
 = To create a spreadsheet from scratch = 
 
-You have some data in `R` that you want to export to Excel.  Here are the steps you need to follow.  These steps mimic the Apache POI approach adapted to `R`. 
+You have some data in `R` that you want to export to Excel.  Here are the steps you need to follow.  These steps mimic the Apache POI approach but made idiomatic to `R`. 
 
 Create an empty workbook 
 {{{
