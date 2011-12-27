@@ -8,6 +8,8 @@ Using the low-level functions gives you the ability to control what you read int
 
 You have some data in `R` that you want to export to Excel.  Here are the steps you need to follow.  These steps mimic the Apache POI approach but made idiomatic to `R`. 
 
+== General steps == 
+
 Create an empty workbook 
 {{{
 wb <- createWorkbook(type="xlsx")
@@ -41,6 +43,12 @@ To set only one cell
 setCellValue(cells[[2,2]], "I'm a special cell!")
 }}}
 
+To save your workbook to a file 
+{{{
+saveWorkbook(wb, file="/tmp/test.xlsx")
+}}}
+
+You are now done!  The function `write.xlsx` follows the steps above. 
 
 == Customize cell appearance ==
 
@@ -49,3 +57,5 @@ You can customize the appearance of content programatically by constructing a `C
 {{{
 CellStyle()
 }}}
+
+== Details about setCellValue ==
