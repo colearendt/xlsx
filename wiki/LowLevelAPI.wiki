@@ -4,11 +4,18 @@
 
 Using the low-level functions give you the ability to control what you read into R or what and how you export to a spreadsheet. 
 
-= To write a spreadsheet = 
+= To write a spreadsheet from scratch = 
 
 You have some data in R that you want to export to Excel.  Here are the steps you need to follow.
 
-== Create a workbook ==  
+  # Create a workbook 
+
+Use 
+{{{
+wb <- createWorkbook(type="xlsx")
+}}} 
+
+The workbook object `wb` is just a java reference.  It's an empty workbook, so you need to add a sheet to it. 
 
 == Create a sheet == 
 
