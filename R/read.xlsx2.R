@@ -3,7 +3,7 @@
 #
 read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
   startColumn=1, noRows=NULL, noColumns=NULL, as.data.frame=TRUE,
-  header=TRUE, colClasses="character")
+  header=TRUE, colClasses="character", ...)
 {
   if (is.null(sheetName) & missing(sheetIndex))
     stop("Please provide a sheet name OR a sheet index.")
@@ -41,7 +41,7 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
   } else {
     cnames <- as.character(1:noColumns)
   }
-browser()
+
   res <- vector("list", length=noColumns)
   for (i in seq_len(noColumns)) {
     res[[i]] <- switch(colClasses[i],
@@ -58,7 +58,7 @@ browser()
   
   if (as.data.frame){
     names(res) <- cnames
-    res <- data.frame(res)
+    res <- data.frame(res, ...)
   }
   
   res

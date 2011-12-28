@@ -71,13 +71,11 @@
     outdir    <<- "/tmp"
     Rcmd      <<- 'R CMD'
     javadir   <<- ""
-    ext       <<- ".tar.gz"
   } else if (computer == "WORK2") {  
-    pkgdir  <<- "H:/user/R/Adrian/findataweb/temp/xlsx/trunk/"
+    pkgdir  <<- "C:/google/rexcel/trunk/"
     outdir  <<- "H:/"
-    Rcmd    <<- '"C:/Program Files/R/R-2.12.2/bin/i386/Rcmd"'
+    Rcmd    <<- '"C:/Program Files/R/R-2.14.1/bin/i386/Rcmd"'
     javadir <<- "C:/Documents and Settings/e47187/workspace/xlsx/"
-    ext     <<- ".zip" 
   } else {
   }
 
@@ -88,9 +86,10 @@
 ##################################################################
 
 #version <- NULL        # keep increasing the minor
-version <- "0.4.0"     # if you want to set it by hand
+version <- "0.4.0"      # if you want to set it by hand
 
-.setEnv("HOME")   # "WORK2" "LAPTOP"
+option(pkgType="source")   
+.setEnv("WORK2")   # "WORK2" "LAPTOP"
 
 .move.java.classes(TRUE)  # move java classes
 
@@ -104,7 +103,7 @@ print(cmd)
 
 system(cmd)
 
-install.packages(paste("xlsx_",version, ext, sep=""), repos=NULL)
+install.packages(paste("xlsx_",version, ".tar.gz", sep=""), repos=NULL)
 
 
 # do you pass all my tests?! Open another R session ... 
