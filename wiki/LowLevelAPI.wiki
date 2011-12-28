@@ -4,11 +4,9 @@
 
 Using the low-level functions gives you the ability to control what you read into R or what and how you export to a spreadsheet.  
 
-= To create a spreadsheet from scratch = 
+== To create a spreadsheet from scratch == 
 
 You have some data in `R` that you want to export to Excel.  Here are the steps you need to follow.  These steps mimic the Apache POI approach but made idiomatic to `R`. 
-
-== General steps == 
 
 Create an empty workbook 
 {{{
