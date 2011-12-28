@@ -12,7 +12,7 @@ read.xlsx(file, sheetIndex, sheetName=NULL, rowIndex=NULL,
 
 read.xlsx2(file, sheetIndex, sheetName=NULL, startRow=1,
   startColumn=1, noRows=NULL, noColumns=NULL, as.data.frame=TRUE,
-  header=TRUE, colClasses="character")
+  header=TRUE, colClasses="character", ...)
 
 }
 \arguments{ 

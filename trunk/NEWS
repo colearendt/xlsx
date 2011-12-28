@@ -2,8 +2,29 @@ NEWS for package xlsx
 
 Changes in version 0.4.0 (released 2011-12-05)
 
- o Fixed createCellStyle to allow you to create cell borders on all
-   4 sides.  You could do it on only 1 side in previous version. 
+ o BACWARDS INCOMPATIBLE CHANGES!  A complete rewrite of functionality
+   to deal with cell styles.  Although I want to minimize API breaking
+   changes, I belive that these changes are for the better as the old
+   function createCellStyle had a whopping 11 arguments and was still
+   incomplete.  The new functionality defines an S3 object CellStyle
+   on which you can "add" DataFormat, Font, Fill, Border, Alignment,
+   Protection.  On the note of backward compatibility, I don't want to
+   promise anything as the package is still young.  As more people
+   starts using the package, the API will freeze and if breaking
+   changes are contemplated, a clear deprecation path will be
+   provided.  
+
+ o A Google project has been created http://code.google.com/p/rexcel/
+   to expose the development branch of the package and manage the
+   social interaction.  Please report all issues through this venue.
+   Also a Google groups http://groups.google.com/group/R-package-xlsx
+   has been created for announcements, etc.  Do register if you are
+   interested in the development of the package.  It may give me more
+   impetus to resolve an issue if I know many people are using this
+   package. 
+
+ o New function addHyperlink to add hyperlinks (urls, emails) to
+   a cell.
 
  o TO DO: Seems like it errors if startRow is set but noRows is NOT set.
    x <- read.xlsx2( "Test.xlsx", sheetIndex=1, startRow=15)  
@@ -12,12 +33,7 @@ Changes in version 0.4.0 (released 2011-12-05)
    sheetName="Sheet1" from "Sheet 1".  This makes it consistent with
    Excel 2007 names of an empty workbook.
 
- o New function addHyperlink to add hyperlinks (urls, emails) to
-   a cell.
- 
- o TODO:  check addHyperlink after Font change!?
-
- o Fixed underline argument in createFont, it wasn't implemented in the code.
+ o Added ... arguments to read.xlsx2 function to mirror read.xlsx. 
 
  o Thanks to Neal Richardson and James Ward for submitting some
  code and suggestions. 

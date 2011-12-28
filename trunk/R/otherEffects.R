@@ -23,8 +23,8 @@ addHyperlink <- function(cell, address, linkType=c("URL", "DOCUMENT",
 
   if (is.null(hyperlinkStyle)) {
     # create a cell style for hyperlinks
-    hyperFont <- createFont(wb, color="blue", underline=1)
-    hyperlinkStyle <- createCellStyle(wb, font=hyperFont)
+    hyperFont <- Font(wb, color="blue", underline=1)
+    hyperlinkStyle <- CellStyle(wb) +  hyperFont
   }
 
   # create the link

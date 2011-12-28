@@ -2,6 +2,15 @@
 # 
 # test.cellStyles
 # test.comments
+# test.dataFormats
+# test.otherEffects
+# test.picture
+# test.ranges
+#
+# .main_highlevel_export
+# .main_lowlevel_export
+# .main
+
 
 
 
@@ -91,15 +100,15 @@ test.comments <- function(wb)
 # Test dataFormats
 # 
 test.dataFormats <- function(wb)
-{  
+{
   cat("Testing dataFormats ... ")
 
   # create a test data.frame
   data <- data.frame(mon=month.abb[1:10], day=1:10, year=2000:2009,
-    date=seq(as.Date("2009-01-01"), by="1 month", length.out=10),
+    date=seq(as.Date("1999-01-01"), by="1 year", length.out=10),
     bool=ifelse(1:10 %% 2, TRUE, FALSE), log=log(1:10),
     rnorm=10000*rnorm(10),
-    datetime=seq(as.POSIXct("2011-11-06 00:00:00"), by="1 hour", length.out=10))
+    datetime=seq(as.POSIXct("2011-11-06 00:00:00", tz="GMT"), by="1 hour", length.out=10))
 
   sheet <- createSheet(wb, "dataFormats")
   rows  <- createRow(sheet, rowIndex=1:10)       # 10 rows
@@ -117,7 +126,8 @@ test.dataFormats <- function(wb)
   cellStyle2 <- CellStyle(wb) + DataFormat("m/d/yyyy")
   lapply(cells[,4], setCellStyle, cellStyle2)
 
-  setCellValue(cells[[3,10]], 'format datetime column, around DST')
+  setCellValue(cells[[3,10]], paste('format datetime column (tz=GMT only),',
+    'should start from 2011-11-06 00:00:00 with hour increments.'))
   cellStyle3 <- CellStyle(wb) + DataFormat("m/d/yyyy h:mm:ss;@")
   #cellStyle2$getDataFormat()
   lapply(cells[,8], setCellStyle, cellStyle3)
@@ -162,17 +172,17 @@ test.otherEffects <- function(wb)
   #createFreezePane(sheet2, 1, 1, 1, 1)
   createFreezePane(sheet2, 5, 5, 8, 8)
   setCellValue(cells[[3,3]], "<-- a freeze pane")
+
+  cat("  add hyperlinks to a cell\n")
+  address <- "http://poi.apache.org/"
+  setCellValue(cells[[1,1]], "click me!")  
+  addHyperlink(cells[[1,1]], address)
   
   sheet3 <- createSheet(wb, "otherEffects3")
   rows  <- createRow(sheet3, 1:10)              # 10 rows
   cells <- createCell(rows, colIndex=1:8)       # 8 columns
   createSplitPane(sheet3, 2000, 2000, 1, 1, "PANE_LOWER_LEFT")
   setCellValue(cells[[3,3]], "<-- a split pane")
-  
-  cat("  add hyperlinks to a cell\n")
-  address <- "http://poi.apache.org/"
-  setCellValue(cells[[1,1]], "click me!")  
-  addHyperlink(cells[[1,1]], address)
   
   cat("Done.\n")
 }
@@ -199,33 +209,23 @@ test.picture <- function(wb)
 #####################################################################
 # Test Ranges
 # 
-test.ranges <- function()
+test.ranges <- function(wb)
 {
   cat("Testing ranges ... ")
-  filename <- paste("test_import.", type, sep="")
-
-  cat("  get named ranges from test_import.xlsx ")
-  file <- system.file("tests", filename, package = "xlsx")
-  wb <- loadWorkbook(file)
   sheets <- getSheets(wb)
-  sheet <- sheets[["deletedFields"]]
+  sheet <- sheets[["dataFormats"]]
+  
+  cat("  make a new range")
+  firstCell <- sheet$getRow(2L)$getCell(2L)
+  lastCell  <- sheet$getRow(6L)$getCell(5L)
+  rangeName <- "Test2"
+  createRange(rangeName, firstCell, lastCell)
   
   ranges <- getRanges(wb)
   range <- ranges[[1]]
   res <- readRange(range, sheet, colClasses="numeric")
 
-  cat("  make a new range")
-  firstCell <- sheet$getRow(14L)$getCell(4L)
-  lastCell  <- sheet$getRow(20L)$getCell(7L)
-  rangeName <- "Test2"
-  createRange(rangeName, firstCell, lastCell)
-  
-  if (length(getRanges(wb)) != 2){
-    cat("STOP!!! Range not created!")
-  } else {
-    cat("OK\n")
-  }
-  
+  cat("Done.\n")
 }
 
 
@@ -256,14 +256,6 @@ test.ranges <- function()
   if (!identical(x,xx)) 
     stop("Fix me!")
 
-  cat("  test speed ... \n")
-  file <- paste(OUTDIR, "test_exportSpeed.", ext, sep="")
-  x <- expand.grid(ind=1:30, letters=letters, months=month.abb)
-  x <- cbind(x, val=runif(nrow(x)))
-  cat("  timing write.xlsx:", system.time(write.xlsx(x, file)), "\n") # 206 s
-  cat("  timing write.xlsx2:", system.time(write.xlsx2(x, file)), "\n") # 31 s
-  cat("  wrote file ", file, "\n")
-  
   cat("Done.\n")
 }
 
@@ -288,6 +280,25 @@ test.ranges <- function()
   cat("Wrote file", outfile, "\n\n")
 }
 
+#####################################################################
+# Speed Test export
+# 
+.main_speedtest_export <- function(ext="xlsx")
+{
+  cat("Speed test export ... \n")  
+
+  file <- paste(OUTDIR, "test_exportSpeed.", ext, sep="")
+  x <- expand.grid(ind=1:60, letters=letters, months=month.abb)
+  x <- cbind(x, val=runif(nrow(x)))
+  cat("  writing a data.frame with dim", nrow(x), "x", ncol(x), "\n")
+  cat("  timing write.xlsx:", system.time(write.xlsx(x, file)), "\n")   # 99s
+  cat("  timing write.xlsx2:", system.time(write.xlsx2(x, file)), "\n") #  9s
+  cat("  wrote file ", file, "\n")
+  
+  cat("Done.\n")
+}
+
+
 
 #####################################################################
 #####################################################################
@@ -297,14 +308,18 @@ test.ranges <- function()
   # best viewed with M-x hs-minor-mode
 
   require(xlsx)
-  
-  DIR <- "H:/user/R/Adrian/"
-  DIR <- "/home/adrian/Documents/"
-  thisFile <- paste(DIR, "rexcel/trunk/inst/tests/",
+
+  if (.Platform$OS.type == "windows") {
+    SOURCEDIR <- "C:/google/"
+    OUTDIR <<- "C:/temp/"
+  } else {
+    SOURCEDIR <- "/home/adrian/Documents/"
+    OUTDIR <<- "/tmp/"
+  }
+  thisFile <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/",
     "lib_tests_xlsx.R", sep="")
   source(thisFile)
 
-  OUTDIR <<- "/tmp/"
   
   .main_lowlevel_export(ext="xlsx")  
   .main_highlevel_export(ext="xlsx")
