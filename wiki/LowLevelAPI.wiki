@@ -11,52 +11,59 @@ You have some data in `R` that you want to export to Excel.  Here are
 the steps you need to follow.  These steps mimic the Apache POI
 approach but made idiomatic to `R`.
 
-Create an empty workbook 
-{{{
-wb <- createWorkbook(type="xlsx")
-}}} 
-The workbook object `wb` is just a java reference.  You now need to add a sheet to it. 
+Create an empty workbook {{{ wb <- createWorkbook(type="xlsx"). }}}
+The workbook object `wb` is just a java reference.  You now need to
+add a sheet to it.
 
-Use
-{{{
-sheet <- createSheet(wb, sheetName="Sheet1")
-}}} 
-to add a sheet.  Now your workbook contains an empty sheet.  The next step is to add some rows to the sheet. 
+Use {{{ sheet <- createSheet(wb, sheetName="Sheet1") }}} to add a
+sheet.  Now your workbook contains an empty sheet.  The next step is
+to add some rows to the sheet.
 
-For example, to create 12 rows use 
-{{{
-rows <- createRow(sheet, rowIndex=1:12)
-}}}
-By now, you should suspect that the rows are empty, that is they have no cells. 
+For example, to create 12 rows use {{{ rows <- createRow(sheet,
+rowIndex=1:12). }}} By now, you should suspect that the rows are empty,
+that is they have no cells.
 
-To create 10 cells in each row do   
-{{{
-cells <- createCell(rows, colIndex=1:10)
-}}}
-Now your sheet has 20x10 empty cells.  Variable `cells` is an `R` matrix of java references.  
+To create 10 cells in each row do {{{ cells <- createCell(rows,
+colIndex=1:10). }}}  Now your sheet has 20x10 empty cells.  Variable
+`cells` is an `R` matrix of java references.
 
-For example, to populate the first column with the names of the month do
-{{{
-mapply(setCellValue, cells[1:12,1], month.name)
-}}}
-To set only one cell
-{{{
-setCellValue(cells[[2,2]], "I'm a special cell!")
-}}}
+For example, to populate the first column with the names of the month
+do {{{ mapply(setCellValue, cells[1:12,1], month.name). }}}  To set only
+one cell {{{ setCellValue(cells[[2,2]], "I'm a special cell!").  }}}
 
-To save your workbook to a file 
-{{{
-saveWorkbook(wb, file="/tmp/test.xlsx")
-}}}
+To save your workbook to a file {{{ saveWorkbook(wb,
+file="/tmp/test.xlsx"). }}}
 
 You are now done!  The function `write.xlsx` follows the steps above. 
 
 == Customize cell appearance ==
 
-You can customize the appearance of content programatically by constructing a `CellStyle` object and then setting it to a given `Cell`.  
+The example shown in the section above just writes content to a
+spreadsheet using the default spreadsheet styling.  One of the 
+appealing reasons to use a spreadsheet is that you can customize its
+appearance.  You can highlight some data, add borders, use different
+fonts for important results, etc.  However to customize the appearance
+of your spreadsheet programatically is not easy to achieve.  The way
+it is done with Apache POI API is verbose and not very intuitive.
+
+Formatting options in Excel are grouped in six categories: DataFormat,
+Alignment, Font, Border, Fill and Protection.  I've decided to emulate
+this.  Also, inspired by package *`ggplot2`* I've decided to overload
+the `+` operator to work with these categories. 
+
+For a workbook object `wb` a call to `CellStyle(wb)` creates the
+default (empty) cell style on which you can "add" properties.  I won't
+list here all possible combination (see the help) but here are some
+examples of what you can do
 
 {{{
-CellStyle()
+cs0 <- CellStyle(wb)   # default/empty style
+cs1 <- CellStyle(wb) + Font()
+cs2 <- CellStyle(wb) + 
+  Font() + 
+  Borders(col="blue", position=c("TOP", "BOTTOM"), pen="THICK") + 
+  Alignment()
+
 }}}
 
 == Details about setCellValue ==
