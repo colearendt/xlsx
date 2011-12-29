@@ -11,13 +11,56 @@ You have some data in `R` that you want to export to Excel.  Here are
 the steps you need to follow.  These steps mimic the Apache POI
 approach but made idiomatic to `R`.
 
-Create an empty workbook {{{ wb <- createWorkbook(type="xlsx"). }}}
-The workbook object `wb` is just a java reference.  You now need to
-add a sheet to it.
+The steps to create an empty workbook and a sheet with some empty
+cells are as follows
+{{{ 
+wb    <- createWorkbook(type="xlsx") 
+sheet <- createSheet(wb, sheetName="Sheet1")
+rows  <- createRow(sheet, rowIndex=1:12)
+cells <- createCell(rows, colIndex=1:10)
+}}}
+The workbook object `wb`, `sheet` are just a java reference.  
+{{{
+> wb
+[1] "Java-Object{Name: /xl/workbook.xml - Content Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml}"
+> sheet
+[1] "Java-Object{Name: /xl/worksheets/sheet1.xml - Content Type: application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml}"
+}}}
 
-Use {{{ sheet <- createSheet(wb, sheetName="Sheet1") }}} to add a
-sheet.  Now your workbook contains an empty sheet.  The next step is
-to add some rows to the sheet.
+`rows` is a list of java references with names equal to the row
+number and `cells` is a matrix of java references. 
+{{{
+> head(rows)
+$`1`
+[1] "Java-Object{<xml-fragment r=\"1\" xmlns:main=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">\r\n  <main:c r=\"A1\"/>\r\n  <main:c r=\"B1\"/>\r\n  <main:c r=\"C1\"/>\r\n  <main:c r=\"D1\"/>\r\n  <main:c r=\"E1\"/>\r\n  <main:c r=\"F1\"/>\r\n  <main:c r=\"G1\"/>\r\n  <main:c r=\"H1\"/>\r\n  <main:c r=\"I1\"/>\r\n  <main:c r=\"J1\"/>\r\n</xml-fragment>}"
+
+$`2`
+[1] "Java-Object{<xml-fragment r=\"2\" xmlns:main=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">\r\n  <main:c r=\"A2\"/>\r\n  <main:c r=\"B2\"/>\r\n  <main:c r=\"C2\"/>\r\n  <main:c r=\"D2\"/>\r\n  <main:c r=\"E2\"/>\r\n  <main:c r=\"F2\"/>\r\n  <main:c r=\"G2\"/>\r\n  <main:c r=\"H2\"/>\r\n  <main:c r=\"I2\"/>\r\n  <main:c r=\"J2\"/>\r\n</xml-fragment>}"
+
+$`3`
+[1] "Java-Object{<xml-fragment r=\"3\" xmlns:main=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">\r\n  <main:c r=\"A3\"/>\r\n  <main:c r=\"B3\"/>\r\n  <main:c r=\"C3\"/>\r\n  <main:c r=\"D3\"/>\r\n  <main:c r=\"E3\"/>\r\n  <main:c r=\"F3\"/>\r\n  <main:c r=\"G3\"/>\r\n  <main:c r=\"H3\"/>\r\n  <main:c r=\"I3\"/>\r\n  <main:c r=\"J3\"/>\r\n</xml-fragment>}"
+
+$`4`
+[1] "Java-Object{<xml-fragment r=\"4\" xmlns:main=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">\r\n  <main:c r=\"A4\"/>\r\n  <main:c r=\"B4\"/>\r\n  <main:c r=\"C4\"/>\r\n  <main:c r=\"D4\"/>\r\n  <main:c r=\"E4\"/>\r\n  <main:c r=\"F4\"/>\r\n  <main:c r=\"G4\"/>\r\n  <main:c r=\"H4\"/>\r\n  <main:c r=\"I4\"/>\r\n  <main:c r=\"J4\"/>\r\n</xml-fragment>}"
+
+$`5`
+[1] "Java-Object{<xml-fragment r=\"5\" xmlns:main=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">\r\n  <main:c r=\"A5\"/>\r\n  <main:c r=\"B5\"/>\r\n  <main:c r=\"C5\"/>\r\n  <main:c r=\"D5\"/>\r\n  <main:c r=\"E5\"/>\r\n  <main:c r=\"F5\"/>\r\n  <main:c r=\"G5\"/>\r\n  <main:c r=\"H5\"/>\r\n  <main:c r=\"I5\"/>\r\n  <main:c r=\"J5\"/>\r\n</xml-fragment>}"
+
+$`6`
+[1] "Java-Object{<xml-fragment r=\"6\" xmlns:main=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">\r\n  <main:c r=\"A6\"/>\r\n  <main:c r=\"B6\"/>\r\n  <main:c r=\"C6\"/>\r\n  <main:c r=\"D6\"/>\r\n  <main:c r=\"E6\"/>\r\n  <main:c r=\"F6\"/>\r\n  <main:c r=\"G6\"/>\r\n  <main:c r=\"H6\"/>\r\n  <main:c r=\"I6\"/>\r\n  <main:c r=\"J6\"/>\r\n</xml-fragment>}"
+
+> head(cells)
+  1 2 3 4 5 6 7 8 9 10
+1 ? ? ? ? ? ? ? ? ? ? 
+2 ? ? ? ? ? ? ? ? ? ? 
+3 ? ? ? ? ? ? ? ? ? ? 
+4 ? ? ? ? ? ? ? ? ? ? 
+5 ? ? ? ? ? ? ? ? ? ? 
+6 ? ? ? ? ? ? ? ? ? ? 
+>
+}}}
+
+ 
 
 For example, to create 12 rows use {{{ rows <- createRow(sheet,
 rowIndex=1:12). }}} By now, you should suspect that the rows are empty,
