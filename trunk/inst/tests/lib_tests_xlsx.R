@@ -141,7 +141,6 @@ test.dataFormats <- function(wb)
 }
 
 
-
 #####################################################################
 # Test other effects
 # 
@@ -228,6 +227,56 @@ test.ranges <- function(wb)
   cat("Done.\n")
 }
 
+
+#####################################################################
+# Test imports
+# 
+.main_highlevel_import <- function(ext="xlsx", dev=TRUE)
+{
+  fname <- paste("test_import.", ext, sep="")
+  if (dev) {
+    file <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/", fname, sep="")
+  } else {
+    file <- system.file("tests", fname, package = "xlsx")
+  }
+
+  cat("Testing high level import read.xls\n")
+  cat("  read data from mixedTypes\n")
+  orig <- getOption("stringsAsFactors")
+  options(stringsAsFactors=FALSE)
+  res <- read.xlsx(file, sheetName="mixedTypes")
+  stopifnot(class(res[,1])=="Date")
+  stopifnot(class(res[,2])=="character")
+  stopifnot(class(res[,3])=="numeric")
+  stopifnot(class(res[,4])=="logical")
+  stopifnot(inherits(res[,6], "POSIXct"))
+  options(stringsAsFactors=orig)
+
+  cat("  import keeping formulas\n")
+  res <- read.xlsx(file, sheetName="mixedTypes", keepFormulas=TRUE)
+  stopifnot(res$Double[4]=="SQRT(2)")
+  
+  cat("  import with colClasses\n")
+  cat("  force conversion of boolean column to numeric\n")
+  colClasses <- rep(NA, length=6); colClasses[4] <- "numeric"
+  res <- read.xlsx(file, sheetName="mixedTypes", colClasses=colClasses)
+  stopifnot(class(res[,4])=="numeric")
+
+  cat("Test you can read sheet oneColumn\n")
+  res <- read.xlsx(file, sheetName="oneColumn", keepFormulas=TRUE)
+  stopifnot(ncol(res)==1)
+
+  cat("Test you can read string formulas ... \n")
+  res <- read.xlsx(file, "formulas", keepFormulas=FALSE)
+  stopifnot(res[1,3]=="2010-1") 
+
+  cat("Test you can read #N/A's ... \n")
+  res <- read.xlsx(file, "NAs")
+  stopifnot(res[1,3]=="2010-1") 
+  
+  
+  
+}
 
 #####################################################################
 # Test highlevel export
@@ -330,7 +379,13 @@ test.ranges <- function(wb)
   .main_speedtest_export(ext="xls")
 
   
+  .main_highlevel_import(ext="xlsx")
+  #.main_lowlevel_import(ext="xlsx")
 
+  
+  .main_import(ext="xls")
+
+  
 }
 
 
