@@ -80,7 +80,7 @@ follows the steps above.
 
 = Customize cell appearance =
 
-The example shown in the section above just writes content to a
+The code shown in the section above just writes content to a
 spreadsheet using the default spreadsheet styling.  One of the 
 appealing reasons to use a spreadsheet is that you can customize its
 appearance.  You can highlight some data, add borders, use different
@@ -90,7 +90,7 @@ it is done with Apache POI API is verbose and not very intuitive.
 
 Formatting options in Excel are grouped in six categories: !DataFormat,
 Alignment, Font, Border, Fill and Protection.  I've decided to emulate
-this grouping  Also, inspired by package *`ggplot2`* I've decided to overload
+this grouping.  Also, inspired by package *`ggplot2`* I've decided to overload
 the `+` operator to work with these categories. 
 
 For a workbook object `wb` a call to `CellStyle(wb)` creates the
@@ -111,8 +111,8 @@ cs3 <- CellStyle(wb) +
 }}}
 
 You can now use these defined cell styles to "style" your
-spreadsheet.  For example if you have a matrix of cells as in 
-[LowLevelAPI#Create_a_spreadsheet_from_scratch], you can format with 
+spreadsheet.  For example, if you have a matrix of cells as in 
+[LowLevelAPI#Create_a_spreadsheet_from_scratch], you can format them with 
 
 {{{
 lapply(cells[,1], setCellStyle, cs3) # format first column as a datetime
@@ -120,7 +120,19 @@ setCellStyle(cells[[2,2]], cs1)      # format one cell in Courier New, bold
 }}} 
 
 
+= Details about setCellValue and getCellValue =
+
+These two functions are the workhorse of the package.  They work with
+one cell only, to set or get its value respectively.  
+
+Function {{{setCellValue}}} supports only five R types, `integer`,
+`numeric`, `Date`, `POSIXct`, `character`.  All other types are
+converted to character.  Note that Excel datetimes are in the GMT
+timezone. 
+
+Function {{{getCellValue}}} supports reading numeric, character,
+logical values.  Blank cells are imported as `NA`.  Errors are
+imported as `NA` also.  If there is an unknown cell type it is
+imported as `Error`. 
 
 
-
-= Details about setCellValue =
