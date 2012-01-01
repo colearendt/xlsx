@@ -7,13 +7,11 @@ you read into R or what and how you export to a spreadsheet.
 
 = Create a spreadsheet from scratch = 
 
-You have some data in `R` that you want to export to Excel.  Here are
-the steps you need to follow.  These steps mimic the Apache POI
-approach but made idiomatic to `R`.
+You want to export your `R` data to Excel.  Here are the steps you
+need to follow.  These steps mimic the Apache POI approach but made
+idiomatic to `R`.
 
-The steps to create an empty workbook and a sheet with some empty
-cells are as follows
-{{{ 
+{{ 
 wb    <- createWorkbook(type="xlsx")           # create an empty workbook
 sheet <- createSheet(wb, sheetName="Sheet1")   # create an empty sheet 
 rows  <- createRow(sheet, rowIndex=1:12)       # 12 rows
@@ -101,21 +99,24 @@ list here all possible combination (see the help) but here are some
 examples of what you can do
 
 {{{
-cs0 <- CellStyle(wb)   # default/empty style
+cs0 <- CellStyle(wb)                        # default/empty style
 cs1 <- CellStyle(wb) + 
-  Font(name="Courier New", isBold=TRUE)   # add a Font
+  Font(name="Courier New", isBold=TRUE)     # add a Font
 cs2 <- CellStyle(wb) +    
   Font(name="Courier New", isBold=TRUE) +   # add a Font
   Borders(col="blue", position=c("TOP", "BOTTOM"), pen="BORDER_THICK") +  # add borders    
-  Alignment(h="ALIGN_RIGHT")   # add Alignment
+  Alignment(h="ALIGN_RIGHT")                # add Alignment
 cs3 <- CellStyle(wb) + 
-  DataFormat("m/d/yyyy h:mm:ss;@")  # to format datetimes
+  DataFormat("m/d/yyyy h:mm:ss;@")          # format datetimes
 }}}
 
 You can now use these defined cell styles to "style" your
 spreadsheet.  For example if you have a matrix of cells as in 
 [http://code.google.com/p/rexcel/wiki/LowLevelAPI#Create_a_spreadsheet_from_scratch
 Create a spreadsheet from scratch], you can format with 
+
+[LowLevelAPI#Create_a_spreadsheet_from_scratch]
+
 {{{
 lapply(cells[,1], setCellStyle, cs3) # format first column as a datetime
 setCellStyle(cells[[2,2]], cs1)      # format one cell in Courier New, bold
