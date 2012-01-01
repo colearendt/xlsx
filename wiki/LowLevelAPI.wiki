@@ -76,7 +76,9 @@ saveWorkbook(wb, file="/tmp/test.xlsx")
 }}}
 
 
-You are now done!  The function `write.xlsx` follows the steps above. 
+You are now done!  The function `write.xlsx` in the high level API,
+follows the steps above.
+
 
 == Customize cell appearance ==
 
@@ -88,9 +90,9 @@ fonts for important results, etc.  However to customize the appearance
 of your spreadsheet programatically is not easy to achieve.  The way
 it is done with Apache POI API is verbose and not very intuitive.
 
-Formatting options in Excel are grouped in six categories: DataFormat,
+Formatting options in Excel are grouped in six categories: !DataFormat,
 Alignment, Font, Border, Fill and Protection.  I've decided to emulate
-this.  Also, inspired by package *`ggplot2`* I've decided to overload
+this grouping  Also, inspired by package *`ggplot2`* I've decided to overload
 the `+` operator to work with these categories. 
 
 For a workbook object `wb` a call to `CellStyle(wb)` creates the
@@ -100,12 +102,12 @@ examples of what you can do
 
 {{{
 cs0 <- CellStyle(wb)   # default/empty style
-cs1 <- CellStyle(wb) + Font()
-cs2 <- CellStyle(wb) + 
-  Font() + 
-  Borders(col="blue", position=c("TOP", "BOTTOM"), pen="THICK") + 
-  Alignment()
-
+cs1 <- CellStyle(wb) + 
+  Font(name="Courier New", isBold=TRUE)   # add a Font
+cs2 <- CellStyle(wb) +    
+  Font(name="Courier New", isBold=TRUE) +   # add a Font
+  Borders(col="blue", position=c("TOP", "BOTTOM"), pen="BORDER_THICK") +  # add borders    
+  Alignment(h="ALIGN_RIGHT")   # add Alignment
 }}}
 
 == Details about setCellValue ==
