@@ -45,8 +45,8 @@ test.cellStyles <- function(wb)
     
   cat("  Check fonts.\n") 
   setCellValue(cells[[6,2]], "<-- Courier New, Italicised, in orange, size 20 and bold")
-  font <- Font(wb, fontHeightInPoints=20, isBold=TRUE, isItalic=TRUE,
-    fontName="Courier New", color="orange")
+  font <- Font(wb, heightInPoints=20, isBold=TRUE, isItalic=TRUE,
+    name="Courier New", color="orange")
   cs3 <- CellStyle(wb) + font
   setCellStyle(cells[[6,1]], cs3)   
 
@@ -272,9 +272,7 @@ test.ranges <- function(wb)
 
   cat("Test you can read #N/A's ... \n")
   res <- read.xlsx(file, "NAs")
-  stopifnot(res[1,3]=="2010-1") 
-  
-  
+  stopifnot(all.equal(which(is.na(res)), c(6,28,29,59,69))) 
   
 }
 
@@ -331,7 +329,8 @@ test.ranges <- function(wb)
 
 #####################################################################
 # Speed Test export
-# 
+# Ubuntu desktop, 85s & 3s.
+#
 .main_speedtest_export <- function(ext="xlsx")
 {
   cat("Speed test export ... \n")  

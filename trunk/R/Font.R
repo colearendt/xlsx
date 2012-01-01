@@ -15,7 +15,7 @@ createFont <- function(...) {
 # Create a Font.  It needs a workbook object!
 #  - color is an R color string.
 #
-Font <- function(wb, color=NULL, fontHeightInPoints=NULL, fontName=NULL,
+Font <- function(wb, color=NULL, heightInPoints=NULL, name=NULL,
   isItalic=FALSE, isStrikeout=FALSE, isBold=FALSE, underline=NULL,
   boldweight=NULL) # , setFamily=NULL
 {
@@ -30,11 +30,11 @@ Font <- function(wb, color=NULL, fontHeightInPoints=NULL, fontName=NULL,
         .jshort(INDEXED_COLORS[toupper(color)]))
     }
       
-  if (!is.null(fontHeightInPoints))
-    .jcall(font, "V", "setFontHeightInPoints", .jshort(fontHeightInPoints))
+  if (!is.null(heightInPoints))
+    .jcall(font, "V", "setFontHeightInPoints", .jshort(heightInPoints))
 
-  if (!is.null(fontName))
-    .jcall(font, "V", "setFontName", fontName)
+  if (!is.null(name))
+    .jcall(font, "V", "setFontName", name)
 
   if (isItalic)
     .jcall(font, "V", "setItalic", TRUE)
