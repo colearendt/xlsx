@@ -67,7 +67,7 @@
     javadir   <<- "C:/Users/home/workspace/xlsx/"
     rforgedir <<- "C:/Users/adrian/R/R-Forge/xlsx/"
   } else if (computer == "HOME") {
-    pkgdir    <<- "/home/adrian/Documents/findataweb/temp/xlsx/trunk/"
+    pkgdir    <<- "/home/adrian/Documents/rexcel/trunk/"
     outdir    <<- "/tmp"
     Rcmd      <<- 'R CMD'
     javadir   <<- ""
@@ -88,8 +88,8 @@
 #version <- NULL        # keep increasing the minor
 version <- "0.4.0"      # if you want to set it by hand
 
-option(pkgType="source")   
-.setEnv("WORK2")   # "WORK2" "LAPTOP"
+options(pkgType="source")   
+.setEnv("HOME")   # "WORK2" "LAPTOP"
 
 .move.java.classes(TRUE)  # move java classes
 

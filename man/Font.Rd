@@ -7,7 +7,7 @@ Create a Font object.
 }
 \usage{
 
-Font(wb, color=NULL, fontHeightInPoints=NULL, fontName=NULL,
+Font(wb, color=NULL, fontHeightInPoints=NULL, name=NULL,
   isItalic=FALSE, isStrikeout=FALSE, isBold=FALSE, underline=NULL,
   boldweight=NULL)
 
@@ -22,10 +22,10 @@ createFont(...)
     color names as returned by \code{\link[grDevices]{colors}} can be
     used.}
   
-  \item{fontHeightInPoints}{a numeric value specifying the font height.
+  \item{heightInPoints}{a numeric value specifying the font height.
   Usual values are 10, 12, 14, etc.}
   
-  \item{fontName}{a character value for the font to use.  All values that
+  \item{name}{a character value for the font to use.  All values that
     you see in Excel should be available, e.g. "Courier New".}
 
   \item{isItalic}{a logical indicating the font should be italic.}
