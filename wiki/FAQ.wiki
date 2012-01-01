@@ -1,27 +1,49 @@
 #summary Frequently Asked Questions
 
-=== I get an error when I try to read an xlsx file ===
+= I get an error when I try to read an xlsx file =
 
-If you just installed the package, make sure you have the dependent package *rJava* installed properly.  To check that, do 
+If you just installed the package, make sure you have the dependent
+package *rJava* installed properly.  To check that, do 
+
 {{{
 require(rJava)
 .jcall('java.lang.System','S','getProperty','java.version')
 }}}
-If you don't get back a string with your java version, it means your *rJava* package is not installed correctly.  You will need to fix this before you can use the *xlsx* package.   
 
-=== I'm running out of java heap space when using write.xlsx ===
+If you don't get back a string with your java version, it means your
+*rJava* package is not installed correctly.  You will need to fix this
+before you can use the *xlsx* package.
 
-This is probably the complaint I get most from users.  It happens when you try to write a large `data.frame` to file.  What large means depends on your machine.  Unfortunately, I don't understand why so much memory is used when writing.  If you run into problems, you can try to increase the amount of java heap space that `R` allocates before you load the package. 
+= I'm running out of java heap memory when using write.xlsx =
+
+This is probably the complaint I get most from users.  It happens when
+you try to write a large `data.frame` to file.  What large means
+depends on your machine.  Unfortunately, I don't understand why so
+much memory is used when writing.  If you run into problems, you can
+try to increase the amount of java heap space that `R` allocates
+before you load the package. 
+
 {{{
 options(java.parameters="-Xmx1024m")
 require(xlsx)
 }}}
-The default is `Xmx512m`, 512 MB.  If your computer has more RAM, increase it more and it may solve your problem.
 
-=== My write.xslx takes a long time === 
+The default is `Xmx512m`, 512 MB.  If your computer has more RAM,
+increase it more and it may solve your problem.
 
-Well, for every element of the `data.frame` you intend to write, a Java cell object will get created, and then serialized back into the XML file.  There is a lot of marshaling between R and Java and that slows things down.  
+= My write.xslx takes a long time =
 
-The `write.xlsx2` is a version that uses Java internally for looping over the rows and the result is a significant improvement in performance.  However there are some limitations, so do read the documentation. 
+For every element of the `data.frame` you intend to write, a
+Java cell object will get created, and then serialized back into the
+XML file.  There is a lot of marshaling between R and Java and that
+slows things down.
 
-Also, if the data is really large and intended primarily for storage, you should seriously evaluate if you need it in an `xlsx` format.  Perhaps a compressed csv file will do just as well and be faster to read/write from `R`.  
+The function `write.xlsx2` is a version that uses Java internally for
+looping over the rows and the result is a significant improvement in
+performance.  However there are some limitations, so do read the
+documentation.
+
+Also, if the data is really large and intended primarily for storage,
+you should seriously evaluate if you need it in an `xlsx` format.
+Perhaps a compressed csv file will do just as well and be faster to
+read/write from `R`.

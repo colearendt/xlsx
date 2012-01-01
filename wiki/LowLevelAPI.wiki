@@ -130,8 +130,8 @@ Function {{{setCellValue}}} supports only five R types, `integer`,
 converted to character.  Note that Excel datetimes are in the GMT
 timezone. 
 
-Function {{{getCellValue}}} supports reading numeric, character,
-logical values.  Blank cells are imported as `NA`.  Errors are
+Function {{{getCellValue}}} supports reading `numeric`, `character`,
+`logical` values.  Blank cells are imported as `NA`.  Errors are
 imported as `NA` also.  If there is an unknown cell type it is
 imported as `Error`. 
 
