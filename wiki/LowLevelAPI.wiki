@@ -11,7 +11,7 @@ You want to export your `R` data to Excel.  Here are the steps you
 need to follow.  These steps mimic the Apache POI approach but made
 idiomatic to `R`.
 
-{{ 
+{{{ 
 wb    <- createWorkbook(type="xlsx")           # create an empty workbook
 sheet <- createSheet(wb, sheetName="Sheet1")   # create an empty sheet 
 rows  <- createRow(sheet, rowIndex=1:12)       # 12 rows
