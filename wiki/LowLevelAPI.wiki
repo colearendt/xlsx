@@ -112,10 +112,7 @@ cs3 <- CellStyle(wb) +
 
 You can now use these defined cell styles to "style" your
 spreadsheet.  For example if you have a matrix of cells as in 
-[http://code.google.com/p/rexcel/wiki/LowLevelAPI#Create_a_spreadsheet_from_scratch
-Create a spreadsheet from scratch], you can format with 
-
-[LowLevelAPI#Create_a_spreadsheet_from_scratch]
+[LowLevelAPI#Create_a_spreadsheet_from_scratch], you can format with 
 
 {{{
 lapply(cells[,1], setCellStyle, cs3) # format first column as a datetime
