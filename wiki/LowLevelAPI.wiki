@@ -14,10 +14,10 @@ approach but made idiomatic to `R`.
 The steps to create an empty workbook and a sheet with some empty
 cells are as follows
 {{{ 
-wb    <- createWorkbook(type="xlsx") 
-sheet <- createSheet(wb, sheetName="Sheet1")
-rows  <- createRow(sheet, rowIndex=1:12)
-cells <- createCell(rows, colIndex=1:10)
+wb    <- createWorkbook(type="xlsx")           # create an empty workbook
+sheet <- createSheet(wb, sheetName="Sheet1")   # create an empty sheet 
+rows  <- createRow(sheet, rowIndex=1:12)       # 12 rows
+cells <- createCell(rows, colIndex=1:10)       # 10 columns in each row
 }}}
 The workbook object `wb`, `sheet` are just a java reference.  
 {{{
@@ -28,7 +28,7 @@ The workbook object `wb`, `sheet` are just a java reference.
 }}}
 
 `rows` is a list of java references with names equal to the row
-number and `cells` is a matrix of java references. 
+number and `cells` is a matrix of size 20x10 of java references. 
 {{{
 > head(rows)
 $`1`
@@ -61,21 +61,20 @@ $`6`
 }}}
 
  
-
-For example, to create 12 rows use {{{ rows <- createRow(sheet,
-rowIndex=1:12). }}} By now, you should suspect that the rows are empty,
-that is they have no cells.
-
-To create 10 cells in each row do {{{ cells <- createCell(rows,
-colIndex=1:10). }}}  Now your sheet has 20x10 empty cells.  Variable
-`cells` is an `R` matrix of java references.
-
 For example, to populate the first column with the names of the month
-do {{{ mapply(setCellValue, cells[1:12,1], month.name). }}}  To set only
-one cell {{{ setCellValue(cells[[2,2]], "I'm a special cell!").  }}}
+do 
+{{{
+mapply(setCellValue, cells[1:12,1], month.name)   # set one column 
+setCellValue(cells[[2,2]], "I'm a special cell!") # set one cell
+}}}  
 
-To save your workbook to a file {{{ saveWorkbook(wb,
-file="/tmp/test.xlsx"). }}}
+
+When you're done populating your spreadsheet, you need to save your
+workbook to a file 
+{{{ 
+saveWorkbook(wb, file="/tmp/test.xlsx")
+}}}
+
 
 You are now done!  The function `write.xlsx` follows the steps above. 
 
