@@ -1,4 +1,9 @@
-#
+# createWorkbook
+# loadWorkbook
+# saveWorkbook
+# getSheets
+# createSheet
+# removeSheet
 
 
 ######################################################################

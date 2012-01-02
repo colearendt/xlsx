@@ -6,7 +6,8 @@ import java.io.IOException;
 //import java.io.InputStream;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-//import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -19,24 +20,38 @@ public class TestRInterface {
   
   public static void testWrite() throws IOException{
     RInterface R = new RInterface(); // create the R interface
-    R.NCOLS = 15;
-    R.NROWS = 13000;
-    //R.CELL_ARRAY = new Cell[R.NROWS][R.NCOLS];
+    R.NCOLS = 5;
+    R.NROWS = 130;
     
-    double[] X = new double[R.NROWS];
+    double[] Xdouble = new double[R.NROWS];
+    double[] Xdates  = new double[R.NROWS];
     for (int i = 0; i < R.NROWS; i++){
-      X[i] = 0.123 + (double) i;
+      Xdouble[i] = 0.123   + (double) i;
+      Xdates[i]  = 40170.0 + (double) i;
     }
     
     // create a new file
-    FileOutputStream out = new FileOutputStream("C:/Temp/junk.xlsx");
-    Workbook wb = new XSSFWorkbook();  // create a new workbook
+    FileOutputStream out = new FileOutputStream("/tmp/junk.xlsx");
+    Workbook wb = new XSSFWorkbook();    // create a new workbook
     Sheet sheet = wb.createSheet();      // create a new sheet
     
+    CellStyle cs1 = wb.createCellStyle();
+    DataFormat fmt1 = wb.createDataFormat();
+    cs1.setDataFormat(fmt1.getFormat("m/d/yyyy"));
+    
+    CellStyle cs2 = wb.createCellStyle();
+    cs2.setBorderBottom(CellStyle.BORDER_THICK);
+    cs2.setFillForegroundColor((short) 5);    
+    cs2.setFillBackgroundColor((short) 6);
+    cs2.setFillPattern(CellStyle.SOLID_FOREGROUND); 
+    
+    String[] header = {"Number", "Date"};
+    
     R.createCells(sheet, 0, 0);
-    for (int j = 0; j < R.NCOLS; j++) {  // write one column at a time
-      R.writeColDoubles(sheet, 0, j, X);
-    }
+    R.writeColDoubles(sheet, 0, 0, Xdouble);         // 1st column double
+    R.writeColDoubles(sheet, 0, 1, Xdates, cs1);    // 2nd column date
+    R.writeRowStrings(sheet, 0, 0, header, cs2);     // header with styles 
+    
     
     wb.write(out);   // write the workbook, 
     out.close();        
@@ -45,9 +60,9 @@ public class TestRInterface {
   public static void testRead() throws InvalidFormatException, IOException{
     RInterface R = new RInterface(); // create the R interface
  
-//    FileInputStream in = new FileInputStream("C:/Temp/ModelList.xlsx");
+    FileInputStream in = new FileInputStream("/home/adrian/Documents/rexcel/trunk/inst/tests/test_import.xlsx");
 //    FileInputStream in = new FileInputStream("H:/user/R/Adrian/findataweb/temp/xlsx/trunk/inst/tests/test_import.xlsx");
-    FileInputStream in = new FileInputStream("S:/All/Structured Risk/NEPOOL/Incs & Decs/Apr 11/Inc Dec 15Apr11 Incs and Decs.xls");
+//    FileInputStream in = new FileInputStream("S:/All/Structured Risk/NEPOOL/Incs & Decs/Apr 11/Inc Dec 15Apr11 Incs and Decs.xls");
     Workbook wb = WorkbookFactory.create(in);
     Sheet sheet = wb.getSheetAt(3); 
     
@@ -62,8 +77,8 @@ public class TestRInterface {
   
   public static void main(String[] args) throws IOException, InvalidFormatException {
 		
-    //testWrite();    
-	testRead();  
+    testWrite();    
+	//testRead();  
 		
     System.out.println("Done!");
 
