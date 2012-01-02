@@ -108,7 +108,8 @@ test.dataFormats <- function(wb)
     date=seq(as.Date("1999-01-01"), by="1 year", length.out=10),
     bool=ifelse(1:10 %% 2, TRUE, FALSE), log=log(1:10),
     rnorm=10000*rnorm(10),
-    datetime=seq(as.POSIXct("2011-11-06 00:00:00", tz="GMT"), by="1 hour", length.out=10))
+    datetime=seq(as.POSIXct("2011-11-06 00:00:00", tz="GMT"), by="1 hour",
+      length.out=10))
 
   sheet <- createSheet(wb, "dataFormats")
   rows  <- createRow(sheet, rowIndex=1:10)       # 10 rows

@@ -31,6 +31,7 @@
 #
 .move.java.classes <- function(do=TRUE)
 {
+  wd <- getwd()
   if (do){
     setwd(javadir)
 
@@ -42,12 +43,13 @@
    unlink("RInterface.jar")
    setwd("..")
 
-   # move the source files to have for reference ... 
-   file.copy("src/dev/RInterface.java", paste(pkgdir, 
-     "other/RInterface.java", sep=""), overwrite=TRUE)
-   file.copy("src/tests/TestRInterface.java", paste(pkgdir, 
-     "other/TestRInterface.java", sep=""), overwrite=TRUE)
+   ## # move the source files to have for reference ... 
+   ## file.copy("src/dev/RInterface.java", paste(pkgdir, 
+   ##   "other/RInterface.java", sep=""), overwrite=TRUE)
+   ## file.copy("src/tests/TestRInterface.java", paste(pkgdir, 
+   ##   "other/TestRInterface.java", sep=""), overwrite=TRUE)
   }
+  setwd(wd)
   invisible()
 }
 
@@ -70,7 +72,7 @@
     pkgdir    <<- "/home/adrian/Documents/rexcel/trunk/"
     outdir    <<- "/tmp"
     Rcmd      <<- 'R CMD'
-    javadir   <<- ""
+    javadir   <<- "/home/adrian/workspace/xlsx/"
   } else if (computer == "WORK2") {  
     pkgdir  <<- "C:/google/rexcel/trunk/"
     outdir  <<- "H:/"
