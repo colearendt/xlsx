@@ -26,6 +26,10 @@ Changes in version 0.4.0 (released 2011-12-05)
  o New function addHyperlink to add hyperlinks (urls, emails) to
    a cell.
 
+ o New function addDataFrame to add a data.frame to an existing
+   sheet.  It alows the user to style the header, rownames, or
+   individual columns.  
+
  o TO DO: Seems like it errors if startRow is set but noRows is NOT set.
    x <- read.xlsx2( "Test.xlsx", sheetIndex=1, startRow=15)  
 
