@@ -51,12 +51,15 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
     thisColStyle <-
       if ((j==1) && (row.names) && (!is.null(rownamesStyle))) {
         rownamesStyle
-      } else if (class) {
-
-      
-    } else {
-      NULL
-    }
+      } else if (as.character(j) %in% names(colStyle)) {
+        colStyle[as.character(j)]
+      } else if ("Date" %in% class(x[,j])) {
+        csDate
+      } else if ("POSIXct" %in% class(x[,j])) {
+        csDateTime
+      } else {
+        NULL
+      }
     
     if (class(x[,j]) == "integer") {
       aux <- .jarray(x[,j])

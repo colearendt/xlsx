@@ -63,11 +63,10 @@
     Rcmd    <<- "S:/All/Risk/Software/R/R-2.12.1/bin/i386/Rcmd"
     javadir <<- "C:/Documents and Settings/e47187/workspace/xlsx/"
   } else if (computer == "LAPTOP") {
-    pkgdir    <<- "C:/Users/adrian/R/findataweb/temp/xlsx/trunk/"
-    outdir    <<- "C:/"
-    Rcmd      <<- '"C:/Program Files/R/R-2.12.1/bin/i386/Rcmd"'
-    javadir   <<- "C:/Users/home/workspace/xlsx/"
-    rforgedir <<- "C:/Users/adrian/R/R-Forge/xlsx/"
+    pkgdir    <<- "/home/adrian/Documents/rexcel/trunk/"
+    outdir    <<- "/tmp/"
+    Rcmd      <<- "R CMD"
+    javadir   <<- "/home/adrian/workspace/xlsx/"
   } else if (computer == "HOME") {
     pkgdir    <<- "/home/adrian/Documents/rexcel/trunk/"
     outdir    <<- "/tmp"
@@ -91,7 +90,7 @@
 version <- "0.4.0"      # if you want to set it by hand
 
 options(pkgType="source")   
-.setEnv("HOME")   # "WORK2" "LAPTOP"
+.setEnv("LAPTOP")   # "HOME" "WORK2" "LAPTOP"
 
 .move.java.classes(TRUE)  # move java classes
 
@@ -105,7 +104,8 @@ print(cmd)
 
 system(cmd)
 
-install.packages(paste("xlsx_",version, ".tar.gz", sep=""), repos=NULL)
+install.packages(paste("xlsx_",version, ".tar.gz", sep=""), repos=NULL,
+  type="source")
 
 
 # do you pass all my tests?! Open another R session ... 
