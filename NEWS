@@ -28,10 +28,15 @@ Changes in version 0.4.0 (released 2011-12-05)
 
  o New function addDataFrame to add a data.frame to an existing
    sheet.  It alows the user to style the header, rownames, or
-   individual columns.  
+   individual columns.  This is now used internally in the write.xlsx2
+   function. 
 
- o TO DO: Seems like it errors if startRow is set but noRows is NOT set.
-   x <- read.xlsx2( "Test.xlsx", sheetIndex=1, startRow=15)  
+ o New function getColumns to read a rectangular shape of cells into
+   an R data.frame.  This is now used internally in the read.xlsx2
+   function.  
+ 
+ o TO DO: rename the constants INDEXED_COLORS to _INDEXED_COLORS_ to
+   prevent conflicts.  Now exported from package namespace. 
 
  o Rename the default in read.xlsx, createSheet and removeSheet to
    sheetName="Sheet1" from "Sheet 1".  This makes it consistent with

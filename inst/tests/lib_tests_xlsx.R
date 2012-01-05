@@ -17,7 +17,7 @@
 # 
 test.addDataFrame <- function(wb)
 {
-  cat("Testing addDataFrame ...\n")
+  cat("Testing addDataFrame ... ")
   sheet  <- createSheet(wb, sheetName="addDataFrame1")
 
   data <- data.frame(mon=month.abb[1:10], day=1:10, year=2000:2009,
@@ -30,8 +30,12 @@ test.addDataFrame <- function(wb)
   cs1 <- CellStyle(wb) + Font(wb, isItalic=TRUE)
   cs2 <- CellStyle(wb) + Font(wb, color="blue")
   cs3 <- CellStyle(wb) + Font(wb, isBold=TRUE) + Border()
+
   
-  addDataFrame(data, sheet, startRow=3, startColumn=2)
+  addDataFrame(data, sheet, startRow=3, startColumn=2, colnamesStyle=cs3,
+    rownamesStyle=cs1, colStyle=list(`2`=cs2, `3`=cs2))
+
+  cat("Done.\n")
   
 }
 
@@ -303,6 +307,9 @@ test.ranges <- function(wb)
 # 
 .main_highlevel_export <- function(ext="xlsx")
 {
+  outfile <- paste(OUTDIR, "test_highlevel_export.", ext, sep="")
+  if (file.exists(outfile)) unlink(outfile)  
+  
   cat("Testing high level export ... \n")  
   x <- data.frame(mon=month.abb[1:10], day=1:10, year=2000:2009,
     date=seq(as.Date("2009-01-01"), by="1 month", length.out=10),
@@ -310,7 +317,8 @@ test.ranges <- function(wb)
 
   file <- paste(OUTDIR, "test_highlevel_export.", ext, sep="")
   cat("  write an xlsx file with char, int, double, date, bool columns ...\n")
-  write.xlsx(x, file)
+  write.xlsx(x, file, sheetName="writexlsx")
+  write.xlsx2(x, file, sheetName="writexlsx2", append=TRUE)
 
   cat("  test the append argument by adding another sheet ... \n")
   file <- paste(OUTDIR, "test_highlevel_export.", ext, sep="")
@@ -326,6 +334,36 @@ test.ranges <- function(wb)
     stop("Fix me!")
 
   cat("Done.\n")
+}
+
+
+#####################################################################
+#
+.main_lowlevel_import <- function(ext="xlsx")
+{
+  outfile <- paste(OUTDIR, "test_export.", ext, sep="")
+  #if (file.exists(outfile)) unlink(outfile)
+   
+  wb <- loadWorkbook(outfile)
+
+  sheets <- getSheets(wb)
+
+  sheet <- sheets[["addDataFrame1"]]
+
+  startColumn <- 2
+  endColumn   <- 10
+  startRow <- 3
+
+  row <- getRows(sheet, rowIndex=4)
+  cells <- getCells(row)
+
+  cell <- cells[[2]]
+  
+  res <- readColumns(sheet, colIndex, startRow)
+
+
+  
+  
 }
 
 
@@ -347,6 +385,7 @@ test.ranges <- function(wb)
   test.addDataFrame(wb)
   
   saveWorkbook(wb, outfile)
+  
   cat("Wrote file", outfile, "\n\n")
 }
 
@@ -394,22 +433,26 @@ test.ranges <- function(wb)
   
   .main_lowlevel_export(ext="xlsx")  
   .main_highlevel_export(ext="xlsx")
-  .main_speedtest_export(ext="xlsx")
+#  .main_speedtest_export(ext="xlsx")
   
   .main_lowlevel_export(ext="xls")  
   .main_highlevel_export(ext="xls")
-  .main_speedtest_export(ext="xls")
+#  .main_speedtest_export(ext="xls")
 
   
   .main_highlevel_import(ext="xlsx")
-  #.main_lowlevel_import(ext="xlsx")
+  .main_lowlevel_import(ext="xlsx")
 
   
   .main_import(ext="xls")
 
+
+
   
 }
 
+
+  ## source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
 
 
 ##   cat("Test memory ...\n")

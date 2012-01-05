@@ -70,7 +70,7 @@
   } else if (computer == "HOME") {
     pkgdir    <<- "/home/adrian/Documents/rexcel/trunk/"
     outdir    <<- "/tmp"
-    Rcmd      <<- 'R CMD'
+    Rcmd      <<- "R CMD"
     javadir   <<- "/home/adrian/workspace/xlsx/"
   } else if (computer == "WORK2") {  
     pkgdir  <<- "C:/google/rexcel/trunk/"
@@ -89,8 +89,7 @@
 #version <- NULL        # keep increasing the minor
 version <- "0.4.0"      # if you want to set it by hand
 
-options(pkgType="source")   
-.setEnv("LAPTOP")   # "HOME" "WORK2" "LAPTOP"
+.setEnv("WORK2")   # "HOME" "WORK2" "LAPTOP"
 
 .move.java.classes(TRUE)  # move java classes
 

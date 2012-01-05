@@ -19,7 +19,7 @@ printSetup <- function(sheet, fitHeight=NULL,
     .jcall(ps, "V", "setCopies", .jshort(copies))
 
   if (!is.null(draft))
-    .jcall(ps, "V", "setCopies", draft)
+    .jcall(ps, "V", "setDraft", draft)
 
   if (!is.null(footerMargin))
     .jcall(ps, "V", "setFooterMargin", footerMargin)

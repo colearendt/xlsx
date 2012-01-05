@@ -130,6 +130,7 @@ getCellValue <- function(cell, keepFormulas=FALSE, encoding="unknown")
 #
 getMatrixValues <- function(sheet, rowIndex, colIndex, ...)
 {
+  warning("DEPRECATED.  Will be removed in 0.5.0.  Use readColumns.")
   nr <- length(rowIndex)
   nc <- length(colIndex)
   rows  <- getRows(sheet, rowIndex=rowIndex)
