@@ -91,9 +91,9 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
          .xssfcolor(fill$backgroundColor))
     } else {
        .jcall(cellStyle, "V", "setFillForegroundColor",
-         .jshort(.INDEXED_COLORS[toupper(fill$foregroundColor)]))
+         .jshort(INDEXED_COLORS[toupper(fill$foregroundColor)]))
        .jcall(cellStyle, "V", "setFillBackgroundColor",
-         .jshort(.INDEXED_COLORS[toupper(fill$backgroundColor)]))
+         .jshort(INDEXED_COLORS[toupper(fill$backgroundColor)]))
     }
     .jcall(cellStyle, "V", "setFillPattern", .jshort(CS[fill$pattern]))
   }

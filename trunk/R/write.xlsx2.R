@@ -16,7 +16,7 @@ write.xlsx2 <- function(x, file, sheetName="Sheet 1",
     startRow=1, startColumn=1, colStyle=NULL, colnamesStyle=NULL,
     rownamesStyle=NULL)
 
-  saveWorkbook(wb, file)  # save it when done
+  saveWorkbook(wb, file)  
   
   invisible()
 }

@@ -36,49 +36,65 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
   .jcall(Rintf, "V", "createCells", sheet, indX1, indY1)
   
   if (col.names) {                   # insert colnames
-    aux <- .jarray(names(x))
+    aux <- .jarray(names(x)[-1])
     if (!is.null(colnamesStyle)) {   
-      .jcall(Rintf, "V", "writeRowStrings", sheet, indX1, indY1, aux,
-             colnamesStyle)
+      .jcall(Rintf, "V", "writeRowStrings", sheet, 0L, 1L, aux,
+             colnamesStyle$ref) 
     } else {
-      .jcall(Rintf, "V", "writeRowStrings", sheet, indX1, indY1, aux)
+      .jcall(Rintf, "V", "writeRowStrings", sheet, 0L, 1L, aux)
     }
   }
-
   # insert one column at a time, and style it if it has style
   # Dates and POSIXct columns get styled if not overridden. 
-  for (j in 1:ncol(x)){
+  for (j in 1:ncol(x)) {
     thisColStyle <-
       if ((j==1) && (row.names) && (!is.null(rownamesStyle))) {
         rownamesStyle
       } else if (as.character(j) %in% names(colStyle)) {
-        colStyle[as.character(j)]
+        colStyle[[as.character(j)]]
       } else if ("Date" %in% class(x[,j])) {
         csDate
-      } else if ("POSIXct" %in% class(x[,j])) {
+      } else if ("POSIXt" %in% class(x[,j])) {
         csDateTime
       } else {
         NULL
       }
-    
-    if (class(x[,j]) == "integer") {
-      aux <- .jarray(x[,j])
-      .jcall(Rintf, "V", "writeColInts", sheet, iOffset, as.integer(j-1), aux)
-    } else if (class(x[,j]) == "numeric") {
-      aux <- .jarray(x[,j])
-      .jcall(Rintf, "V", "writeColDoubles", sheet, iOffset, as.integer(j-1), aux)
-    } else {
-      aux <- .jarray(as.character(x[,j]))
-      if ((j==1) && (row.names) && (!is.null(rownamesStyle))) {
-        .jcall(Rintf, "V", "writeColStrings", sheet, iOffset, as.integer(j-1),
-           aux, rownamesStyle)
+#browser()
+    if ("integer" %in% class(x[,j])) {
+      if (is.null(thisColStyle)) {
+        .jcall(Rintf, "V", "writeColInts", sheet, iOffset, as.integer(j-1),
+          .jarray(x[,j]))
       } else {
-        .jcall(Rintf, "V", "writeColStrings", sheet, iOffset, as.integer(j-1), aux)
+        .jcall(Rintf, "V", "writeColInts", sheet, iOffset, as.integer(j-1),
+          .jarray(x[,j]), thisColStyle$ref)
       }
       
+    } else if (any(c("numeric", "Date", "POSIXt") %in% class(x[,j]))) {
+      aux <- if ("Date" %in% class(x[,j])) {
+          as.numeric(x[,j])+25569
+        } else if ("POSIXt" %in% class(x[,j])) {
+          as.numeric(x[,j])/86400 + 25569
+        } else {
+          x[,j]
+        } 
+      if (is.null(thisColStyle)) {
+        .jcall(Rintf, "V", "writeColDoubles", sheet, iOffset, as.integer(j-1),
+           .jarray(aux))
+      } else {
+        .jcall(Rintf, "V", "writeColDoubles", sheet, iOffset, as.integer(j-1),
+           .jarray(aux), thisColStyle$ref)
+      }
+      
+    } else {
+      if (is.null(thisColStyle)) {
+        .jcall(Rintf, "V", "writeColStrings", sheet, iOffset, as.integer(j-1),
+           .jarray(as.character(x[,j])))
+      } else {
+        .jcall(Rintf, "V", "writeColStrings", sheet, iOffset, as.integer(j-1),
+           .jarray(as.character(x[,j])), thisColStyle$ref)
+      }      
     }
   }
-
   
   invisible()
 }
