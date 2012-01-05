@@ -135,4 +135,44 @@ Function {{{getCellValue}}} supports reading `numeric`, `character`,
 imported as `NA` also.  If there is an unknown cell type it is
 imported as `Error`. 
 
+= Customize a spreadsheet with addDataFrame = 
 
+Behind the scene the function `addDataFrame` creates a Java object of
+class RInterface.  This is used to minimize the interaction between R
+and Java and speed up the operations on the spreadsheet.  
+
+By default, when using the function `addDataFrame`, a column of type `Date` will
+be formated with {{{DataFormat("m/d/yyyy")}}}, and a column
+of type `POSIXt` will be formated with {{{DataFormat("m/d/yyyy h:mm:ss;@")}}}.
+
+
+== Details about the RInterface == 
+
+You can inspect in details the java code from the package sources in
+folder `other/`.  The `RInterface` object has several methods, of which I'm showing the most
+important below
+{{{
+>  Rintf <- .jnew("dev/RInterface")   # create an RInterface object
+> .jmethods(Rintf)
+ [1] "public void dev.RInterface.createCells(org.apache.poi.ss.usermodel.Sheet,int,int)"                                                             
+ [2] "public double[] dev.RInterface.readColDoubles(org.apache.poi.ss.usermodel.Sheet,int,int,int)"                                                  
+ [3] "public java.lang.String[] dev.RInterface.readColStrings(org.apache.poi.ss.usermodel.Sheet,int,int,int)"                                        
+ [4] "public java.lang.String[] dev.RInterface.readRowStrings(org.apache.poi.ss.usermodel.Sheet,int,int,int)"                                        
+ [5] "public void dev.RInterface.writeColDoubles(org.apache.poi.ss.usermodel.Sheet,int,int,double[])"                                                
+ [6] "public void dev.RInterface.writeColDoubles(org.apache.poi.ss.usermodel.Sheet,int,int,double[],org.apache.poi.ss.usermodel.CellStyle)"          
+ [7] "public void dev.RInterface.writeColInts(org.apache.poi.ss.usermodel.Sheet,int,int,int[])"                                                      
+ [8] "public void dev.RInterface.writeColInts(org.apache.poi.ss.usermodel.Sheet,int,int,int[],org.apache.poi.ss.usermodel.CellStyle)"                
+ [9] "public void dev.RInterface.writeColStrings(org.apache.poi.ss.usermodel.Sheet,int,int,java.lang.String[])"                                      
+[10] "public void dev.RInterface.writeColStrings(org.apache.poi.ss.usermodel.Sheet,int,int,java.lang.String[],org.apache.poi.ss.usermodel.CellStyle)"
+[11] "public void dev.RInterface.writeRowStrings(org.apache.poi.ss.usermodel.Sheet,int,int,java.lang.String[],org.apache.poi.ss.usermodel.CellStyle)"
+[12] "public void dev.RInterface.writeRowStrings(org.apache.poi.ss.usermodel.Sheet,int,int,java.lang.String[])"                                      
+}}}
+
+The `[1]` method creates cells, and the other are used to read/write
+columns and rows of data.  Writing columns of data is possible with a
+given `CellStyle`. 
+
+You can look at the source code for the function `addDataFrame` for a
+practical example of how to add a `data.frame` to a sheet.  The basic
+idea is simple.  Create an `RInterface` object, create the cells, and
+start populating the cells by column.  
