@@ -27,7 +27,7 @@ Font <- function(wb, color=NULL, heightInPoints=NULL, name=NULL,
       .jcall(font, "V", "setColor", .xssfcolor(color))   
     } else {
       .jcall(font, "V", "setColor",
-        .jshort(INDEXED_COLORS[toupper(color)]))
+        .jshort(INDEXED_COLORS_[toupper(color)]))
     }
       
   if (!is.null(heightInPoints))

@@ -12,7 +12,7 @@ Border <- function(color="black", position="BOTTOM", pen="BORDER_THIN")
   if (any(!(position %in% c("BOTTOM", "LEFT", "TOP", "RIGHT"))))
     stop("Not a valid postion value.  See help page.")
 
-  if (any(!(pen %in% names(BORDER_STYLES))))
+  if (any(!(pen %in% names(BORDER_STYLES_))))
     stop("Not a valid pen value.  See help page.")
 
   len <- c(length(position), length(color), length(pen))
