@@ -1,14 +1,8 @@
+# 
+#
+# For CellType: FORMULA, ERROR or blanks, it defaults to "character"
 #
 #
-#
-#
-
-
-
-.guess_cell_type <- function(cell)
-{ 
-  
-}
 
 readColumns <- function(sheet, startColumn, endColumn, startRow,
   endRow=NULL, as.data.frame=TRUE, header=TRUE, colClasses=NA, ...)
@@ -30,31 +24,36 @@ readColumns <- function(sheet, startColumn, endColumn, startRow,
   } else {
     cnames <- as.character(1:noColumns)
   }
-
+  
+  # guess or expand colClasses
   if (length(colClasses) < noColumns) {
+    colClasses <- rep(colClasses, noColumns)   
+  } else {
     row <- getRows(sheet, rowIndex=startRow) 
     cells <- getCells(row, colIndex=startColumn:endColumn)
-    cellType <- sapply(cells, function(x){x$getCellType()})
-    # what happens with FORMULAS, ERROR or blanks? should default to "character"
-    colClasses <- rep(colClasses, noColumns)
+    colClasses <- .guess_cell_type(cells)
   }
-  
-  
-  
   
   res <- vector("list", length=noColumns)
   for (i in seq_len(noColumns)) {
-    
-    res[[i]] <- switch(colClasses[i],
-      numeric = .jcall(Rintf, "[D", "readColDoubles",
+    if (any(c("numeric", "POSIXct", "Date") %in% colClasses[i])) {
+      aux <- .jcall(Rintf, "[D", "readColDoubles",
         .jcast(sheet, "org/apache/poi/ss/usermodel/Sheet"),
-        as.integer(startRow-1), as.integer(noRows-1), 
-        as.integer(startColumn-1+i-1)),
-      character = .jcall(Rintf, "[S", "readColStrings",
+        as.integer(startRow-1), as.integer(endRow-1), 
+        as.integer(startColumn-1+i-1))
+      if (colClasses[i]=="Date") 
+        aux <- as.Date(aux-25569, origin="1970-01-01")
+      if (colClasses[i]=="POSIXct")
+        aux <- as.POSIXct((aux-25569)*86400, tz="GMT", origin="1970-01-01")
+    } else {
+      aux <- .jcall(Rintf, "[S", "readColStrings",
         .jcast(sheet, "org/apache/poi/ss/usermodel/Sheet"),
-        as.integer(startRow-1), as.integer(noRows-1), 
-        as.integer(startColumn-1+i-1))                       
-      )
+        as.integer(startRow-1), as.integer(endRow-1), 
+        as.integer(startColumn-1+i-1))
+      }
+    if (!is.na(colClasses[ic]))
+      suppressWarnings(class(aux) <- colClasses[ic])  # if it gets specified
+    res[[ic]] <- aux
   }
   
   if (as.data.frame){
