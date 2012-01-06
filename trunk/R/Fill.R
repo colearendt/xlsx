@@ -10,7 +10,7 @@ is.Fill <- function(x) inherits(x, "Fill")
 Fill <- function(foregroundColor="lightblue", backgroundColor="lightblue",
   pattern="SOLID_FOREGROUND")
 {
-  if (!(pattern %in% names(FILL_STYLES)))
+  if (!(pattern %in% names(FILL_STYLES_)))
     stop("Not a valid pattern value.  See help page.")
   
   structure(list(foregroundColor=foregroundColor,

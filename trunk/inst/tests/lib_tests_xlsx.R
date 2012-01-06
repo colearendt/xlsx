@@ -299,6 +299,18 @@ test.ranges <- function(wb)
   cat("Test you can read #N/A's ... \n")
   res <- read.xlsx(file, "NAs")
   stopifnot(all.equal(which(is.na(res)), c(6,28,29,59,69))) 
+
+  cat("Test you can read columns with read.xlsx2")
+  colIndex <- c(2,3,5,8,9)
+  sheetName <- "all"
+  startRow <- 3
+  
+  source(paste(SOURCEDIR, "rexcel/trunk/R/read.xlsx2.R", sep=""))
+  res <- read.xlsx2(file, sheetName=sheetName, startRow=startRow,
+    colIndex=colIndex)
+  
+  
+
   
 }
 
@@ -352,8 +364,9 @@ test.ranges <- function(wb)
 
   startColumn <- 2
   endColumn   <- 10
-  startRow <- 3
-
+  startRow    <- 3
+  colClasses  <- NA
+  
   row <- getRows(sheet, rowIndex=4)
   cells <- getCells(row)
 
@@ -362,7 +375,12 @@ test.ranges <- function(wb)
   res <- readColumns(sheet, colIndex, startRow)
 
 
+
   
+  
+
+  
+
   
 }
 

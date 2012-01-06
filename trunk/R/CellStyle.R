@@ -27,7 +27,7 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
   cellStyle <- .jcall(wb, "Lorg/apache/poi/ss/usermodel/CellStyle;",
     "createCellStyle") 
 
-  CS <- CELL_STYLES
+  CS <- CELL_STYLES_
 
   if (!is.null(dataFormat)){
     fmt <- .jcall(wb, "Lorg/apache/poi/ss/usermodel/DataFormat;",
@@ -57,7 +57,7 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
       bcolor <- if (grepl("XSSF", wb$getClass()$getName())) {
         .xssfcolor(border$color[i])
        } else {
-        idcol <- INDEXED_COLORS[toupper(border$color[i])]
+        idcol <- INDEXED_COLORS_[toupper(border$color[i])]
         .jshort(idcol)
       }
       switch(border$position[i],
@@ -91,9 +91,9 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
          .xssfcolor(fill$backgroundColor))
     } else {
        .jcall(cellStyle, "V", "setFillForegroundColor",
-         .jshort(INDEXED_COLORS[toupper(fill$foregroundColor)]))
+         .jshort(INDEXED_COLORS_[toupper(fill$foregroundColor)]))
        .jcall(cellStyle, "V", "setFillBackgroundColor",
-         .jshort(INDEXED_COLORS[toupper(fill$backgroundColor)]))
+         .jshort(INDEXED_COLORS_[toupper(fill$backgroundColor)]))
     }
     .jcall(cellStyle, "V", "setFillPattern", .jshort(CS[fill$pattern]))
   }

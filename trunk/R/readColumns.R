@@ -51,9 +51,9 @@ readColumns <- function(sheet, startColumn, endColumn, startRow,
         as.integer(startRow-1), as.integer(endRow-1), 
         as.integer(startColumn-1+i-1))
       }
-    if (!is.na(colClasses[ic]))
-      suppressWarnings(class(aux) <- colClasses[ic])  # if it gets specified
-    res[[ic]] <- aux
+    if (!is.na(colClasses[i]))
+      suppressWarnings(class(aux) <- colClasses[i])  # if it gets specified
+    res[[i]] <- aux
   }
   
   if (as.data.frame){
