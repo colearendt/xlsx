@@ -44,7 +44,7 @@ read.xlsx <- function(file, sheetIndex, sheetName=NULL, rowIndex=NULL,
     
     res <- vector("list", length=cols)
     names(res) <- colnames(VV)
-    for (ic in seq_len(cols)){
+    for (ic in seq_len(cols)) {
       aux   <- unlist(VV[,ic], use.names=FALSE)
       nonNA <- which(!is.na(aux)) 
       if (length(nonNA)>0){  # not a NA column in the middle of data

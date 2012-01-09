@@ -5,7 +5,7 @@
 #
 addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
   startRow=1, startColumn=1, colStyle=NULL, colnamesStyle=NULL,
-  rownamesStyle=NULL)
+  rownamesStyle=NULL, NA_AS_BLANK=TRUE)
 {
   if (!is.data.frame(x))
     x <- data.frame(x)    # just because the error message is too ugly
@@ -36,12 +36,12 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
   .jcall(Rintf, "V", "createCells", sheet, indX1, indY1)
   
   if (col.names) {                   # insert colnames
-    aux <- .jarray(names(x)[-1])
+    aux <- if (jOffset) .jarray(names(x)[-1]) else .jarray(names(x))
     if (!is.null(colnamesStyle)) {   
-      .jcall(Rintf, "V", "writeRowStrings", sheet, 0L, 1L, aux,
+      .jcall(Rintf, "V", "writeRowStrings", sheet, 0L, jOffset, aux,
              colnamesStyle$ref) 
     } else {
-      .jcall(Rintf, "V", "writeRowStrings", sheet, 0L, 1L, aux)
+      .jcall(Rintf, "V", "writeRowStrings", sheet, 0L, jOffset, aux)
     }
   }
   # insert one column at a time, and style it if it has style

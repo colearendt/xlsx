@@ -13,6 +13,7 @@
 #
 .guess_cell_type <- function(cells)
 {
+  browser()
   cellType <- sapply(cells, function(x){x$getCellType()}) + 1
 
   dateUtil   <- .jnew("org/apache/poi/ss/usermodel/DateUtil")
@@ -56,6 +57,8 @@
 .splitBlocks <- function(x)
 {
   blocks <- list(x[1])
+  if (length(x)==1)
+    return(blocks)
   k <- 1
   for (i in 2:length(x)) {
     if (x[i]==(x[i-1]+1)) {
