@@ -5,7 +5,7 @@
 #
 addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
   startRow=1, startColumn=1, colStyle=NULL, colnamesStyle=NULL,
-  rownamesStyle=NULL, NA_AS_BLANK=TRUE)
+  rownamesStyle=NULL, stringNA="", numericNA=NaN, showNaN=FALSE)
 {
   if (!is.data.frame(x))
     x <- data.frame(x)    # just because the error message is too ugly
@@ -60,38 +60,49 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
         NULL
       }
 #browser()
-    if ("integer" %in% class(x[,j])) {
+    xj <- x[,j]
+    if ("integer" %in% class(xj)) {
+      havNA <- is.na(xj)
+      if (any(haveNA))
+        aux[haveNA] <- numericNA      
       if (is.null(thisColStyle)) {
         .jcall(Rintf, "V", "writeColInts", sheet, iOffset, as.integer(j-1),
-          .jarray(x[,j]))
+          .jarray(xj), showNaN)
       } else {
         .jcall(Rintf, "V", "writeColInts", sheet, iOffset, as.integer(j-1),
-          .jarray(x[,j]), thisColStyle$ref)
+          .jarray(xj), showNaN, thisColStyle$ref)
       }
       
-    } else if (any(c("numeric", "Date", "POSIXt") %in% class(x[,j]))) {
-      aux <- if ("Date" %in% class(x[,j])) {
-          as.numeric(x[,j])+25569
+    } else if (any(c("numeric", "Date", "POSIXt") %in% class(xj))) {
+      aux <- if ("Date" %in% class(xj)) {
+          as.numeric(xj)+25569
         } else if ("POSIXt" %in% class(x[,j])) {
-          as.numeric(x[,j])/86400 + 25569
+          as.numeric(xj)/86400 + 25569
         } else {
-          x[,j]
-        } 
+          xj
+        }
+      haveNA <- is.na(aux)
+      if (any(haveNA))
+        aux[haveNA] <- numericNA
       if (is.null(thisColStyle)) {
         .jcall(Rintf, "V", "writeColDoubles", sheet, iOffset, as.integer(j-1),
-           .jarray(aux))
+           .jarray(aux), showNaN)
       } else {
         .jcall(Rintf, "V", "writeColDoubles", sheet, iOffset, as.integer(j-1),
-           .jarray(aux), thisColStyle$ref)
+           .jarray(aux), showNaN, thisColStyle$ref)
       }
       
     } else {
+      aux <- as.character(x[,j])
+      haveNA <- is.na(aux)
+      if (any(haveNA))
+        aux[haveNA] <- stringNA
       if (is.null(thisColStyle)) {
         .jcall(Rintf, "V", "writeColStrings", sheet, iOffset, as.integer(j-1),
-           .jarray(as.character(x[,j])))
+           .jarray(aux))
       } else {
         .jcall(Rintf, "V", "writeColStrings", sheet, iOffset, as.integer(j-1),
-           .jarray(as.character(x[,j])), thisColStyle$ref)
+           .jarray(aux), thisColStyle$ref)
       }      
     }
   }

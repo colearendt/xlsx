@@ -29,9 +29,10 @@ public class TestRInterface {
       Xdouble[i] = 0.123   + (double) i;
       Xdates[i]  = 40170.0 + (double) i;
     }
+    Xdouble[3] = Double.NaN;  
     
     // create a new file
-    FileOutputStream out = new FileOutputStream("/tmp/junk.xlsx");
+    FileOutputStream out = new FileOutputStream("C:/Temp/junk.xlsx");
     Workbook wb = new XSSFWorkbook();    // create a new workbook
     Sheet sheet = wb.createSheet();      // create a new sheet
     
@@ -48,8 +49,8 @@ public class TestRInterface {
     String[] header = {"Number", "Date"};
     
     R.createCells(sheet, 0, 0);
-    R.writeColDoubles(sheet, 0, 0, Xdouble);         // 1st column double
-    R.writeColDoubles(sheet, 0, 1, Xdates, cs1);    // 2nd column date
+    R.writeColDoubles(sheet, 0, 0, Xdouble, false);         // 1st column double
+    R.writeColDoubles(sheet, 0, 1, Xdates, false, cs1);    // 2nd column date
     R.writeRowStrings(sheet, 0, 0, header, cs2);     // header with styles 
     
     
