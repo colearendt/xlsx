@@ -11,27 +11,34 @@ readColumns <- function(sheet, startColumn, endColumn, startRow,
   if (is.null(endRow))    # get it from the sheet 
     endRow <- sheet$getLastRowNum() + 1
 
-  noColumns <- endColumn - startColumn
+  noColumns <- endColumn - startColumn + 1
 
   Rintf <- .jnew("dev/RInterface")  # create an interface object 
   
-  if (header){
-    cnames <- .jcall(Rintf, "[S", "readRowStrings",
+  if (header) {
+    cnames <- try(.jcall(Rintf, "[S", "readRowStrings",
       .jcast(sheet, "org/apache/poi/ss/usermodel/Sheet"),
       as.integer(startColumn-1), as.integer(endColumn-1),
-      as.integer(startRow-1))
+      as.integer(startRow-1)))
+    if (class(cnames) == "try-error") 
+      stop(paste("Cannot read the header. ",
+        "The header row doesn't have all requested cells non-blank!"))
     startRow <- startRow + 1
   } else {
     cnames <- as.character(1:noColumns)
   }
-  
+
   # guess or expand colClasses
   if (length(colClasses) < noColumns) {
-    colClasses <- rep(colClasses, noColumns)   
-  } else {
+    colClasses <-rep(colClasses, noColumns)   
+  } else if (length(colClasses)==1 && (is.na(colClasses))) {
     row <- getRows(sheet, rowIndex=startRow) 
     cells <- getCells(row, colIndex=startColumn:endColumn)
-    colClasses <- .guess_cell_type(cells)
+    if (length(cells) == noColumns) {
+      .guess_cell_type(cells)
+    } else {
+      warning("Cannot guess colClasses from the first row of data!")
+    }
   }
   
   res <- vector("list", length=noColumns)
@@ -50,13 +57,13 @@ readColumns <- function(sheet, startColumn, endColumn, startRow,
         .jcast(sheet, "org/apache/poi/ss/usermodel/Sheet"),
         as.integer(startRow-1), as.integer(endRow-1), 
         as.integer(startColumn-1+i-1))
-      }
+    }
     if (!is.na(colClasses[i]))
       suppressWarnings(class(aux) <- colClasses[i])  # if it gets specified
     res[[i]] <- aux
   }
   
-  if (as.data.frame){
+  if (as.data.frame) {
     names(res) <- cnames
     res <- data.frame(res, ...)
   }

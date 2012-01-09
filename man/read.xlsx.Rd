@@ -79,10 +79,11 @@ and Excel string representation my differ by one second.  For
 convert to class \code{POSIXct} or \code{Date}.   
 
 The \code{read.xlsx2} function does more work in Java so it achieves
-much better performance.  The result of \code{read.xlsx2} will in
-general be different from \code{read.xlsx}.  More performance gains can
-be made for particular cases; read the source code to understand the
-approach in \code{read.xlsx2}.
+better performance (an order of magnitude faster on sheets with
+100,000 cells or more).  The result of \code{read.xlsx2} will in
+general be different from \code{read.xlsx}, because internally
+\code{read.xlsx2} uses \code{readColumns} which is tailored for tabular
+data (without blank cells in the middle).  
 
 }
 \value{
@@ -91,9 +92,8 @@ approach in \code{read.xlsx2}.
 }
 \author{ Adrian Dragulescu }
 \seealso{\code{\link{write.xlsx}} for writing \code{xlsx} documents.
-  See also \code{\link{saveWorkbook}} for reading a workbook into R for
-  further processing and \code{\link{saveWorkbook}} for saving a
-  workbook to file.}
+  See also \code{\link{readColumns}} for reading only a set of columns
+  into R.}
 \examples{
 \dontrun{
 
