@@ -149,12 +149,14 @@ public class RInterface {
     * Write a column of doubles to the sheet.  Use for Dates, DateTimes... 
     */
    public void writeColDoubles(Sheet sheet, int startRowIndex, int startColIndex, 
-     double[] data, CellStyle cellStyle){
+     double[] data, boolean showNaN, CellStyle cellStyle){
 		     
 	 int N = data.length;  
 	 for (int i=0; i<N; i++) {
-	    CELL_ARRAY[startRowIndex+i][startColIndex].setCellValue(data[i]);
-	    CELL_ARRAY[startRowIndex+i][startColIndex].setCellStyle(cellStyle);
+       if (!(showNaN && data[i]==Double.NaN)) {   
+	     CELL_ARRAY[startRowIndex+i][startColIndex].setCellValue(data[i]);
+	     CELL_ARRAY[startRowIndex+i][startColIndex].setCellStyle(cellStyle);
+       }
 	 }     
    }
   
@@ -163,11 +165,15 @@ public class RInterface {
     * Write a column of doubles to the sheet.
     */
    public void writeColDoubles(Sheet sheet, int startRowIndex, int startColIndex, 
-     double[] data){
+     double[] data, boolean showNaN){
      
      int N = data.length;  
      for (int i=0; i<N; i++) {
-       CELL_ARRAY[startRowIndex+i][startColIndex].setCellValue(data[i]);
+       if (!(showNaN && data[i]==Double.NaN)) {
+         CELL_ARRAY[startRowIndex+i][startColIndex].setCellValue(data[i]);
+       } else {
+         CELL_ARRAY[startRowIndex+i][startColIndex].setCellType(3);
+       }
      }     
    }
 
