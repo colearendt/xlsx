@@ -169,10 +169,10 @@ public class RInterface {
      
      int N = data.length;  
      for (int i=0; i<N; i++) {
-       if (!(showNaN && data[i]==Double.NaN)) {
-         CELL_ARRAY[startRowIndex+i][startColIndex].setCellValue(data[i]);
-       } else {
+       if (!showNaN && Double.isNaN(data[i])) {
          CELL_ARRAY[startRowIndex+i][startColIndex].setCellType(3);
+       } else {
+         CELL_ARRAY[startRowIndex+i][startColIndex].setCellValue(data[i]);
        }
      }     
    }
@@ -181,21 +181,29 @@ public class RInterface {
     * Write a column of ints to the sheet.
     */
    public void writeColInts(Sheet sheet, int startRowIndex, int startColIndex, 
-     int[] data){
+     int[] data, boolean showNA){
      
      int N = data.length;  
      for (int i=0; i<N; i++) {
-       CELL_ARRAY[startRowIndex+i][startColIndex].setCellValue(data[i]);
+       if (!showNA && data[i]==-2147483648) {
+         CELL_ARRAY[startRowIndex+i][startColIndex].setCellType(3);
+       } else {
+         CELL_ARRAY[startRowIndex+i][startColIndex].setCellValue(data[i]);
+       }
      }     
    }  
 
    public void writeColInts(Sheet sheet, int startRowIndex, int startColIndex, 
-     int[] data, CellStyle cellStyle){
+     int[] data, boolean showNA, CellStyle cellStyle){
 		     
      int N = data.length;  
      for (int i=0; i<N; i++) {
-       CELL_ARRAY[startRowIndex+i][startColIndex].setCellValue(data[i]);
-       CELL_ARRAY[startRowIndex+i][startColIndex].setCellStyle(cellStyle);
+       if (!showNA && data[i]==-2147483648) {
+         CELL_ARRAY[startRowIndex+i][startColIndex].setCellType(3);
+       } else {
+         CELL_ARRAY[startRowIndex+i][startColIndex].setCellValue(data[i]);
+         CELL_ARRAY[startRowIndex+i][startColIndex].setCellStyle(cellStyle);
+       }
      }     
    }  
 

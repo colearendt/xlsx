@@ -3,9 +3,12 @@
 # colStyle can be a structure of CellStyle with names representing column
 #  index.  
 #
+# I shouldn't offer to change the data for the user, with characterNA="",
+# they should do it themselves.  It's not that hard!
+#
 addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
   startRow=1, startColumn=1, colStyle=NULL, colnamesStyle=NULL,
-  rownamesStyle=NULL, stringNA="", numericNA=NaN, showNaN=FALSE)
+  rownamesStyle=NULL, showNA=FALSE, characterNA="")
 {
   if (!is.data.frame(x))
     x <- data.frame(x)    # just because the error message is too ugly
@@ -62,15 +65,12 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
 #browser()
     xj <- x[,j]
     if ("integer" %in% class(xj)) {
-      havNA <- is.na(xj)
-      if (any(haveNA))
-        aux[haveNA] <- numericNA      
       if (is.null(thisColStyle)) {
         .jcall(Rintf, "V", "writeColInts", sheet, iOffset, as.integer(j-1),
-          .jarray(xj), showNaN)
+          .jarray(xj), showNA)
       } else {
         .jcall(Rintf, "V", "writeColInts", sheet, iOffset, as.integer(j-1),
-          .jarray(xj), showNaN, thisColStyle$ref)
+          .jarray(xj), showNA, thisColStyle$ref)
       }
       
     } else if (any(c("numeric", "Date", "POSIXt") %in% class(xj))) {
@@ -83,20 +83,20 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
         }
       haveNA <- is.na(aux)
       if (any(haveNA))
-        aux[haveNA] <- numericNA
+        aux[haveNA] <- NaN          # encode the numeric NAs as NaN for java
       if (is.null(thisColStyle)) {
         .jcall(Rintf, "V", "writeColDoubles", sheet, iOffset, as.integer(j-1),
-           .jarray(aux), showNaN)
+           .jarray(aux), showNA)
       } else {
         .jcall(Rintf, "V", "writeColDoubles", sheet, iOffset, as.integer(j-1),
-           .jarray(aux), showNaN, thisColStyle$ref)
+           .jarray(aux), showNA, thisColStyle$ref)
       }
       
     } else {
       aux <- as.character(x[,j])
       haveNA <- is.na(aux)
       if (any(haveNA))
-        aux[haveNA] <- stringNA
+        aux[haveNA] <- characterNA
       if (is.null(thisColStyle)) {
         .jcall(Rintf, "V", "writeColStrings", sheet, iOffset, as.integer(j-1),
            .jarray(aux))

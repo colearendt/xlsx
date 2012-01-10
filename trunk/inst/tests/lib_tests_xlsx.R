@@ -33,13 +33,21 @@ test.addDataFrame <- function(wb)
   addDataFrame(data, sheet, startRow=3, startColumn=2, colnamesStyle=cs3,
     rownamesStyle=cs1, colStyle=list(`2`=cs2, `3`=cs2))
 
-  cat("  NA treatment\n")
+  cat("  NA treatment, with defaults\n")
   sheet2 <- createSheet(wb, sheetName="addDataFrame2")  
-  data <- data.frame(mon=month.abb, index=1:12, stringsAsFactors=FALSE)
-  data$mon[3:4] <- NA; data$mon[12] <- "NA treatment!"
+  data <- data.frame(mon=month.abb, index=1:12, double=seq(1.23, by=1,
+    length.out=12), stringsAsFactors=FALSE)
+  data$mon[3:4] <- NA; data$mon[12] <- "defaults, showNA=FALSE"
   data$index[c(1, 7, 11)] <- NA
+  data$double[3:4] <- NA
   addDataFrame(data, sheet2, row.names=FALSE)
-                       
+
+  cat("  NA treatment, with showNA=TRUE\n")
+  sheet3 <- createSheet(wb, sheetName="addDataFrame3")
+  data$mon[12] <- "showNA=TRUE, characterNA=NotAvailable"
+  addDataFrame(data, sheet3, row.names=FALSE, showNA=TRUE,
+    characterNA="NotAvailable")
+  
   cat("Done.\n")
 }
 
@@ -327,8 +335,8 @@ test.ranges <- function(wb)
 
   
 
-  , startRow=3,
-    colIndex=c(3,4,6,8,9,10))
+  ## startRow=3,
+  ## colIndex=c(3,4,6,8,9,10))
 
   
   
@@ -337,7 +345,7 @@ test.ranges <- function(wb)
 }
 
 #####################################################################
-# Test highlevel export
+# test highlevel export
 # 
 .main_highlevel_export <- function(ext="xlsx")
 {
@@ -418,12 +426,12 @@ test.ranges <- function(wb)
    
   wb <- createWorkbook(type=ext)
 
-  ## test.cellStyles(wb)
-  ## test.comments(wb)
-  ## test.dataFormats(wb)
-  ## test.ranges(wb)
-  ## test.otherEffects(wb)
-  ## test.picture(wb)
+  test.cellStyles(wb)
+  test.comments(wb)
+  test.dataFormats(wb)
+  test.ranges(wb)
+  test.otherEffects(wb)
+  test.picture(wb)
   test.addDataFrame(wb)
   
   saveWorkbook(wb, outfile)

@@ -3,7 +3,7 @@
 #
 
 write.xlsx2 <- function(x, file, sheetName="Sheet 1",
-  col.names=TRUE, row.names=TRUE, append=FALSE)
+  col.names=TRUE, row.names=TRUE, append=FALSE, ...)
 {
   if (append){
     wb <- loadWorkbook(file)
