@@ -1,17 +1,20 @@
 \name{Font}
 \alias{Font}
 \alias{createFont}
+\alias{is.Font}
 \title{Create a Font object.}
 \description{
-Create a Font object.
+  Create a Font object.
 }
 \usage{
 
-Font(wb, color=NULL, fontHeightInPoints=NULL, name=NULL,
+Font(wb, color=NULL, heightInPoints=NULL, name=NULL,
   isItalic=FALSE, isStrikeout=FALSE, isBold=FALSE, underline=NULL,
   boldweight=NULL)
 
 createFont(...)
+
+is.Font(x)
 
 }
 \arguments{
@@ -20,7 +23,8 @@ createFont(...)
 
   \item{color}{a character specifiying the font color.  Any
     color names as returned by \code{\link[grDevices]{colors}} can be
-    used.}
+    used.  For Excel 95 workbooks, only a subset of colors is
+    available, see the constant \code{INDEXED_COLORS_}.}
   
   \item{heightInPoints}{a numeric value specifying the font height.
   Usual values are 10, 12, 14, etc.}
@@ -38,7 +42,9 @@ createFont(...)
   underline.  Allowed values are 0, 1, 2.}
 
   \item{boldweight}{a numeric value indicating bold weight.  Normal is
-  400, regular bold is 700. }
+    400, regular bold is 700. }
+
+  \item{x} {A Font object, as returned by \code{Font}. }
   
 }
 
@@ -54,9 +60,18 @@ createFont(...)
   \code{Font} object to it. 
 }
 \value{
-  \code{createFont} returns a java reference to a \code{Font} object.
+  \code{Font} returns a list with a java reference to a
+  \code{Font} object, and a class attribute "Font".
+
+  \code{is.Font} returns \code{TRUE} if the argument is of class
+  "Font" and \code{FALSE} otherwise.
+
 }
 \author{Adrian Dragulescu}
 \seealso{\code{\link{CellStyle}} for using the a \code{Font} object.}
+\examples {
+
+  font <-  Font(wb, color="blue", isItalic=TRUE)
+}
 
 

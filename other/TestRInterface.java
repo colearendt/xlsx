@@ -21,7 +21,7 @@ public class TestRInterface {
   public static void testWrite() throws IOException{
     RInterface R = new RInterface(); // create the R interface
     R.NCOLS = 5;
-    R.NROWS = 130;
+    R.NROWS = 13;
     
     double[] Xdouble = new double[R.NROWS];
     double[] Xdates  = new double[R.NROWS];

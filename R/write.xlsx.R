@@ -37,7 +37,7 @@
 #######################################################################
 # High-level API
 #
-write.xlsx <- function(x, file, sheetName="Sheet1", formatTemplate=NULL,
+write.xlsx <- function(x, file, sheetName="Sheet1",
   col.names=TRUE, row.names=TRUE, append=FALSE)
 {
   if (!is.data.frame(x))
@@ -72,14 +72,6 @@ write.xlsx <- function(x, file, sheetName="Sheet1", formatTemplate=NULL,
   .write_block(wb, sheet, x, rowIndex, colIndex)
   saveWorkbook(wb, file)
 
-  
-##   # add a general format template
-##   if (!is.null(formatTemplate)){
-##     cat("formatTemplate is not yet supported.  Patches welcome.")
-##     wb <- wb  # call the custom function
-##   }
-    
-  
   invisible()
 }
 

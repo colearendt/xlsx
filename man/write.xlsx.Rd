@@ -6,19 +6,17 @@
 Write a \code{data.frame} to an Excel 2007 workbook.
 }
 \usage{
-write.xlsx(x, file, sheetName="Sheet1", formatTemplate=NULL,
+write.xlsx(x, file, sheetName="Sheet1", 
   col.names=TRUE, row.names=TRUE, append=FALSE)
 
-write.xlsx2(x, file, sheetName="Sheet1", formatTemplate=NULL,
-  col.names=TRUE, row.names=TRUE, append=FALSE)
+write.xlsx2(x, file, sheetName="Sheet1",
+  col.names=TRUE, row.names=TRUE, append=FALSE, ...)
 }
 \arguments{
   \item{x}{a \code{data.frame} to write to the workbook.}
   \item{file}{the \emph{absolute} path to the file which the data are to
     be read from.}
   \item{sheetName}{a character string with the sheet name.}
-  \item{formatTemplate}{Not implemented now.  A way for specifying
-    the formatting of the table.} 
   \item{col.names}{a logical value indicating if the column names of
     \code{x} are to be written along with \code{x} to the file.}
   \item{row.names}{a logical value indicating whether the row names of 
@@ -26,6 +24,10 @@ write.xlsx2(x, file, sheetName="Sheet1", formatTemplate=NULL,
   \item{append}{a logical value indicating if \code{x} should be
     appended to an existing file.  If \code{TRUE} the file is read
     from disk.}
+  
+  \item{\ldots}{other arguments to \code{addDataFrame} in the case of
+    \code{read.xlsx2}.} 
+
 }
 
 \details{
@@ -43,18 +45,15 @@ adds to processing time.
 
 If \code{x} is not a \code{data.frame} it will be converted to one.
 
-Function \code{write.xlsx2} uses Java internally for looping and the
-result is a significant improvement in performance.  Please see the
-source file for an example of how to implent a custom write function.
-Only integer, numeric and character columns are supported.  Other column
-types are converted to character.
+Function \code{write.xlsx2} uses \code{addDataFrame} which speeds up the
+execution compared to \code{write.xlsx} by an order of magnitude for
+large spreadsheets (with more than 100,000 cells).
 
 }
 \author{ Adrian Dragulescu }
 \seealso{\code{\link{read.xlsx}} for reading \code{xlsx} documents.
-  See also \code{\link{saveWorkbook}} for reading a workbook into R for
-  further processing and \code{\link{saveWorkbook}} for saving a
-  workbook to file.}
+  See also \code{\link{addDataFrame}} for writing a \code{data.frame} to a
+  sheet.}
 \examples{
 \dontrun{
 
