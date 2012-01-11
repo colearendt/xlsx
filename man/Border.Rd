@@ -29,7 +29,7 @@ is.Border(x)
   
 }
 
-\details {
+\details{
   The values for the color, position, or pen arguments are replicated to
   the longest of the them.  
 }
@@ -44,7 +44,7 @@ is.Border(x)
 }
 \author{Adrian Dragulescu}
 \seealso{\code{\link{CellStyle}} for using the a \code{Border} object.}
-\examples {
+\examples{
 
   border <-  Border(color="red", position=c("TOP", "BOTTOM"),
     pen=c("BORDER_THIN", "BORDER_THICK"))

@@ -16,36 +16,37 @@ addDataFrame(x, sheet, col.names=TRUE, row.names=TRUE,
   \item{x}{a \code{data.frame}.}
   
   \item{sheet}{a \code{\link{Sheet}} object.}
-
+  
   \item{col.names}{a logical value indicating if the column names of
     \code{x} are to be written along with \code{x} to the file.}
   
   \item{row.names}{a logical value indicating whether the row names of 
     \code{x} are to be written along with \code{x} to the file.}
-
-  \item{startRow}{a numeric value for the starting row.}
-    \item{startColumn}{a numeric value for the starting column.}
   
-  \item{colStyle}{a list of \code{\link{CellStyle}.  If the name of the
+  \item{startRow}{a numeric value for the starting row.}
+  
+  \item{startColumn}{a numeric value for the starting column.}
+  
+  \item{colStyle}{a list of \code{\link{CellStyle}}.  If the name of the
      list element is the column number, it will be used to set the style
      of the column.  Columns of type \code{Date} and \code{POSIXct} are
      styled automatically.}
-  
+   
   \item{colnamesStyle}{a \code{\link{CellStyle}} object to customize the
     table header.}
   
   \item{rownamesStyle}{a \code{\link{CellStyle}} object to customize the
     row names (if \code{row.names=TRUE}).}
-
+  
   \item{showNA} {a boolean value to control how NA's are displayed on the
-    sheet.  If \code{FALSE}, NA values will be represented as blank cells.}
-
+    sheet.  If \code{FALSE}, NA values will be represented as blank
+    cells.}
+  
   \item{characterNA} {a string value to control how character NA will be
     shown in the spreadsheet.}
-  
 }
 
-\details {
+\details{
   Internally this function uses Java internally for looping and the
   result is a significant improvement in performance compared with a
   cell by cell application of \code{\link{setCellValue}}. 

@@ -3,45 +3,34 @@
 \alias{createCellStyle}
 \alias{setCellStyle}
 \alias{getCellStyle}
+\alias{is.CellStyle}
 \title{Functions to manipulate cells.}
 \description{
 Create and set cell styles. 
 }
 \usage{
 
-CellStyle(wb, hAlign=NULL, vAlign=NULL, borderPosition=NULL,
-  borderPen="BORDER_NONE", borderColor=NULL, fillBackgroundColor=NULL,
-  fillForegroundColor=NULL, fillPattern=NULL, font=NULL,
-  dataFormat=NULL, wrapText=FALSE)
+CellStyle(wb, dataFormat=NULL, alignment=NULL,
+  border=NULL, fill=NULL, font=NULL, cellProtection=NULL)
 
 setCellStyle(cell, cellStyle)
 
 getCellStyle(cell)
+
+is.CellStyle(x)
 
 }
 \arguments{
   \item{wb}{a workbook object as returned by
     \code{\link{createWorkbook}} or \code{\link{loadWorkbook}}.}
   
-  \item{hAlign}{a character specifiying the horizontal alignment.  Valid
-    values are "ALIGN_CENTER", "ALIGN_CENTER_SELECTION", "ALIGN_FILL", 
-    "ALIGN_GENERAL", "ALIGN_JUSTIFY", "ALIGN_LEFT", "ALIGN_RIGHT".}
+  \item{dataFormat}{a \code{\link{DataFormat}} object.}
 			
-  \item{vAlign}{a character specifiying the vertical alignment.  Valid
-    values are "VERTICAL_BOTTOM", "VERTICAL_CENTER", "VERTICAL_JUSTIFY", 
-    "VERTICAL_TOP".}
+  \item{alignment}{a \code{\link{Alignment}} object.}
 		       
-  \item{borderPosition}{a character specifiying the border position.
-    Valid values are "BOTTOM", "LEFT", "TOP", "RIGHT".  You can pass a
-    vector with any combination of these four values, if you want to
-    have  multiple borders (e.g. pass all four if you want to box your cell.)}
+  \item{border}{a \code{\link{Border}} object.}
   
-  \item{borderPen}{a character specifiying the border pen.  Valid values
-    are "BORDER_DASH_DOT", "BORDER_DASH_DOT_DOT1", "BORDER_DASHED",
-    "BORDER_DOTTED", "BORDER_DOUBLE", "BORDER_HAIR", "BORDER_MEDIUM",
-    "BORDER_MEDIUM_DASH_DOT1", "BORDER_MEDIUM_DASH_DOT_DOT1", 
-    "BORDER_MEDIUM_DASHED", "BORDER_NONE", "BORDER_SLANTED_DASH_DOT1",
-    "BORDER_THICK", "BORDER_THIN".}
+  \item{fill}{a \code{\link{Fill}} object.}
 			
   \item{borderColor}{a character specifiying the border color.  Any
     color names as returned by \code{\link[grDevices]{colors}} can be
@@ -89,16 +78,6 @@ getCellStyle(cell)
   \code{setCellStyle} sets the \code{CellStyle} to one \code{Cell}
   object.
 
-  Specifying the \code{dataFormat} argument allows you to format the
-  cell.  For example, "#,##0.00" corresponds to using a comma separator
-  for powers of 1000 with two decimal places, "m/d/yyyy" can be used to
-  format dates and is the equivalent of \R's MM/DD/YYYY format.  To
-  format datetimes use "m/d/yyyy h:mm:ss;@".  To show negative values in
-  red within parantheses with two decimals and commas after power of
-  1000 use "#,##0.00_);[Red](#,##0.00)".  I am not aware of an official
-  way to discover these strings.  I find them out by recording a macro
-  that formats a specific cell and then checking out the resulting VBA
-  code.  From there you can read the \code{dataFormat} code.
   
   You need to have a \code{Workbook} object to attach  a
   \code{CellStyle} object to it.
@@ -110,7 +89,7 @@ getCellStyle(cell)
   about 50 basic colors are still available please see the javadocs. 
 
   For Excel 95/2000/XP/2003 the choice of colors is limited.  See
-  \code{xlsx:::.INDEXED_COLORS} for the list of available colors.  
+  \code{INDEXED_COLORS_} for the list of available colors.  
   
   Unspecified values for arguments are taken from the system locale.  
   
