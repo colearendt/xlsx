@@ -33,7 +33,6 @@ is.Alignment(x)
   
 }
 
-%\details{}
 \value{
   \code{Alignment} returns a list with components from the input
   argument, and a class attribute "Alignment".  Alignment objects are
@@ -45,7 +44,7 @@ is.Alignment(x)
 }
 \author{Adrian Dragulescu}
 \seealso{\code{\link{CellStyle}} for using the a \code{Alignment} object.}
-\examples {
+\examples{
 
   # you can just use h for horizontal, since R does the matching for you
   a1 <-  Alignment(h="ALIGN_CENTER", rotation=90) # centered and rotated!
