@@ -433,6 +433,7 @@ test.ranges <- function(wb)
   test.otherEffects(wb)
   test.picture(wb)
   test.addDataFrame(wb)
+  #test.pageBreaks(wb)    # not working with 3.7, fixed in 3.8
   
   saveWorkbook(wb, outfile)
   
