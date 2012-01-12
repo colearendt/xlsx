@@ -83,7 +83,7 @@ better performance (an order of magnitude faster on sheets with
 100,000 cells or more).  The result of \code{read.xlsx2} will in
 general be different from \code{read.xlsx}, because internally
 \code{read.xlsx2} uses \code{readColumns} which is tailored for tabular
-data (without blank cells in the middle).  
+data.  
 
 }
 \value{
@@ -115,7 +115,7 @@ head(res)
 # For Dates, use a conversion like:
 #   as.Date(x-25569, origin="1970-01-01") 
 
-res2 <- read.xlsx2(file, 1)  # all columns returned characters
+res2 <- read.xlsx2(file, 1)  
 
 }
 }
