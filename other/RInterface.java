@@ -26,7 +26,8 @@ public class RInterface {
        } 
      } 
    }
- 
+    
+   
    /*
     * Read a column of doubles from the sheet.  If the cell is not a Number show a NaN!
     */

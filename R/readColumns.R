@@ -8,9 +8,15 @@ readColumns <- function(sheet, startColumn, endColumn, startRow,
   endRow=NULL, as.data.frame=TRUE, header=TRUE, colClasses=NA, ...)
 {
 
-  if (is.null(endRow))    # get it from the sheet 
-    endRow <- sheet$getLastRowNum() + 1
-
+  trueEndRow <- sheet$getLastRowNum() + 1
+  if (is.null(endRow))     # get it from the sheet 
+    endRow <- trueEndRow
+  
+  if (endRow > trueEndRow) {
+    warning(paste("This sheet has only", trueEndRow, "rows"))
+    endRow <- min(endRow, trueEndRow)
+  }
+  
   noColumns <- endColumn - startColumn + 1
 
   Rintf <- .jnew("dev/RInterface")  # create an interface object 

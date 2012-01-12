@@ -20,7 +20,17 @@ readColumns(sheet, startColumn, endColumn, startRow,
   \item{startRow}{a numeric value for the starting row.}
   
   \item{endRow}{a numeric value for the ending row.  If \code{NULL} it
-    reads all the rows in the sheet.}  
+    reads all the rows in the sheet.  If you request more than the
+    existing rows in the sheet, the result will be truncated by the
+    actual row number.}
+  
+  \item{as.data.frame}{a logical value indicating if the result should
+    be coerced into a \code{data.frame}.  If \code{FALSE}, the result is
+    a list with one element for each column.}
+  
+  \item{header}{a logical value indicating whether the first row
+    corresponding to the first element of the \code{rowIndex} vector
+    contains the names of the variables.}
   
   \item{colClasses}{a character vector that represent the class of each
     column.  Recycled as necessary, or if \code{NA} an attempt is made
@@ -33,8 +43,8 @@ readColumns(sheet, startColumn, endColumn, startRow,
 \details{
   
 Use the \code{readColumns} function when you want to read a rectangular
-block of data from an Excel worksheet.  It calls several low level
-functions in the process.  
+block of data from an Excel worksheet.  If you request columns which
+are blank, these will be read in as empty character "" columns.  
 
 Excel internally stores dates and datetimes as numeric values, and does
 not keep track of time zones and DST.  When a numeric column is
@@ -42,7 +52,9 @@ formatted as a datetime, it will be converted into \code{POSIXct} class
 with a \emph{GMT} timezone.  If you need a \code{Date} column, you need
 to specify explicitly using \code{colClasses} argument.
 
-Blannk cells in the middle of your data, will be returned as NA's.
+For a numeric column Excels's errors and blank cells will be returned as
+NaN values.  Excel's \code{#N/A} will be returned as NA.  Formulas will be
+evaluated. For a chracter column, blank cells will be returned as "". 
 
 }
 \value{
@@ -56,25 +68,19 @@ Blannk cells in the middle of your data, will be returned as NA's.
 \examples{
 \dontrun{
 
-file <- system.file("tests", "test_import.xlsx", package = "xlsx")
-res <- read.xlsx(file, 1)  # read first sheet
-head(res)
-#          NA. Population Income Illiteracy Life.Exp Murder HS.Grad Frost   Area
-# 1    Alabama       3615   3624        2.1    69.05   15.1    41.3    20  50708
-# 2     Alaska        365   6315        1.5    69.31   11.3    66.7   152 566432
-# 3    Arizona       2212   4530        1.8    70.55    7.8    58.1    15 113417
-# 4   Arkansas       2110   3378        1.9    70.66   10.1    39.9    65  51945
-# 5 California      21198   5114        1.1    71.71   10.3    62.6    20 156361
-# 6   Colorado       2541   4884        0.7    72.06    6.8    63.9   166 103766
-# >
+  file <- system.file("tests", "test_import.xlsx", package = "xlsx")
 
+  wb     <- loadWorkbook(file)
+  sheets <- getSheets(wb)
 
-# To convert an Excel datetime colum to POSIXct, do something like:
-#   as.POSIXct((x-25569)*86400, tz="GMT", origin="1970-01-01")
-# For Dates, use a conversion like:
-#   as.Date(x-25569, origin="1970-01-01") 
+  sheet <- sheets[["all"]]
+  res <- readColumns(sheet, startColumn=3, endColumn=10, startRow=3,
+    endRow=7)
 
-res2 <- read.xlsx2(file, 1)  # all columns returned characters
+  sheet <- sheets[["NAs"]]
+  res <- readColumns(sheet, 1, 6, 1,  colClasses=c("Date", "character",
+    "integer", rep("numeric", 2),  "POSIXct"))
+ 
 
 }
 }

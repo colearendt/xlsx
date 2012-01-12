@@ -2,7 +2,7 @@
 # with a java back-end
 #
 
-write.xlsx2 <- function(x, file, sheetName="Sheet 1",
+write.xlsx2 <- function(x, file, sheetName="Sheet1",
   col.names=TRUE, row.names=TRUE, append=FALSE, ...)
 {
   if (append){

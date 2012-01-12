@@ -65,11 +65,11 @@ public class TestRInterface {
 //    FileInputStream in = new FileInputStream("H:/user/R/Adrian/findataweb/temp/xlsx/trunk/inst/tests/test_import.xlsx");
 //    FileInputStream in = new FileInputStream("S:/All/Structured Risk/NEPOOL/Incs & Decs/Apr 11/Inc Dec 15Apr11 Incs and Decs.xls");
     Workbook wb = WorkbookFactory.create(in);
-    Sheet sheet = wb.getSheetAt(3); 
+    Sheet sheet = wb.getSheetAt(7); 
     
     //String[] res = R.readRowStrings(sheet, 0, 10, 0);
-    String[] res = R.readColStrings(sheet, 1, 20, 1);
-//    double[] res = R.readColDoubles(sheet, 1, 20, 1);
+//    String[] res = R.readColStrings(sheet, 1, 20, 1);
+    double[] res = R.readColDoubles(sheet, 1, 10, 4);
     //double[] res = R.readColDoubles(sheet, 0, 2006, 0);
     for (int i=0; i<res.length; i++){
       System.out.println(res[i]);
@@ -78,8 +78,8 @@ public class TestRInterface {
   
   public static void main(String[] args) throws IOException, InvalidFormatException {
 		
-    testWrite();    
-	//testRead();  
+    //testWrite();    
+	testRead();  
       
     System.out.println("Done!");
 

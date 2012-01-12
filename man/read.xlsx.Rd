@@ -11,9 +11,8 @@ read.xlsx(file, sheetIndex, sheetName=NULL, rowIndex=NULL,
   keepFormulas=FALSE, encoding="unknown", ...)
 
 read.xlsx2(file, sheetIndex, sheetName=NULL, startRow=1,
-  startColumn=1, noRows=NULL, noColumns=NULL, as.data.frame=TRUE,
-  header=TRUE, colClasses="character", ...)
-
+  colIndex=NULL, endRow=NULL, as.data.frame=TRUE, header=TRUE,
+  colClasses="character", ...)
 }
 \arguments{ 
   \item{file}{the \emph{absolute} path to the file which the data are to
