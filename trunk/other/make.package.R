@@ -98,7 +98,7 @@ version <- .update.DESCRIPTION(pkgdir, version)
 
 # make the package
 setwd(outdir)
-cmd <- paste(Rcmd, "build --force --binary", pkgdir)
+cmd <- paste(Rcmd, "build --force", pkgdir)
 print(cmd)
 
 system(cmd)

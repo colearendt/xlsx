@@ -51,6 +51,47 @@ test.addDataFrame <- function(wb)
   cat("Done.\n")
 }
 
+#####################################################################
+# 
+# 
+test.basicFunctions <- function(ext)
+{
+  cat("Testing basic workbook functions\n")
+  cat("Create an empty workbook ... ") 
+  wb <- createWorkbook(type=ext)
+
+  cat("  create a sheet called 'Sheet1'\n")
+  sheet1 <- createSheet(wb, sheetName="Sheet1")
+
+  cat("  create another sheet called 'Sheet2'\n")
+  sheet2 <- createSheet(wb, sheetName="Sheet2")
+  
+  cat("  get sheets\n")
+  sheets <- getSheets(wb)
+  stopifnot(length(sheets) == 2)
+
+  cat("  remove sheet named 'Sheet2'\n")
+  removeSheet(wb, sheetName="Sheet2")
+  sheets <- getSheets(wb)  
+  stopifnot(length(sheets) == 1)
+ 
+  cat("  add rows 6:10 on Sheet1\n")
+  rows <- createRow(sheet1, 6:10)
+  stopifnot(length(rows) == 5)
+
+  cat("  remove rows 1:10 on Sheet1 of test_import.xlsx\n")
+  filename <- paste("test_import.", ext, sep="")
+  file <- system.file("tests", filename, package="xlsx")
+  wb <- loadWorkbook(file)  
+  sheets <- getSheets(wb)
+  sheet <- sheets[[1]]  
+  rows  <- getRows(sheet)           # get all the rows
+  removeRow(sheet, rows[1:10])
+  rows  <- getRows(sheet)           # get all the rows
+  stopifnot(length(rows) == 41)
+
+  cat("Done.\n")
+}
 
 #####################################################################
 # Test Borders, Fonts, Colors, etc. 
@@ -313,11 +354,9 @@ test.ranges <- function(wb)
   source(paste(SOURCEDIR, "rexcel/trunk/R/read.xlsx2.R", sep=""))
   res <- read.xlsx2(file, sheetName="all", startRow=3)
   
-  # trouble when colIndex is too large
-  source(paste(SOURCEDIR, "rexcel/trunk/R/read.xlsx2.R", sep=""))
+  cat("  read more columns than on the spreadsheet")
   res <- read.xlsx2(file, sheetName="all", startRow=3, noRows=6, colIndex=3:14)
 
-  source(paste(SOURCEDIR, "rexcel/trunk/R/readColumns.R", sep=""))
   cat("  pass in some colClasses\n")
   res <- read.xlsx2(file, sheetName="all", startRow=3, colIndex=3:10,
     colClasses=c("character", rep("numeric", 2), "Date", "character",
@@ -331,17 +370,9 @@ test.ranges <- function(wb)
 
   cat("  read ragged data\n") 
   res2 <- read.xlsx2(file, sheetName="ragged")
-  res  <- read.xlsx(file, sheetName="ragged")  # THIS ERRORS!
+  res  <- read.xlsx(file, sheetName="ragged", colIndex=1:4)  
 
-  
-
-  ## startRow=3,
-  ## colIndex=c(3,4,6,8,9,10))
-
-  
-  
-
-  
+  cat("Done.\n")
 }
 
 #####################################################################
@@ -383,37 +414,35 @@ test.ranges <- function(wb)
 #
 .main_lowlevel_import <- function(ext="xlsx")
 {
-  outfile <- paste(OUTDIR, "test_export.", ext, sep="")
-  #if (file.exists(outfile)) unlink(outfile)
-   
-  wb <- loadWorkbook(outfile)
-
+  cat("Testing low level import ...\n")
+  fname  <- paste("test_import.", ext, sep="")
+  file   <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/", fname, sep="")
+  wb     <- loadWorkbook(file)
   sheets <- getSheets(wb)
 
-  sheet <- sheets[["addDataFrame1"]]
+  cat("  readColumns on all sheet\n")
+  sheet <- sheets[["all"]]
+  res <- readColumns(sheet, startColumn=3, endColumn=10, startRow=3,
+    endRow=7)
+  stopifnot(nrow(res)==4)
 
-  startColumn <- 2
-  endColumn   <- 10
-  startRow    <- 3
-  colClasses  <- NA
-  
-  row <- getRows(sheet, rowIndex=4)
-  cells <- getCells(row)
+  cat("  readColumns for more cols than data\n")
+  res <- readColumns(sheet, 1, 14, 3)
+  stopifnot(ncol(res)==14)
 
-  cell <- cells[[2]]
-  
-  res <- readColumns(sheet, colIndex, startRow)
+  cat("  readColumns for formulas and NAs\n")
+  sheet <- sheets[["NAs"]]
+  res <- readColumns(sheet, 1, 6, 1,  colClasses=c("Date", "character",
+    "integer", rep("numeric", 2),  "POSIXct"))
+  stopifnot(length(which(is.nan(res[,5])))==4)
 
+  cat("  readColumns for ragged sheets\n")
+  sheet <- sheets[["ragged"]]
+  res <- readColumns(sheet, 1, 4, 1,  colClasses=c(rep("character", 3),
+                                        "numeric"))
+  stopifnot(res[1,1]=="")
 
-  # TODO:  what happens to readColumns when I have empty cells in the
-  #   middle of a column?
-  
-  
-  
-
-  
-
-  
+  cat("Done.\n")
 }
 
 
@@ -482,39 +511,25 @@ test.ranges <- function(wb)
     "lib_tests_xlsx.R", sep="")
   source(thisFile)
 
-  source(paste(SOURCEDIR, "rexcel/trunk/R/utilities.R", sep=""))
-  
-  
+  test.basicFunctions(ext="xlsx")
   .main_lowlevel_export(ext="xlsx")  
   .main_highlevel_export(ext="xlsx")
 #  .main_speedtest_export(ext="xlsx")
   
+  test.basicFunctions(ext="xls")
   .main_lowlevel_export(ext="xls")  
   .main_highlevel_export(ext="xls")
 #  .main_speedtest_export(ext="xls")
-
-  
+ 
   .main_highlevel_import(ext="xlsx")
   .main_lowlevel_import(ext="xlsx")
 
-  # TODO:
-  #  addDataFrame should get an argument for how to treat NAs. 
-  #  Make sure addDataFrame does not write an extra empty column!
-
-  
-  .main_import(ext="xls")
-
-
-
-
-  ###################################################
-  # Just test NA's
-  A <- .jarray(c("A", NA, "B"))
-   
-
+  .main_highlevel_import(ext="xls")
+  .main_lowlevel_import(ext="xls")
   
 }
 
+  # source(paste(SOURCEDIR, "rexcel/trunk/R/utilities.R", sep=""))
 
   ## source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
 
@@ -573,7 +588,8 @@ test.ranges <- function(wb)
 ##     "createCell", as.integer(3))$setCellValue(TRUE)
 
 ##   cat("Done.\n")
-## }
+
+
 
 
 

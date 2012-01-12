@@ -40,6 +40,8 @@ is.CellStyle(x)
   
   \item{x}{a \code{CellStyle} object.}
 
+  \item{cell}{a \code{\link{Cell}} object}
+  
   \item{\ldots}{arguments to \code{CellStyle.defult}.} 
   
   

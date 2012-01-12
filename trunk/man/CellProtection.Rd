@@ -7,7 +7,7 @@
 }
 \usage{
 
-CellProtection <- function(locked=TRUE, hidden=FALSE)
+CellProtection(locked=TRUE, hidden=FALSE)
 
 is.CellProtection(x)
 
@@ -18,7 +18,7 @@ is.CellProtection(x)
 
   \item{hidden}{a logical indicating the cell is hidden.}
 
-  \item{x} {A CellProtection object, as returned by \code{CellProtection}. }
+  \item{x}{A CellProtection object, as returned by \code{CellProtection}. }
   
 }
 

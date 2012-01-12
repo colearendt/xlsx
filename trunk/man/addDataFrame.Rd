@@ -38,11 +38,11 @@ addDataFrame(x, sheet, col.names=TRUE, row.names=TRUE,
   \item{rownamesStyle}{a \code{\link{CellStyle}} object to customize the
     row names (if \code{row.names=TRUE}).}
   
-  \item{showNA} {a boolean value to control how NA's are displayed on the
+  \item{showNA}{a boolean value to control how NA's are displayed on the
     sheet.  If \code{FALSE}, NA values will be represented as blank
     cells.}
   
-  \item{characterNA} {a string value to control how character NA will be
+  \item{characterNA}{a string value to control how character NA will be
     shown in the spreadsheet.}
 }
 

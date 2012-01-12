@@ -44,7 +44,9 @@ is.Font(x)
   \item{boldweight}{a numeric value indicating bold weight.  Normal is
     400, regular bold is 700. }
 
-  \item{x} {A Font object, as returned by \code{Font}. }
+  \item{x}{A Font object, as returned by \code{Font}. }
+
+  \item{\ldots}{arguments get passed to \code{Font}.} 
   
 }
 
