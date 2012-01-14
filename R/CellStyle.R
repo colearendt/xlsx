@@ -2,7 +2,8 @@
 # Create a cell style.  It needs a workbook object!
 #
 
-CellStyle <- function(...) UseMethod("CellStyle")
+CellStyle <- function(wb, dataFormat=NULL, alignment=NULL,
+  border=NULL, fill=NULL, font=NULL, cellProtection=NULL) UseMethod("CellStyle")
 
 is.CellStyle <- function(x) {inherits(x, "CellStyle")}
 
@@ -115,46 +116,46 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
 
 ######################################################################
 #
-"+.CellStyle" <- function(cs1, cs2)
+"+.CellStyle" <- function(cs1, object)
 {
-  if (is.null(cs2)) return(cs1)
+  if (is.null(object)) return(cs1)
   
-  cs <- if (is.CellStyle(cs2)) {
-    dataformat <- if (is.null(cs2$dataFormat)){cs1$dataFormat}
-    alignment  <- if (is.null(cs2$alignment)){cs1$aligment}
-    border     <- if (is.null(cs2$border)){cs1$border}
-    fill       <- if (is.null(cs2$fill)){cs1$fill}
-    font       <- if (is.null(cs2$font)){cs1$font}
-    cellProtection <- if (is.null(cs2$cellProtection)){cs1$cellProtection}
+  cs <- if (is.CellStyle(object)) {
+    dataformat <- if (is.null(object$dataFormat)){cs1$dataFormat}
+    alignment  <- if (is.null(object$alignment)){cs1$aligment}
+    border     <- if (is.null(object$border)){cs1$border}
+    fill       <- if (is.null(object$fill)){cs1$fill}
+    font       <- if (is.null(object$font)){cs1$font}
+    cellProtection <- if (is.null(object$cellProtection)){cs1$cellProtection}
     
-    CellStyle.default(cs2$wb, dataFormat=dataFormat,
+    CellStyle.default(object$wb, dataFormat=dataFormat,
       alignment=alignment, border=border, fill=fill,
       font=font, cellProtection=cellProtection)
 
-  } else if (is.DataFormat(cs2)) {
-    CellStyle.default(cs1$wb, dataFormat=cs2,
+  } else if (is.DataFormat(object)) {
+    CellStyle.default(cs1$wb, dataFormat=object,
       alignment=cs1$alignment, border=cs1$border, fill=cs1$fill,
       font=cs1$font, cellProtection=cs1$cellProtection)
-  } else if (is.Alignment(cs2)) {
+  } else if (is.Alignment(object)) {
     CellStyle.default(cs1$wb, dataFormat=cs1$dataFormat,
-      alignment=cs2, border=cs1$border, fill=cs1$fill,
+      alignment=object, border=cs1$border, fill=cs1$fill,
       font=cs1$font, cellProtection=cs1$cellProtection)
-  } else if (is.Border(cs2)) {
+  } else if (is.Border(object)) {
     CellStyle.default(cs1$wb, dataFormat=cs1$dataFormat,
-      alignment=cs1$alignment, border=cs2, fill=cs1$fill,
+      alignment=cs1$alignment, border=object, fill=cs1$fill,
       font=cs1$font, cellProtection=cs1$cellProtection)
-  } else if (is.Fill(cs2)) {
+  } else if (is.Fill(object)) {
     CellStyle.default(cs1$wb, dataFormat=cs1$dataFormat,
-      alignment=cs1$alignment, border=cs1$border, fill=cs2,
+      alignment=cs1$alignment, border=cs1$border, fill=object,
       font=cs1$fill, cellProtection=cs1$cellProtection)
-  } else if (is.Font(cs2)) {
+  } else if (is.Font(object)) {
     CellStyle.default(cs1$wb, dataFormat=cs1$dataFormat,
       alignment=cs1$alignment, border=cs1$border, fill=cs1$fill,
-      font=cs2, cellProtection=cs1$cellProtection)
-  } else if (is.CellProtection(cs2)) {
+      font=object, cellProtection=cs1$cellProtection)
+  } else if (is.CellProtection(object)) {
     CellStyle.default(cs1$wb, dataFormat=cs1$dataFormat,
       alignment=cs1$alignment, border=cs1$border, fill=cs1$fill,
-      font=cs1$font, cellProtection=cs2)    
+      font=cs1$font, cellProtection=object)    
   } else {
      stop("Don't know how to add ", deparse(substitute(object)), " to a plot",
        call. = FALSE)

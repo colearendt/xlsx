@@ -10,7 +10,8 @@ Create and set cell styles.
 }
 \usage{
 
-CellStyle(...)
+CellStyle(wb, dataFormat=NULL, alignment=NULL,
+  border=NULL, fill=NULL, font=NULL, cellProtection=NULL)
 
 CellStyle.default(wb, dataFormat=NULL, alignment=NULL,
   border=NULL, fill=NULL, font=NULL, cellProtection=NULL)
