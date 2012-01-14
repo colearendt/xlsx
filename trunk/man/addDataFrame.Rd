@@ -67,7 +67,7 @@ addDataFrame(x, sheet, col.names=TRUE, row.names=TRUE,
   sheet  <- createSheet(wb, sheetName="addDataFrame1")
   data <- data.frame(mon=month.abb[1:10], day=1:10, year=2000:2009,
     date=seq(as.Date("1999-01-01"), by="1 year", length.out=10),
-    bool=ifelse(1:10 %% 2, TRUE, FALSE), log=log(1:10),
+    bool=c(TRUE, FALSE), log=log(1:10),
     rnorm=10000*rnorm(10),
     datetime=seq(as.POSIXct("2011-11-06 00:00:00", tz="GMT"), by="1 hour",
       length.out=10))

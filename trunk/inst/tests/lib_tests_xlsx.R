@@ -1,5 +1,7 @@
 # test the package
-# 
+#
+# test.addDataFrame
+# test.basicFunctions
 # test.cellStyles
 # test.comments
 # test.dataFormats
