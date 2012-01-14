@@ -47,7 +47,7 @@
   
   wb <- createWorkbook()   # load/initialize jars here as it takes 
   rm(wb)                   # a few seconds ...
- }
+}
 
 
 ####################################################################
@@ -67,7 +67,6 @@
   blocks <- list(x[1])
   if (length(x)==1)
     return(blocks)
-  
   k <- 1
   for (i in 2:length(x)) {
     if (x[i]==(x[i-1]+1)) {

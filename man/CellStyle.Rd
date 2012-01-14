@@ -10,7 +10,10 @@ Create and set cell styles.
 }
 \usage{
 
-\method{CellStyle}{default}(wb, dataFormat=NULL, alignment=NULL,
+CellStyle(wb, dataFormat=NULL, alignment=NULL,
+  border=NULL, fill=NULL, font=NULL, cellProtection=NULL)
+
+CellStyle.default(wb, dataFormat=NULL, alignment=NULL,
   border=NULL, fill=NULL, font=NULL, cellProtection=NULL)
 
 setCellStyle(cell, cellStyle)
@@ -38,11 +41,9 @@ is.CellStyle(x)
   
   \item{x}{a \code{CellStyle} object.}
 
-  \item{cell}{a \code{\link{Cell}} object.}
-
-  \item{cellStyle}{a \code{CellStyle} object.}
-
-  \item{\ldots}{arguments to \code{CellStyle.default}.} 
+  \item{cell}{a \code{\link{Cell}} object}
+  
+  \item{\ldots}{arguments to \code{CellStyle.defult}.} 
   
   
 }

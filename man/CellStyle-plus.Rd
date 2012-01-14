@@ -5,7 +5,7 @@
 Create cell styles. 
 }
 \usage{
-\method{+}{CellStyle}(cs1, object)
+`+.CellStyle`(cs1, object)
 }
 \arguments{
   

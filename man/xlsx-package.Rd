@@ -27,21 +27,21 @@
   imported by package \code{xlsx}.
   
   A collection of tests that can be used as examples are located 
-  in folder \code{/tests/}.  They are a good source of examples of how
-  to use the package. 
+  in folder \code{/tests/}.
 
-  Please see \url{http://code.google.com/p/rexcel/} for Wiki and the
-  development version.  Issues and questions should be reported using
-  the dedicated mailing list 
-  \url{http://groups.google.com/group/R-package-xlsx}.
+  Patches with bug fixes and improvements are welcome.
   
+  NOTE: You may need to add to your PATH variable the location
+  of your JVM (e.g. C:/Program Files/Java/jre6/bin/client) to get
+  \code{rJava} working.
+
 }
 \details{
 \tabular{ll}{
 Package: \tab xlsx\cr
 Type: \tab Package\cr
 Version: \tab 0.4.0\cr
-Date: \tab 2012-01-15\cr
+Date: \tab 2011-XX-XX\cr
 License: \tab GPL-3\cr
 }
 

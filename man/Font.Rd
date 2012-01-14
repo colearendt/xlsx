@@ -72,9 +72,8 @@ is.Font(x)
 \author{Adrian Dragulescu}
 \seealso{\code{\link{CellStyle}} for using the a \code{Font} object.}
 \examples{
-\dontrun{
+
   font <-  Font(wb, color="blue", isItalic=TRUE)
-}
 }
 
 

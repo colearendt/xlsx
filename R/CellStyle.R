@@ -121,7 +121,7 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
   if (is.null(object)) return(cs1)
   
   cs <- if (is.CellStyle(object)) {
-    dataFormat <- if (is.null(object$dataFormat)){cs1$dataFormat}
+    dataformat <- if (is.null(object$dataFormat)){cs1$dataFormat}
     alignment  <- if (is.null(object$alignment)){cs1$aligment}
     border     <- if (is.null(object$border)){cs1$border}
     fill       <- if (is.null(object$fill)){cs1$fill}
