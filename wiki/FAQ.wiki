@@ -14,6 +14,11 @@ If you don't get back a string with your java version, it means your
 *rJava* package is not installed correctly.  You will need to fix this
 before you can use the *xlsx* package.
 
+On Windows, you may need to add to your PATH variable the
+location of your JVM (e.g.`C:/Program Files/Java/jre6/bin/client`) to
+get package *rJava* working.
+
+
 = I'm running out of java heap memory when using write.xlsx =
 
 This is probably the complaint I get most from users.  It happens when
