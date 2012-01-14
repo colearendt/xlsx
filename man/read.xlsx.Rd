@@ -41,12 +41,8 @@ read.xlsx2(file, sheetIndex, sheetName=NULL, startRow=1,
   \item{encoding}{encoding to be assumed for input strings.  See
 	\code{\link[utils]{read.table}}.}
   \item{startRow}{an numeric specifying the index of starting row.}
-  \item{startColumn}{an numeric specifying the index of starting column.}
-  \item{noRows}{an numeric specifying how many rows to pull.  If
+  \item{endRow}{an numeric specifying the index of the last row to pull.  If
 	\code{NULL}, read all the rows in the sheet.}
-  \item{noColumns}{an numeric specifying how many columns to pull.  If
-	\code{NULL}, read all the colums from the \code{startRow}.}
-  
   \item{\ldots}{other arguments to \code{data.frame}, for example
     \code{stringsAsFactors}} 
 }

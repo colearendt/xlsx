@@ -1,6 +1,6 @@
 NEWS for package xlsx
 
-Changes in version 0.4.0 (released 2011-12-05)
+Changes in version 0.4.0 (released 2012-01-15)
 
  o BACWARDS INCOMPATIBLE CHANGES!  A complete rewrite of functionality
    to deal with cell styles.  Although I want to minimize API breaking

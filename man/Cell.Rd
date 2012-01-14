@@ -91,7 +91,8 @@ values <- lapply(cells, getCellValue) # extract the values
 vv <- getMatrixValues(sheet, 2:3, 1:3)
 
 # write the months of the year in the first column of the spreadsheet
-mapply(setCellValue, cells[,1], month.name)
+ind <- paste(2:13, ".2", sep="")
+mapply(setCellValue, cells[ind], month.name)
 
 
 }
