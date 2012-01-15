@@ -1,5 +1,10 @@
 NEWS for package xlsx
 
+Changes in version 0.4.1 (released 2012-xx-xx)
+
+ o TODO: replace read ranges functionality with readColumns. 
+
+
 Changes in version 0.4.0 (released 2012-01-15)
 
  o BACWARDS INCOMPATIBLE CHANGES!  A complete rewrite of functionality
