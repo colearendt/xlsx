@@ -31,7 +31,7 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
     endColumn   <- .jcall(row, "T", "getLastCellNum") + 1    
     colIndex <- list(startColumn:endColumn)
   } else {
-    colIndex <- xlsx:::.splitBlocks(sort(colIndex))
+    colIndex <- .splitBlocks(sort(colIndex))
   }
 
   # if the colIndex is not contiguous, split into contiguous blocks

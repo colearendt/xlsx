@@ -353,7 +353,6 @@ test.ranges <- function(wb)
   stopifnot(all.equal(which(is.na(res)), c(6,28,29,59,69))) 
 
   cat("Test read.xlsx2 ... \n")
-  source(paste(SOURCEDIR, "rexcel/trunk/R/read.xlsx2.R", sep=""))
   res <- read.xlsx2(file, sheetName="all", startRow=3)
   
   cat("  read more columns than on the spreadsheet")
