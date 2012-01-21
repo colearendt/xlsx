@@ -25,7 +25,10 @@ createWorkbook <- function(type="xlsx")
 # 
 loadWorkbook <- function(file)
 {
-  inputStream <- .jnew("java/io/FileInputStream", file)
+  if (!file.exists(path.expand(file)))
+    stop("Cannot find ", path.expand(file))
+    
+  inputStream <- .jnew("java/io/FileInputStream", path.expand(file))
   
   wbFactory <- .jnew("org/apache/poi/ss/usermodel/WorkbookFactory")
   

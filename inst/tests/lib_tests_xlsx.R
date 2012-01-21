@@ -23,7 +23,7 @@ test.addDataFrame <- function(wb)
   
   cat("  custom styles\n")
   sheet  <- createSheet(wb, sheetName="addDataFrame1")
-  data <- data.frame(mon=month.abb[1:10], day=1:10, year=2000:2009,
+  data0 <- data.frame(mon=month.abb[1:10], day=1:10, year=2000:2009,
     date=seq(as.Date("1999-01-01"), by="1 year", length.out=10),
     bool=ifelse(1:10 %% 2, TRUE, FALSE), log=log(1:10),
     rnorm=10000*rnorm(10),
@@ -32,7 +32,7 @@ test.addDataFrame <- function(wb)
   cs1 <- CellStyle(wb) + Font(wb, isItalic=TRUE)
   cs2 <- CellStyle(wb) + Font(wb, color="blue")
   cs3 <- CellStyle(wb) + Font(wb, isBold=TRUE) + Border()
-  addDataFrame(data, sheet, startRow=3, startColumn=2, colnamesStyle=cs3,
+  addDataFrame(data0, sheet, startRow=3, startColumn=2, colnamesStyle=cs3,
     rownamesStyle=cs1, colStyle=list(`2`=cs2, `3`=cs2))
 
   cat("  NA treatment, with defaults\n")
@@ -49,6 +49,9 @@ test.addDataFrame <- function(wb)
   data$mon[12] <- "showNA=TRUE, characterNA=NotAvailable"
   addDataFrame(data, sheet3, row.names=FALSE, showNA=TRUE,
     characterNA="NotAvailable")
+
+  cat("  stack another data.frame on a sheet\n")
+  addDataFrame(data0, sheet3, startRow=15, startColumn=5)
   
   cat("Done.\n")
 }
