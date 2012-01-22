@@ -35,16 +35,16 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
   Rintf <- .jnew("dev/RInterface")
   Rintf$NCOLS <- ncol(x) + jOffset   # set the number of columns
   Rintf$NROWS <- nrow(x) + iOffset   # set the number of rows
+
   # create the cells in Rint$CELL_ARRAY
-  .jcall(Rintf, "V", "createCells", sheet, indX1, indY1)
+  Rintf$createCells(sheet, indX1, indY1)
   
   if (col.names) {                   # insert colnames
     aux <- if (jOffset) .jarray(names(x)[-1]) else .jarray(names(x))
     if (!is.null(colnamesStyle)) {   
-      .jcall(Rintf, "V", "writeRowStrings", sheet, 0L, jOffset, aux,
-             colnamesStyle$ref) 
+      Rintf$writeRowStrings(sheet, 0L, jOffset, aux, colnamesStyle$ref) 
     } else {
-      .jcall(Rintf, "V", "writeRowStrings", sheet, 0L, jOffset, aux)
+      Rintf$writeRowStrings(sheet, 0L, jOffset, aux)
     }
   }
   # insert one column at a time, and style it if it has style
@@ -66,10 +66,10 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
     xj <- x[,j]
     if ("integer" %in% class(xj)) {
       if (is.null(thisColStyle)) {
-        .jcall(Rintf, "V", "writeColInts", sheet, iOffset, as.integer(j-1),
+        Rintf$writeColInts(sheet, iOffset, as.integer(j-1),
           .jarray(xj), showNA)
       } else {
-        .jcall(Rintf, "V", "writeColInts", sheet, iOffset, as.integer(j-1),
+        Rintf$writeColInts(sheet, iOffset, as.integer(j-1),
           .jarray(xj), showNA, thisColStyle$ref)
       }
       
@@ -85,10 +85,10 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
       if (any(haveNA))
         aux[haveNA] <- NaN          # encode the numeric NAs as NaN for java
       if (is.null(thisColStyle)) {
-        .jcall(Rintf, "V", "writeColDoubles", sheet, iOffset, as.integer(j-1),
+        Rintf$writeColDoubles(sheet, iOffset, as.integer(j-1),
            .jarray(aux), showNA)
       } else {
-        .jcall(Rintf, "V", "writeColDoubles", sheet, iOffset, as.integer(j-1),
+        Rintf$writeColDoubles(sheet, iOffset, as.integer(j-1),
            .jarray(aux), showNA, thisColStyle$ref)
       }
       
@@ -98,10 +98,10 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
       if (any(haveNA))
         aux[haveNA] <- characterNA
       if (is.null(thisColStyle)) {
-        .jcall(Rintf, "V", "writeColStrings", sheet, iOffset, as.integer(j-1),
+        Rintf$writeColStrings(sheet, iOffset, as.integer(j-1),
            .jarray(aux))
       } else {
-        .jcall(Rintf, "V", "writeColStrings", sheet, iOffset, as.integer(j-1),
+        Rintf$writeColStrings(sheet, iOffset, as.integer(j-1),
            .jarray(aux), thisColStyle$ref)
       }      
     }

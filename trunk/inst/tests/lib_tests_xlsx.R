@@ -1,5 +1,6 @@
 # test the package
 #
+# test.addOnExistingWorkbook
 # test.addDataFrame
 # test.basicFunctions
 # test.cellStyles
@@ -15,6 +16,25 @@
 
 
 #####################################################################
+# Test adding a df to an existing workbook using addDataFrame 
+# 
+test.addOnExistingWorkbook <- function()
+{
+  cat("Test adding a df to an existing workbook ... ")
+
+  src <- system.file("tests", "test_import.xlsx", package="xlsx")
+  wb  <- loadWorkbook( src )
+  sheets <- getSheets( wb )
+
+  dat <- data.frame(a=LETTERS, b=1:26)
+
+  addDataFrame(dat, sheets$mixedTypes, startColumn=20, startRow=5)
+  saveWorkbook(wb, "/tmp/junk.xlsx")
+  
+  cat("Done.\n")
+}
+
+#####################################################################
 # Test add 
 # 
 test.addDataFrame <- function(wb)
@@ -22,7 +42,7 @@ test.addDataFrame <- function(wb)
   cat("Testing addDataFrame ... ")
   
   cat("  custom styles\n")
-  sheet  <- createSheet(wb, sheetName="addDataFrame1")
+  sheet <- createSheet(wb, sheetName="addDataFrame1")
   data0 <- data.frame(mon=month.abb[1:10], day=1:10, year=2000:2009,
     date=seq(as.Date("1999-01-01"), by="1 year", length.out=10),
     bool=ifelse(1:10 %% 2, TRUE, FALSE), log=log(1:10),
@@ -49,9 +69,17 @@ test.addDataFrame <- function(wb)
   data$mon[12] <- "showNA=TRUE, characterNA=NotAvailable"
   addDataFrame(data, sheet3, row.names=FALSE, showNA=TRUE,
     characterNA="NotAvailable")
-
+  row <- getRows(sheet, 1)
+  cells <- getCells(row)
+  c1.10 <- createCell(row, 10)
+  setCellValue(c1.10[[1,1]], "rbind and cbind some df with addDataFrame")
+  
   cat("  stack another data.frame on a sheet\n")
   addDataFrame(data0, sheet3, startRow=15, startColumn=5)
+
+  cat("  put another data.frame on a sheet side by side\n")
+  addDataFrame(data0, sheet3, startRow=15, startColumn=17)
+
   
   cat("Done.\n")
 }
