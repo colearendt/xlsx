@@ -19,8 +19,11 @@ public class RInterface {
      int i;
      int j;
      CELL_ARRAY = new Cell[NROWS][NCOLS];
-     for (i = 0; i < NROWS; i++){
-       Row r = sheet.createRow(i+startRowIndex);
+     for (i = 0; i < NROWS; i++) {
+       Row r = sheet.getRow(i+startRowIndex);  
+       if (r == null) {    // row is already there
+         r = sheet.createRow(i+startRowIndex);
+       }
        for (j = 0; j < NCOLS; j++){
          CELL_ARRAY[i][j] = r.createCell(j+startColIndex);
        } 

@@ -1,13 +1,14 @@
 NEWS for package xlsx
 
-Changes in version 0.4.1 (released 2012-xx-xx)
+Changes in version 0.4.1 (released 2012-01-22)
 
  o Added a test for file existence in loadWorkbook.  If file does not
    exist, the error message from read.xlsx, read.xlsx2 and
    loadWorkbook is now more informative.  Also added path expansion in
    file names. (Suggested by Dirk Eddelbuettel.)
 
- o TODO: replace read ranges functionality with readColumns. 
+ o Fixed bug in addDataFrame to allow it to add a df to existing
+   sheets, not only to new sheets. 
 
 
 Changes in version 0.4.0 (released 2012-01-15)

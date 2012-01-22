@@ -87,9 +87,9 @@
 ##################################################################
 
 #version <- NULL        # keep increasing the minor
-version <- "0.4.0"      # if you want to set it by hand
+version <- "0.4.1"      # if you want to set it by hand
 
-.setEnv("WORK2")   # "HOME" "WORK2" "LAPTOP"
+.setEnv("HOME")   # "HOME" "WORK2" "LAPTOP"
 
 .move.java.classes(TRUE)  # move java classes
 
