@@ -18,19 +18,18 @@
 #####################################################################
 # Test adding a df to an existing workbook using addDataFrame 
 # 
-test.addOnExistingWorkbook <- function(ext="xlsx")
+test.addOnExistingWorkbook <- function()
 {
   cat("Test adding a df to an existing workbook ... ")
 
-  src <- system.file("tests", paste("test_import.", ext, sep=""),
-                     package="xlsx")
+  src <- system.file("tests", "test_import.xlsx", package="xlsx")
   wb  <- loadWorkbook( src )
   sheets <- getSheets( wb )
 
   dat <- data.frame(a=LETTERS, b=1:26)
 
   addDataFrame(dat, sheets$mixedTypes, startColumn=20, startRow=5)
-  #saveWorkbook(wb, paste(OUTDIR, "addOnExistingWorkbook.xlsx", sep=""))
+  saveWorkbook(wb, "/tmp/junk.xlsx")
   
   cat("Done.\n")
 }
@@ -70,16 +69,17 @@ test.addDataFrame <- function(wb)
   data$mon[12] <- "showNA=TRUE, characterNA=NotAvailable"
   addDataFrame(data, sheet3, row.names=FALSE, showNA=TRUE,
     characterNA="NotAvailable")
-  row <- getRows(sheet3, 1)
+  row <- getRows(sheet, 1)
   cells <- getCells(row)
   c1.10 <- createCell(row, 10)
   setCellValue(c1.10[[1,1]], "rbind and cbind some df with addDataFrame")
   
   cat("  stack another data.frame on a sheet\n")
-  addDataFrame(data0, sheet3, startRow=17, startColumn=5)
+  addDataFrame(data0, sheet3, startRow=15, startColumn=5)
 
   cat("  put another data.frame on a sheet side by side\n")
-  addDataFrame(data0, sheet3, startRow=17, startColumn=17)
+  addDataFrame(data0, sheet3, startRow=15, startColumn=17)
+
   
   cat("Done.\n")
 }
@@ -544,13 +544,11 @@ test.ranges <- function(wb)
   source(thisFile)
 
   test.basicFunctions(ext="xlsx")
-  test.addOnExistingWorkbook(ext="xlsx")
   .main_lowlevel_export(ext="xlsx")  
   .main_highlevel_export(ext="xlsx")
 #  .main_speedtest_export(ext="xlsx")
   
   test.basicFunctions(ext="xls")
-  test.addOnExistingWorkbook(ext="xls")
   .main_lowlevel_export(ext="xls")  
   .main_highlevel_export(ext="xls")
 #  .main_speedtest_export(ext="xls")
