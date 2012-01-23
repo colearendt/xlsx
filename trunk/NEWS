@@ -1,5 +1,10 @@
 NEWS for package xlsx
 
+Changes in version 0.4.2 (released 2012-xx-xx)
+
+ o TODO: fix the namedRanges to use the readColumns function
+
+
 Changes in version 0.4.1 (released 2012-01-22)
 
  o Added a test for file existence in loadWorkbook.  If file does not
