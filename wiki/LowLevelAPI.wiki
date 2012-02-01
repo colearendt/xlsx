@@ -101,9 +101,9 @@ examples of what you can do
 {{{
 cs0 <- CellStyle(wb)                        # default/empty style
 cs1 <- CellStyle(wb) + 
-  Font(name="Courier New", isBold=TRUE)     # add a Font
+  Font(wb, name="Courier New", isBold=TRUE)     # add a Font
 cs2 <- CellStyle(wb) +    
-  Font(name="Courier New", isBold=TRUE) +   # add a Font
+  Font(wb, name="Courier New", isBold=TRUE) +   # add a Font
   Borders(col="blue", position=c("TOP", "BOTTOM"), pen="BORDER_THICK") +  # add borders    
   Alignment(h="ALIGN_RIGHT")                # add Alignment
 cs3 <- CellStyle(wb) + 

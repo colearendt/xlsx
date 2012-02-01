@@ -52,3 +52,14 @@ Also, if the data is really large and intended primarily for storage,
 you should seriously evaluate if you need it in an `xlsx` format.
 Perhaps a compressed csv file will do just as well and be faster to
 read/write from `R`.
+
+= I want to read an xls file and output an xlsx file =
+
+Sorry, you can't do that in an easy way. You need to construct an
+instance of HSSF and an instance of XSSF and then read from one and
+copy to the other, cell by cell, preserving the formats, etc.
+Can be done, but gruesome work. 
+
+
+
+ 
