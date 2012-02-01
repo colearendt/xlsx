@@ -13,7 +13,6 @@
 #
 .guess_cell_type <- function(cells)
 {
-  browser()
   cellType <- sapply(cells, function(x){x$getCellType()}) + 1
 
   dateUtil   <- .jnew("org/apache/poi/ss/usermodel/DateUtil")

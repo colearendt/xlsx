@@ -7,7 +7,6 @@
 readColumns <- function(sheet, startColumn, endColumn, startRow,
   endRow=NULL, as.data.frame=TRUE, header=TRUE, colClasses=NA, ...)
 {
-
   trueEndRow <- sheet$getLastRowNum() + 1
   if (is.null(endRow))     # get it from the sheet 
     endRow <- trueEndRow

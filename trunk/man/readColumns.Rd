@@ -44,7 +44,10 @@ readColumns(sheet, startColumn, endColumn, startRow,
   
 Use the \code{readColumns} function when you want to read a rectangular
 block of data from an Excel worksheet.  If you request columns which
-are blank, these will be read in as empty character "" columns.  
+are blank, these will be read in as empty character "" columns.
+Internally, the loop over columns is done in R, the loop over rows is
+done in Java, so this function achieves good performance when number of
+rows >> number of columns. 
 
 Excel internally stores dates and datetimes as numeric values, and does
 not keep track of time zones and DST.  When a numeric column is
