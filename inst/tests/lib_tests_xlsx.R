@@ -339,6 +339,26 @@ test.ranges <- function(wb)
   cat("Done.\n")
 }
 
+#####################################################################
+# Test mixture.  You cannot convert one hssf to xssf on the fly. 
+# 
+## test.mixtureHSSFXSSF <- function(wb)
+## {
+##   cat("Test mixture of HSSF and XSSF")
+  
+##   fname <- "test_import.xls"
+##   file <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/", fname, sep="")
+
+##   wb <- loadWorkbook(file)
+##   sheets <- getSheets(wb)
+
+##   sheet <- sheets[["all"]]
+
+##   wb2 <- .jcast(wb, "org/apache/poi/ss/usermodel/Workbook")
+
+##   saveWorkbook(wb2, paste(OUTDIR, "modify_existing_hssf.xlsx", sep=""))  
+## }
+
 
 #####################################################################
 # Test imports
@@ -347,7 +367,6 @@ test.ranges <- function(wb)
 {
   fname <- paste("test_import.", ext, sep="")
   file <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/", fname, sep="")
-  #file <- system.file("tests", fname, package = "xlsx")
 
   cat("Testing high level import read.xls\n")
   cat("  read data from mixedTypes\n")
@@ -474,6 +493,10 @@ test.ranges <- function(wb)
                                         "numeric"))
   stopifnot(res[1,1]=="")
 
+  cat("  readRows\n")
+  sheet <- sheets[["all"]]
+  res <- readRows(sheet, startRow=3, endRow=7, startColumn=2, endColumn=15)
+  
   cat("Done.\n")
 }
 
@@ -556,7 +579,7 @@ test.ranges <- function(wb)
 #  .main_speedtest_export(ext="xls")
  
   .main_highlevel_import(ext="xlsx")
-  .main_lowlevel_import(ext="xlsx")
+  .main_lowlevel_import(ext="xlsx")  # readColumns, readRows
 
   .main_highlevel_import(ext="xls")
   .main_lowlevel_import(ext="xls")

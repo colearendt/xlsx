@@ -51,5 +51,5 @@ Font <- function(wb, color=NULL, heightInPoints=NULL, name=NULL,
   if (!is.null(boldweight))
     .jcall(font, "V", "setBoldweigth", .jshort(boldweight))
 
-   structure(list(ref=font), class="Font") 
+  structure(list(ref=font), class="Font") 
 }
