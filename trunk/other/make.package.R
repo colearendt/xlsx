@@ -58,7 +58,7 @@
 .setEnv <- function(computer=c("HOME", "LAPTOP", "WORK"))
 {
   if (computer=="WORK") {
-    pkgdir  <<- "H:/user/R/Adrian/findataweb/temp/xlsx/trunk/"
+    pkgdir  <<- "C:/google/rexcel/trunk/"
     outdir  <<- "H:/"
     Rcmd    <<- "S:/All/Risk/Software/R/R-2.12.1/bin/i386/Rcmd"
     javadir <<- "C:/Documents and Settings/e47187/workspace/xlsx/"
@@ -87,9 +87,9 @@
 ##################################################################
 
 #version <- NULL        # keep increasing the minor
-version <- "0.4.1"      # if you want to set it by hand
+version <- "0.4.2"      # if you want to set it by hand
 
-.setEnv("HOME")   # "HOME" "WORK2" "LAPTOP"
+.setEnv("WORK")   # "HOME" "WORK2" "LAPTOP"
 
 .move.java.classes(TRUE)  # move java classes
 
