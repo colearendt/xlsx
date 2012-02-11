@@ -1,11 +1,7 @@
 NEWS for package xlsx
 
-Changes in version 0.4.2 (released 2012-xx-xx)
+Changes in version 0.4.2 (released 2012-02-08)
 
- o TODO: fix the namedRanges to use the readColumns function
-
- o Document if bold can be set on XSSF docs only. 
- 
  o New function readRows() similar to readColumns() for reading
    accross the columns. 
 

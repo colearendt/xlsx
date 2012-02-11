@@ -1,4 +1,7 @@
 
+ o TODO: fix the namedRanges to use the readColumns function
+
+ o Document if bold can be set on XSSF docs only. 
 
  o Embed RData objects with the xlsx.  Requested by Ralf Tautenhahn on
    2/1/2010. 
