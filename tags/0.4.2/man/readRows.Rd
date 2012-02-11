@@ -1,0 +1,60 @@
+\name{readRows}
+\alias{readRows}
+\title{ Read a contiguous set of rows into an R matrix}
+\description{
+  Read a contiguous set of rows into an R character matrix.
+  Uses the \code{RInterface} for speed.   
+}
+\usage{
+readRows(sheet, startRow, endRow, startColumn,
+  endColumn=NULL)
+}
+\arguments{
+  \item{sheet}{a \code{\link{Worksheet}} object.}
+
+  \item{startRow}{a numeric value for the starting row.}
+  
+  \item{endRow}{a numeric value for the ending row.  If \code{NULL} it
+    reads all the rows in the sheet. }
+  
+  \item{startColumn}{a numeric value for the starting column.}
+
+  \item{endColumn}{a numeric value for the ending column.  Empty cells
+    will be returned as "".}
+
+}
+
+\details{
+  
+Use the \code{readRows} function when you want to read a row or a block
+block of data from an Excel worksheet.  Internally, the loop over
+rows is done in R, and the loop over columns is done in Java, so this
+function achieves good performance when number of rows << number of
+columns.
+
+In general, you should prefer the function \code{\link{readColumns}}
+over this one.   
+}
+\value{
+  A character matrix. 
+}
+\author{ Adrian Dragulescu }
+\seealso{\code{\link{read.xlsx2}} for reading entire sheets.
+  See also \code{\link{addDataFrame}} for writing a \code{data.frame} to a
+  sheet.}
+\examples{
+\dontrun{
+
+  file <- system.file("tests", "test_import.xlsx", package = "xlsx")
+
+  wb     <- loadWorkbook(file)
+  sheets <- getSheets(wb)
+
+  sheet <- sheets[["all"]]
+  res <- readRows(sheet, startRow=3, endRow=7, startColumn=3, endColumn=10)
+
+ 
+
+}
+}
+
