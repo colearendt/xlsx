@@ -1,5 +1,9 @@
 NEWS for package xlsx
 
+Changes in version 0.4.3 (released 2012-xx-xx)
+
+ o 
+
 Changes in version 0.4.2 (released 2012-02-08)
 
  o New function readRows() similar to readColumns() for reading
