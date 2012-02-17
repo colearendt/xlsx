@@ -79,6 +79,10 @@ setZoom(sheet, numerator=100, denominator=100)
 }
 
 \details{
+  Function \code{autoSizeColumn} expands the column width to match the
+  column contents thus removing the ###### that you get when cell
+  contents are larger than cell width.
+  
   You may need other functionality that is not exposed.  Take a
   look at the java docs and the source code of these functions for how
   you can implement it in R.}
