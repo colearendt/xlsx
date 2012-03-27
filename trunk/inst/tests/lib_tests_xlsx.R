@@ -1,6 +1,7 @@
 # test the package
 #
 # test.addOnExistingWorkbook
+# test.evalFormulasOnOpen
 # test.addDataFrame
 # test.basicFunctions
 # test.cellStyles
@@ -252,6 +253,29 @@ test.dataFormats <- function(wb)
   cat("Done.\n")
 }
 
+#####################################################################
+# Test other effects
+# 
+test.evalFormulasOnOpen <- function()
+{
+  require(xlsx)
+  filename <- "C:/Temp/formulaRevalueOnOpen.xlsx"
+  wb <- loadWorkbook(filename)
+  sheets <- getSheets(wb)
+
+  sheet <- sheets[[1]]
+  rows <- getRows(sheet)
+  cells <- getCells(rows)
+
+  setCellValue(cells[["2.1"]], 2)
+
+  #wb$getCreationHelper()$createFormulaEvaluator()$evaluateAll()
+  
+  wb$setForceFormulaRecalculation(TRUE)
+  
+  saveWorkbook(wb, "C:/temp/junk.xlsx")
+  
+}
 
 #####################################################################
 # Test other effects
