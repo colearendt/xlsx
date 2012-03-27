@@ -12,7 +12,7 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
 {
   if (!is.data.frame(x))
     x <- data.frame(x)    # just because the error message is too ugly
-  
+
   if (row.names) {        # add rownames to data x                   
     x <- cbind(rownames=rownames(x), x)
     if (!is.null(colStyle))
@@ -22,9 +22,9 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
   wb <- sheet$getWorkbook()
   classes <- unlist(sapply(x, class))
   if ("Date" %in% classes) 
-   csDate <- CellStyle(wb) + DataFormat("m/d/yyyy")
+    csDate <- CellStyle(wb) + DataFormat("m/d/yyyy")
   if ("POSIXct" %in% classes) 
-   csDateTime <- CellStyle(wb) + DataFormat("m/d/yyyy h:mm:ss;@")
+    csDateTime <- CellStyle(wb) + DataFormat("m/d/yyyy h:mm:ss;@")
 
   iOffset <- if (col.names) 1L else 0L
   jOffset <- if (row.names) 1L else 0L

@@ -30,7 +30,7 @@ addDataFrame(x, sheet, col.names=TRUE, row.names=TRUE,
   \item{colStyle}{a list of \code{\link{CellStyle}}.  If the name of the
      list element is the column number, it will be used to set the style
      of the column.  Columns of type \code{Date} and \code{POSIXct} are
-     styled automatically.}
+     styled automatically even if \code{colSyle=NULL}.}
    
   \item{colnamesStyle}{a \code{\link{CellStyle}} object to customize the
     table header.}

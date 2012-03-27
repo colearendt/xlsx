@@ -117,8 +117,8 @@ cmd <- paste(Rcmd, "build", pkgdir)
 print(cmd); system(cmd)
 
 
-# check source
-cmd <- paste(Rcmd, "check", pkgdir)
+# check source with --as-cran on the tarball before submitting it
+cmd <- paste(Rcmd, "check --as-cran", pkgdir)
 print(cmd); system(cmd)
 
 
