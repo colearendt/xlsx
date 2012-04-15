@@ -103,8 +103,8 @@ print(cmd)
 
 system(cmd)
 
-install.packages(paste("xlsx_",version, ".tar.gz", sep=""), repos=NULL,
-  type="source")
+package.gz <- paste("xlsx_",version, ".tar.gz", sep="")
+install.packages(package.gz, repos=NULL, type="source")
 
 
 # do you pass all my tests?! Open another R session ... 
@@ -118,7 +118,7 @@ print(cmd); system(cmd)
 
 
 # check source with --as-cran on the tarball before submitting it
-cmd <- paste(Rcmd, "check --as-cran", pkgdir)
+cmd <- paste(Rcmd, "check --as-cran", package.gz)
 print(cmd); system(cmd)
 
 
