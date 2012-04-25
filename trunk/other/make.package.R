@@ -62,7 +62,7 @@
   } else if (computer == "WORK2") {  
     pkgdir  <<- "C:/google/rexcel/trunk/"
     outdir  <<- "H:/"
-    Rcmd    <<- '"C:/Program Files/R/R-2.14.1/bin/i386/Rcmd"'
+    Rcmd    <<- '"C:/Program Files/R/R-2.15.0/bin/i386/Rcmd"'
     javadir <<- "C:/Documents and Settings/e47187/workspace/xlsx/"
   } else {
   }
@@ -81,22 +81,19 @@ version <- "0.5.0"      # if you want to set it by hand
 .build.java() 
 
 # change the version
-version <- .update.DESCRIPTION(pkgdir, version)
+#version <- .update.DESCRIPTION(pkgdir, version)
 
 # make the package
 setwd(outdir)
 cmd <- paste(Rcmd, "build --force", pkgdir)
 print(cmd)
-
 system(cmd)
 
 package.gz <- paste("xlsx_",version, ".tar.gz", sep="")
 install.packages(package.gz, repos=NULL, type="source")
 
+# Run the tests from inst/tests/lib_tests_xlsx.R
 
-# do you pass all my tests?! Open another R session ... 
-cat(paste("require(xlsx); source('", pkgdir,
-          "other/runUnitTests.R')", sep=""), "\n\n")
 
 
 # make the package for CRAN
