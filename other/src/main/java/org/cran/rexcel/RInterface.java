@@ -11,7 +11,27 @@ public class RInterface {
   public int NCOLS = 0;
   public int NROWS = 0;
   public Cell[][] CELL_ARRAY;
-    
+
+  public static final double NA_DOUBLE = Double.NaN;
+  public static final int NA_INT = -2147483648;
+  public static final String NA_STRING = "NA";
+
+  public static boolean isNA( double x )
+  {
+      return ( Double.isNaN(x) );
+  }
+
+  public static boolean isNA( int x )
+  {
+      return ( x == NA_INT );
+  }
+
+  public static boolean isNA( String x )
+  {
+      return ( x == null );
+  }
+  
+  
    /*
     * Make rows, and cells.
     */
@@ -65,10 +85,10 @@ public class RInterface {
          res[i] = (double) (cell.getBooleanCellValue()?1:0);
          break;
        case Cell.CELL_TYPE_ERROR:
-         res[i] = Double.NaN;
+         res[i] = NA_DOUBLE;
          break;
        default:
-         res[i] = Double.NaN;
+         res[i] = NA_DOUBLE;
        }
      }
      
@@ -96,7 +116,7 @@ public class RInterface {
            try {
              res[i] = cell.getStringCellValue();
            } catch (IllegalStateException e) {
-             res[i] = "NA";  // cell.getCellFormula();
+             res[i] = NA_STRING;  // cell.getCellFormula();
            }
            break;
          case Cell.CELL_TYPE_BOOLEAN:
