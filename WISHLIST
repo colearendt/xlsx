@@ -1,5 +1,16 @@
 
+
+
  o TODO: fix the namedRanges to use the readColumns function
+
+ o Check that readColumns doesn't fail on missing rows.  Or if not
+ possible, it should be well documented.  See an example that crashes: 
+"S:/All/Structured
+ Risk/NEPOOL/FTRs/ISODatabase/NEPOOL/Attrition/NSTAR/CustomerCounts/Raw/customer-info-april-2010.xls" 
+
+ o Make sure that the combo write.xlsx2/read.xlsx2 is idempotent.
+ Seems like write.xlsx2 creates an extra column?
+
 
  o Document if bold can be set on XSSF docs only. 
 
