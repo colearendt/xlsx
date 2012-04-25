@@ -32,7 +32,7 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
   indY1   <- as.integer(startColumn-1)     # index of top column
   
   # create a new interface object 
-  Rintf <- .jnew("dev/RInterface")
+  Rintf <- .jnew("org/cran/rexcel/RInterface")
   Rintf$NCOLS <- ncol(x) + jOffset   # set the number of columns
   Rintf$NROWS <- nrow(x) + iOffset   # set the number of rows
 

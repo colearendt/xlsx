@@ -20,7 +20,7 @@ saveWorkbook(wb, file)
   \item{type}{a String, either \code{xlsx} for Excel 2007 OOXML format,
 	or \code{xls} for Excel 95 binary format.}
   \item{file}{the \emph{absolute} path to the file which the data are to
-    be read from.}
+    be read from.  Can be an xls or xlsx format.}
   \item{wb}{a workbook object as returned by \code{createWorkbook} or
     \code{loadWorkbook}.}
 }
@@ -55,6 +55,7 @@ wb <- createWorkbook()
 # for example
 wb$getNumberOfSheets()   # no sheet yet!
 
+# loadWorkbook("C:/Temp/myFile.xls")
 
 }
 

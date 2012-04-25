@@ -18,7 +18,7 @@ readColumns <- function(sheet, startColumn, endColumn, startRow,
   
   noColumns <- endColumn - startColumn + 1
 
-  Rintf <- .jnew("dev/RInterface")  # create an interface object 
+  Rintf <- .jnew("org/cran/rexcel/RInterface")  # create an interface object 
   
   if (header) {
     cnames <- try(.jcall(Rintf, "[S", "readRowStrings",
