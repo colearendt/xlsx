@@ -48,22 +48,18 @@
     pkgdir  <<- "C:/google/rexcel/trunk/"
     outdir  <<- "H:/"
     Rcmd    <<- "S:/All/Risk/Software/R/R-2.12.1/bin/i386/Rcmd"
-    javadir <<- "C:/Documents and Settings/e47187/workspace/xlsx/"
   } else if (computer == "LAPTOP") {
     pkgdir    <<- "/home/adrian/Documents/rexcel/trunk/"
     outdir    <<- "/tmp/"
     Rcmd      <<- "R CMD"
-    javadir   <<- "/home/adrian/workspace/xlsx/"
   } else if (computer == "HOME") {
     pkgdir    <<- "/home/adrian/Documents/rexcel/trunk/"
     outdir    <<- "/tmp"
     Rcmd      <<- "R CMD"
-    javadir   <<- "/home/adrian/workspace/xlsx/"
   } else if (computer == "WORK2") {  
     pkgdir  <<- "C:/google/rexcel/trunk/"
     outdir  <<- "H:/"
     Rcmd    <<- '"C:/Program Files/R/R-2.15.0/bin/i386/Rcmd"'
-    javadir <<- "C:/Documents and Settings/e47187/workspace/xlsx/"
   } else {
   }
 
@@ -93,7 +89,6 @@ package.gz <- paste("xlsx_",version, ".tar.gz", sep="")
 install.packages(package.gz, repos=NULL, type="source")
 
 # Run the tests from inst/tests/lib_tests_xlsx.R
-
 
 
 # make the package for CRAN
