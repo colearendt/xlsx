@@ -33,21 +33,20 @@ public class RCellBlock {
      * @param startColIndex starting column of a block in a sheet.
      * @param nRows numbers of rows in a block
      * @param nCols number of columns in a block
-     * @param transpose if true, rows in a block would correspond to columns in an Excel sheet
      * @param create if true, rows and cells are created as necessary, otherwise only the existing cells are used
      */
-    public RCellBlock( Sheet sheet, int startRowIndex, int startColIndex, int nRows, int nCols, boolean transpose, boolean create )
+    public RCellBlock( Sheet sheet, int startRowIndex, int startColIndex, int nRows, int nCols, boolean create )
     {
         cells = new Cell[nCols][nRows];
-        for (int i = 0; i < (!transpose ? nRows : nCols); i++) {
+        for (int i = 0; i < nRows; i++) {
             Row r = sheet.getRow(startRowIndex+i);
             if (r == null) {    // row is already there
                 if ( create ) r = sheet.createRow(startRowIndex+i);
-                else throw new RuntimeException( "Row does not exist in the sheet" );
+                else throw new RuntimeException( "Row does " + (startRowIndex+i)
+                    + "not exist in the sheet" );
             }
-            for (int j = 0; j < (!transpose ? nCols : nRows); j++){
-                cells[!transpose ? j : i][!transpose ? i : j] =
-                        create ? r.createCell(startColIndex+j)
+            for (int j = 0; j < nCols; j++){
+                cells[j][i] = create ? r.createCell(startColIndex+j)
                               : r.getCell(startColIndex+j);
             }
         }

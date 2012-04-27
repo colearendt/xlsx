@@ -45,7 +45,7 @@ public class TestRCellBlock {
     
     String[] header = {"Number", "Date"};
     
-    RCellBlock block = new RCellBlock(sheet, 0, 0, Xdouble.length+1, 5, false, true );
+    RCellBlock block = new RCellBlock(sheet, 0, 0, Xdouble.length+1, 5, true );
     
     block.setColData(0, 1, Xdouble, false, null); // 1st column double
     block.setColData(1, 1, Xdates, false, cs1);   // 2nd column date
