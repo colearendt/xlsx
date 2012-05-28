@@ -33,12 +33,12 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
 
 
   # create a CellBlock, not sure why the usual .jnew doesn't work 
-  cellBlock <- new(J("org/cran/rexcel/RCellBlock"), sheet, indX1, indY1,
+  cellBlock <- CellBlock(sheet, indX1, indY1,
     as.integer(nrow(x) + iOffset), as.integer(ncol(x)), TRUE)
 
   # insert colnames
   if (col.names) {                   
-    .jcall( cellBlock, "V", "setRowData", 0L, jOffset,
+    .jcall( cellBlock$ref, "V", "setRowData", 0L, jOffset,
        .jarray(if (row.names) names(x)[-1] else names(x)), showNA,
        if ( !is.null(colnamesStyle) ) colnamesStyle$ref else
            .jnull('org/apache/poi/ss/usermodel/CellStyle') )
@@ -81,11 +81,11 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
       if (any(haveNA))
         aux[haveNA] <- characterNA
     }
-   .jcall( cellBlock, "V", "setColData", as.integer(j+jOffset-1L), iOffset,
+   .jcall( cellBlock$ref, "V", "setColData", as.integer(j+jOffset-1L), iOffset,
      .jarray(aux), showNA, if ( !is.null(colStyle) ) colStyle$ref else
         .jnull('org/apache/poi/ss/usermodel/CellStyle') )
   }
 
-  return(cellBlock)
+  invisible()
 }
 

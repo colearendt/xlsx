@@ -1,6 +1,6 @@
-# 
+# Useful when you have a "fat" spreadsheet (few rows and many columns.) 
 #
-# For CellType: FORMULA, ERROR or blanks, it defaults to "character"
+# Only reads Strings for now.
 #
 #
 
@@ -14,11 +14,6 @@ readRows <- function(sheet, startRow, endRow, startColumn,
   trueEndColumn <- row1$getLastCellNum()
   if (is.null(endColumn))     # get it from the first row 
     endColumn <- trueEndColumn
-  
-  ## if (endColumn > trueEndColumn) {
-  ##   warning(paste("First row requested has only", trueEndColumn, "columns."))
-  ##   endColumn <- min(endColumn, trueEndColumn)
-  ## }
   
   noRows <- endRow - startRow + 1
 
@@ -38,3 +33,8 @@ readRows <- function(sheet, startRow, endRow, startColumn,
 }
 
 
+  ## if (endColumn > trueEndColumn) {
+  ##   warning(paste("First row requested has only", trueEndColumn, "columns."))
+  ##   endColumn <- min(endColumn, trueEndColumn)
+  ## }
+  

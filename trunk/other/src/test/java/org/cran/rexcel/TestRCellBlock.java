@@ -1,5 +1,6 @@
 package org.cran.rexcel;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -30,6 +31,7 @@ public class TestRCellBlock {
     
     // create a new file
     FileOutputStream out = new FileOutputStream( folder.newFile( "junk.xlsx" ) );
+    //FileOutputStream out = new FileOutputStream( "/tmp/junk.xlsx" );
     Workbook wb = new XSSFWorkbook();    // create a new workbook
     Sheet sheet = wb.createSheet();      // create a new sheet
     

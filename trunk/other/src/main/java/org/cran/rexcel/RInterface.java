@@ -13,6 +13,7 @@ public class RInterface {
   public static final double NA_DOUBLE = Double.NaN;
   public static final int NA_INT = -2147483648;
   public static final String NA_STRING = "NA";
+  public static final int NA_BOOL = -128;        // ? 
 
   public static boolean isNA( double x )
   {
