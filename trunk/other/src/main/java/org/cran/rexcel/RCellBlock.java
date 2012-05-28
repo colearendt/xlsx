@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 /**
  * A rectangular block of Excel sheet cells.
@@ -23,6 +24,10 @@ import org.apache.poi.xssf.usermodel.XSSFColor;
  */
 public class RCellBlock {
 
+	public int noRows;
+	public int noCols;
+	public int startRow;
+	public int startCol;
     private Cell[][] cells;
 
     /**
@@ -33,14 +38,21 @@ public class RCellBlock {
      * @param startColIndex starting column of a block in a sheet.
      * @param nRows numbers of rows in a block
      * @param nCols number of columns in a block
-     * @param create if true, rows and cells are created as necessary, otherwise only the existing cells are used
+     * @param create if true, rows and cells are created as necessary, otherwise 
+     *   the existing cells are used (contents are not erased)
      */
-    public RCellBlock( Sheet sheet, int startRowIndex, int startColIndex, int nRows, int nCols, boolean create )
+    public RCellBlock( Sheet sheet, int startRowIndex, int startColIndex, 
+    	int nRows, int nCols, boolean create )
     {
         cells = new Cell[nCols][nRows];
+        noRows = nRows;
+        noCols = nCols;
+        startRow = startRowIndex;
+        startCol = startColIndex;
+        
         for (int i = 0; i < nRows; i++) {
             Row r = sheet.getRow(startRowIndex+i);
-            if (r == null) {    // row is already there
+            if (r == null) {    // row is not already there
                 if ( create ) r = sheet.createRow(startRowIndex+i);
                 else throw new RuntimeException( "Row does " + (startRowIndex+i)
                     + "not exist in the sheet" );
@@ -70,9 +82,9 @@ public class RCellBlock {
     public Sheet getSheet()
     {
         return ( cells != null & cells.length > 1
-                 & cells[1] != null & cells[1].length > 1
-                 & cells[1][1] != null
-                 ? cells[1][1].getSheet() : null );
+                 & cells[0] != null & cells[0].length > 1
+                 & cells[0][0] != null
+                 ? cells[0][0].getSheet() : null );
     }
 
     /**
@@ -85,6 +97,12 @@ public class RCellBlock {
         return ( sheet != null ? sheet.getWorkbook() : null );
     }
 
+    public boolean isXSSF()
+    {
+        return ( getSheet() instanceof XSSFSheet );
+    }   
+    
+    
     /**
      * Writes a column of data to the sheet.
      * Use for numerics, Dates, DateTimes... 
@@ -97,8 +115,8 @@ public class RCellBlock {
             } else {
                 colCells[rowOffset+i].setCellType(Cell.CELL_TYPE_BLANK);
             }
+            if ( style != null ) setCellStyle(style, rowOffset+i, colIndex);
         }
-        if ( style != null ) setColCellStyle(style, colIndex, rowOffset, data.length);
     }
 
     /**
@@ -112,8 +130,8 @@ public class RCellBlock {
             } else {
                 colCells[rowOffset+i].setCellType(Cell.CELL_TYPE_BLANK);
             }
+            if ( style != null ) setCellStyle(style, rowOffset + i, colIndex);
         }
-        if ( style != null ) setColCellStyle(style, colIndex, rowOffset, data.length);
     }
 
     /**
@@ -127,8 +145,8 @@ public class RCellBlock {
             } else {
                 colCells[rowOffset+i].setCellType(Cell.CELL_TYPE_BLANK);
             }
+            if ( style != null ) setCellStyle(style, rowOffset+i, colIndex);
         }
-        if ( style != null ) setColCellStyle(style, colIndex, rowOffset, data.length);
     }
 
     /**
@@ -141,10 +159,30 @@ public class RCellBlock {
             } else {
                 cells[colOffset+i][rowIndex].setCellType(Cell.CELL_TYPE_BLANK);
             }
+            if ( style != null ) setCellStyle(style, rowIndex, colOffset+i);
         }
-        if ( style != null ) setRowCellStyle(style, rowIndex, colOffset, data.length);
     }
 
+    /**
+     * Writes a matrix of data to the sheet.  Useful when you have a lot 
+     * of data to write at once.  Use for numerics, Dates, DateTimes... 
+     */
+    public void setMatrixData( int startRow, int endRow, int startColumn, 
+    	int endColumn, double[] data, boolean showNA, CellStyle style ){
+        for (int j=startColumn; j<=endColumn; j++) {
+        	for (int i=startRow; i<=endRow; i++) {
+        		if ( showNA || !RInterface.isNA(data[i])) {
+        			cells[j][i].setCellValue(data[(endRow-startRow+1)*(j-startColumn) + (i-startRow)]);
+        		} else {
+        			cells[j][i].setCellType(Cell.CELL_TYPE_BLANK);
+        		}
+        		if ( style != null ) setCellStyle(style, i, j);
+        	}
+        }
+    }
+
+    
+    
     /**
      * Set the style of cells in a column. 
      */
@@ -180,6 +218,15 @@ public class RCellBlock {
     }
 
     /**
+     * Set the style of one cell.
+     */
+    private void setCellStyle( CellStyle style, int rowIx, int colIx )
+    {
+    	cells[colIx][rowIx].setCellStyle( style );
+    }
+    
+    
+    /**
      * Sets the style of all cells in a block
      */
     public void setCellStyle( CellStyle style )
@@ -205,6 +252,12 @@ public class RCellBlock {
 
     /**
      * Modifies the existing cell styles of a sub-block of cells.
+     *     
+     * Implementation note. The methods add new styles to the workbook.
+     * It tries to avoid creating duplicate cell styles during same call,
+     * but it doesn't lookup and reuse the styles that were already present
+     * in the workbook before the method was called, so the duplicate styles 
+     * might be generated.
      * 
      * @param rowIndices 0-based block-relative indices of rows of a sub-block
      * @param colIndices 0-based block-relative indices of columns of a sub-block
@@ -226,11 +279,11 @@ public class RCellBlock {
                     }
                     cell.setCellStyle(defaultStyle);
                 }
-                else {
-                    if ( styleMap.containsKey( style.getIndex() ) ) {
+                else {               
+                    if ( styleMap.containsKey( style.getIndex() ) ) {  // has been cached 
                         cell.setCellStyle( styleMap.get( style.getIndex() ) );
                     }
-                    else {
+                    else {      // create a new style, and cache it
                         CellStyle modStyle = getWorkbook().createCellStyle();
                         modStyle.cloneStyleFrom( style );
                         modifier.modify(modStyle);
@@ -247,7 +300,26 @@ public class RCellBlock {
      * The other properties of cell styles are preserved.
      * @see modifyCellStyle() 
      */
-    public void setFill( final XSSFColor foreground, final XSSFColor background, final short pattern, int[] rowIndices, int[] colIndices )
+    public void setFill( final short foreground, final short background, 
+    	final short pattern, int[] rowIndices, int[] colIndices )
+    {
+        modifyCellStyle(rowIndices, colIndices, new CellStyleModifier() {
+            public void modify( CellStyle style ) {
+                style.setFillPattern( pattern );
+                style.setFillForegroundColor( foreground );
+                style.setFillBackgroundColor( background );
+            }
+        } );
+    }
+
+    
+    /**
+     * Sets the fill style of a given sub-block of cells, XSSF version.
+     * The other properties of cell styles are preserved.
+     * @see modifyCellStyle() 
+     */
+    public void setFill( final XSSFColor foreground, final XSSFColor background, final short pattern,
+                         int[] rowIndices, int[] colIndices )
     {
         modifyCellStyle(rowIndices, colIndices, new CellStyleModifier() {
             public void modify( CellStyle style ) {
@@ -256,11 +328,12 @@ public class RCellBlock {
                     XSSFCellStyle xssfStyle = (XSSFCellStyle)style;
                     xssfStyle.setFillForegroundColor( foreground );
                     xssfStyle.setFillBackgroundColor( background );
-                }
+                } else throw new RuntimeException( "Current cell style doesn't support XSSF colors");
             }
         } );
     }
 
+    
     /**
      * Sets the font of a given sub-block of cells.
      * The other properties of cell styles are preserved.
@@ -275,6 +348,43 @@ public class RCellBlock {
         } );
     }
 
+    
+    /**
+     * Sets the border style of a given sub-block of cells.
+     * If provided border type if BORDER_NONE the corresponding border is not modified.
+     * The other properties of cell styles are preserved.
+     * @see modifyCellStyle() 
+     */
+    public void putBorder( final short borderTop, final short topBorderColor,
+                           final short borderBottom, final short bottomBorderColor,
+                           final short borderLeft, final short leftBorderColor,
+                           final short borderRight, final short rightBorderColor,
+                           int[] rowIndices, int[] colIndices )
+    {
+        modifyCellStyle(rowIndices, colIndices, new CellStyleModifier() {
+            public void modify( CellStyle style ) {
+                if ( borderTop != CellStyle.BORDER_NONE ) {
+                    style.setBorderTop( borderTop );
+                    style.setTopBorderColor( topBorderColor );
+                }
+                if ( borderBottom != CellStyle.BORDER_NONE ) {
+                    style.setBorderBottom( borderBottom );
+                    style.setBottomBorderColor( bottomBorderColor );
+                }
+                if ( borderLeft != CellStyle.BORDER_NONE ) {
+                    style.setBorderLeft( borderLeft );
+                    style.setLeftBorderColor( leftBorderColor );
+                }
+                if ( borderRight != CellStyle.BORDER_NONE ) {
+                    style.setBorderRight( borderRight );
+                    style.setRightBorderColor( rightBorderColor );
+                }
+            }
+        } );
+    }
+
+    
+    
     /**
      * Sets the border style of a given sub-block of cells.
      * If provided border type if BORDER_NONE the corresponding border is not modified.
@@ -307,8 +417,12 @@ public class RCellBlock {
                         xssfStyle.setBorderRight( borderRight );
                         xssfStyle.setRightBorderColor( rightBorderColor );
                     }
-                }
+                } 
+                else throw new RuntimeException( 
+                		"Current cell style doesn't support XSSF colors");
             }
         } );
     }
+    
+    
 }
