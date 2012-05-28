@@ -26,8 +26,6 @@ public class RCellBlock {
 
 	public int noRows;
 	public int noCols;
-	public int startRow;
-	public int startCol;
     private Cell[][] cells;
 
     /**
@@ -47,9 +45,7 @@ public class RCellBlock {
         cells = new Cell[nCols][nRows];
         noRows = nRows;
         noCols = nCols;
-        startRow = startRowIndex;
-        startCol = startColIndex;
-        
+       
         for (int i = 0; i < nRows; i++) {
             Row r = sheet.getRow(startRowIndex+i);
             if (r == null) {    // row is not already there
@@ -165,10 +161,12 @@ public class RCellBlock {
 
     /**
      * Writes a matrix of data to the sheet.  Useful when you have a lot 
-     * of data to write at once.  Use for numerics, Dates, DateTimes... 
+     * of data to write at once.  Use for numerics, Dates, DateTimes...
+     * The index argument are all relative to the CellBlock top cell!  
      */
     public void setMatrixData( int startRow, int endRow, int startColumn, 
     	int endColumn, double[] data, boolean showNA, CellStyle style ){
+    	
         for (int j=startColumn; j<=endColumn; j++) {
         	for (int i=startRow; i<=endRow; i++) {
         		if ( showNA || !RInterface.isNA(data[i])) {
@@ -251,7 +249,7 @@ public class RCellBlock {
     }
 
     /**
-     * Modifies the existing cell styles of a sub-block of cells.
+     * Modifies existing cell styles of a group of cells.
      *     
      * Implementation note. The methods add new styles to the workbook.
      * It tries to avoid creating duplicate cell styles during same call,
@@ -259,39 +257,39 @@ public class RCellBlock {
      * in the workbook before the method was called, so the duplicate styles 
      * might be generated.
      * 
-     * @param rowIndices 0-based block-relative indices of rows of a sub-block
-     * @param colIndices 0-based block-relative indices of columns of a sub-block
+     * @param rowIndices 0-based block-relative indices of rows
+     * @param colIndices 0-based block-relative indices of columns
      * @param modifier cell styles modifier
      */
     protected void modifyCellStyle( int[] rowIndices, int[] colIndices, CellStyleModifier modifier )
     {
+    	if ( rowIndices.length != colIndices.length ) 
+    		throw new RuntimeException("Length of indRows should equal length of indCols!");
         Map<Short, CellStyle> styleMap = new HashMap<Short,CellStyle>();
         CellStyle defaultStyle = null;
-        for ( int colIx : colIndices ) {
-            final Cell[] colCells = cells[colIx];
-            for ( int rowIx : rowIndices ) {
-                Cell cell = colCells[rowIx];
-                CellStyle style = cell.getCellStyle();
-                if ( style == null ) {
-                    if ( defaultStyle == null ) {
-                        defaultStyle = getWorkbook().createCellStyle();
-                        modifier.modify( defaultStyle );
-                    }
-                    cell.setCellStyle(defaultStyle);
-                }
-                else {               
-                    if ( styleMap.containsKey( style.getIndex() ) ) {  // has been cached 
-                        cell.setCellStyle( styleMap.get( style.getIndex() ) );
-                    }
-                    else {      // create a new style, and cache it
-                        CellStyle modStyle = getWorkbook().createCellStyle();
-                        modStyle.cloneStyleFrom( style );
-                        modifier.modify(modStyle);
-                        styleMap.put(style.getIndex(), modStyle);
-                        cell.setCellStyle( modStyle );
-                    }
-                }
-            }
+        
+        for ( int i=0; i<colIndices.length; i++ ) {
+        	Cell cell = cells[colIndices[i]][rowIndices[i]];
+        	CellStyle style = cell.getCellStyle();
+        	if ( style == null ) {
+        		if ( defaultStyle == null ) {
+        			defaultStyle = getWorkbook().createCellStyle();
+        			modifier.modify( defaultStyle );
+        		}
+        		cell.setCellStyle(defaultStyle);
+        	}
+        	else {               
+        		if ( styleMap.containsKey( style.getIndex() ) ) {  // has been cached 
+        			cell.setCellStyle( styleMap.get( style.getIndex() ) );
+        		}
+        		else {      // create a new style, and cache it
+        			CellStyle modStyle = getWorkbook().createCellStyle();
+        			modStyle.cloneStyleFrom( style );
+        			modifier.modify(modStyle);
+        			styleMap.put(style.getIndex(), modStyle);
+        			cell.setCellStyle( modStyle );
+        		}
+        	}
         }
     }
 

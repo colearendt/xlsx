@@ -2,7 +2,14 @@ NEWS for package xlsx
 
 Changes in version 0.5.0 (released 2012-xx-xx)
 
- o New functionality contributed by Alexey Stukalov
+ o New functionality contributed by Alexey Stukalov.  Introduce the
+ concept of CellBlock. 
+
+ o TODO:  add byrow=FALSE argument to addDataFrame
+
+ o I don't like that addDataFrame returns a CellBlock! 
+
+ o Check the WISHLIST!
 
 Changes in version 0.4.2 (released 2012-02-08)
 

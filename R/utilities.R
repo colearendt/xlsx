@@ -51,12 +51,21 @@
 
 ####################################################################
 #
-.onLoad <- function(libname, pkgname)
-{
-  #require(rJava)
+.onLoad <- function(libname, pkgname){}
 
-  
+####################################################################
+# Converts R color into Excel-compatible color
+# rcolor <- c("red", "blue")
+#
+.Rcolor2XLcolor <- function( rcolor, isXSSF=TRUE )
+{
+  if ( isXSSF ) {
+    sapply( rcolor, .xssfcolor )
+  } else {                             # HSSF
+    sapply( rcolor, function(c) .jshort(INDEXED_COLORS_[toupper( c )]) ) 
+  }    
 }
+
 
 ###################################################################
 # split a vector into contiguous chunks c(1,2,3, 6,7, 9,10,11)

@@ -5,31 +5,6 @@
 
 ##################################################################
 #
-.update.DESCRIPTION <- function(packagedir, version)
-{
-  file <- paste(packagedir, "DESCRIPTION", sep="") 
-  DD  <- readLines(file)
-  ind  <- grep("Version: ", DD)
-  aux <- strsplit(DD[ind], " ")[[1]]
-  
-  if (is.null(version)){   # increase by one 
-    vSplit    <- strsplit(aux[2], "\\.")[[1]]
-    vSplit[3] <- as.character(as.numeric(vSplit[3])+1) 
-    version <- paste(vSplit, sep="", collapse=".")
-  }   
-  DD[ind] <- paste(aux[1], version)
-
-  ind <- grep("Date: ", DD)
-  aux <- strsplit(DD[ind], " ")[[1]]
-  DD[ind] <- paste(aux[1], Sys.Date())
-  
-  writeLines(DD, con=file)
-  return(version)
-}
-
-
-##################################################################
-#
 .build.java <- function()
 {
   # build maven project
@@ -69,15 +44,11 @@
 ##################################################################
 ##################################################################
 
-#version <- NULL        # keep increasing the minor
 version <- "0.5.0"      # if you want to set it by hand
 
-.setEnv("WORK2")   # "HOME" "WORK2" "LAPTOP"
+.setEnv("HOME")   # "HOME" "WORK2" "LAPTOP"
 
 .build.java() 
-
-# change the version
-#version <- .update.DESCRIPTION(pkgdir, version)
 
 # make the package
 setwd(outdir)
@@ -108,30 +79,32 @@ print(cmd); system(cmd)
 
 
 
+
+# change the version
+#version <- .update.DESCRIPTION(pkgdir, version)
+
 ## ##################################################################
 ## #
-## .move.java.classes <- function(do=TRUE)
+## .update.DESCRIPTION <- function(packagedir, version)
 ## {
-##   wd <- getwd()
-##   if (do){
-##     setwd(javadir)
+##   file <- paste(packagedir, "DESCRIPTION", sep="") 
+##   DD  <- readLines(file)
+##   ind  <- grep("Version: ", DD)
+##   aux <- strsplit(DD[ind], " ")[[1]]
+  
+##   if (is.null(version)){   # increase by one 
+##     vSplit    <- strsplit(aux[2], "\\.")[[1]]
+##     vSplit[3] <- as.character(as.numeric(vSplit[3])+1) 
+##     version <- paste(vSplit, sep="", collapse=".")
+##   }   
+##   DD[ind] <- paste(aux[1], version)
 
-##    # create my jar and move it to the inst/java/ directory
-##    setwd("bin")
-##    system("jar -cvf RInterface.jar dev/*.class")
-##    file.copy("RInterface.jar", paste(pkgdir,
-##      "inst/java/RInterface.jar", sep=""), overwrite=TRUE)
-##    unlink("RInterface.jar")
-##    setwd("..")
-
-##    ## # move the source files to have for reference ... 
-##    ## file.copy("src/dev/RInterface.java", paste(pkgdir, 
-##    ##   "other/RInterface.java", sep=""), overwrite=TRUE)
-##    ## file.copy("src/tests/TestRInterface.java", paste(pkgdir, 
-##    ##   "other/TestRInterface.java", sep=""), overwrite=TRUE)
-##   }
-##   setwd(wd)
-##   invisible()
+##   ind <- grep("Date: ", DD)
+##   aux <- strsplit(DD[ind], " ")[[1]]
+##   DD[ind] <- paste(aux[1], Sys.Date())
+  
+##   writeLines(DD, con=file)
+##   return(version)
 ## }
 
 

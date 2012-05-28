@@ -130,30 +130,31 @@ getCellValue <- function(cell, keepFormulas=FALSE, encoding="unknown")
 #
 getMatrixValues <- function(sheet, rowIndex, colIndex, ...)
 {
-  warning("DEPRECATED.  Will be removed in 0.5.0.  Use readColumns.")
-  nr <- length(rowIndex)
-  nc <- length(colIndex)
-  rows  <- getRows(sheet, rowIndex=rowIndex)
-  cells <- getCells(rows, colIndex=colIndex)
+  stop("DEPRECATED in 0.5.0.  Use readColumns.")
+  ## warning("DEPRECATED.  Will be removed in 0.5.0.  Use readColumns.")
+  ## nr <- length(rowIndex)
+  ## nc <- length(colIndex)
+  ## rows  <- getRows(sheet, rowIndex=rowIndex)
+  ## cells <- getCells(rows, colIndex=colIndex)
   
-  cc <- lapply(cells, getCellValue, ...)
-  cc <- unlist(cc)
-  if (length(cc)==nr*nc){        # you don't have missing cells 
-    cc <- matrix(cc, nrow=nr, ncol=nc, byrow=TRUE, 
-                 dimnames=list(rowIndex, colIndex))
-  } else {                       # you have some missing cells
-    VV <- matrix(NA, nrow=nr, ncol=nc,
-                 dimnames=list(rowIndex, colIndex))
+  ## cc <- lapply(cells, getCellValue, ...)
+  ## cc <- unlist(cc)
+  ## if (length(cc)==nr*nc){        # you don't have missing cells 
+  ##   cc <- matrix(cc, nrow=nr, ncol=nc, byrow=TRUE, 
+  ##                dimnames=list(rowIndex, colIndex))
+  ## } else {                       # you have some missing cells
+  ##   VV <- matrix(NA, nrow=nr, ncol=nc,
+  ##                dimnames=list(rowIndex, colIndex))
     
-    ind  <- lapply(strsplit(names(cc), "\\."), as.numeric)
-    indM <- do.call(rbind, ind)
-    # you need this for indexing, to go from labels to indices
-    indM <- apply(indM, 2, function(x){as.numeric(as.factor(x))})
-    VV[indM] <- cc
-    cc <- VV    
-  }
+  ##   ind  <- lapply(strsplit(names(cc), "\\."), as.numeric)
+  ##   indM <- do.call(rbind, ind)
+  ##   # you need this for indexing, to go from labels to indices
+  ##   indM <- apply(indM, 2, function(x){as.numeric(as.factor(x))})
+  ##   VV[indM] <- cc
+  ##   cc <- VV    
+  ## }
 
-  return(cc)
+  ## return(cc)
 }
 
 

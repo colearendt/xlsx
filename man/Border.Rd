@@ -31,7 +31,7 @@ is.Border(x)
 
 \details{
   The values for the color, position, or pen arguments are replicated to
-  the longest of the them.  
+  the longest of them.  
 }
 \value{
   \code{Border} returns a list with components from the input
