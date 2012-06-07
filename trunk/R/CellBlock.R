@@ -123,7 +123,7 @@ CB.setBorder <- function( cellBlock, border, rowIndex, colIndex)
     function( pen ) BORDER_STYLES_[pen] )
   border_colors[ border$position ] <- .Rcolor2XLcolor( border$color, isXSSF)
 
-  .jcall( cellBlock, "V", "putBorder",
+  .jcall( cellBlock$ref, "V", "putBorder",
           .jshort(borders[['TOP']]),    border_colors[['TOP']],
           .jshort(borders[['BOTTOM']]), border_colors[['BOTTOM']],
           .jshort(borders[['LEFT']]),   border_colors[['LEFT']],
