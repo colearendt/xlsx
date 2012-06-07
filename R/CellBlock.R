@@ -134,8 +134,12 @@ CB.setBorder <- function( cellBlock, border, rowIndex, colIndex)
   invisible()
 }
 
-## CB.getCell <- function( cellBlock, rowIndex, colIndex )
-## {
-##   .jcall( cellBlock, 'Lorg/apache/poi/ss/usermodel/Cell;', 'getCell',
-##     rowIndex - 1L, colIndex - 1L )
-## }
+############################################################################
+# get reference to java cell object by its CellBlock row and column indices
+#
+CB.getCell <- function( cellBlock, rowIndex, colIndex )
+{
+    invisible(
+    .jcall( cellBlock$ref, 'Lorg/apache/poi/ss/usermodel/Cell;', 'getCell',
+         rowIndex - 1L, colIndex - 1L ) )
+}
