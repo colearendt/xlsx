@@ -70,9 +70,9 @@ CB.setMatrixData <- function(cellBlock, x, startRow, startColumn,
 #########################################################################     
 # set the Fill for an array of indices of a Cell Block
 #
-CB.setFill <- function( cellBlock, fill, indRows, indCols)
+CB.setFill <- function( cellBlock, fill, rowIndex, colIndex)
 {
-  if (length(indRows) != length(indCols))
+  if (length(rowIndex) != length(colIndex))
     stop("Length of indRows should equal length of indCols!")
   
   if ( cellBlock$ref$isXSSF() ) {
@@ -80,8 +80,8 @@ CB.setFill <- function( cellBlock, fill, indRows, indCols)
       .xssfcolor( fill$foregroundColor ),
       .xssfcolor( fill$backgroundColor ),
       .jshort(FILL_STYLES_[[fill$pattern]]),
-      .jarray( as.integer( indRows-1 ) ),
-      .jarray( as.integer( indCols-1 ) ) )
+      .jarray( as.integer( rowIndex-1 ) ),
+      .jarray( as.integer( colIndex-1 ) ) )
   } else {
     stop("Implement CB.setFill for HSSF!")
   }
