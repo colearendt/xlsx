@@ -8,7 +8,7 @@
 #
 addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
   startRow=1, startColumn=1, colStyle=NULL, colnamesStyle=NULL,
-  rownamesStyle=NULL, showNA=FALSE, characterNA="")
+  rownamesStyle=NULL, showNA=FALSE, characterNA="", byrow=FALSE)
 {
   if (!is.data.frame(x))
     x <- data.frame(x)    # just because the error message is too ugly
@@ -28,17 +28,30 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
 
   iOffset <- if (col.names) 1L else 0L
   jOffset <- if (row.names) 1L else 0L
-  indX1   <- as.integer(startRow-1)        # index of top row
-  indY1   <- as.integer(startColumn-1)     # index of top column
 
+  if ( byrow ) {
+      # write data.frame columns data row-wise
+      setDataFrameColumnMethod <- "setRowData"
+      setDataFrameHeaderMethod <- "setColData"
+      blockRows = ncol(x)
+      blockCols = nrow(x) + iOffset
+  } else {
+      # write data.frame columns data column-wise
+      setDataFrameColumnMethod <- "setColData"
+      setDataFrameHeaderMethod <- "setRowData"
+      blockCols = ncol(x)
+      blockRows = nrow(x) + iOffset
+  }
 
-  # create a CellBlock, not sure why the usual .jnew doesn't work 
-  cellBlock <- CellBlock(sheet, indX1, indY1,
-    as.integer(nrow(x) + iOffset), as.integer(ncol(x)), TRUE)
+  # create a CellBlock, not sure why the usual .jnew doesn't work
+  cellBlock <- CellBlock( sheet,
+           as.integer(startRow), as.integer(startColumn),
+           as.integer(blockRows), as.integer(blockCols),
+           TRUE)
 
   # insert colnames
   if (col.names) {                   
-    .jcall( cellBlock$ref, "V", "setRowData", 0L, jOffset,
+    .jcall( cellBlock$ref, "V", setDataFrameHeaderMethod, 0L, jOffset,
        .jarray(if (row.names) names(x)[-1] else names(x)), showNA,
        if ( !is.null(colnamesStyle) ) colnamesStyle$ref else
            .jnull('org/apache/poi/ss/usermodel/CellStyle') )
@@ -81,7 +94,7 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
       if (any(haveNA))
         aux[haveNA] <- characterNA
     }
-   .jcall( cellBlock$ref, "V", "setColData", as.integer(j+jOffset-1L), iOffset,
+   .jcall( cellBlock$ref, "V", setDataFrameColumnMethod, as.integer(j+jOffset-1L), iOffset,
      .jarray(aux), showNA, if ( !is.null(colStyle) ) colStyle$ref else
         .jnull('org/apache/poi/ss/usermodel/CellStyle') )
   }
