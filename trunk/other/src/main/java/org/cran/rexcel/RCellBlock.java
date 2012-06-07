@@ -77,8 +77,8 @@ public class RCellBlock {
      */
     public Sheet getSheet()
     {
-        return ( cells != null & cells.length > 1
-                 & cells[0] != null & cells[0].length > 1
+        return ( cells != null & cells.length >= 1
+                 & cells[0] != null & cells[0].length >= 1
                  & cells[0][0] != null
                  ? cells[0][0].getSheet() : null );
     }
