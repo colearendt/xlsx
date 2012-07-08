@@ -1,5 +1,21 @@
 #summary Frequently Asked Questions
 
+= Cannot install package xlsx on Mac OS X Lion = 
+
+Please install the package directly from sources.  Download the tar.gz
+file from cran in your working directory, and then 
+{{{
+install.packages("xlsx_0.4.2.tar.gz", type="source")
+}}}
+
+= Package doesn't install properly from within R-Studio =
+
+Please install the package directly from R. 
+{{{
+install.packages("xlsx")
+}}}
+
+
 = I get an error when I try to read an xlsx file =
 
 If you just installed the package, make sure you have the dependent
