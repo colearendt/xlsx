@@ -31,16 +31,16 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
 
   if ( byrow ) {
       # write data.frame columns data row-wise
-      setDataFrameColumnMethod <- "setRowData"
-      setDataFrameHeaderMethod <- "setColData"
-      blockRows = ncol(x)
-      blockCols = nrow(x) + iOffset
+      setDataMethod   <- "setRowData"
+      setHeaderMethod <- "setColData"
+      blockRows <- ncol(x) + jOffset
+      blockCols <- nrow(x) + iOffset
   } else {
       # write data.frame columns data column-wise
-      setDataFrameColumnMethod <- "setColData"
-      setDataFrameHeaderMethod <- "setRowData"
-      blockCols = ncol(x)
-      blockRows = nrow(x) + iOffset
+      setDataMethod   <- "setColData"
+      setHeaderMethod <- "setRowData"
+      blockCols <- ncol(x) + jOffset
+      blockRows <- nrow(x) + iOffset
   }
 
   # create a CellBlock, not sure why the usual .jnew doesn't work
@@ -51,13 +51,12 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
 
   # insert colnames
   if (col.names) {                   
-    .jcall( cellBlock$ref, "V", setDataFrameHeaderMethod, 0L, jOffset,
-       .jarray(if (row.names) names(x)[-1] else names(x)), showNA,
+    .jcall( cellBlock$ref, "V", setHeaderMethod, 0L, jOffset+1L,
+       .jarray(colnames(x)[-1]), showNA,
        if ( !is.null(colnamesStyle) ) colnamesStyle$ref else
            .jnull('org/apache/poi/ss/usermodel/CellStyle') )
   }
 
-  
   # insert one column at a time, and style it if it has style
   # Dates and POSIXct columns get styled if not overridden. 
   for (j in 1:ncol(x)) {
@@ -94,11 +93,13 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
       if (any(haveNA))
         aux[haveNA] <- characterNA
     }
-   .jcall( cellBlock$ref, "V", setDataFrameColumnMethod, as.integer(j+jOffset-1L), iOffset,
-     .jarray(aux), showNA, if ( !is.null(colStyle) ) colStyle$ref else
-        .jnull('org/apache/poi/ss/usermodel/CellStyle') )
+
+   .jcall( cellBlock$ref, "V", setDataMethod,
+     as.integer(j+jOffset-1L), iOffset, .jarray(aux), showNA, 
+       if ( !is.null(thisColStyle) ) thisColStyle$ref else
+         .jnull('org/apache/poi/ss/usermodel/CellStyle') )
   }
 
-  return ( invisible(cellBlock) )
+  invisible()
 }
 

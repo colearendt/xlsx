@@ -42,10 +42,10 @@ test.addOnExistingWorkbook <- function(ext="xlsx")
 # 
 test.addDataFrame <- function(wb)
 {
-  cat("Testing addDataFrame ... ")
+  cat("Testing addDataFrame ... \n")
   
   cat("  custom styles\n")
-  sheet <- createSheet(wb, sheetName="addDataFrame1")
+  sheet1 <- createSheet(wb, sheetName="addDataFrame1")
   data0 <- data.frame(mon=month.abb[1:10], day=1:10, year=2000:2009,
     date=seq(as.Date("1999-01-01"), by="1 year", length.out=10),
     bool=ifelse(1:10 %% 2, TRUE, FALSE), log=log(1:10),
@@ -55,7 +55,7 @@ test.addDataFrame <- function(wb)
   cs1 <- CellStyle(wb) + Font(wb, isItalic=TRUE)
   cs2 <- CellStyle(wb) + Font(wb, color="blue")
   cs3 <- CellStyle(wb) + Font(wb, isBold=TRUE) + Border()
-  addDataFrame(data0, sheet, startRow=3, startColumn=2, colnamesStyle=cs3,
+  addDataFrame(data0, sheet1, startRow=3, startColumn=2, colnamesStyle=cs3,
     rownamesStyle=cs1, colStyle=list(`2`=cs2, `3`=cs2))
 
   cat("  NA treatment, with defaults\n")
@@ -551,9 +551,9 @@ test.ranges <- function(wb)
   ## test.ranges(wb)
   ## test.otherEffects(wb)
   ## test.picture(wb)
-  ## test.addDataFrame(wb)
+  test.addDataFrame(wb)
   ## test.pageBreaks(wb)    # not working with 3.7, fixed in 3.8
-  test.cellBlock(wb)
+  ## test.cellBlock(wb)
   
   
   saveWorkbook(wb, outfile)
@@ -602,7 +602,7 @@ test.ranges <- function(wb)
   thisFile <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/",
     "lib_tests_xlsx.R", sep="")
   source(thisFile)
-  #source(paste(SOURCEDIR, "rexcel/trunk/R/utilities.R", sep=""))
+  source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
 
 #  test.basicFunctions(ext="xlsx")
 #  test.addOnExistingWorkbook(ext="xlsx")
@@ -623,7 +623,9 @@ test.ranges <- function(wb)
 #  .main_speedtest_export(ext="xls")
  
 
-
+  # DO I NEED TO HAVE
+  # - CB.setBorder both indices vectors?
+  # how about CB.getCell?
 
 
   

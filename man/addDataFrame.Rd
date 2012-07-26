@@ -47,9 +47,10 @@ addDataFrame(x, sheet, col.names=TRUE, row.names=TRUE,
 }
 
 \details{
-  Internally this function uses Java internally for looping and the
-  result is a significant improvement in performance compared with a
-  cell by cell application of \code{\link{setCellValue}}. 
+  Starting with version 0.5.0 this function uses the functionality
+  provided by \code{CellBlock} which results in a significant
+  improvement in performance compared with a cell by cell application of
+  \code{\link{setCellValue}} and with other previous atempts.
   
   It is difficult to treat \code{NA}'s consistently between R
   and Excel via Java.  Most likely, users of Excel will want to see

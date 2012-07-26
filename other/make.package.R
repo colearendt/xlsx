@@ -44,7 +44,8 @@
 ##################################################################
 ##################################################################
 
-version <- "0.5.0"      # if you want to set it by hand
+version    <- "0.5.0"      
+package.gz <- paste("xlsx_", version, ".tar.gz", sep="")
 
 .setEnv("HOME")   # "HOME" "WORK2" "LAPTOP"
 
@@ -56,7 +57,6 @@ cmd <- paste(Rcmd, "build --force", pkgdir)
 print(cmd)
 system(cmd)
 
-package.gz <- paste("xlsx_",version, ".tar.gz", sep="")
 install.packages(package.gz, repos=NULL, type="source")
 
 # Run the tests from inst/tests/lib_tests_xlsx.R

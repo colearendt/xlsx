@@ -30,7 +30,7 @@ is.Fill(x)
   \item{pattern}{a character vector specifying the fill pattern style.
   Valid values come from constant \code{FILL_STYLES_}.} 
     
-  \item{x}{An Fill object, as returned by \code{Fill}.}
+  \item{x}{a Fill object, as returned by \code{Fill}.}
 }
 
 %\details{}
