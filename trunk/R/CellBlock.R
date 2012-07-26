@@ -14,7 +14,8 @@ CellBlock.default <- function(sheet, startRow, startColumn, noRows, noColumns,
   create=TRUE)
 {
   cb <- new(J("org/cran/rexcel/RCellBlock"), sheet, as.integer(startRow-1),
-    as.integer(startColumn-1), as.integer(noRows), as.integer(noColumns), create)
+    as.integer(startColumn-1), as.integer(noRows), as.integer(noColumns),
+    create)
 
   structure(list(ref=cb), class="CellBlock")
 }
