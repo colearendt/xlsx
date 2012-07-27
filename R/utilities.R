@@ -1,6 +1,7 @@
 # .guess_cell_type
 # .onLoad
 # .splitBlocks
+# .hssfcolor
 # .xssfcolor  
 
 
