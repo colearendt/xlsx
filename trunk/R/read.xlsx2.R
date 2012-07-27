@@ -28,7 +28,7 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
       stop(paste("Row with index startRow is EMPTY! ",
            "Specify a different startRow value."))
     startColumn <- .jcall(row, "T", "getFirstCellNum") + 1   
-    endColumn   <- .jcall(row, "T", "getLastCellNum") + 1    
+    endColumn   <- .jcall(row, "T", "getLastCellNum")   
     colIndex <- list(startColumn:endColumn)
   } else {
     colIndex <- .splitBlocks(sort(colIndex))

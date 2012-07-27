@@ -6,7 +6,6 @@
 \alias{CB.setFill}
 \alias{CB.setFont}
 \alias{CB.setBorder}
-\alias{CB.getCell}
 \alias{is.CellBlock}
 
 \title{Create and manipulate a block of cells.}
@@ -35,8 +34,6 @@ CB.setFill( cellBlock, fill, rowIndex, colIndex)
 CB.setFont( cellBlock, font, rowIndex, colIndex )
 
 CB.setBorder( cellBlock, border, rowIndex, colIndex)
-
-CB.getCel( cellBlock, rowIndex, colIndex )
 
 }
 \arguments{

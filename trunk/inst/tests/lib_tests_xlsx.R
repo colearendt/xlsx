@@ -57,7 +57,7 @@ test.addDataFrame <- function(wb)
   cs3 <- CellStyle(wb) + Font(wb, isBold=TRUE) + Border()
   addDataFrame(data0, sheet1, startRow=3, startColumn=2, colnamesStyle=cs3,
     rownamesStyle=cs1, colStyle=list(`2`=cs2, `3`=cs2))
-
+  
   cat("  NA treatment, with defaults\n")
   sheet2 <- createSheet(wb, sheetName="addDataFrame2")  
   data <- data.frame(mon=month.abb, index=1:12, double=seq(1.23, by=1,
@@ -191,6 +191,7 @@ test.cellStyles <- function(wb)
 # 
 test.cellBlock <- function(wb)
 {
+  cat("Testing the CellBlock functionality ...\n")
   sheet  <- createSheet(wb, sheetName="CellBlock")
 
   cb <- CellBlock(sheet, 7, 3, 1000, 60)
@@ -212,7 +213,7 @@ test.cellBlock <- function(wb)
     pen=c("BORDER_THIN", "BORDER_THICK"))
   CB.setBorder(cb, border, 1:1000, 1)
   
-  
+  cat("Done.\n")
 }
 
 
@@ -545,15 +546,15 @@ test.ranges <- function(wb)
    
   wb <- createWorkbook(type=ext)
 
-  ## test.cellStyles(wb)
-  ## test.comments(wb)
-  ## test.dataFormats(wb)
-  ## test.ranges(wb)
-  ## test.otherEffects(wb)
-  ## test.picture(wb)
+  test.cellStyles(wb)
+  test.comments(wb)
+  test.dataFormats(wb)
+  test.ranges(wb)
+  test.otherEffects(wb)
+  test.picture(wb)
   test.addDataFrame(wb)
-  ## test.pageBreaks(wb)    # not working with 3.7, fixed in 3.8
-  ## test.cellBlock(wb)
+  #test.pageBreaks(wb)    # not working with 3.7, fixed in 3.8
+  test.cellBlock(wb)
   
   
   saveWorkbook(wb, outfile)
@@ -602,13 +603,11 @@ test.ranges <- function(wb)
   thisFile <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/",
     "lib_tests_xlsx.R", sep="")
   source(thisFile)
-  source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
+  #source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
 
-#  test.basicFunctions(ext="xlsx")
-#  test.addOnExistingWorkbook(ext="xlsx")
-  
+  test.basicFunctions(ext="xlsx")
+  test.addOnExistingWorkbook(ext="xlsx")  
   .main_lowlevel_export(ext="xlsx")
-  
   .main_highlevel_export(ext="xlsx")
   .main_highlevel_import(ext="xlsx")
   .main_lowlevel_import(ext="xlsx")  # readColumns, readRows
@@ -627,9 +626,6 @@ test.ranges <- function(wb)
   # - CB.setBorder both indices vectors?
   # how about CB.getCell?
 
-
-  
-  
 }
 
 

@@ -73,8 +73,8 @@ CB.setMatrixData <- function(cellBlock, x, startRow, startColumn,
 #
 CB.setFill <- function( cellBlock, fill, rowIndex, colIndex)
 {
-  if (length(rowIndex) != length(colIndex))
-    stop("Length of indRows should equal length of indCols!")
+  ## if (length(rowIndex) != length(colIndex))
+  ##   stop("Length of indRows should equal length of indCols!")
   
   if ( cellBlock$ref$isXSSF() ) {
     .jcall( cellBlock$ref, 'V', 'setFill',
@@ -84,7 +84,12 @@ CB.setFill <- function( cellBlock, fill, rowIndex, colIndex)
       .jarray( as.integer( rowIndex-1 ) ),
       .jarray( as.integer( colIndex-1 ) ) )
   } else {
-    stop("Implement CB.setFill for HSSF!")
+    .jcall( cellBlock$ref, 'V', 'setFill',
+      .hssfcolor( fill$foregroundColor ),
+      .hssfcolor( fill$backgroundColor ),
+      .jshort(FILL_STYLES_[[fill$pattern]]),
+      .jarray( as.integer( rowIndex-1 ) ),
+      .jarray( as.integer( colIndex-1 ) ) )  
   }
   
   invisible()
@@ -114,14 +119,17 @@ CB.setBorder <- function( cellBlock, border, rowIndex, colIndex)
                 BOTTOM = border_none,
                 LEFT   = border_none,
                 RIGHT  = border_none )
+  borders[ border$position ] <- sapply( border$pen,
+    function( pen ) BORDER_STYLES_[pen] )
   
-  null_color <- .jnull('org/apache/poi/xssf/usermodel/XSSFColor')
+  null_color <- if (isXSSF)   # why do I need this ?!
+      .jnull('org/apache/poi/xssf/usermodel/XSSFColor')
+    else
+      .jnull('org/apache/poi/xssf/usermodel/HSSFColor')
   border_colors <- c( TOP    = null_color,
                       BOTTOM = null_color,
                       LEFT   = null_color,
-                      RIGHT  = null_color )
-  borders[ border$position ] <- sapply( border$pen,
-    function( pen ) BORDER_STYLES_[pen] )
+                      RIGHT  = null_color )  
   border_colors[ border$position ] <- .Rcolor2XLcolor( border$color, isXSSF)
 
   .jcall( cellBlock$ref, "V", "putBorder",
@@ -137,10 +145,10 @@ CB.setBorder <- function( cellBlock, border, rowIndex, colIndex)
 
 ############################################################################
 # get reference to java cell object by its CellBlock row and column indices
-#
-CB.getCell <- function( cellBlock, rowIndex, colIndex )
-{
-    invisible(
-    .jcall( cellBlock$ref, 'Lorg/apache/poi/ss/usermodel/Cell;', 'getCell',
-         rowIndex - 1L, colIndex - 1L ) )
-}
+# DON'T NEED TO EXPOSE THIS it's just: cb$ref$getCell(1L, 1L)
+## CB.getCell <- function( cellBlock, rowIndex, colIndex )
+## {
+##     invisible(
+##     .jcall( cellBlock$ref, 'Lorg/apache/poi/ss/usermodel/Cell;', 'getCell',
+##          rowIndex - 1L, colIndex - 1L ) )
+## }

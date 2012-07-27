@@ -54,15 +54,15 @@
 .onLoad <- function(libname, pkgname){}
 
 ####################################################################
-# Converts R color into Excel-compatible color
+# Converts R color into Excel compatible color
 # rcolor <- c("red", "blue")
 #
 .Rcolor2XLcolor <- function( rcolor, isXSSF=TRUE )
 {
   if ( isXSSF ) {
     sapply( rcolor, .xssfcolor )
-  } else {                             # HSSF
-    sapply( rcolor, function(c) .jshort(INDEXED_COLORS_[toupper( c )]) ) 
+  } else {                     
+    sapply( rcolor, .hssfcolor ) 
   }    
 }
 
@@ -87,6 +87,16 @@
   }
 
   blocks
+}
+
+
+########################################################################
+# take an R color and return an HSSFColor object
+# where Rcolor is a string
+# not all colors are supported
+.hssfcolor <- function(Rcolor)
+{
+  .jshort(INDEXED_COLORS_[toupper( Rcolor )])
 }
 
 

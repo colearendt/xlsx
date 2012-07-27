@@ -33,14 +33,14 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
       # write data.frame columns data row-wise
       setDataMethod   <- "setRowData"
       setHeaderMethod <- "setColData"
-      blockRows <- ncol(x) + jOffset
-      blockCols <- nrow(x) + iOffset
+      blockRows <- ncol(x) + iOffset
+      blockCols <- nrow(x)
   } else {
       # write data.frame columns data column-wise
       setDataMethod   <- "setColData"
       setHeaderMethod <- "setRowData"
-      blockCols <- ncol(x) + jOffset
       blockRows <- nrow(x) + iOffset
+      blockCols <- ncol(x)
   }
 
   # create a CellBlock, not sure why the usual .jnew doesn't work
@@ -51,7 +51,7 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
 
   # insert colnames
   if (col.names) {                   
-    .jcall( cellBlock$ref, "V", setHeaderMethod, 0L, jOffset+1L,
+    .jcall( cellBlock$ref, "V", setHeaderMethod, 0L, jOffset,
        .jarray(colnames(x)[-1]), showNA,
        if ( !is.null(colnamesStyle) ) colnamesStyle$ref else
            .jnull('org/apache/poi/ss/usermodel/CellStyle') )
@@ -93,9 +93,9 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
       if (any(haveNA))
         aux[haveNA] <- characterNA
     }
-
+#browser()
    .jcall( cellBlock$ref, "V", setDataMethod,
-     as.integer(j+jOffset-1L), iOffset, .jarray(aux), showNA, 
+     as.integer(j-1L), iOffset, .jarray(aux), showNA, 
        if ( !is.null(thisColStyle) ) thisColStyle$ref else
          .jnull('org/apache/poi/ss/usermodel/CellStyle') )
   }
