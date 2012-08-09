@@ -49,7 +49,9 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
   the block.}
   
   \item{create}{ If \code{TRUE} cells will be created if they don't
-    exist,  if \code{FALSE} only existing cells will be used. }
+    exist,  if \code{FALSE} only existing cells will be used.  Use
+    \code{TRUE} if you want to blank out an existing cell block.  Use
+    \code{FALSE} if you want to reuse/restyle existing cells.}
   
   \item{cellBlock}{ a cell block object as returned by
     \code{\link{CellBlock}}. }
@@ -71,10 +73,10 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
 }
 
 \details{
-  Starting with version 0.5.0 this function uses the functionality
-  provided by \code{CellBlock} which results in a significant
-  improvement in performance compared with a cell by cell application of
-  \code{\link{setCellValue}} and with other previous atempts.
+  Introduced in version 0.5.0 of the package, this function uses
+  the functionality provided by \code{CellBlock} which results in a
+  significant performance improvement for reading/writing/updating cells
+  of a spreadsheet.
   
   It is difficult to treat \code{NA}'s consistently between R
   and Excel via Java.  Most likely, users of Excel will want to see
@@ -82,7 +84,15 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
   characters, which for Excel means "NA".
 
   If you try to set more data to the block than you have cells, only the
-  available cells will be set. 
+  available cells will be set.
+
+  Note that when modifying the style of a group of cells, the changes
+  are made to the pairs defined by \code{(rowIndex, colIndex)}.  This
+  implies that the length of \code{rowIndex} and \code{colIndex} are the
+  same value.  An exception is made when either \code{rowIndex} or
+  \code{colIndex} have length one, when they will be expanded internally
+  to match the length of the other index.
+  
 }
 
 \value{
@@ -118,6 +128,7 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
   border <-  Border(color="blue", position=c("TOP", "BOTTOM"),
     pen=c("BORDER_THIN", "BORDER_THICK"))
   CB.setBorder(cb, border, 1:1000, 1)
+
 
   # Don't forget to save the workbook ...  
   # saveWorkbook(wb, file) 

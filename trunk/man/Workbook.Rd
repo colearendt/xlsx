@@ -19,8 +19,8 @@ saveWorkbook(wb, file)
 \arguments{
   \item{type}{a String, either \code{xlsx} for Excel 2007 OOXML format,
 	or \code{xls} for Excel 95 binary format.}
-  \item{file}{the \emph{absolute} path to the file which the data are to
-    be read from.  Can be an xls or xlsx format.}
+  \item{file}{the path to the file you intend to read or write.
+	Can be an xls or xlsx format.}
   \item{wb}{a workbook object as returned by \code{createWorkbook} or
     \code{loadWorkbook}.}
 }
