@@ -14,8 +14,7 @@ write.xlsx2(x, file, sheetName="Sheet1",
 }
 \arguments{
   \item{x}{a \code{data.frame} to write to the workbook.}
-  \item{file}{the \emph{absolute} path to the file which the data are to
-    be read from.}
+  \item{file}{the path to the output file.}
   \item{sheetName}{a character string with the sheet name.}
   \item{col.names}{a logical value indicating if the column names of
     \code{x} are to be written along with \code{x} to the file.}
@@ -37,11 +36,11 @@ to an Excel 2007 worksheet.  It calls several low level functions in the
 process.  Its goal is to provide the conveniency of
 \code{\link[utils]{write.csv}} by borrowing from its signature.
 
-Internally, there is a double loop in \R over all the elements of the
-\code{data.frame} so performance for very large \code{data.frame} may be
-an issue.  Please report if you experience slow performance.  Dates and
-POSIXct classes are formatted separately after the insertion.  This also
-adds to processing time.
+Internally, \code{write.xlsx} uses a double loop in \R over all the
+elements of the \code{data.frame} so performance for very large
+\code{data.frame} may be an issue.  Please report if you experience slow
+performance.  Dates and POSIXct classes are formatted separately after
+the insertion.  This also adds to processing time.
 
 If \code{x} is not a \code{data.frame} it will be converted to one.
 

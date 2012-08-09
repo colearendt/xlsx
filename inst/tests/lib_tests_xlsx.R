@@ -186,6 +186,44 @@ test.cellStyles <- function(wb)
 }
 
 
+test.cellBlock2 <- function()
+{
+  ext <- "xls"
+  outfile <- paste(OUTDIR, "test_cellBlock.", ext, sep="")
+  if (file.exists(outfile)) unlink(outfile)
+   
+  wb <- createWorkbook(type=ext)
+
+  sheet  <- createSheet(wb, sheetName="CellBlock")
+
+  cat("  Add a cell block to sheet CellBlock")
+  cb <- CellBlock(sheet, 7, 3, 50, 60)
+  CB.setColData(cb, 1:50, 1)    # set a column
+  CB.setRowData(cb, 1:50, 1)     # set a row
+
+  # add a matrix, and style it
+  cs <- CellStyle(wb) + DataFormat("#,##0.00")
+  x  <- matrix(rnorm(40*45), nrow=40)
+  CB.setMatrixData(cb, x, 10, 4, cellStyle=cs)  
+
+  # highlight the negative numbers in red 
+  fill <- Fill(foregroundColor = "red", backgroundColor="red")
+  ind  <- which(x < 0, arr.ind=TRUE)
+  CB.setFill(cb, fill, ind[,1]+9, ind[,2]+3)  # note the indices offset
+
+  source(paste(SOURCEDIR, "rexcel/trunk/R/CellBlock.R", sep=""))
+  
+  # set the border on the top row of the Cell Block
+  border <-  Border(color="blue", position=c("TOP", "BOTTOM"),
+    pen=c("BORDER_THIN", "BORDER_THICK"))
+  CB.setBorder(cb, border, 1:50, 1)
+
+  saveWorkbook(wb, outfile)  
+  cat("Wrote file", outfile, "\n\n")
+}
+
+
+
 #####################################################################
 # Test CellBlock
 # 
@@ -194,6 +232,7 @@ test.cellBlock <- function(wb)
   cat("Testing the CellBlock functionality ...\n")
   sheet  <- createSheet(wb, sheetName="CellBlock")
 
+  cat("  Add a cell block to sheet CellBlock\n")
   cb <- CellBlock(sheet, 7, 3, 1000, 60)
   CB.setColData(cb, 1:100, 1)    # set a column
   CB.setRowData(cb, 1:50, 1)     # set a row
@@ -212,6 +251,16 @@ test.cellBlock <- function(wb)
   border <-  Border(color="blue", position=c("TOP", "BOTTOM"),
     pen=c("BORDER_THIN", "BORDER_THICK"))
   CB.setBorder(cb, border, 1:1000, 1)
+
+  cat("  Modify the cell styles of existing cells on sheet dataFormats\n")
+  sheets <- getSheets(wb)
+  sheet  <- sheets[["dataFormats"]]
+  cb <- CellBlock(sheet, 1, 1, 5, 5, create=FALSE)
+  font <- Font(wb, color="red", isItalic=TRUE)
+  CB.setBorder(cb, border, 1:5, 1)
+  ind <- expand.grid(1:5, 1:5)
+  CB.setFont(cb, font, ind[,1], ind[,2])
+
   
   cat("Done.\n")
 }
@@ -602,9 +651,10 @@ test.ranges <- function(wb)
   }
   thisFile <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/",
     "lib_tests_xlsx.R", sep="")
+  source(paste(SOURCEDIR, "rexcel/trunk/R/utilities.R", sep=""))
   source(thisFile)
-  #source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
 
+  
   test.basicFunctions(ext="xlsx")
   test.addOnExistingWorkbook(ext="xlsx")  
   .main_lowlevel_export(ext="xlsx")
@@ -622,9 +672,6 @@ test.ranges <- function(wb)
 #  .main_speedtest_export(ext="xls")
  
 
-  # DO I NEED TO HAVE
-  # - CB.setBorder both indices vectors?
-  # how about CB.getCell?
 
 }
 

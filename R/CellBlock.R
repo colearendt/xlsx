@@ -73,8 +73,14 @@ CB.setMatrixData <- function(cellBlock, x, startRow, startColumn,
 #
 CB.setFill <- function( cellBlock, fill, rowIndex, colIndex)
 {
-  ## if (length(rowIndex) != length(colIndex))
-  ##   stop("Length of indRows should equal length of indCols!")
+  if (length(colIndex)==1 & length(rowIndex) > 1)
+    colIndex <- rep(colIndex, length(rowIndex))
+  if (length(rowIndex)==1 & length(colIndex) > 1)
+    rowIndex <- rep(rowIndex, length(colIndex))
+  
+  if (length(rowIndex) != length(colIndex))
+    stop("rowIndex and colIndex arguments don't have the same length!")
+
   
   if ( cellBlock$ref$isXSSF() ) {
     .jcall( cellBlock$ref, 'V', 'setFill',
@@ -101,7 +107,16 @@ CB.setFill <- function( cellBlock, fill, rowIndex, colIndex)
 #
 CB.setFont <- function( cellBlock, font, rowIndex, colIndex )
 {
-  cellBlock$setFont( font$ref, .jarray( as.integer( rowIndex-1 ) ),
+  if (length(colIndex)==1 & length(rowIndex) > 1)
+    colIndex <- rep(colIndex, length(rowIndex))
+  if (length(rowIndex)==1 & length(colIndex) > 1)
+    rowIndex <- rep(rowIndex, length(colIndex))
+  
+  if (length(rowIndex) != length(colIndex))
+    stop("rowIndex and colIndex arguments don't have the same length!")
+  
+  .jcall( cellBlock$ref, 'V', 'setFont', font$ref,
+    .jarray( as.integer( rowIndex-1 ) ),
     .jarray( as.integer( colIndex-1 ) ) )
     
   invisible()
@@ -112,6 +127,14 @@ CB.setFont <- function( cellBlock, font, rowIndex, colIndex )
 #
 CB.setBorder <- function( cellBlock, border, rowIndex, colIndex)
 {
+  if (length(colIndex)==1 & length(rowIndex) > 1)
+    colIndex <- rep(colIndex, length(rowIndex))
+  if (length(rowIndex)==1 & length(colIndex) > 1)
+    rowIndex <- rep(rowIndex, length(colIndex))
+  
+  if (length(rowIndex) != length(colIndex))
+    stop("rowIndex and colIndex arguments don't have the same length!")
+  
   isXSSF <- .jcall( cellBlock$ref, 'Z', 'isXSSF' )
 
   border_none <- BORDER_STYLES_[['BORDER_NONE']]
@@ -122,16 +145,17 @@ CB.setBorder <- function( cellBlock, border, rowIndex, colIndex)
   borders[ border$position ] <- sapply( border$pen,
     function( pen ) BORDER_STYLES_[pen] )
   
-  null_color <- if (isXSSF)   # why do I need this ?!
+  null_color <- if (isXSSF) {  
       .jnull('org/apache/poi/xssf/usermodel/XSSFColor')
-    else
+    } else {
       .jnull('org/apache/poi/xssf/usermodel/HSSFColor')
+    }
   border_colors <- c( TOP    = null_color,
                       BOTTOM = null_color,
                       LEFT   = null_color,
                       RIGHT  = null_color )  
   border_colors[ border$position ] <- .Rcolor2XLcolor( border$color, isXSSF)
-
+browser()
   .jcall( cellBlock$ref, "V", "putBorder",
           .jshort(borders[['TOP']]),    border_colors[['TOP']],
           .jshort(borders[['BOTTOM']]), border_colors[['BOTTOM']],

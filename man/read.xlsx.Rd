@@ -15,8 +15,7 @@ read.xlsx2(file, sheetIndex, sheetName=NULL, startRow=1,
   colClasses="character", ...)
 }
 \arguments{ 
-  \item{file}{the \emph{absolute} path to the file which the data are to
-    be read from.}
+  \item{file}{the path to the file to read.}
   \item{sheetIndex}{a number representing the sheet index in the workbook.}
   \item{sheetName}{a character string with the sheet name.}
   \item{rowIndex}{a numeric vector indicating the rows you want to

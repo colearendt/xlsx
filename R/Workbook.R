@@ -41,7 +41,8 @@ loadWorkbook <- function(file)
 # 
 saveWorkbook <- function(wb, file)
 {
-  fh <- .jnew("java/io/FileOutputStream", file)
+  jFile <- .jnew("java/io/File", file)
+  fh <- .jnew("java/io/FileOutputStream", jFile)
 
   # write the workbook to the file
   wb$write(fh)

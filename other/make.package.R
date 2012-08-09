@@ -34,7 +34,7 @@
   } else if (computer == "WORK2") {  
     pkgdir  <<- "C:/google/rexcel/trunk/"
     outdir  <<- "H:/"
-    Rcmd    <<- '"C:/Program Files/R/R-2.15.0/bin/i386/Rcmd"'
+    Rcmd    <<- '"C:/Program Files/R/R-2.15.1/bin/i386/Rcmd"'
   } else {
   }
 
