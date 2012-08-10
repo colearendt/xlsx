@@ -148,21 +148,31 @@ CB.setBorder <- function( cellBlock, border, rowIndex, colIndex)
   null_color <- if (isXSSF) {  
       .jnull('org/apache/poi/xssf/usermodel/XSSFColor')
     } else {
-      .jnull('org/apache/poi/xssf/usermodel/HSSFColor')
+      0
     }
   border_colors <- c( TOP    = null_color,
                       BOTTOM = null_color,
                       LEFT   = null_color,
                       RIGHT  = null_color )  
   border_colors[ border$position ] <- .Rcolor2XLcolor( border$color, isXSSF)
-browser()
-  .jcall( cellBlock$ref, "V", "putBorder",
+
+  if ( isXSSF ) { 
+    .jcall( cellBlock$ref, "V", "putBorder",
           .jshort(borders[['TOP']]),    border_colors[['TOP']],
           .jshort(borders[['BOTTOM']]), border_colors[['BOTTOM']],
           .jshort(borders[['LEFT']]),   border_colors[['LEFT']],
           .jshort(borders[['RIGHT']]),  border_colors[['RIGHT']],
           .jarray( as.integer( rowIndex-1L ) ),
           .jarray( as.integer( colIndex-1L ) ) )
+  } else {
+    .jcall( cellBlock$ref, "V", "putBorder",
+          .jshort(borders[['TOP']]),    .jshort(border_colors[['TOP']]),
+          .jshort(borders[['BOTTOM']]), .jshort(border_colors[['BOTTOM']]),
+          .jshort(borders[['LEFT']]),   .jshort(border_colors[['LEFT']]),
+          .jshort(borders[['RIGHT']]),  .jshort(border_colors[['RIGHT']]),
+          .jarray( as.integer( rowIndex-1L ) ),
+          .jarray( as.integer( colIndex-1L ) ) )
+  }
   
   invisible()
 }
