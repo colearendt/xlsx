@@ -206,10 +206,4 @@ getCellStyle <- function(cell)
 }
 
 
-######################################################################
-######################################################################
-## createCellStyle <- function(...) {
-##   warning("DEPRECATED.  Use CellStyle.  To be removed in version 0.5.0.")
-##   CellStyle(...)
-## }
 

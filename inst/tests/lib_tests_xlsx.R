@@ -665,7 +665,7 @@ test.ranges <- function(wb)
   
   test.basicFunctions(ext="xls")
   test.addOnExistingWorkbook(ext="xls")
-  #.main_lowlevel_export(ext="xls")  
+  .main_lowlevel_export(ext="xls")  
   .main_highlevel_export(ext="xls")  
   .main_highlevel_import(ext="xls")
   .main_lowlevel_import(ext="xls")
@@ -674,6 +674,9 @@ test.ranges <- function(wb)
 
 
 }
+
+
+
 
 
 

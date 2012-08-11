@@ -4,14 +4,6 @@ is.Font <- function(x) inherits(x, "Font")
 
 
 ######################################################################
-# 
-createFont <- function(...) {
-  warning("DEPRECATED.  Use Font.  To be removed in version 0.5.0.")
-  Font(...)
-}
-
-
-######################################################################
 # Create a Font.  It needs a workbook object!
 #  - color is an R color string.
 #

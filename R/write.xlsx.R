@@ -52,7 +52,8 @@ write.xlsx <- function(x, file, sheetName="Sheet1",
   if (append){
     wb <- loadWorkbook(file)
   } else {
-    wb <- createWorkbook()
+    ext <- gsub(".*\\.(.*)$", "\\1", basename(file))
+    wb  <- createWorkbook(type=ext)
   }  
   sheet <- createSheet(wb, sheetName)
 
