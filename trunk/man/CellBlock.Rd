@@ -43,13 +43,17 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
   
   \item{startColumn}{a numeric value for the starting column.}
 
+  \item{rowOffset}{a numeric value for the starting row.}
+
+  \item{colOffset}{a numeric value for the starting column.}
+  
   \item{noRows}{a numeric value to specify the number of rows for the block.}
   
   \item{noColumns}{a numeric value to specify the number of columns for
   the block.}
   
   \item{create}{ If \code{TRUE} cells will be created if they don't
-    exist,  if \code{FALSE} only existing cells will be used.  Use
+    exist, if \code{FALSE} only existing cells will be used.  Use
     \code{TRUE} if you want to blank out an existing cell block.  Use
     \code{FALSE} if you want to reuse/restyle existing cells.}
   

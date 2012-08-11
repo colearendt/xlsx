@@ -14,6 +14,11 @@ Changes in version 0.5.0 (released 2012-xx-xx)
  o Absolute paths are no longer needed for saveWorkbook and friends.
  Reported by Mike Cheetham.
 
+ o Functions write.xlsx, write.xlsx2 now allow you to create xls
+ documents too.  Previous versions only allowed xlsx documents. 
+
+ o Deprecated: getMatrixValues.  Use the readColumns function instead.  
+
 Changes in version 0.4.2 (released 2012-02-08)
 
  o New function readRows() similar to readColumns() for reading

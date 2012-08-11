@@ -5,7 +5,7 @@
 CellBlock <- function(sheet, startRow, startColumn, noRows, noColumns,
   create=TRUE)  UseMethod("CellBlock")
 
-is.CellBlock <- function(x) {inherits(x, "CellBlock")}
+is.CellBlock <- function(cellBlock) {inherits(cellBlock, "CellBlock")}
 
 #########################################################################     
 # Create a cell block

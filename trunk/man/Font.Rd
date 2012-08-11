@@ -55,11 +55,13 @@ is.Font(x)
   the default font color is black, the default font name is "Calibri", and
   the font height in points is 11.
 
-  \code{createFont} is now deprecated and will be removed in version
-  0.5.0 of the package.  
+  For Excel 95/2000/XP/2003, it is impossible to set the font to bold.
+  This limitation may be removed in the future.  
   
   NOTE: You need to have a \code{Workbook} object to attach a
-  \code{Font} object to it. 
+  \code{Font} object to it.
+
+  
 }
 \value{
   \code{Font} returns a list with a java reference to a

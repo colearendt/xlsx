@@ -9,7 +9,7 @@
 
 addDataFrame(x, sheet, col.names=TRUE, row.names=TRUE,
   startRow=1, startColumn=1, colStyle=NULL, colnamesStyle=NULL,
-  rownamesStyle=NULL, showNA=FALSE, characterNA="")
+  rownamesStyle=NULL, showNA=FALSE, characterNA="", byrow=FALSE)
 
 }
 \arguments{
@@ -44,6 +44,9 @@ addDataFrame(x, sheet, col.names=TRUE, row.names=TRUE,
   
   \item{characterNA}{a string value to control how character NA will be
     shown in the spreadsheet.}
+
+  \item{byrow}{a logical value indicating if the data.frame should be
+    added to the sheet in row wise fashion.}
 }
 
 \details{

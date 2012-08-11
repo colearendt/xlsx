@@ -4,7 +4,6 @@
 \alias{getCells}
 \alias{setCellValue}
 \alias{getCellValue}
-\alias{getMatrixValues}
 \title{Functions to manipulate cells.}
 \description{
 Functions to manipulate cells. 
@@ -19,12 +18,9 @@ setCellValue(cell, value, richTextString=FALSE)
 
 getCellValue(cell, keepFormulas=FALSE, encoding="unknown")
 
-getMatrixValues(sheet, rowIndex, colIndex, ...)
-
 }
 \arguments{
   \item{row}{a list of row objects. See \code{Row}.}
-  \item{rowIndex}{a numeric vector specifying the index of rows.}
   \item{colIndex}{a numeric vector specifying the index of columns.}
   \item{simplify}{a logical value.  If \code{TRUE}, the result will be
     unlisted.}
@@ -35,8 +31,6 @@ getMatrixValues(sheet, rowIndex, colIndex, ...)
     be returned as characters instead of being explicitly evaluated.}
   \item{encoding}{A character value to set the encoding, for example "UTF-8".}
   \item{cell}{a \code{Cell} object.}
-  \item{sheet}{a \code{Sheet} object.}
-  \item{\ldots}{other arguments to be passed to \code{getCellValue}.}
 }
 
 \value{
@@ -54,14 +48,7 @@ getMatrixValues(sheet, rowIndex, colIndex, ...)
   \code{getCellValue} returns the value in the cell as an R object.
   Type conversions are done behind the scene.  This function is not
   vectorized.
-  
-  \code{getMatrixValues} is useful to extract blocks of similar cells
-  from a spreadsheet.  The result is a matrix.  This is a higher
-  function that is often needed.  If the \code{rowIndex} or
-  \code{colIndex} exceed the data of the sheet, \code{NA}'s will be
-  returned. 
-
-  
+    
 }
 \details{
   \code{setCellValue} writes the content of an R variable into the cell.
@@ -86,9 +73,6 @@ rows  <- getRows(sheet)   # get all the rows
 cells <- getCells(rows)   # returns all non empty cells
 
 values <- lapply(cells, getCellValue) # extract the values
-
-# get a matrix of elements (converted to character)
-vv <- getMatrixValues(sheet, 2:3, 1:3)
 
 # write the months of the year in the first column of the spreadsheet
 ind <- paste(2:13, ".2", sep="")

@@ -1,9 +1,9 @@
 \name{write.xlsx}
 \alias{write.xlsx}
 \alias{write.xlsx2}
-\title{Write a data.frame to an Excel 2007 workbook.}
+\title{Write a data.frame to an Excel workbook.}
 \description{
-Write a \code{data.frame} to an Excel 2007 workbook.
+Write a \code{data.frame} to an Excel workbook.
 }
 \usage{
 write.xlsx(x, file, sheetName="Sheet1", 
@@ -47,6 +47,7 @@ If \code{x} is not a \code{data.frame} it will be converted to one.
 Function \code{write.xlsx2} uses \code{addDataFrame} which speeds up the
 execution compared to \code{write.xlsx} by an order of magnitude for
 large spreadsheets (with more than 100,000 cells).
+
 
 }
 \author{ Adrian Dragulescu }
