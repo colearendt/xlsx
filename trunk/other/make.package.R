@@ -63,7 +63,7 @@ install.packages(package.gz, repos=NULL, type="source")
 
 
 # make the package for CRAN
-cmd <- paste(Rcmd, "build", pkgdir)
+cmd <- paste(Rcmd, "build --compact-vignettes", pkgdir)
 print(cmd); system(cmd)
 
 
