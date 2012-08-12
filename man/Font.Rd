@@ -1,6 +1,5 @@
 \name{Font}
 \alias{Font}
-\alias{createFont}
 \alias{is.Font}
 \title{Create a Font object.}
 \description{
@@ -11,8 +10,6 @@
 Font(wb, color=NULL, heightInPoints=NULL, name=NULL,
   isItalic=FALSE, isStrikeout=FALSE, isBold=FALSE, underline=NULL,
   boldweight=NULL)
-
-createFont(...)
 
 is.Font(x)
 

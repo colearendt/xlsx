@@ -1,5 +1,6 @@
 \name{CellBlock}
 \alias{CellBlock}
+\alias{CellBlock.default}
 \alias{CB.setColData}
 \alias{CB.setRowData}
 \alias{CB.setMatrixData}
@@ -15,7 +16,7 @@
 }
 \usage{
 
-CellBlock(sheet, startRow, startColumn, noRows, noColumns,
+\method{CellBlock}{default}(sheet, startRow, startColumn, noRows, noColumns,
   create=TRUE)
 
 is.CellBlock( cellBlock )
@@ -46,7 +47,10 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
   \item{rowOffset}{a numeric value for the starting row.}
 
   \item{colOffset}{a numeric value for the starting column.}
-  
+
+  \item{showNA}{a logical value.  If set to \code{FALSE}, NA values will
+    be left as empty cells. }
+
   \item{noRows}{a numeric value to specify the number of rows for the block.}
   
   \item{noColumns}{a numeric value to specify the number of columns for
@@ -60,6 +64,10 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
   \item{cellBlock}{ a cell block object as returned by
     \code{\link{CellBlock}}. }
 
+  \item{rowStyle}{a \code{\link{CellStyle}} object used to style the row.}
+
+  \item{colStyle}{a \code{\link{CellStyle}} object used to style the column.}
+  
   \item{cellStyle}{a \code{\link{CellStyle}} object.}
   
   \item{border}{a Border object, as returned by \code{\link{Border}}.}
