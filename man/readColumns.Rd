@@ -34,7 +34,10 @@ readColumns(sheet, startColumn, endColumn, startRow,
   
   \item{colClasses}{a character vector that represent the class of each
     column.  Recycled as necessary, or if \code{NA} an attempt is made
-    to guess the type of each column by reading the first row of data.}
+    to guess the type of each column by reading the first row of data.
+    Only \code{numeric}, \code{character}, \code{Date}, \code{POSIXct},
+    column types are accepted.  Anything else will be coverted to a
+    \code{character} type.}
     
   \item{\ldots}{other arguments to \code{data.frame}, for example
     \code{stringsAsFactors}} 
