@@ -9,13 +9,15 @@ Changes in version 0.5.0 (released 2012-xx-xx)
  easier than before.  Thanks to Alexey Stukalov for his significant
  contribution on the Java side and for the original impetus.
 
- o Bug fix: read.xlsx2 doesn't read an extra empty column anymore.
-
  o Absolute paths are no longer needed for saveWorkbook and friends.
  Reported by Mike Cheetham.
 
  o Functions write.xlsx, write.xlsx2 now allow you to create xls
  documents too.  Previous versions only allowed xlsx documents. 
+
+ o Bug fix: read.xlsx2 doesn't read an extra empty column anymore.
+ Also colClasses were not mapped correctly to the corresponding
+ colIndex. 
 
  o Deprecated: getMatrixValues.  Use the readColumns function instead.  
 
