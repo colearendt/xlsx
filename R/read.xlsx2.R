@@ -29,20 +29,20 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
            "Specify a different startRow value."))
     startColumn <- .jcall(row, "T", "getFirstCellNum") + 1   
     endColumn   <- .jcall(row, "T", "getLastCellNum")   
-    colIndex <- list(startColumn:endColumn)
+    listColIndex <- list(startColumn:endColumn)
   } else {
-    colIndex <- .splitBlocks(sort(colIndex))
+    listColIndex <- .splitBlocks(sort(colIndex))
   }
 
   # if the colIndex is not contiguous, split into contiguous blocks
   # and then cbind the blocks together. 
   res <- NULL
-  for (b in seq_along(colIndex)) {
-    startColumn <- colIndex[[b]][1]
-    endColumn <- tail(colIndex[[b]],1)
+  for (b in seq_along(listColIndex)) {
+    startColumn <- listColIndex[[b]][1]
+    endColumn <- tail(listColIndex[[b]],1)
     res[[b]] <- readColumns(sheet, startColumn, endColumn, startRow,
       endRow=endRow, as.data.frame=as.data.frame, header=header,
-      colClasses=colClasses, ...)
+      colClasses=colClasses[which(colIndex %in% listColIndex[[b]])], ...)
   }
   
   do.call(cbind, res)
