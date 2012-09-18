@@ -1,6 +1,5 @@
 # One sheet extraction.  Similar to read.csv.
 #
-# TODO:  what's the best colClasses default?
 # 
 read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
   colIndex=NULL, endRow=NULL, as.data.frame=TRUE, header=TRUE,
@@ -27,8 +26,9 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
     if (is.null(row)) 
       stop(paste("Row with index startRow is EMPTY! ",
            "Specify a different startRow value."))
-    startColumn <- .jcall(row, "T", "getFirstCellNum") + 1   
-    endColumn   <- .jcall(row, "T", "getLastCellNum")   
+    startColumn  <- .jcall(row, "T", "getFirstCellNum") + 1   
+    endColumn    <- .jcall(row, "T", "getLastCellNum")
+    colIndex     <- startColumn:endColumn
     listColIndex <- list(startColumn:endColumn)
   } else {
     listColIndex <- .splitBlocks(sort(colIndex))
