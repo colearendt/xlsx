@@ -50,9 +50,9 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
            TRUE)
 
   # insert colnames
-  if (col.names) {                   
+  if (col.names) {
     .jcall( cellBlock$ref, "V", setHeaderMethod, 0L, jOffset,
-       .jarray(colnames(x)[-1]), showNA,
+       .jarray(colnames(x)[(1+jOffset):ncol(x)]), showNA,
        if ( !is.null(colnamesStyle) ) colnamesStyle$ref else
            .jnull('org/apache/poi/ss/usermodel/CellStyle') )
   }

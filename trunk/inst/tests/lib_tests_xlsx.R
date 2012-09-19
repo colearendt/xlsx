@@ -8,6 +8,7 @@
 # test.cellBlock
 # test.comments
 # test.dataFormats
+# test.evalFormulasOnOpen
 # test.otherEffects
 # test.picture
 # test.ranges
@@ -527,7 +528,8 @@ test.ranges <- function(wb)
   file <- paste(OUTDIR, "test_highlevel_export.", ext, sep="")
   cat("  write an xlsx file with char, int, double, date, bool columns ...\n")
   write.xlsx(x, file, sheetName="writexlsx")
-  #write.xlsx2(x, file, sheetName="writexlsx2", append=TRUE) # creates seg fault?
+  
+  write.xlsx2(x, file, sheetName="writexlsx2", append=TRUE, row.names=FALSE) 
 
   cat("  test the append argument by adding another sheet ... \n")
   file <- paste(OUTDIR, "test_highlevel_export.", ext, sep="")
@@ -652,6 +654,8 @@ test.ranges <- function(wb)
   thisFile <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/",
     "lib_tests_xlsx.R", sep="")
   source(paste(SOURCEDIR, "rexcel/trunk/R/utilities.R", sep=""))
+  source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
+  source(paste(SOURCEDIR, "rexcel/trunk/R/write.xlsx2.R", sep=""))
   source(thisFile)
 
   
