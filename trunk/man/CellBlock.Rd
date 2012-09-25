@@ -9,9 +9,9 @@
 \alias{CB.setBorder}
 \alias{is.CellBlock}
 
-\title{Create and manipulate a block of cells.}
+\title{Create and style a block of cells.}
 \description{
-  Functions to create and manipulate a block of cells.  Use it to 
+  Functions to create and style (not read) a block of cells.  Use it to 
   set/update cell values and cell styles in an efficient manner.
 }
 \usage{
@@ -85,18 +85,22 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
 }
 
 \details{
-  Introduced in version 0.5.0 of the package, this function uses
-  the functionality provided by \code{CellBlock} which results in a
-  significant performance improvement for reading/writing/updating cells
-  of a spreadsheet.
   
+  Introduced in version 0.5.0 of the package, these functions speed up
+  the creation and styling of cells that are part of a "cell block" (a
+  rectangular shaped group of cells).  Use the functions above if you
+  want to create efficiently a complex sheet with many styles.  A simple
+  by-column styling can be done by directly using
+  \code{\link{addDataFrame}}.  With the functionality provided here you
+  can efficiently style individual cells, see the example.
+
   It is difficult to treat \code{NA}'s consistently between R
   and Excel via Java.  Most likely, users of Excel will want to see
   \code{NA}'s  as blank cells.  In R character \code{NA}'s are simply
   characters, which for Excel means "NA".
 
-  If you try to set more data to the block than you have cells, only the
-  available cells will be set.
+  If you try to set more data to the block than you have cells in the
+  block, only the existing cells will be set.
 
   Note that when modifying the style of a group of cells, the changes
   are made to the pairs defined by \code{(rowIndex, colIndex)}.  This

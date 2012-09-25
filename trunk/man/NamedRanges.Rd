@@ -54,7 +54,9 @@ wb <- loadWorkbook(file)
 sheet <- getSheets(wb)[["deletedFields"]]  
 ranges <- getRanges(wb)
 
-res  <- readRange(ranges[[1]], sheet, colClasses="numeric") # read it 
+# the call below fails on cran tests for MacOS.  You should see the
+# FAQ: http://code.google.com/p/rexcel/wiki/FAQ
+#res  <- readRange(ranges[[1]], sheet, colClasses="numeric") # read it 
 
 ranges[[1]]$getNameName()  # get its name
 
@@ -65,7 +67,8 @@ ranges[[1]]$getNameName()  # get its name
 firstCell <- sheet$getRow(14L)$getCell(4L)
 lastCell  <- sheet$getRow(20L)$getCell(7L)
 rangeName <- "Test2"
-createRange(rangeName, firstCell, lastCell)
+# same issue on MacOS
+#createRange(rangeName, firstCell, lastCell)
 
 
 }

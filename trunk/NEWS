@@ -1,9 +1,9 @@
 NEWS for package xlsx
 
-Changes in version 0.5.0 (released 2012-xx-xx)
+Changes in version 0.5.0 (released 2012-09-23)
 
  o New functionality: Introduce the concept of CellBlock to allow
- faster read/writes/updates of cell blocks.  Writing a spreadsheet is
+ faster writes/updates of cell blocks.  Writing a spreadsheet is
  now +50% faster for medium sized spreadsheets compared to version
  0.4.2.  This functionality allows you to style a block of cells much
  easier than before.  Thanks to Alexey Stukalov for his significant
