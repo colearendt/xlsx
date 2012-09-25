@@ -1,5 +1,9 @@
 NEWS for package xlsx
 
+Changes in version 0.5.1 (released 2012-xx-xx)
+
+
+
 Changes in version 0.5.0 (released 2012-09-23)
 
  o New functionality: Introduce the concept of CellBlock to allow
