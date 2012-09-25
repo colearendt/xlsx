@@ -41,7 +41,7 @@
 Package: \tab xlsx\cr
 Type: \tab Package\cr
 Version: \tab 0.5.0\cr
-Date: \tab 2012-09-23\cr
+Date: \tab 2012-xx-xx\cr
 License: \tab GPL-3\cr
 }
 
