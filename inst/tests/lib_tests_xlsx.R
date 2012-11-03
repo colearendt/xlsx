@@ -18,6 +18,8 @@
 # .main
 
 
+
+
 #####################################################################
 # Test adding a df to an existing workbook using addDataFrame 
 # 
@@ -445,6 +447,34 @@ test.ranges <- function(wb)
   cat("Done.\n")
 }
 
+
+
+#####################################################################
+# Test read integers
+# reported by Julian Daniel Taylor on 11/2/2012
+# Caldwell -- issues reading factors as factors
+#
+.test.caldwell <- function()
+{
+  require(xlsx)
+  ## aux <- read.xlsx2("/tmp/example.xlsx", sheetIndex=1,
+  ##   colClasses=c("character", rep("integer",3), "character", rep("numeric",2)))
+  
+  wb <- loadWorkbook("/tmp/example.xlsx")
+  getSheets(wb)
+
+  soil.data <- read.xlsx2("/tmp/example.xlsx",3)
+  str(soil.data)
+
+  source(paste(SOURCEDIR, "rexcel/trunk/R/read.xlsx2.R", sep=""))
+  source(paste(SOURCEDIR, "rexcel/trunk/R/readColumns.R", sep=""))
+
+  
+  types<-c("numeric", rep("character",10),rep("numeric",7))
+  soil.data2<-read.xlsx2("/tmp/example.xlsx",3, colClasses=types)  
+  # works fine!
+
+}
 
 #####################################################################
 # Test imports

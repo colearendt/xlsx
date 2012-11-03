@@ -63,6 +63,7 @@ readColumns <- function(sheet, startColumn, endColumn, startRow,
         as.integer(startRow-1), as.integer(endRow-1), 
         as.integer(startColumn-1+i-1))
     }
+
     if (!is.na(colClasses[i]))
       suppressWarnings(class(aux) <- colClasses[i])  # if it gets specified
     res[[i]] <- aux
