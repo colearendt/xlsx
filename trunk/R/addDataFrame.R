@@ -33,13 +33,13 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
       # write data.frame columns data row-wise
       setDataMethod   <- "setRowData"
       setHeaderMethod <- "setColData"
-      blockRows <- ncol(x) + iOffset
-      blockCols <- nrow(x)
+      blockRows <- ncol(x)
+      blockCols <- nrow(x) + iOffset # row-wise data + column names
   } else {
       # write data.frame columns data column-wise
       setDataMethod   <- "setColData"
       setHeaderMethod <- "setRowData"
-      blockRows <- nrow(x) + iOffset
+      blockRows <- nrow(x) + iOffset # column-wise data + column names
       blockCols <- ncol(x)
   }
 
