@@ -100,6 +100,7 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
          .jnull('org/apache/poi/ss/usermodel/CellStyle') )
   }
 
-  invisible()
+  # return the cellBlock occupied by the generated data frame
+  invisible(cellBlock)
 }
 
