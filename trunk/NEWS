@@ -2,6 +2,8 @@ NEWS for package xlsx
 
 Changes in version 0.5.1 (released 2012-xx-xx)
 
+ o Fix Issue 9. 
+
  o TODO:  Fix bug in read.xlsx2 when user asks for colType "factor".
  The assignment "class(aux) <- colClasses[i]" in readColumns returns
  the error: "adding class "factor" to an invalid object" Strange.

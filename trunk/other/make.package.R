@@ -22,7 +22,7 @@
   if (computer=="WORK") {
     pkgdir  <<- "C:/google/rexcel/trunk/"
     outdir  <<- "H:/"
-    Rcmd    <<- "S:/All/Risk/Software/R/R-2.12.1/bin/i386/Rcmd"
+    Rcmd    <<- "S:/All/Risk/Software/R/R-2.15.2/bin/i386/Rcmd"
   } else if (computer == "LAPTOP") {
     pkgdir    <<- "/home/adrian/Documents/rexcel/trunk/"
     outdir    <<- "/tmp/"
@@ -31,10 +31,11 @@
     pkgdir    <<- "/home/adrian/Documents/rexcel/trunk/"
     outdir    <<- "/tmp"
     Rcmd      <<- "R CMD"
-  } else if (computer == "WORK2") {  
+  } else if (computer == "WORK2") {
+    Sys.setenv(R_HOME="C:/R" )
     pkgdir  <<- "C:/google/rexcel/trunk/"
     outdir  <<- "H:/"
-    Rcmd    <<- '"C:/Program Files/R/R-2.15.1/bin/i386/Rcmd"'
+    Rcmd    <<- '"C:/R/R-2.15.2/bin/x64/Rcmd"'
   } else {
   }
 
@@ -44,20 +45,30 @@
 ##################################################################
 ##################################################################
 
-version    <- "0.5.0"      
+version    <- "0.5.1"      
 package.gz <- paste("xlsx_", version, ".tar.gz", sep="")
 
-.setEnv("HOME")   # "HOME" "WORK2" "LAPTOP"
+computer <- "WORK2"  # "HOME" "WORK2" "LAPTOP"
+.setEnv(computer)   
 
 .build.java() 
 
-# make the package
+# make & install the package
 setwd(outdir)
-cmd <- paste(Rcmd, "build --force", pkgdir)
-print(cmd)
-system(cmd)
+if (computer %in% c("WORK2"))   #  Win7 needs special treatment, why?!
+{
+  cmd <- paste(Rcmd, "INSTALL --build", pkgdir) 
+  print(cmd)
+  system(cmd)
+} else {
+  cmd <- paste(Rcmd, "build --force --md5", pkgdir)
+  print(cmd)
+  system(cmd)
 
-install.packages(package.gz, repos=NULL, type="source")
+  install.packages(package.gz, repos=NULL, type="source")
+}
+
+
 
 # Run the tests from inst/tests/lib_tests_xlsx.R
 
@@ -74,37 +85,5 @@ print(cmd); system(cmd)
 
 
 
-
-
-
-
-
-
-# change the version
-#version <- .update.DESCRIPTION(pkgdir, version)
-
-## ##################################################################
-## #
-## .update.DESCRIPTION <- function(packagedir, version)
-## {
-##   file <- paste(packagedir, "DESCRIPTION", sep="") 
-##   DD  <- readLines(file)
-##   ind  <- grep("Version: ", DD)
-##   aux <- strsplit(DD[ind], " ")[[1]]
-  
-##   if (is.null(version)){   # increase by one 
-##     vSplit    <- strsplit(aux[2], "\\.")[[1]]
-##     vSplit[3] <- as.character(as.numeric(vSplit[3])+1) 
-##     version <- paste(vSplit, sep="", collapse=".")
-##   }   
-##   DD[ind] <- paste(aux[1], version)
-
-##   ind <- grep("Date: ", DD)
-##   aux <- strsplit(DD[ind], " ")[[1]]
-##   DD[ind] <- paste(aux[1], Sys.Date())
-  
-##   writeLines(DD, con=file)
-##   return(version)
-## }
 
 

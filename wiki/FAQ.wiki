@@ -1,18 +1,23 @@
 #summary Frequently Asked Questions
 
+= Cannot find jvm.dll =
+Essentially, you don't have yet a working rJava package.  Try to add
+your jvm.dll to your path.  For example, on windows you might have
+something like "C:/Program Files/Java/jdk1.7.0_11/jre/bin/server". 
+
 = Cannot install package xlsx on Mac OS X Lion = 
 
 Please install the package directly from sources.  Download the tar.gz
 file from cran in your working directory, and then 
 {{{
-install.packages("xlsx_0.4.2.tar.gz", type="source")
+install.packages("xlsx_0.5.0.tar.gz", type="source")
 }}}
 
 = Package doesn't install properly from within R-Studio =
 
 Please install the package directly from R. 
 {{{
-install.packages("xlsx")
+install.packages(c("xlsxjars", "xlsx"))
 }}}
 
 
