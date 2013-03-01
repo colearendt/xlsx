@@ -29,6 +29,7 @@ read.xlsx <- function(file, sheetIndex, sheetName=NULL, rowIndex=NULL,
     
     row.names <- sort(as.numeric(unique(namesIndM[,1])))
     col.names <- paste("V", sort(unique(namesIndM[,2])), sep="")  
+    col.names <- sort(unique(namesIndM[,2]))
     cols <- length(col.names)
 
     VV <- matrix(list(NA), nrow=length(row.names), ncol=cols,
@@ -47,12 +48,12 @@ read.xlsx <- function(file, sheetIndex, sheetName=NULL, rowIndex=NULL,
     for (ic in seq_len(cols)) {
       aux   <- unlist(VV[,ic], use.names=FALSE)
       nonNA <- which(!is.na(aux)) 
-      if (length(nonNA)>0){  # not a NA column in the middle of data
+      if (length(nonNA)>0) {  # not a NA column in the middle of data
         ind <- min(nonNA)
-        if (class(aux[ind])=="numeric"){
+        if (class(aux[ind])=="numeric") {
           # test first not NA cell if it's a date/datetime
           dateUtil <- .jnew("org/apache/poi/ss/usermodel/DateUtil")
-          cell <- cells[[paste(ind+header, ".", ic, sep="")]]
+          cell <- cells[[paste(row.names[ind + header], ".", col.names[ic], sep = "")]]
           isDatetime <- dateUtil$isCellDateFormatted(cell)
           if (isDatetime){
             if (identical(aux, round(aux))){ # you have dates

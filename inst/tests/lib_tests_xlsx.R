@@ -12,6 +12,7 @@
 # test.otherEffects
 # test.picture
 # test.ranges
+# test.Issue9
 #
 # .main_highlevel_export
 # .main_lowlevel_export
@@ -450,31 +451,25 @@ test.ranges <- function(wb)
 
 
 #####################################################################
-# Test read integers
-# reported by Julian Daniel Taylor on 11/2/2012
-# Caldwell -- issues reading factors as factors
+# Test Issue 9
+# 
 #
-.test.caldwell <- function()
+.test.issue9 <- function()
 {
   require(xlsx)
-  ## aux <- read.xlsx2("/tmp/example.xlsx", sheetIndex=1,
-  ##   colClasses=c("character", rep("integer",3), "character", rep("numeric",2)))
+  file <- system.file("tests", "test_import.xlsx", package="xlsx")
+  res <- read.xlsx(file, sheetName="issue9", rowIndex=3:5, colIndex=3:5)
+
+  #this one fails too!
+  res <- read.xlsx2(file, sheetName="issue9", rowIndex=3:5, colIndex=3:5)
   
-  wb <- loadWorkbook("/tmp/example.xlsx")
-  getSheets(wb)
 
-  soil.data <- read.xlsx2("/tmp/example.xlsx",3)
-  str(soil.data)
 
-  source(paste(SOURCEDIR, "rexcel/trunk/R/read.xlsx2.R", sep=""))
-  source(paste(SOURCEDIR, "rexcel/trunk/R/readColumns.R", sep=""))
-
-  
-  types<-c("numeric", rep("character",10),rep("numeric",7))
-  soil.data2<-read.xlsx2("/tmp/example.xlsx",3, colClasses=types)  
-  # works fine!
 
 }
+
+
+
 
 #####################################################################
 # Test imports
