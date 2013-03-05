@@ -41,8 +41,11 @@ public class RInterface {
      double[] res = new double[N];
      for (int i=0; i<N; i++) {
        Row row = sheet.getRow(startRowIndex+i);
+       if (row == null) {
+           res[i] = NA_DOUBLE;
+           continue;
+       } 
        Cell cell = row.getCell(colIndex, Row.CREATE_NULL_AS_BLANK);
- 
        switch(cell.getCellType()) {
        case Cell.CELL_TYPE_STRING:
          try {
@@ -85,7 +88,11 @@ public class RInterface {
      String[] res = new String[N];
      for (int i=0; i<N; i++) {
        Row row = sheet.getRow(startRowIndex+i);
-       Cell cell = row.getCell(colIndex, Row.CREATE_NULL_AS_BLANK); 
+       if (row == null) {
+           res[i] = "";
+           continue;
+       }
+       Cell cell = row.getCell(colIndex, Row.CREATE_NULL_AS_BLANK);
        switch(cell.getCellType()) {
          case Cell.CELL_TYPE_STRING:
            res[i] = cell.getStringCellValue();
@@ -112,6 +119,7 @@ public class RInterface {
          default:
            res[i] = "";
        }
+       
      }
      
      return res;

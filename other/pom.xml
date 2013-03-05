@@ -1,14 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>cran</groupId>
   <artifactId>rexcel</artifactId>
-  <name>rexcel</name>
-  <url>http://code.google.com/p/rexcel</url>
-  <description>Java interface for xlsx R package</description>
   <version>0.5.0</version>
-  <packaging>jar</packaging>
+  <name>rexcel</name>
+  <description>Java interface for xlsx R package</description>
+  <url>http://code.google.com/p/rexcel</url>
   <contributors>
     <contributor>
       <name>Adrian A. Dragulescu</name>
@@ -26,25 +23,24 @@
     </contributor>
   </contributors>
   <scm>
-    <url>http://code.google.com/p/rexcel/source/browse/#svn%2Ftrunk</url>
     <connection>scm:svn:http://rexcel.googlecode.com/svn/trunk</connection>
-    <tag>HEAD</tag>
+    <url>http://code.google.com/p/rexcel/source/browse/#svn%2Ftrunk</url>
   </scm>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
   <dependencies>
     <dependency>
-      <artifactId>poi</artifactId>
       <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
       <version>3.8</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
-      <artifactId>poi-ooxml</artifactId>
       <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
       <version>3.8</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -53,81 +49,262 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <artifactId>openxml4j</artifactId>
       <groupId>org.apache.poi</groupId>
+      <artifactId>openxml4j</artifactId>
       <version>1.0-beta</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <artifactId>poi-examples</artifactId>
       <groupId>org.apache.poi</groupId>
+      <artifactId>poi-examples</artifactId>
       <version>3.8</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>http://repo.maven.apache.org/maven2</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>http://repo.maven.apache.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
   <build>
+    <sourceDirectory>c:\google\rexcel\trunk\other\src\main\java</sourceDirectory>
+    <scriptSourceDirectory>c:\google\rexcel\trunk\other\src\main\scripts</scriptSourceDirectory>
+    <testSourceDirectory>c:\google\rexcel\trunk\other\src\test\java</testSourceDirectory>
+    <outputDirectory>c:\google\rexcel\trunk\other\target\classes</outputDirectory>
+    <testOutputDirectory>c:\google\rexcel\trunk\other\target\test-classes</testOutputDirectory>
     <defaultGoal>package</defaultGoal>
-    <plugins>
-      <!-- 
-      <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <version>2.3</version>
-          <configuration>
-              <descriptorRefs><descriptorRef>jar-with-dependencies</descriptorRef></descriptorRefs>
-            <outputDirectory>../inst/java</outputDirectory>
-          </configuration>
-          <executions>
-              <execution>
-                  <id>make-assembly</id>
-                  <phase>package</phase>
-                  <goals><goal>single</goal></goals>
-              </execution>
-          </executions>
-      </plugin>
-       -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <outputDirectory>../inst/java</outputDirectory>
-        </configuration>
-      </plugin>
-     <plugin>
-         <groupId>org.apache.maven.plugins</groupId>
-         <artifactId>maven-compiler-plugin</artifactId>
-         <configuration>
-             <source>1.5</source>
-             <target>1.5</target>
-         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.4</version>
-        <executions>
-          <!-- <execution>
-                <id>copy-dependencies</id>
-                <phase>package</phase>
-                <goals><goal>copy-dependencies</goal></goals>
-                <configuration>
-                    <excludeScope>compile</excludeScope>
-                    <includeScope>runtime</includeScope>
-                    <outputDirectory>../inst/java</outputDirectory>
-                </configuration>
-            </execution> -->
-        </executions>
-      </plugin>
-    </plugins>
+    <resources>
+      <resource>
+        <directory>c:\google\rexcel\trunk\other\src\main\resources</directory>
+      </resource>
+    </resources>
     <testResources>
       <testResource>
-        <directory>../inst/tests</directory>
+        <directory>c:\google\rexcel\trunk\inst\tests</directory>
         <includes>
           <include>*.xls</include>
           <include>*.xlsx</include>
         </includes>
       </testResource>
     </testResources>
+    <directory>c:\google\rexcel\trunk\other\target</directory>
+    <finalName>rexcel-0.5.0</finalName>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.3</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.2-beta-5</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
+          <execution>
+            <id>default-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>../inst/java</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <outputDirectory>../inst/java</outputDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <executions>
+          <execution>
+            <id>default-testCompile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+            <configuration>
+              <source>1.5</source>
+              <target>1.5</target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>default-compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <source>1.5</source>
+              <target>1.5</target>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.4</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.4.1</version>
+        <executions>
+          <execution>
+            <id>default-clean</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.3.1</version>
+        <executions>
+          <execution>
+            <id>default-install</id>
+            <phase>install</phase>
+            <goals>
+              <goal>install</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.5</version>
+        <executions>
+          <execution>
+            <id>default-resources</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>resources</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>default-testResources</id>
+            <phase>process-test-resources</phase>
+            <goals>
+              <goal>testResources</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.10</version>
+        <executions>
+          <execution>
+            <id>default-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.7</version>
+        <executions>
+          <execution>
+            <id>default-deploy</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+        <executions>
+          <execution>
+            <id>default-site</id>
+            <phase>site</phase>
+            <goals>
+              <goal>site</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>c:\google\rexcel\trunk\other\target\site</outputDirectory>
+              <reportPlugins>
+                <reportPlugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-project-info-reports-plugin</artifactId>
+                </reportPlugin>
+              </reportPlugins>
+            </configuration>
+          </execution>
+          <execution>
+            <id>default-deploy</id>
+            <phase>site-deploy</phase>
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>c:\google\rexcel\trunk\other\target\site</outputDirectory>
+              <reportPlugins>
+                <reportPlugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-project-info-reports-plugin</artifactId>
+                </reportPlugin>
+              </reportPlugins>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <outputDirectory>c:\google\rexcel\trunk\other\target\site</outputDirectory>
+          <reportPlugins>
+            <reportPlugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-project-info-reports-plugin</artifactId>
+            </reportPlugin>
+          </reportPlugins>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
+  <reporting>
+    <outputDirectory>c:\google\rexcel\trunk\other\target\site</outputDirectory>
+  </reporting>
 </project>
