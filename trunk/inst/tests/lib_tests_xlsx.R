@@ -453,19 +453,29 @@ test.ranges <- function(wb)
 #####################################################################
 # Test Issue 9
 # 
-#
 .test.issue9 <- function()
 {
   require(xlsx)
   file <- system.file("tests", "test_import.xlsx", package="xlsx")
   res <- read.xlsx(file, sheetName="issue9", rowIndex=3:5, colIndex=3:5)
+}
 
-  #this one fails too!
-  res <- read.xlsx2(file, sheetName="issue9", rowIndex=3:5, colIndex=3:5)
+
+#####################################################################
+# Test Issue 10
+# 
+#
+.test.issue10 <- function()
+{
+  require(xlsx)
+  #file <- system.file("tests", "test_import.xlsx", package="xlsx")
+  file <- "C:/temp/fca3_monthly_ob_v2.xls"
+  res <- read.xlsx2(file, sheetIndex=1, colIndex=1:3)
   
-
-
-
+  #file <- "C:/google/rexcel/trunk/inst/tests/test_import.xlsx"
+  #res <- read.xlsx2(file, sheetName="issue10", startRow=4)
+  
+  
 }
 
 
@@ -680,6 +690,8 @@ test.ranges <- function(wb)
     "lib_tests_xlsx.R", sep="")
   source(paste(SOURCEDIR, "rexcel/trunk/R/utilities.R", sep=""))
   source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
+  source(paste(SOURCEDIR, "rexcel/trunk/R/readColumns.R", sep=""))
+  source(paste(SOURCEDIR, "rexcel/trunk/R/read.xlsx2.R", sep=""))
   source(paste(SOURCEDIR, "rexcel/trunk/R/write.xlsx2.R", sep=""))
   source(thisFile)
 

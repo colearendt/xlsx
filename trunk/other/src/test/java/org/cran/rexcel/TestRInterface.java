@@ -14,20 +14,20 @@ import org.junit.Test;
 
 public class TestRInterface {
   @Test
-  public void readXLSX() throws InvalidFormatException, IOException{
-    FileInputStream in = new FileInputStream( 
-      new File("../inst/tests/test_import.xlsx") );
+  public void readXLSX() throws InvalidFormatException, IOException {
+    FileInputStream in = new FileInputStream(new File("../inst/tests/test_import.xlsx") );
     Workbook wb = WorkbookFactory.create(in);
     Sheet sheet = wb.getSheetAt(7); 
 
     RInterface R = new RInterface();
     
     //String[] res = R.readRowStrings(sheet, 0, 10, 0);
-//    String[] res = R.readColStrings(sheet, 1, 20, 1);
+    //String[] res = R.readColStrings(sheet, 1, 20, 1);
     double[] res = R.readColDoubles(sheet, 1, 10, 4);
     //double[] res = R.readColDoubles(sheet, 0, 2006, 0);
     for (int i=0; i<res.length; i++){
       System.out.println(res[i]);
     }
   }
+  
 }
