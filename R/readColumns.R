@@ -70,7 +70,8 @@ readColumns <- function(sheet, startColumn, endColumn, startRow,
   }
   
   if (as.data.frame) {
-    names(res) <- cnames
+    cnames[cnames == ""] <- " " # remove some silly c.......... colnames!
+    names(res) <- cnames  
     res <- data.frame(res, ...)
   }
 

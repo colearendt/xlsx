@@ -91,9 +91,9 @@ getCellValue <- function(cell, keepFormulas=FALSE, encoding="unknown")
 {
   cellType <- .jcall(cell, "I", "getCellType") + 1
   value <- switch(cellType,
-    .jcall(cell, "D", "getNumericCellValue"),        # numeric
+    .jcall(cell, "D", "getNumericCellValue"),        # 1 = numeric
                   
-    {strVal <- .jcall(.jcall(cell,                   # string
+    {strVal <- .jcall(.jcall(cell,                   # 2 = string
       "Lorg/apache/poi/ss/usermodel/RichTextString;",
       "getRichStringCellValue"), "S", "toString");
      if (encoding=="unknown") {strVal} else {Encoding(strVal) <- encoding; strVal}

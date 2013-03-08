@@ -451,37 +451,6 @@ test.ranges <- function(wb)
 
 
 #####################################################################
-# Test Issue 9
-# 
-.test.issue9 <- function()
-{
-  require(xlsx)
-  file <- system.file("tests", "test_import.xlsx", package="xlsx")
-  res <- read.xlsx(file, sheetName="issue9", rowIndex=3:5, colIndex=3:5)
-}
-
-
-#####################################################################
-# Test Issue 10
-# 
-#
-.test.issue10 <- function()
-{
-  require(xlsx)
-  #file <- system.file("tests", "test_import.xlsx", package="xlsx")
-  file <- "C:/temp/fca3_monthly_ob_v2.xls"
-  res <- read.xlsx2(file, sheetIndex=1, colIndex=1:3)
-  
-  #file <- "C:/google/rexcel/trunk/inst/tests/test_import.xlsx"
-  #res <- read.xlsx2(file, sheetName="issue10", startRow=4)
-  
-  
-}
-
-
-
-
-#####################################################################
 # Test imports
 # 
 .main_highlevel_import <- function(ext="xlsx")

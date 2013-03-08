@@ -16,6 +16,8 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
   } else {
     sheet <- sheets[[sheetName]]
   }
+  if (is.null(sheet))
+    stop("Cannot find the sheet you requested in the file!")
 
   if (is.null(endRow)) {  # get it from the sheet 
     endRow <- sheet$getLastRowNum() + 1
@@ -44,7 +46,7 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
       endRow=endRow, as.data.frame=as.data.frame, header=header,
       colClasses=colClasses[which(colIndex %in% listColIndex[[b]])], ...)
   }
-  
+
   do.call(cbind, res)
 }
 
