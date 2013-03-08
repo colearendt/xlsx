@@ -16,12 +16,14 @@ read.xlsx <- function(file, sheetIndex, sheetName=NULL, rowIndex=NULL,
   } else {
     sheet <- sheets[[sheetName]]
   }
-
+  if (is.null(sheet))
+    stop("Cannot find the sheet you requested in the file!")
+  
   rows  <- getRows(sheet, rowIndex)  
   cells <- getCells(rows, colIndex)
   res <- lapply(cells, getCellValue, keepFormulas=keepFormulas,
                 encoding=encoding)
-  
+
   if (as.data.frame){
     # need to use the index from the names because of empty cells
     ind <- lapply(strsplit(names(res), "\\."), as.numeric) 

@@ -2,14 +2,21 @@ NEWS for package xlsx
 
 Changes in version 0.5.1 (released 2012-xx-xx)
 
- o Fix Issue 9. 
+ o Fix an annoyance with read.xlsx2, so it doesn't return column names
+ of the form c..............  
+
+ o Fix Issue 9.  An NullPointerException was triggered for read.xlsx
+ when the table due to incorrect indexing of the header columns in
+ certain circumstances.
 
  o Fix an error with readColumns that was affecting read.xlsx.  By
  default readColumns was using the max number of rows in the sheet to
  determine how many rows to read.  If the max number of rows in sheet
  was greater than the existing number of rows in the column you were
- reading, you were getting a NullPointerException.  Only noticed this
- in for xls format.  
+ reading, you were getting a NullPointerException.  This may happen 
+ for malformed spreadsheets (created by some other proprietary
+ software for example).
+
 
  o TODO:  Fix bug in read.xlsx2 when user asks for colType "factor".
  The assignment "class(aux) <- colClasses[i]" in readColumns returns
