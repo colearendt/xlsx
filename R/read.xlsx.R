@@ -1,8 +1,9 @@
 # One sheet extraction.  Similar to read.csv. 
 #
 #
-read.xlsx <- function(file, sheetIndex, sheetName=NULL, rowIndex=NULL,
-  colIndex=NULL, as.data.frame=TRUE, header=TRUE, colClasses=NA,
+read.xlsx <- function(file, sheetIndex, sheetName=NULL,
+  rowIndex=NULL, startRow=NULL, endRow=NULL, colIndex=NULL,
+  as.data.frame=TRUE, header=TRUE, colClasses=NA,
   keepFormulas=FALSE, encoding="unknown", ...)
 {
   if (is.null(sheetName) & missing(sheetIndex))
@@ -10,21 +11,29 @@ read.xlsx <- function(file, sheetIndex, sheetName=NULL, rowIndex=NULL,
 
   wb <- loadWorkbook(file)
   sheets <- getSheets(wb)
-
-  if (is.null(sheetName)){
-    sheet <- sheets[[sheetIndex]]
+  sheet  <- if (is.null(sheetName)) {
+    sheets[[sheetIndex]]
   } else {
-    sheet <- sheets[[sheetName]]
+    sheets[[sheetName]]
   }
+  
   if (is.null(sheet))
     stop("Cannot find the sheet you requested in the file!")
+
+  rowIndex <- if (is.null(rowIndex)) {
+    if (is.null(startRow))
+      startRow <- .jcall(sheet, "I", "getFirstRowNum") + 1
+    if (is.null(endRow)) 
+      endRow <- .jcall(sheet, "I", "getLastRowNum") + 1
+    startRow:endRow
+  }
   
   rows  <- getRows(sheet, rowIndex)  
   cells <- getCells(rows, colIndex)
   res <- lapply(cells, getCellValue, keepFormulas=keepFormulas,
                 encoding=encoding)
 
-  if (as.data.frame){
+  if (as.data.frame) {
     # need to use the index from the names because of empty cells
     ind <- lapply(strsplit(names(res), "\\."), as.numeric) 
     namesIndM <- do.call(rbind, ind)

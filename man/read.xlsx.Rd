@@ -7,7 +7,8 @@ Read the contents of a worksheet into an R \code{data.frame}.
 }
 \usage{
 read.xlsx(file, sheetIndex, sheetName=NULL, rowIndex=NULL,
-  colIndex=NULL, as.data.frame=TRUE, header=TRUE, colClasses=NA,
+  startRow=NULL, endRow=NULL, colIndex=NULL,
+  as.data.frame=TRUE, header=TRUE, colClasses=NA,
   keepFormulas=FALSE, encoding="unknown", ...)
 
 read.xlsx2(file, sheetIndex, sheetName=NULL, startRow=1,
@@ -37,9 +38,13 @@ read.xlsx2(file, sheetIndex, sheetName=NULL, startRow=1,
     in.}
   \item{encoding}{encoding to be assumed for input strings.  See
 	\code{\link[utils]{read.table}}.}
-  \item{startRow}{an numeric specifying the index of starting row.}
+  \item{startRow}{an numeric specifying the index of starting row.  For
+    \code{read.xlsx} this argument is active only if
+    \code{rowIndex} is \code{NULL}.}
   \item{endRow}{an numeric specifying the index of the last row to pull.  If
-	\code{NULL}, read all the rows in the sheet.}
+	\code{NULL}, read all the rows in the sheet.  For
+    \code{read.xlsx} this argument is active only if
+    \code{rowIndex} is \code{NULL}.}
   \item{\ldots}{other arguments to \code{data.frame}, for example
     \code{stringsAsFactors}} 
 }

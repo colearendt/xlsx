@@ -28,11 +28,11 @@
   
   A collection of tests that can be used as examples are located 
   in folder \code{/tests/}.  They are a good source of examples of how
-  to use the package. 
+  to use the package.  
 
-  Please see \url{http://code.google.com/p/rexcel/} for Wiki and the
-  development version.  Issues and questions should be reported using
-  the dedicated mailing list 
+  Please see \url{http://code.google.com/p/rexcel/} for a Wiki and the
+  development version.  To report a bug, please use the Issues page.
+  Questions should be asked on the dedicated mailing list at 
   \url{http://groups.google.com/group/R-package-xlsx}.
   
 }
@@ -41,7 +41,7 @@
 Package: \tab xlsx\cr
 Type: \tab Package\cr
 Version: \tab 0.5.1\cr
-Date: \tab 2012-xx-xx\cr
+Date: \tab 2012-03-31\cr
 License: \tab GPL-3\cr
 }
 

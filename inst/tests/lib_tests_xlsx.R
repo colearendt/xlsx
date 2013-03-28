@@ -664,6 +664,10 @@ test.ranges <- function(wb)
   source(paste(SOURCEDIR, "rexcel/trunk/R/write.xlsx2.R", sep=""))
   source(thisFile)
 
+
+  source(paste(SOURCEDIR, "rexcel/trunk/inst/tests/lib_test_issues.R", sep=""))
+  .run_test_issues(SOURCEDIR)
+
   
   test.basicFunctions(ext="xlsx")
   test.addOnExistingWorkbook(ext="xlsx")  
@@ -682,6 +686,11 @@ test.ranges <- function(wb)
 #  .main_speedtest_export(ext="xls")
  
 
+  allF <- list.files(paste(SOURCEDIR,"rexcel/trunk/R/", sep=""),
+                     full.names=TRUE)
+  lapply(allF, function(fname){cat(fname); source(fname)})
+
+  
 
 }
 
