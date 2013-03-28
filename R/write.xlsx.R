@@ -6,14 +6,16 @@
 
 #######################################################################
 # NO rownames for this function.  Just the contents of the data.frame!
+# have showNA=TRUE for legacy reason
 #
-.write_block <- function(wb, sheet, y, rowIndex=1:nrow(y), colIndex=1:ncol(y))
+.write_block <- function(wb, sheet, y, rowIndex=1:nrow(y),
+   colIndex=1:ncol(y), showNA=TRUE)
 {
   rows  <- createRow(sheet, rowIndex)      # create rows 
   cells <- createCell(rows, colIndex)      # create cells
-  
+
   for (ic in seq_len(ncol(y)))
-    mapply(setCellValue, cells[1:nrow(cells), colIndex[ic]], y[,ic])
+    mapply(setCellValue, cells[1:nrow(cells), colIndex[ic]], y[,ic], FALSE, showNA)
 
   # Date and POSIXct classes need to be formatted
   indDT <- which(sapply(y, class) == "Date")
@@ -38,7 +40,7 @@
 # High-level API
 #
 write.xlsx <- function(x, file, sheetName="Sheet1",
-  col.names=TRUE, row.names=TRUE, append=FALSE)
+  col.names=TRUE, row.names=TRUE, append=FALSE, showNA=TRUE)
 {
   if (!is.data.frame(x))
     x <- data.frame(x)    # just because the error message is too ugly
@@ -70,7 +72,7 @@ write.xlsx <- function(x, file, sheetName="Sheet1",
   colIndex <- 1:ncol(x)
   rowIndex <- 1:nrow(x) + iOffset
   
-  .write_block(wb, sheet, x, rowIndex, colIndex)
+  .write_block(wb, sheet, x, rowIndex, colIndex, showNA)
   saveWorkbook(wb, file)
 
   invisible()

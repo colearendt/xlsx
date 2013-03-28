@@ -31,8 +31,9 @@
   to use the package.  
 
   Please see \url{http://code.google.com/p/rexcel/} for a Wiki and the
-  development version.  To report a bug, please use the Issues page.
-  Questions should be asked on the dedicated mailing list at 
+  development version.  To report a bug, please use the Issues page at
+  \url{https://code.google.com/p/rexcel/issues/list}.  Questions should
+  be asked on the dedicated mailing list at
   \url{http://groups.google.com/group/R-package-xlsx}.
   
 }
@@ -61,7 +62,7 @@ Maintainer: Adrian A. Dragulescu <adrian.dragulescu@gmail.com>
   if you are looking for something that is not exposed in R as it may be
   available on the Java side.  Inspecting the source code for some the
   the \R functions in this package can show you how to do it (even if
-  you are Java shy). 
+  you are Java shy.) 
 }
 \keyword{ package }
 \seealso{\code{\link{Workbook}} for ways to work with \code{Workbook}

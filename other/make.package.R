@@ -32,7 +32,7 @@
     outdir    <<- "/tmp"
     Rcmd      <<- "R CMD"
   } else if (computer == "WORK2") {
-    Sys.setenv(R_HOME="C:/R" )
+    Sys.setenv(R_HOME="C:/R/R-2.15.2" )
     pkgdir  <<- "C:/google/rexcel/trunk/"
     outdir  <<- "H:/"
     Rcmd    <<- '"C:/R/R-2.15.2/bin/x64/Rcmd"'

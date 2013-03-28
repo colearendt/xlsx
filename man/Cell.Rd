@@ -14,7 +14,7 @@ createCell(row, colIndex=1:5)
 
 getCells(row, colIndex=NULL, simplify=TRUE)
 
-setCellValue(cell, value, richTextString=FALSE)
+setCellValue(cell, value, richTextString=FALSE, showNA=TRUE)
 
 getCellValue(cell, keepFormulas=FALSE, encoding="unknown")
 
@@ -27,6 +27,10 @@ getCellValue(cell, keepFormulas=FALSE, encoding="unknown")
   \item{value}{an R variable of length one.}
   \item{richTextString}{a logical value indicating if the value should
     be inserted into the Excel cell as rich text.}
+  \item{showNA}{a logical value.  If \code{TRUE} the cell will contain
+    the "#N/A" value, if \code{FALSE} they will be skipped.  The default
+    value was chosen to remain compatible with previous versions of the
+    function.}
   \item{keepFormulas}{a logical value.  If \code{TRUE} the formulas will 
     be returned as characters instead of being explicitly evaluated.}
   \item{encoding}{A character value to set the encoding, for example "UTF-8".}
