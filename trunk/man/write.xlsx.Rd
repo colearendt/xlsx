@@ -7,7 +7,7 @@ Write a \code{data.frame} to an Excel workbook.
 }
 \usage{
 write.xlsx(x, file, sheetName="Sheet1", 
-  col.names=TRUE, row.names=TRUE, append=FALSE)
+  col.names=TRUE, row.names=TRUE, append=FALSE, showNA=TRUE)
 
 write.xlsx2(x, file, sheetName="Sheet1",
   col.names=TRUE, row.names=TRUE, append=FALSE, ...)
@@ -23,7 +23,8 @@ write.xlsx2(x, file, sheetName="Sheet1",
   \item{append}{a logical value indicating if \code{x} should be
     appended to an existing file.  If \code{TRUE} the file is read
     from disk.}
-  
+  \item{showNA}{a logical value.  If set to \code{FALSE}, NA values will
+    be left as empty cells. }
   \item{\ldots}{other arguments to \code{addDataFrame} in the case of
     \code{read.xlsx2}.} 
 
