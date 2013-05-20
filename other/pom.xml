@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cran</groupId>
   <artifactId>rexcel</artifactId>
-  <version>0.5.0</version>
+  <version>0.5.1</version>
   <name>rexcel</name>
   <description>Java interface for xlsx R package</description>
   <url>http://code.google.com/p/rexcel</url>
@@ -33,13 +33,13 @@
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi</artifactId>
-      <version>3.8</version>
+      <version>3.9</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
-      <version>3.8</version>
+      <version>3.9</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -57,7 +57,7 @@
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-examples</artifactId>
-      <version>3.8</version>
+      <version>3.9</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
@@ -85,28 +85,20 @@
     </pluginRepository>
   </pluginRepositories>
   <build>
-    <sourceDirectory>c:\google\rexcel\trunk\other\src\main\java</sourceDirectory>
-    <scriptSourceDirectory>c:\google\rexcel\trunk\other\src\main\scripts</scriptSourceDirectory>
-    <testSourceDirectory>c:\google\rexcel\trunk\other\src\test\java</testSourceDirectory>
-    <outputDirectory>c:\google\rexcel\trunk\other\target\classes</outputDirectory>
-    <testOutputDirectory>c:\google\rexcel\trunk\other\target\test-classes</testOutputDirectory>
-    <defaultGoal>package</defaultGoal>
     <resources>
       <resource>
-        <directory>c:\google\rexcel\trunk\other\src\main\resources</directory>
+        <directory>../src/main/resources</directory>
       </resource>
     </resources>
     <testResources>
       <testResource>
-        <directory>c:\google\rexcel\trunk\inst\tests</directory>
+        <directory>../inst/tests</directory>
         <includes>
           <include>*.xls</include>
           <include>*.xlsx</include>
         </includes>
       </testResource>
     </testResources>
-    <directory>c:\google\rexcel\trunk\other\target</directory>
-    <finalName>rexcel-0.5.0</finalName>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -266,7 +258,7 @@
               <goal>site</goal>
             </goals>
             <configuration>
-              <outputDirectory>c:\google\rexcel\trunk\other\target\site</outputDirectory>
+              <outputDirectory>../target/site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -282,7 +274,7 @@
               <goal>deploy</goal>
             </goals>
             <configuration>
-              <outputDirectory>c:\google\rexcel\trunk\other\target\site</outputDirectory>
+              <outputDirectory>../target/site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -293,7 +285,7 @@
           </execution>
         </executions>
         <configuration>
-          <outputDirectory>c:\google\rexcel\trunk\other\target\site</outputDirectory>
+          <outputDirectory>../target/site</outputDirectory>
           <reportPlugins>
             <reportPlugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -305,6 +297,6 @@
     </plugins>
   </build>
   <reporting>
-    <outputDirectory>c:\google\rexcel\trunk\other\target\site</outputDirectory>
+    <outputDirectory>../target/site</outputDirectory>
   </reporting>
 </project>
