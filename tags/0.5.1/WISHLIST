@@ -1,9 +1,0 @@
-
-
-
- o TODO: fix the namedRanges to use the readColumns function
-
- o TODO: make sure it builds on Mac!
-
- o Embed RData objects with the xlsx.  Requested by Ralf Tautenhahn on
-   2/1/2010. 
