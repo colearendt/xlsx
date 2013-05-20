@@ -38,10 +38,10 @@ read.xlsx2(file, sheetIndex, sheetName=NULL, startRow=1,
     in.}
   \item{encoding}{encoding to be assumed for input strings.  See
 	\code{\link[utils]{read.table}}.}
-  \item{startRow}{an numeric specifying the index of starting row.  For
+  \item{startRow}{a number specifying the index of starting row.  For
     \code{read.xlsx} this argument is active only if
     \code{rowIndex} is \code{NULL}.}
-  \item{endRow}{an numeric specifying the index of the last row to pull.  If
+  \item{endRow}{a number specifying the index of the last row to pull.  If
 	\code{NULL}, read all the rows in the sheet.  For
     \code{read.xlsx} this argument is active only if
     \code{rowIndex} is \code{NULL}.}
