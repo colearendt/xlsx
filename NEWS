@@ -1,5 +1,11 @@
 NEWS for package xlsx
 
+Changes in version 0.5.2 (released 2013-06-20)
+
+ o Fix a bug introduced in 0.5.1 version in read.xlsx.  The rowIndex
+ argument was not respected anymore.
+
+
 Changes in version 0.5.1 (released 2013-03-31)
 
  o Fix an annoyance with read.xlsx2, so it doesn't return column names

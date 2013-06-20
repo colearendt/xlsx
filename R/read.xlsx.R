@@ -26,7 +26,7 @@ read.xlsx <- function(file, sheetIndex, sheetName=NULL,
     if (is.null(endRow)) 
       endRow <- .jcall(sheet, "I", "getLastRowNum") + 1
     startRow:endRow
-  }
+  } else rowIndex
   
   rows  <- getRows(sheet, rowIndex)  
   cells <- getCells(rows, colIndex)

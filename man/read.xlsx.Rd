@@ -20,7 +20,8 @@ read.xlsx2(file, sheetIndex, sheetName=NULL, startRow=1,
   \item{sheetIndex}{a number representing the sheet index in the workbook.}
   \item{sheetName}{a character string with the sheet name.}
   \item{rowIndex}{a numeric vector indicating the rows you want to
-    extract.  If \code{NULL}, all rows found will be extracted.}
+    extract.  If \code{NULL}, all rows found will be extracted, unless
+  \code{startRow} or \code{endRow} are specified.}
   \item{colIndex}{a numeric vector indicating the cols you want to
     extract.  If \code{NULL}, all columns found will be extracted.}  
   \item{as.data.frame}{a logical value indicating if the result should
