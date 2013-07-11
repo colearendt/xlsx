@@ -128,13 +128,32 @@
   
 }
 
-
 #####################################################################
 # Test Issue 12
+# read.xlsx2 doesn't evaluate formulas - values are NA
+# Not an issue if you specify the colClasses!
+#
+.test.issue12 <- function( DIR="C:/google/" )
+{
+  cat(".test.issue12 ")
+  require(xlsx)
+  file <- system.file("tests", "test_import.xlsx", package="xlsx")
+  res <- read.xlsx2(file, sheetName="formulas", 
+     colClasses=list("numeric", "numeric", "character", "numeric"))
+  if ( is.na(res[1,4]) ) {
+    cat("FAILED\n")
+  } else {
+    cat("PASSED\n")
+  }
+}
+
+
+#####################################################################
+# Test Issue 16
 # Get an NPE when reading .xls files when they are not properly constructed
 # and return more rows than they actually exist. 
 #
-.test.issue12 <- function( DIR="C:/google/" )
+.test.issue16 <- function( DIR="C:/google/" )
 {
   cat(".test.issue12 ")
   require(xlsx)
@@ -149,14 +168,6 @@
 }
 
 
-#####################################################################
-# Test Issue 13
-#
-#
-.test.issue13 <- function( DIR="C:/google/" )
-{
-}
-
 
 #####################################################################
 # Register and run the specific tests
@@ -169,6 +180,7 @@
   .test.issue9(DIR)  
   .test.issue11(DIR)  # lost the file!
   .test.issue12(DIR)
+  .test.issue16(DIR)
   #.test.issue13(DIR)
 
 
