@@ -32,12 +32,13 @@ readColumns(sheet, startColumn, endColumn, startRow,
     corresponding to the first element of the \code{rowIndex} vector
     contains the names of the variables.}
   
-  \item{colClasses}{a character vector that represent the class of each
+  \item{colClasses}{a character vector that represents the class of each
     column.  Recycled as necessary, or if \code{NA} an attempt is made
     to guess the type of each column by reading the first row of data.
     Only \code{numeric}, \code{character}, \code{Date}, \code{POSIXct},
     column types are accepted.  Anything else will be coverted to a
-    \code{character} type.}
+    \code{character} type.  If the length is less than the number of
+    columns requested, replicate it.}
     
   \item{\ldots}{other arguments to \code{data.frame}, for example
     \code{stringsAsFactors}} 

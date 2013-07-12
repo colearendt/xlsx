@@ -34,16 +34,14 @@ readColumns <- function(sheet, startColumn, endColumn, startRow,
   }
 
   # guess or expand colClasses
-  colClasses <- if (length(colClasses)==1 && (is.na(colClasses))) {
+  if (is.na(colClasses)[1]) {
     row <- getRows(sheet, rowIndex=startRow) 
     cells <- getCells(row, colIndex=startColumn:endColumn)
-    if (length(cells) == noColumns) {
-      .guess_cell_type(cells)
-    } else {
-      warning("Not enough columns in the first row of data to guess colClasses!")
-    }
-  } else { rep(colClasses, length.out=noColumns) }
-
+    if (length(cells) != noColumns) 
+      warning("Not enough columns in the first row of data to correctly guess colClasses!")
+   colClasses <- .guess_cell_type(cells)
+  }
+  colClasses <- rep(colClasses, length.out=noColumns)  # extend colClasses
   
   res <- vector("list", length=noColumns)
   for (i in seq_len(noColumns)) {
