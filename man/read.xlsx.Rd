@@ -86,8 +86,7 @@ data.
 }
 \value{
   A data.frame or a list, depending on the \code{as.data.frame}
-  argument.  If some of the columns are read as NA's it's an indication
-  that the \code{colClasses} argument has not been set properly.
+  argument. 
 }
 \author{ Adrian Dragulescu }
 \seealso{\code{\link{write.xlsx}} for writing \code{xlsx} documents.

@@ -666,7 +666,7 @@ test.ranges <- function(wb)
   source(paste(SOURCEDIR, "rexcel/trunk/R/utilities.R", sep=""))
   source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
   source(paste(SOURCEDIR, "rexcel/trunk/R/readColumns.R", sep=""))
-  source(paste(SOURCEDIR, "rexcel/trunk/R/read.xlsx2.R", sep=""))
+  source(paste(SOURCEDIR, "rexcel/trunk/R/read.xlsx.R", sep=""))
   #source(paste(SOURCEDIR, "rexcel/trunk/R/write.xlsx2.R", sep=""))
   source(thisFile)
 

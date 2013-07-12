@@ -1,13 +1,13 @@
 
-options(java.parameters="-Xmx4096m")  
+options(java.parameters="-Xmx1024m")  
 require(xlsx)
 
-N <- 500    # crash with N=5000, at sheet 20
+N <- 5000    # crash with 5000, at sheet 20
 
-x <- as.data.frame(matrix(1:N, nrow=N, ncol=59))
+x <- as.data.frame(matrix(1:N, nrow=N, ncol=10))
 
 wb <- createWorkbook()
-for (k in 1:100) {
+for (k in 1:50) {
   cat("On sheet", k, "\n")
   sheetName <- paste("Sheet", k, sep="")
   sheet <- createSheet(wb, sheetName)
@@ -15,7 +15,7 @@ for (k in 1:100) {
   addDataFrame(x, sheet)
 }
 
-saveWorkbook(wb, "/tmp/junk.xlsx")
+saveWorkbook(wb, "C:/Temp/junk.xlsx")
  
 
 

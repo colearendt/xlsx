@@ -9,7 +9,6 @@
   file <- paste(DIR, "rexcel/trunk/resources/xlxs2Test.xlsx", sep="")
   res <- read.xlsx2(file, sheetName="data", startRow=2, endRow=10,
       colIndex=c(1,3:5,7:9), colClasses=c("character",rep("numeric",6)) )
-  
   #head(res)
   if (!any(is.na(res))) {
     cat("PASSED\n")
@@ -78,7 +77,7 @@
   if (is.na(value)) {
     cat("PASSED\n")
   } else {
-    cat("FAILED -- OK (known issue!)\n")
+    cat("FAILED\n")
   }
   
   # read.xlsx2 imports correctly!
@@ -113,7 +112,6 @@
 # Test Issue 11
 # Get an NPE when reading .xls files when they are not properly constructed
 # and return more rows than they actually exist. 
-# fixed in java, with rexcel_0.5.1.jar
 #
 .test.issue11 <- function(DIR="C:/google/")
 {
@@ -123,15 +121,12 @@
   #file <- "C:/temp/fca3_monthly_ob_v2.xls"
   file <- paste(DIR, "rexcel/trunk/resources/read_xlsx2_example.xlsx", sep="")
   res <- read.xlsx(file, sheetIndex=1, header=FALSE)
-
-  if (class(res) != "try-error") {
-    cat("PASSED\n")
-  } else {
-    cat("FAILED\n")
-  }
+  
+  #source(paste(DIR, "rexcel/trunk/R/readColumns.R", sep=""))
+  #res <- read.xlsx2(file, sheetIndex=1, startRow=3)
+  
   
 }
-
 
 #####################################################################
 # Test Issue 12
@@ -143,9 +138,9 @@
   cat(".test.issue12 ")
   require(xlsx)
   file <- system.file("tests", "test_import.xlsx", package="xlsx")
-  try(res <- read.xlsx2(file, sheetName="formulas",  
-    colClasses=list("numeric", "numeric", "character")))
-  if ( is.na(res[1,3]) ) {
+  res <- read.xlsx2(file, sheetName="formulas", 
+     colClasses=list("numeric", "numeric", "character", "numeric"))
+  if ( is.na(res[1,4]) ) {
     cat("FAILED\n")
   } else {
     cat("PASSED\n")
@@ -160,7 +155,7 @@
 #
 .test.issue16 <- function( DIR="C:/google/" )
 {
-  cat(".test.issue16 ")
+  cat(".test.issue12 ")
   require(xlsx)
   file <- paste(DIR, "rexcel/trunk/resources/issue12.xlsx", sep="")
   try(res <- read.xlsx2(file, sheetIndex=1, colIndex=1:3, startRow=3))
@@ -177,14 +172,13 @@
 #####################################################################
 # Register and run the specific tests
 #
-.run_test_issues <- function(SOURCEDIR)
+.run_test_issues <- function(DIR)
 {
-  DIR <- SOURCEDIR
   .test.issue2(DIR)
   .test.issue6(DIR)  
   .test.issue7(DIR)  
   .test.issue9(DIR)  
-  .test.issue11(DIR)  
+  .test.issue11(DIR)  # lost the file!
   .test.issue12(DIR)
   .test.issue16(DIR)
   #.test.issue13(DIR)
