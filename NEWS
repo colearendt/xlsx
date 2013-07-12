@@ -1,14 +1,12 @@
 NEWS for package xlsx
 
-Changes in version 0.5.2 (released 2013-06-20)
+Changes in version 0.5.3 (released 2013-07-11)
 
  o Fix a bug introduced in 0.5.1 version in read.xlsx.  The rowIndex
  argument was not respected anymore.
  
- o Fixed bug in readColumns as colClasses were not guessed appropriately.
+ o Cleaned up the code in readColumns responsible for guessing the colClasses.
  
- o TODO:  read.xlsx2 does not read formulas correctly!  strange!
-
 
 Changes in version 0.5.1 (released 2013-03-31)
 
