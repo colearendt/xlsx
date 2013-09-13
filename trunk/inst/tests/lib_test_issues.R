@@ -173,6 +173,23 @@
 }
 
 
+#####################################################################
+# Test Issue 23
+# add an emf picture
+#
+.test.issue23 <- function( DIR="C:/google/" )
+{
+  cat(".test.issue23 ")
+  require(xlsx)
+  wb <- createWorkbook()
+  sheet <- createSheet(wb, "EMF_Sheet")
+  file <- "C:/temp/test_emf.emf"
+  
+  addPicture(file=file, sheet)
+  saveWorkbook(wb, file="C:/temp/WB_with_EMF.xlsx")  
+  
+}
+
 
 #####################################################################
 # Register and run the specific tests
