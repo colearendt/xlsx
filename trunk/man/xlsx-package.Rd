@@ -41,8 +41,8 @@
 \tabular{ll}{
 Package: \tab xlsx\cr
 Type: \tab Package\cr
-Version: \tab 0.5.3\cr
-Date: \tab 2012-07-11\cr
+Version: \tab 0.5.4\cr
+Date: \tab 2013-XX-XX\cr
 License: \tab GPL-3\cr
 }
 

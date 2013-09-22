@@ -1,5 +1,18 @@
 NEWS for package xlsx
 
+Changes in version 0.5.4 (released 2013-XX-XX)
+
+ o Fixed an issue with read.xlsx2 when you wanted columns of type
+ character, but the cell was of numeric type and the value was an
+ exact integer (say 12).  In R the result was imported as "12.0"
+ instead of "12".  See Issue 25.
+
+ o Allow CB.setMatrixData to accept character matrices too.  It only
+ worked with numeric matrices in earlier versions.  See Issue 19. 
+
+ o 
+
+
 Changes in version 0.5.3 (released 2013-07-11)
 
  o Fix a bug introduced in 0.5.1 version in read.xlsx.  The rowIndex
