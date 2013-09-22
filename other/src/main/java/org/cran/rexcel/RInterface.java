@@ -98,7 +98,14 @@ public class RInterface {
            res[i] = cell.getStringCellValue();
            break;
          case Cell.CELL_TYPE_NUMERIC:
-           res[i] = Double.toString(cell.getNumericCellValue());
+           double val = cell.getNumericCellValue();
+           // check if exact integer value, then you want it represented without any 
+           // spurious .0 at the end
+           if (val == Math.rint(val)) {  
+        	   res[i] = Long.toString(Math.round(val));
+           } else {
+        	   res[i] = Double.toString(val);
+           }
            break;
          case Cell.CELL_TYPE_FORMULA:
            try {
@@ -141,7 +148,14 @@ public class RInterface {
          res[i] = cell.getStringCellValue();
          break;
        case Cell.CELL_TYPE_NUMERIC:
-         res[i] = Double.toString(cell.getNumericCellValue());
+         double val = cell.getNumericCellValue();
+         // check if exact integer value, then you want it represented without any 
+         // spurious .0 at the end
+         if (val == Math.rint(val)) {  
+       	   res[i] = Long.toString(Math.round(val));
+         } else {
+       	   res[i] = Double.toString(val);
+         }  
          break;
        case Cell.CELL_TYPE_FORMULA:
          res[i] = cell.getStringCellValue();

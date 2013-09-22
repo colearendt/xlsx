@@ -179,6 +179,25 @@ public class RCellBlock {
         }
     }
 
+    /**
+     * Writes a matrix of data to the sheet.  Useful when you have a lot 
+     * of data to write at once.  Use for numerics, Dates, DateTimes...
+     * The index argument are all relative to the CellBlock top cell!  
+     */
+    public void setMatrixData( int startRow, int endRow, int startColumn, 
+    	int endColumn, String[] data, boolean showNA, CellStyle style ){
+    	
+        for (int j=startColumn; j<=endColumn; j++) {
+        	for (int i=startRow; i<=endRow; i++) {
+        		if ( showNA || !RInterface.isNA(data[i])) {
+        			cells[j][i].setCellValue(data[(endRow-startRow+1)*(j-startColumn) + (i-startRow)]);
+        		} else {
+        			cells[j][i].setCellType(Cell.CELL_TYPE_BLANK);
+        		}
+        		if ( style != null ) setCellStyle(style, i, j);
+        	}
+        }
+    }
     
     
     /**

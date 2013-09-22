@@ -174,6 +174,47 @@
 
 
 #####################################################################
+# Test Issue 19
+# CB.setMatrixData only accepts numeric matrices.  It should accept
+# character matrices too.
+#
+.test.issue19 <- function( DIR="C:/google/" )
+{
+  cat(".test.issue19 ")
+  require(xlsx)
+
+  wb <- createWorkbook()
+  sheet <- createSheet(wb)
+  mtx <- as.matrix(data.frame(a="hello"))
+  cb <- CellBlock(sheet, 1, 1, 1, 1)
+  CB.setMatrixData(cb, mtx, 1, 1)
+  fileName <- paste(OUTDIR, "/issue19.xlsx", sep="")
+  saveWorkbook(wb, fileName)
+  
+  cat("FAILED\n")
+}
+
+
+#####################################################################
+# Test Issue 21
+# Color black not set properly in Font
+#
+.test.issue21 <- function( DIR="C:/google/" )
+{
+  cat(".test.issue21 ")
+  require(xlsx)
+
+  wb <- createWorkbook()
+  tmp <- Font(wb, color="black")
+
+  tmp2 <- Font(wb, color=NULL)
+  
+  cat("FAILED\n")
+}
+
+
+
+#####################################################################
 # Test Issue 23
 # add an emf picture
 #
@@ -187,6 +228,33 @@
   
   addPicture(file=file, sheet)
   saveWorkbook(wb, file="C:/temp/WB_with_EMF.xlsx")  
+
+  # the spreadsheet saves but the emf picture is not there
+  cat("FAILED\n")
+  
+}
+
+
+#####################################################################
+# Test Issue Schuetzenmeister
+#
+.test.issue25 <- function( DIR="C:/google/",  out="FAILED\n")
+{
+  cat(".test.issue25 ")
+  require(xlsx)
+  file <- paste(DIR, "rexcel/trunk/resources/issue25.xlsx", sep="")
+
+  # reads element [35,1] as a double and then transforms it to a factor
+  res1 <- read.xlsx2(file, sheetIndex=1, header=TRUE, startRow=1,
+    colClasses=c("character", rep("numeric", 5)), stringsAsFactors=FALSE)
+  
+  if (res1[35,1] == "8561731")  
+    out <- "PASSED\n"
+      
+  # reads element [35,1] correctly, how?!
+  # res2 <- read.xlsx(file, sheetIndex=1, header=TRUE, startRow=1)
+
+  cat(out)
   
 }
 
@@ -204,7 +272,9 @@
   .test.issue11(DIR)  
   .test.issue12(DIR)
   .test.issue16(DIR)
-  #.test.issue13(DIR)
+  .test.issue19(DIR)
+  .test.issue23(DIR)
+  .test.issue25(DIR)
 
 
   
