@@ -90,7 +90,7 @@
 #####################################################################
 # Test Issue 9
 # Problems with read.xlsx for tables that start in the middle of the
-# sheet.  I get an NPE.
+# sheet.  I used to get an NPE.
 #
 .test.issue9 <- function(DIR="C:/google/")
 {
@@ -185,8 +185,8 @@
 
   wb <- createWorkbook()
   sheet <- createSheet(wb)
-  mtx <- as.matrix(data.frame(a="hello"))
-  cb <- CellBlock(sheet, 1, 1, 1, 1)
+  mtx <- matrix(c("hello", "world", "check1", "check2"), ncol=2)
+  cb <- CellBlock(sheet, 1, 1, 2, 2)
   CB.setMatrixData(cb, mtx, 1, 1)
   fileName <- paste(OUTDIR, "/issue19.xlsx", sep="")
   saveWorkbook(wb, fileName)
