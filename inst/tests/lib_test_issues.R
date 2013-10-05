@@ -190,8 +190,9 @@
   CB.setMatrixData(cb, mtx, 1, 1)
   fileName <- paste(OUTDIR, "/issue19.xlsx", sep="")
   saveWorkbook(wb, fileName)
+
   
-  cat("FAILED\n")
+  cat("PASSED\n")
 }
 
 
@@ -213,6 +214,35 @@
 }
 
 
+#####################################################################
+# Test Issue 22
+# Preserve existing formats when you write data to the xlsx with
+# CellBlock construct
+#
+.test.issue22 <- function( DIR="C:/google/" )
+{
+  cat(".test.issue22 ")
+  require(xlsx)
+  fileIn  <- paste(DIR, "rexcel/trunk/resources/issue22.xlsx", sep="")
+  fileOut <- paste(OUTDIR, "issue22_out.xlsx", sep="")
+
+  wb <- loadWorkbook(fileIn)
+  sheets <- getSheets(wb)
+
+  # we are going to try and past this matrix on all three sheets
+  my.mat <- matrix(1:9, 3, 3)
+  for (sheet in sheets) {
+    cb <- CellBlock(sheet, 1, 1, 3, 3, create = TRUE) # get an error with FALSE
+    CB.setMatrixData(cb, my.mat, 1, 1)
+  }
+
+  saveWorkbook(wb, fileOut)
+  
+  
+  cat("FAILED\n")
+}
+
+
 
 #####################################################################
 # Test Issue 23
@@ -221,13 +251,18 @@
 .test.issue23 <- function( DIR="C:/google/" )
 {
   cat(".test.issue23 ")
+  fileName <- paste(OUTDIR, "test_emf.emf", sep="")
+  require(devEMF)
+  emf(file=fileName, bg="white")
+  boxplot(rnorm(100))
+  dev.off()  
+
   require(xlsx)
   wb <- createWorkbook()
   sheet <- createSheet(wb, "EMF_Sheet")
-  file <- "C:/temp/test_emf.emf"
   
-  addPicture(file=file, sheet)
-  saveWorkbook(wb, file="C:/temp/WB_with_EMF.xlsx")  
+  addPicture(file=fileName, sheet)
+  saveWorkbook(wb, file=paste(OUTDIR, "/WB_with_EMF.xlsx", sep=""))  
 
   # the spreadsheet saves but the emf picture is not there
   cat("FAILED\n")
@@ -236,7 +271,8 @@
 
 
 #####################################################################
-# Test Issue Schuetzenmeister
+# Test Issue 25.  Integers cells read as characters are not read
+# "cleanly" with RInterface, e.g. "12.0" instead of "12".
 #
 .test.issue25 <- function( DIR="C:/google/",  out="FAILED\n")
 {
@@ -251,7 +287,7 @@
   if (res1[35,1] == "8561731")  
     out <- "PASSED\n"
       
-  # reads element [35,1] correctly, how?!
+  # reads element [35,1] correctly, how?!  - R magic
   # res2 <- read.xlsx(file, sheetIndex=1, header=TRUE, startRow=1)
 
   cat(out)

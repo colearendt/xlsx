@@ -108,6 +108,11 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
   same value.  An exception is made when either \code{rowIndex} or
   \code{colIndex} have length one, when they will be expanded internally
   to match the length of the other index.
+
+  Function \code{CB.setMatrixData} works for numeric or character
+  matrices.  If the matrix \code{x} is not of numeric type it will be
+  converted to a character matrix.
+  
   
 }
 
