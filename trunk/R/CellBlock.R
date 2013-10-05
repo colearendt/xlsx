@@ -46,7 +46,8 @@ CB.setRowData <- function(cellBlock, x, rowIndex, colOffset=0, showNA=TRUE,
 }
 
 #########################################################################     
-# set a numeric matrix of data for a Cell Block
+# set a matrix of data for a Cell Block.
+# if x is not a numeric matrix, coerce it a character matrix
 #
 CB.setMatrixData <- function(cellBlock, x, startRow, startColumn,
   showNA=TRUE, cellStyle=NULL)
@@ -58,12 +59,20 @@ CB.setMatrixData <- function(cellBlock, x, startRow, startColumn,
     stop("The rows of x don't fit in the cellBlock!")
   if ( (endColumn-startColumn+1) > .jfield(cellBlock$ref, "I", "noCols") )
     stop("The columns of x don't fit in the cellBlock!")
-  
-  .jcall( cellBlock$ref, "V", "setMatrixData", as.integer(startRow-1),
-    as.integer(endRow-1), as.integer(startColumn-1), as.integer(endColumn-1),
-    .jarray(as.numeric(x)), showNA,
-    if ( !is.null(cellStyle) ) cellStyle$ref else
-      .jnull('org/apache/poi/ss/usermodel/CellStyle') )
+
+  if (class(x[1,1])[1] == "numeric") {
+    .jcall( cellBlock$ref, "V", "setMatrixData", as.integer(startRow-1),
+      as.integer(endRow-1), as.integer(startColumn-1), as.integer(endColumn-1),
+      .jarray(x), showNA,
+      if ( !is.null(cellStyle) ) cellStyle$ref else
+        .jnull('org/apache/poi/ss/usermodel/CellStyle') )
+  } else {
+    .jcall( cellBlock$ref, "V", "setMatrixData", as.integer(startRow-1),
+      as.integer(endRow-1), as.integer(startColumn-1), as.integer(endColumn-1),
+      .jarray(as.character(x)), showNA,
+      if ( !is.null(cellStyle) ) cellStyle$ref else
+        .jnull('org/apache/poi/ss/usermodel/CellStyle') )
+  }
   
 }
 
