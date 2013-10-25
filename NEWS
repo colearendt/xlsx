@@ -10,7 +10,8 @@ Changes in version 0.5.4 (released 2013-XX-XX)
  o Allow CB.setMatrixData to accept character matrices too.  It only
  worked with numeric matrices in earlier versions.  See Issue 19. 
 
- o 
+ o See email from Richard Cotton <Richard.Cotton@tdxgroup.com> regarding 
+ the append argument for read.xlsx
 
 
 Changes in version 0.5.3 (released 2013-07-11)
