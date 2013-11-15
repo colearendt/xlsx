@@ -230,10 +230,10 @@
   sheets <- getSheets(wb)
 
   # we are going to try and past this matrix on all three sheets
-  my.mat <- matrix(1:9, 3, 3)
+  mat <- matrix(1:9, 3, 3)
   for (sheet in sheets) {
-    cb <- CellBlock(sheet, 1, 1, 3, 3, create = TRUE) # get an error with FALSE
-    CB.setMatrixData(cb, my.mat, 1, 1)
+    cb <- CellBlock(sheet, 1, 1, 3, 3, create = FALSE) # get an error with FALSE
+    CB.setMatrixData(cb, mat, 1, 1)
   }
 
   saveWorkbook(wb, fileOut)
@@ -265,6 +265,7 @@
   saveWorkbook(wb, file=paste(OUTDIR, "/WB_with_EMF.xlsx", sep=""))  
 
   # the spreadsheet saves but the emf picture is not there
+  # used to work in previous versions of POI, not sure why not anymore
   cat("FAILED\n")
   
 }
@@ -284,10 +285,10 @@
   res1 <- read.xlsx2(file, sheetIndex=1, header=TRUE, startRow=1,
     colClasses=c("character", rep("numeric", 5)), stringsAsFactors=FALSE)
   
-  if (res1[35,1] == "8561731")  
+  if (res1[35,2] == "250829")  
     out <- "PASSED\n"
       
-  # reads element [35,1] correctly, how?!  - R magic
+  # reads element [34,1] correctly, how?!  - R magic
   # res2 <- read.xlsx(file, sheetIndex=1, header=TRUE, startRow=1)
 
   cat(out)
@@ -300,6 +301,7 @@
 #
 .run_test_issues <- function(SOURCEDIR)
 {
+  source(paste(SOURCEDIR, "rexcel/trunk/inst/tests/lib_test_issues.R", sep=""))
   DIR <- SOURCEDIR
   .test.issue2(DIR)
   .test.issue6(DIR)  
@@ -309,6 +311,7 @@
   .test.issue12(DIR)
   .test.issue16(DIR)
   .test.issue19(DIR)
+  .test.issue22(DIR)
   .test.issue23(DIR)
   .test.issue25(DIR)
 
