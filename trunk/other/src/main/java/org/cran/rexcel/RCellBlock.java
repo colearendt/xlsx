@@ -36,29 +36,31 @@ public class RCellBlock {
      * @param startColIndex starting column of a block in a sheet.
      * @param nRows numbers of rows in a block
      * @param nCols number of columns in a block
-     * @param create if true, rows and cells are created as necessary, otherwise 
-     *   the existing cells are used (contents are not erased)
+     * @param create if true, rows and cells are created as necessary (erasing 
+     * 	 existing content).  If false the existing cells are used and content is
+     *   not erased.
      */
     public RCellBlock( Sheet sheet, int startRowIndex, int startColIndex, 
-    	int nRows, int nCols, boolean create )
+    	int nRows, int nCols, boolean create)
     {
         cells = new Cell[nCols][nRows];
         noRows = nRows;
         noCols = nCols;
        
-        for (int i = 0; i < nRows; i++) {
-            Row r = sheet.getRow(startRowIndex+i);
-            if (r == null) {    // row is not already there
-                if ( create ) r = sheet.createRow(startRowIndex+i);
-                else throw new RuntimeException( "Row does " + (startRowIndex+i)
-                    + "not exist in the sheet" );
-            }
-            for (int j = 0; j < nCols; j++){
-                cells[j][i] = create ? r.createCell(startColIndex+j)
-                              : r.getCell(startColIndex+j);
-            }
-        }
-    }
+		for (int i = 0; i < nRows; i++) {
+			Row r = sheet.getRow(startRowIndex + i);
+			if (r == null) {       // row is not already there
+				 if ( create ) r = sheet.createRow(startRowIndex+i);
+				 else throw new RuntimeException( "Row " + (startRowIndex+i)
+						 + " doesn't exist in the sheet" );
+			}
+			
+			for (int j = 0; j < nCols; j++) {
+				cells[j][i] = create ? r.createCell(startColIndex+j)
+                        : r.getCell(startColIndex+j, Row.CREATE_NULL_AS_BLANK);
+			}
+		}
+	}
 
     /**
      * Gets the cell at given position.
@@ -165,7 +167,8 @@ public class RCellBlock {
      * The index argument are all relative to the CellBlock top cell!  
      */
     public void setMatrixData( int startRow, int endRow, int startColumn, 
-    	int endColumn, double[] data, boolean showNA, CellStyle style ){
+    	int endColumn, double[] data, boolean showNA, CellStyle style, 
+    	boolean keepCellStyle) {
     	
         for (int j=startColumn; j<=endColumn; j++) {
         	for (int i=startRow; i<=endRow; i++) {
@@ -174,7 +177,9 @@ public class RCellBlock {
         		} else {
         			cells[j][i].setCellType(Cell.CELL_TYPE_BLANK);
         		}
-        		if ( style != null ) setCellStyle(style, i, j);
+        		if ( !keepCellStyle ) {
+        			setCellStyle(style, i, j);
+        		}
         	}
         }
     }

@@ -48,7 +48,7 @@
 
 version    <- "0.5.4"      
 package.gz <- paste("xlsx_", version, ".tar.gz", sep="")
-computer <- "WORK2" #"WORK2" "LAPTOP"
+computer <- "HOME" #"WORK2" "LAPTOP"
 .setEnv(computer)   
 
 .build.java() 
