@@ -229,19 +229,17 @@
   wb <- loadWorkbook(fileIn)
   sheets <- getSheets(wb)
 
+  # we are going to try and past this matrix on all three sheets
   mat <- matrix(1:9, 3, 3)
   for (sheet in sheets) {
-    if (sheet$getSheetName() == "Sheet1" ){
-      # need to create the rows for Sheet1 as it is empty!  
-      cb <- CellBlock(sheet, 1, 1, 3, 3, create = TRUE)   
-    } else {
-      cb <- CellBlock(sheet, 1, 1, 3, 3, create = FALSE) 
-    }  
+    cb <- CellBlock(sheet, 1, 1, 3, 3, create = FALSE) # get an error with FALSE
     CB.setMatrixData(cb, mat, 1, 1)
   }
+
   saveWorkbook(wb, fileOut)
   
-  cat("PASSED\n")
+  
+  cat("FAILED\n")
 }
 
 
@@ -264,11 +262,11 @@
   sheet <- createSheet(wb, "EMF_Sheet")
   
   addPicture(file=fileName, sheet)
-  saveWorkbook(wb, file=paste(OUTDIR, "/issue23_out.xlsx", sep=""))  
+  saveWorkbook(wb, file=paste(OUTDIR, "/WB_with_EMF.xlsx", sep=""))  
 
   # the spreadsheet saves but the emf picture is not there
   # used to work in previous versions of POI, not sure why not anymore
-  cat("FAILED -- (known issue with 3.9)\n")
+  cat("FAILED\n")
   
 }
 
@@ -299,35 +297,6 @@
 
 
 #####################################################################
-# Test Issue 26.  Customize the format of datetimes in the output
-#
-.test.issue26 <- function( DIR="C:/google/",  out="FAILED\n")
-{
-  cat(".test.issue26 ")
-  require(xlsx)
-
-  wb <- createWorkbook()
-  sheet <- createSheet(wb, "Sheet1")
-  
-  days <- seq(as.Date("2013-01-01"), by="1 day", length.out=5)
-  # use the default
-  addDataFrame(data.frame(days=days), sheet, startColumn=1,
-               col.names=FALSE, row.names=FALSE)
-
-  # change the options temporarily
-  oldOpt <- options()
-  options(xlsx.date.format="dd MMM, yyyy")
-  addDataFrame(data.frame(days=days), sheet, startColumn=2,
-               col.names=FALSE, row.names=FALSE)
-  options(oldOpt)
-  
-  
-  saveWorkbook(wb, file=paste(OUTDIR, "issue26_out.xlsx", sep=""))  
-  cat("PASSED")
-}
-
-
-#####################################################################
 # Register and run the specific tests
 #
 .run_test_issues <- function(SOURCEDIR)
@@ -345,7 +314,6 @@
   .test.issue22(DIR)
   .test.issue23(DIR)
   .test.issue25(DIR)
-  .test.issue26(DIR)
 
 
   

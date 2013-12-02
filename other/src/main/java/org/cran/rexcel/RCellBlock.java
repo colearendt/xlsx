@@ -37,8 +37,8 @@ public class RCellBlock {
      * @param nRows numbers of rows in a block
      * @param nCols number of columns in a block
      * @param create if true, rows and cells are created as necessary (erasing 
-     * 	 existing content and style).  If false the existing cells are used and 
-     *   content and style is not erased.
+     * 	 existing content).  If false the existing cells are used and content is
+     *   not erased.
      */
     public RCellBlock( Sheet sheet, int startRowIndex, int startColIndex, 
     	int nRows, int nCols, boolean create)
@@ -49,14 +49,10 @@ public class RCellBlock {
        
 		for (int i = 0; i < nRows; i++) {
 			Row r = sheet.getRow(startRowIndex + i);
-			if (r == null) { // row is not already there
-				if (create)
-					r = sheet.createRow(startRowIndex + i);
-				else
-					throw new RuntimeException(
-							"Row "
-									+ (startRowIndex + i)
-									+ " doesn't exist in the sheet.  Need to call with argument create=TRUE.");
+			if (r == null) {       // row is not already there
+				 if ( create ) r = sheet.createRow(startRowIndex+i);
+				 else throw new RuntimeException( "Row " + (startRowIndex+i)
+						 + " doesn't exist in the sheet" );
 			}
 			
 			for (int j = 0; j < nCols; j++) {
@@ -169,26 +165,24 @@ public class RCellBlock {
      * Writes a matrix of data to the sheet.  Useful when you have a lot 
      * of data to write at once.  Use for numerics, Dates, DateTimes...
      * The index argument are all relative to the CellBlock top cell!  
-     * @param newStyle, if null do nothing to the existing cell style.  If not 
-     *   null, replace the cell style with this cell style.
      */
     public void setMatrixData( int startRow, int endRow, int startColumn, 
-    	int endColumn, double[] data, boolean showNA, CellStyle newStyle) { 
+    	int endColumn, double[] data, boolean showNA, CellStyle style, 
+    	boolean keepCellStyle) {
     	
-		for (int j = startColumn; j <= endColumn; j++) {
-			for (int i = startRow; i <= endRow; i++) {
-				if (showNA || !RInterface.isNA(data[i])) {
-					cells[j][i].setCellValue(data[(endRow - startRow + 1)
-							* (j - startColumn) + (i - startRow)]);
-				} else {
-					cells[j][i].setCellType(Cell.CELL_TYPE_BLANK);
-				}
-				if (newStyle != null) {
-					setCellStyle(newStyle, i, j);
-				}
-			}
-		}
-	}
+        for (int j=startColumn; j<=endColumn; j++) {
+        	for (int i=startRow; i<=endRow; i++) {
+        		if ( showNA || !RInterface.isNA(data[i])) {
+        			cells[j][i].setCellValue(data[(endRow-startRow+1)*(j-startColumn) + (i-startRow)]);
+        		} else {
+        			cells[j][i].setCellType(Cell.CELL_TYPE_BLANK);
+        		}
+        		if ( !keepCellStyle ) {
+        			setCellStyle(style, i, j);
+        		}
+        	}
+        }
+    }
 
     /**
      * Writes a matrix of data to the sheet.  Useful when you have a lot 

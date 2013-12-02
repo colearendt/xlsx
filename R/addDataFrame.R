@@ -22,9 +22,9 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
   wb <- sheet$getWorkbook()
   classes <- unlist(sapply(x, class))
   if ("Date" %in% classes) 
-    csDate <- CellStyle(wb) + DataFormat(getOption("xlsx.date.format"))
+    csDate <- CellStyle(wb) + DataFormat("m/d/yyyy")
   if ("POSIXct" %in% classes) 
-    csDateTime <- CellStyle(wb) + DataFormat(getOption("xlsx.datetime.format"))
+    csDateTime <- CellStyle(wb) + DataFormat("m/d/yyyy h:mm:ss;@")
 
   # offset required to give space for column names
   # (either excel columns if byrow=TRUE or rows if byrow=FALSE)
