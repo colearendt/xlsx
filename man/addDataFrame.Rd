@@ -59,6 +59,12 @@ addDataFrame(x, sheet, col.names=TRUE, row.names=TRUE,
   and Excel via Java.  Most likely, users of Excel will want to see
   \code{NA}'s  as blank cells.  In R character \code{NA}'s are simply
   characters, which for Excel means "NA".
+
+  The default formats for Date and DateTime columns can be changed via
+  the two package options \code{xlsx.date.format} and
+  \code{xlsx.datetime.format}.  They need to be specified in Java date
+  format
+  \url{http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html}. 
 }
 
 \value{

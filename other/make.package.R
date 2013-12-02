@@ -46,7 +46,7 @@
 ##################################################################
 ##################################################################
 
-version    <- "0.5.4"      
+version    <- "0.5.5"      
 package.gz <- paste("xlsx_", version, ".tar.gz", sep="")
 computer <- "HOME" #"WORK2" "LAPTOP"
 .setEnv(computer)   
@@ -67,8 +67,7 @@ if (computer %in% c("WORK2"))   #  Win7 needs special treatment, why?!
     clean=TRUE, INSTALL_opts=c("--no-multiarch"))
   
 } else {
-  install.packages(package.gz, repos=NULL, type="source",
-                   clean=TRUE)
+  install.packages(package.gz, repos=NULL, type="source", clean=TRUE)
 }
 
 

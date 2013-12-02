@@ -49,6 +49,11 @@ Function \code{write.xlsx2} uses \code{addDataFrame} which speeds up the
 execution compared to \code{write.xlsx} by an order of magnitude for
 large spreadsheets (with more than 100,000 cells).
 
+The default formats for Date and DateTime columns can be changed via the
+two package options \code{xlsx.date.format} and
+\code{xlsx.datetime.format}.  They need to be specified in Java date
+format
+\url{http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html}.
 
 }
 \author{ Adrian Dragulescu }
@@ -61,6 +66,12 @@ large spreadsheets (with more than 100,000 cells).
 file <- paste(tempdir(), "/usarrests.xlsx", sep="")
 res <- write.xlsx(USArrests, file)  
 
+# to change the default date format
+oldOpt <- options()
+options(xlsx.date.format="dd MMM, yyyy")
+write.xlsx(x, sheet) # where x is a data.frame with a Date column.
+options(oldOpt)      # revert back to defaults
+ 
 }
 }
 

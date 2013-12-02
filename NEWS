@@ -1,17 +1,24 @@
 NEWS for package xlsx
 
-Changes in version 0.5.4 (released 2013-XX-XX)
+Changes in version 0.5.5 (released 2013-12-01)
+
+ o Allow CB.setMatrixData to accept character matrices too.  It only
+ worked with numeric matrices in earlier versions.  See Issue 19. 
 
  o Fixed an issue with read.xlsx2 when you wanted columns of type
  character, but the cell was of numeric type and the value was an
  exact integer (say 12).  In R the result was imported as "12.0"
  instead of "12".  See Issue 25.
 
- o Allow CB.setMatrixData to accept character matrices too.  It only
- worked with numeric matrices in earlier versions.  See Issue 19. 
+ o DateTime and Date formatting when using write.xlsx and addDataFrame
+ was hardcoded to the Java formats "m/d/yyyy h:mm:ss" and "m/d/yyyy"
+ respectively.  These have been added as package options to allow
+ for other formats when using these functions.  See Issue 26.
 
- o See email from Richard Cotton <Richard.Cotton@tdxgroup.com> regarding 
- the append argument for read.xlsx
+ o For write.xlsx(2) when append==TRUE, check if file exists and load
+ it only if it exists, otherwise create the workbook.  As suggested by
+ Richard Cotton.  See Issue 27. 
+
 
 
 Changes in version 0.5.3 (released 2013-07-11)
