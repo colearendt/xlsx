@@ -58,7 +58,10 @@ getCellValue(cell, keepFormulas=FALSE, encoding="unknown")
   \code{setCellValue} writes the content of an R variable into the cell.
   \code{Date} and \code{POSIXct} objects are passed in as numerical
   values.  To format them as dates in Excel see \code{\link{CellStyle}}.
-  This function is not vectorized. 
+  
+  These functions are not vectorized and should be used only for small
+  spreadsheets.  Use \code{CellBlock} functionality to efficiently
+  read/write parts of a spreadsheet. 
 }
 
 \author{Adrian Dragulescu}
@@ -82,6 +85,18 @@ values <- lapply(cells, getCellValue) # extract the values
 ind <- paste(2:13, ".2", sep="")
 mapply(setCellValue, cells[ind], month.name)
 
+####################################################################
+# make a new workbook with one sheet and 5x5 cells
+wb <- createWorkbook()
+sheet <- createSheet(wb, "Sheet1")
+rows  <- createRow(sheet, rowIndex=1:5)
+cells <- createCell(rows, colIndex=1:5) 
+
+# populate the first column with Dates
+days <- seq(as.Date("2013-01-01"), by="1 day", length.out=5)
+mapply(setCellValue, cells[,1], days)
+
+ 
 
 }
 

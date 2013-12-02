@@ -5,7 +5,7 @@
 write.xlsx2 <- function(x, file, sheetName="Sheet1",
   col.names=TRUE, row.names=TRUE, append=FALSE, ...)
 {
-  if (append){
+  if (append && file.exists(file)){
     wb <- loadWorkbook(file)
   } else {
     ext <- gsub(".*\\.(.*)$", "\\1", basename(file))

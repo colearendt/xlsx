@@ -20,14 +20,14 @@
   # Date and POSIXct classes need to be formatted
   indDT <- which(sapply(y, class) == "Date")
   if (length(indDT) > 0) {
-    dateFormat <- CellStyle(wb) + DataFormat("m/d/yyyy")
+    dateFormat <- CellStyle(wb) + DataFormat(getOption("xlsx.date.format"))
     for (ic in indDT){
       lapply(cells[1:nrow(cells),colIndex[ic]], setCellStyle, dateFormat)
     }
   }
   indDT <- which(sapply(y, class) == "POSIXct")
   if (length(indDT) > 0) {
-    datetimeFormat <- CellStyle(wb) + DataFormat("m/d/yyyy h:mm:ss;@")
+    datetimeFormat <- CellStyle(wb) + DataFormat(getOption("xlsx.datetime.format"))
     for (ic in indDT){
       lapply(cells[1:nrow(cells),colIndex[ic]], setCellStyle, datetimeFormat)
     }
@@ -51,7 +51,7 @@ write.xlsx <- function(x, file, sheetName="Sheet1",
   if (row.names)
     jOffset <- 1
 
-  if (append){
+  if (append && file.exists(file)){
     wb <- loadWorkbook(file)
   } else {
     ext <- gsub(".*\\.(.*)$", "\\1", basename(file))

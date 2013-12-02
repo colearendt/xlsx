@@ -52,7 +52,12 @@
 
 ####################################################################
 #
-.onLoad <- function(libname, pkgname){}
+.onLoad <- function(libname, pkgname) {
+    
+  options(xlsx.date.format = "m/d/yyyy")   # e.g. 3/18/2013
+  options(xlsx.datetime.format = "m/d/yyyy h:mm:ss")  # e.g. 3/18/2013 05:25:51
+  
+}
 
 ####################################################################
 # Converts R color into Excel compatible color
