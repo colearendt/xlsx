@@ -1,5 +1,2 @@
-other/.settings/.
-other/.classpath
-other/.project
-other/target/.*
+other/.*
 resources/.*
