@@ -323,8 +323,29 @@
   
   
   saveWorkbook(wb, file=paste(OUTDIR, "issue26_out.xlsx", sep=""))  
-  cat("PASSED")
+  cat("PASSED\n")
 }
+
+
+#####################################################################
+# Test Issue 28.  Don't fail with read.xlsx on empty sheets.
+#
+.test.issue28 <- function( DIR="C:/google/",  out="FAILED\n")
+{
+  cat(".test.issue28 ")
+  require(xlsx)
+  file <- paste(DIR, "rexcel/trunk/resources/issue25.xlsx", sep="")
+
+  # reads Sheet2 which is empty
+  res <- read.xlsx(file, sheetIndex=2)
+  res2 <- read.xlsx2(file, sheetIndex=2)
+  
+  if (is.null(res) && is.null(res2))  
+    out <- "PASSED\n"
+
+  cat(out)
+}
+
 
 
 #####################################################################
@@ -346,6 +367,7 @@
   .test.issue23(DIR)
   .test.issue25(DIR)
   .test.issue26(DIR)
+  .test.issue28(DIR)
 
 
   
