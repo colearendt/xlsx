@@ -153,6 +153,9 @@ public class RCellBlock {
 
     /**
      * Writes a row of strings to the sheet.
+     * @param rowIndex is relative to the CellBlock
+     * @param colOffset is relative to the CellBlock.  If colOffset==0, start from 
+     *    first column of the CellBlock.  
      */
     public void setRowData( int rowIndex, int colOffset, String[] data, boolean showNA, CellStyle style ){
         for (int i=0; i<data.length; i++) {
