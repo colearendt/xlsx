@@ -2,9 +2,12 @@ NEWS for package xlsx
 
 Changes in version 0.5.6 (released 2014-XX-XX)
 
- o Functions read.xlsx, read.xlsx2 crashed on empty sheets.  Now they 
- return NULL if the sheet exists but it's empty.  See Issue 28.
+ o Functions read.xlsx, read.xlsx2 crashed when trying to read empty
+ sheets.  Now they return NULL if the sheet exists but it's empty.
+ See Issue 28.
 
+ o Fixed a corner case in addDataFrame when the data.frame has zero
+ columns. 
 
 
 Changes in version 0.5.5 (released 2013-12-01)

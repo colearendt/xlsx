@@ -347,6 +347,30 @@
 }
 
 
+#####################################################################
+# Test Issue 31.  Don't fail when you have zero columns data.frames
+#
+.test.issue31 <- function( DIR="C:/google/",  out="FAILED\n")
+{
+  cat(".test.issue31 ")
+  require(xlsx)
+  file <- paste(DIR, "rexcel/trunk/resources/issue31.xlsx", sep="")
+
+  wb <- createWorkbook()
+  sheet <- createSheet(wb)
+  df <- data.frame(x = 1:5)[,FALSE] #Data frame with some rows, no columns.
+  
+  #source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
+  res <- try(addDataFrame(df, sheet))
+  #saveWorkbook(wb, file=paste(OUTDIR, "issue31_out.xlsx", sep=""))
+  
+  if (class(res) == "CellBlock")  
+    out <- "PASSED\n"
+
+  cat(out)
+}
+
+
 
 #####################################################################
 # Register and run the specific tests
@@ -368,7 +392,7 @@
   .test.issue25(DIR)
   .test.issue26(DIR)
   .test.issue28(DIR)
-
+  .test.issue31(DIR)
 
   
 }

@@ -40,7 +40,7 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
       blockRows <- ncol(x)
       blockCols <- nrow(x) + iOffset # row-wise data + column names
   } else {
-      # write data.frame columns data column-wise
+      # write data.frame columns data column-wise, DEFAULT
       setDataMethod   <- "setColData"
       setHeaderMethod <- "setRowData"
       blockRows <- nrow(x) + iOffset # column-wise data + column names
@@ -55,15 +55,16 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
 
   # insert colnames
   if (col.names) {
-    .jcall( cellBlock$ref, "V", setHeaderMethod, 0L, jOffset,
-       .jarray(colnames(x)[(1+jOffset):ncol(x)]), showNA,
-       if ( !is.null(colnamesStyle) ) colnamesStyle$ref else
-           .jnull('org/apache/poi/ss/usermodel/CellStyle') )
+    if (!(ncol(x) == 1 && colnames(x)=="rownames")) 
+      .jcall( cellBlock$ref, "V", setHeaderMethod, 0L, jOffset,
+         .jarray(colnames(x)[(1+jOffset):ncol(x)]), showNA,
+         if ( !is.null(colnamesStyle) ) colnamesStyle$ref else
+             .jnull('org/apache/poi/ss/usermodel/CellStyle') )
   }
 
   # write one data.frame column at a time, and style it if it has style
   # Dates and POSIXct columns get styled if not overridden. 
-  for (j in 1:ncol(x)) {
+  for (j in seq_along(x)) {
     thisColStyle <-
       if ((j==1) && (row.names) && (!is.null(rownamesStyle))) {
         rownamesStyle
@@ -99,9 +100,11 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
     }
 #browser()
    .jcall( cellBlock$ref, "V", setDataMethod,
-     as.integer(j-1L), iOffset, .jarray(aux), showNA, 
-       if ( !is.null(thisColStyle) ) thisColStyle$ref else
-         .jnull('org/apache/poi/ss/usermodel/CellStyle') )
+      as.integer(j-1L),   #  -1L for Java index 
+      iOffset,            # does not need -1L
+      .jarray(aux), showNA, 
+      if ( !is.null(thisColStyle) ) thisColStyle$ref else
+        .jnull('org/apache/poi/ss/usermodel/CellStyle') )
   }
 
   # return the cellBlock occupied by the generated data frame

@@ -87,6 +87,9 @@ addDataFrame(x, sheet, col.names=TRUE, row.names=TRUE,
   addDataFrame(data, sheet, startRow=3, startColumn=2, colnamesStyle=cs3,
     rownamesStyle=cs1, colStyle=list(`2`=cs2, `3`=cs2))
 
+  # to change the default date format use something like this
+  # options(xlsx.date.format="dd MMM, yyyy")
+
 
   # Don't forget to save the workbook ...  
   # saveWorkbook(wb, file) 
