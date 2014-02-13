@@ -88,6 +88,9 @@ data.
   A data.frame or a list, depending on the \code{as.data.frame}
   argument.  If some of the columns are read as NA's it's an indication
   that the \code{colClasses} argument has not been set properly.
+
+  If the sheet is empty, return \code{NULL}.  If the sheet does not
+  exist, return an error. 
 }
 \author{ Adrian Dragulescu }
 \seealso{\code{\link{write.xlsx}} for writing \code{xlsx} documents.

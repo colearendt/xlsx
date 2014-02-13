@@ -25,9 +25,12 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
   
   if (is.null(colIndex)){  # get it from the startRow
     row <- sheet$getRow(as.integer(startRow-1))
-    if (is.null(row)) 
+    if (is.null(row)) {
+      if (endRow == startRow)
+          return(NULL)          # sheet is empty
       stop(paste("Row with index startRow is EMPTY! ",
            "Specify a different startRow value."))
+    }
     startColumn  <- .jcall(row, "T", "getFirstCellNum") + 1   
     endColumn    <- .jcall(row, "T", "getLastCellNum")
     colIndex     <- startColumn:endColumn

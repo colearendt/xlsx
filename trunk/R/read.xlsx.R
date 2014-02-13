@@ -28,7 +28,10 @@ read.xlsx <- function(file, sheetIndex, sheetName=NULL,
     startRow:endRow
   } else rowIndex
   
-  rows  <- getRows(sheet, rowIndex)  
+  rows  <- getRows(sheet, rowIndex)
+  if (length(rows)==0)
+      return(NULL)             # exit early
+  
   cells <- getCells(rows, colIndex)
   res <- lapply(cells, getCellValue, keepFormulas=keepFormulas,
                 encoding=encoding)
