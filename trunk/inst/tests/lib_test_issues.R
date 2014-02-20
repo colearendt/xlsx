@@ -370,6 +370,35 @@
   cat(out)
 }
 
+#####################################################################
+# Test Issue 3X
+# richTextFormat
+#
+.test.issue3x <- function( DIR="C:/google/", out="FAILED\n" )
+{
+  cat(".test.issue3x ")
+ 
+  require(xlsx)
+  wb <- createWorkbook()
+  sheet <- createSheet(wb, "Sheet1")
+
+  rows   <- createRow(sheet, rowIndex=1:24)         
+  cells  <- createCell(rows, colIndex=1:8)      
+
+  # see https://poi.apache.org/apidocs/index.html?org/apache/poi/xssf/usermodel/XSSFRichTextString.html 
+  rs <- .jnew("org/apache/poi/xssf/usermodel/XSSFRichTextString",
+     "test red bold words." )
+  .jcall(rs, "V", "applyFont", 5L, 13L, Font(wb, color="red", isBold=TRUE)$ref)
+  
+  .jcall(cells[[2,1]], "V", "setCellValue",
+         .jcast(rs, "org/apache/poi/ss/usermodel/RichTextString"))
+  
+  fileOut <- paste(OUTDIR, "issue3x_out.xlsx", sep="")
+  saveWorkbook(wb, file=fileOut)  
+
+  cat("PASSED\n")
+}
+
 
 
 #####################################################################
