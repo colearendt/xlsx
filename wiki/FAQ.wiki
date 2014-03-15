@@ -10,7 +10,7 @@ something like "C:/Program Files/Java/jdk1.7.0_11/jre/bin/server".
 Please install the package directly from sources.  Download the tar.gz
 file from cran in your working directory, and then 
 {{{
-install.packages("xlsx_0.5.0.tar.gz", type="source")
+install.packages("xlsx_0.X.X.tar.gz", type="source")
 }}}
 
 = Package doesn't install properly from within R-Studio =
@@ -81,6 +81,21 @@ instance of HSSF and an instance of XSSF and then read from one and
 copy to the other, cell by cell, preserving the formats, etc.
 Can be done, but gruesome work. 
 
+= Formulas don't recalculate automatically after save = 
 
+You modify an input cell in your spreadsheet with R, and you save your
+workbook.  The cells that depend on the input cell don't get
+recalculated once you open the workbook again.  To force this
+recalculation, do {{{wb$setForceFormulaRecalculation(TRUE)}}} before saving
+the workbook. 
+
+
+= Formulas don't get read properly by read.xlsx2 = 
+
+I have a spreadsheet with formulas.  Function read.xlsx reads the
+values of the formulas correctly, but read.xlsx2 or readColumns return
+NA.  Solution: specify the colClasses argument, because the code
+cannot guess the type of the column when the cell type is a formula.
+See Issue 35. 
 
  
