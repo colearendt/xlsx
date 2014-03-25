@@ -16,7 +16,8 @@ is.Border(x)
 
   \item{color}{a character vector specifiying the font color.  Any
     color names as returned by \code{\link[grDevices]{colors}} can be
-    used.  For Excel 95 workbooks, only a subset of colors is
+    used.   Or, a hex character, e.g. "#FF0000" for red.  For Excel 95
+    workbooks, only a subset of colors is 
     available, see the constant \code{INDEXED_COLORS_}.}
   
   \item{position}{a character vector specifying the border position.  

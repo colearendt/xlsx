@@ -132,6 +132,28 @@ public class DebugRexcel {
 	    System.out.println("Wrote /tmp/issue26_out.xlsx");
 	}
 	
+	public static void issue35() throws InvalidFormatException, IOException {
+		
+		System.out.println( "Testing issue35 =================================" );
+		FileInputStream in = new FileInputStream(new File("../resources/issue35.xlsx") );
+		Workbook wb = WorkbookFactory.create(in);
+		Sheet sheet = wb.getSheetAt(0); 
+		
+		Row row = sheet.getRow(1);
+		Cell cell = row.getCell(2);
+		
+		System.out.println( cell.getCellType() );
+		
+		System.out.println( cell.getNumericCellValue() );  // returns 8561807.0 !!  I want "8561807"
+				
+		RInterface R = new RInterface();
+		double[] res = R.readColDoubles(sheet, 1, 3, 2);
+		for (int i=0; i<res.length; i++){
+			System.out.println(res[i]);
+		}        
+		
+		
+	}
 	
     public static void main(String[] args) throws InvalidFormatException, IOException {
     	
@@ -139,8 +161,8 @@ public class DebugRexcel {
     	
     	//issue22();
     	//issue25();
-    	issue26();
-    	
+    	//issue26();
+    	issue35();
     	
     	
         

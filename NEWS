@@ -9,6 +9,11 @@ Changes in version 0.5.6 (released 2014-XX-XX)
  o Fixed a corner case in addDataFrame when the data.frame has zero
  columns. 
 
+ o Allow colors to be specified as hex strings (e.g. "#FF0000" for
+ red).  Previously, only R colors were supported.  This change applies
+ only to xlsx format.  Old style  xls format still only supports a
+ limited number of colors (POI limitation).  
+
 
 Changes in version 0.5.5 (released 2013-12-01)
 
