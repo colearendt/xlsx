@@ -52,8 +52,10 @@
 
 ####################################################################
 #
-.onLoad <- function(libname, pkgname) {
-    
+.onLoad <- function(libname, pkgname)
+{
+  .jpackage("xlsxjars")
+  
   options(xlsx.date.format = "m/d/yyyy")   # e.g. 3/18/2013
   options(xlsx.datetime.format = "m/d/yyyy h:mm:ss")  # e.g. 3/18/2013 05:25:51
   
@@ -74,7 +76,9 @@
 
 
 ###################################################################
-# split a vector into contiguous chunks c(1,2,3, 6,7, 9,10,11)
+# Split a vector into contiguous chunks c(1,2,3, 6,7, 9,10,11)
+# @param x an integer vector
+# @return a list of integer vectors, each vector being a group.
 #
 .splitBlocks <- function(x)
 {

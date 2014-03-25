@@ -1,6 +1,6 @@
 NEWS for package xlsx
 
-Changes in version 0.5.6 (released 2014-XX-XX)
+Changes in version 0.5.6 (released 2014-04-01)
 
  o Functions read.xlsx, read.xlsx2 crashed when trying to read empty
  sheets.  Now they return NULL if the sheet exists but it's empty.
@@ -11,9 +11,13 @@ Changes in version 0.5.6 (released 2014-XX-XX)
 
  o Allow colors to be specified as hex strings (e.g. "#FF0000" for
  red).  Previously, only R colors were supported.  This change applies
- only to xlsx format.  Old style  xls format still only supports a
- limited number of colors (POI limitation).  
+ only to the xlsx format.  Old style binary xls format still only
+ supports a limited number of colors (POI limitation).  
 
+ o Change the .onLoad functions from both xlsxjars and xlsx package to 
+ allow for other users to initialize the Java VM themselves (useful
+ for other packages that depend on xlsxjars).  This is not a user
+ visible change. See Issue 36. 
 
 Changes in version 0.5.5 (released 2013-12-01)
 
