@@ -97,9 +97,10 @@
 
 
 ########################################################################
-# take an R color and return an HSSFColor object
-# where Rcolor is a string
-# not all colors are supported
+# Take an R color and return an HSSFColor object
+# @param Rcolor is a string
+#   NOTE: Only a limited set of colors are supported.  See the java API.
+# 
 .hssfcolor <- function(Rcolor)
 {
   .jshort(INDEXED_COLORS_[toupper( Rcolor )])
@@ -107,14 +108,26 @@
 
 
 ########################################################################
-# take an R color and return an XSSFColor object
-# where Rcolor is a string from "colors()"
+# Take an R color and return an XSSFColor object
+# @param Rcolor is a string returned from "colors()" or a hex string
+#   starting with #, e.g. "#FF0000" is red.
+#
 .xssfcolor <- function(Rcolor)
 {
-  rgb  <- as.integer(col2rgb(Rcolor))
+  if (grepl("^#", Rcolor)) {
+    rgb <- c(strtoi(substring(Rcolor, 2, 3), base=16L),
+             strtoi(substring(Rcolor, 4, 5), base=16L),
+             strtoi(substring(Rcolor, 6, 7), base=16L)) 
+  } else {     
+    rgb <- as.integer(col2rgb(Rcolor))
+  }
   jcol <- .jnew("java.awt.Color", rgb[1], rgb[2], rgb[3])
+  
   .jnew("org.apache.poi.xssf.usermodel.XSSFColor", jcol)
 }
+
+
+
 
   HALIGN_STYLES_ <- c(2,6,4,0,5,1,3)
   names(HALIGN_STYLES_) <- c('ALIGN_CENTER' ,'ALIGN_CENTER_SELECTION'

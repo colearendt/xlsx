@@ -2,11 +2,11 @@
 # Test Issue 2
 # Columns of data (as formulas) are being read in as NA
 # CLOSED
-.test.issue2 <- function(DIR="C:/google/")
+.test.issue2 <- function()
 {
   cat(".test.issue2 ")
   require(xlsx)
-  file <- paste(DIR, "rexcel/trunk/resources/xlxs2Test.xlsx", sep="")
+  file <- "resources/xlxs2Test.xlsx"
   res <- read.xlsx2(file, sheetName="data", startRow=2, endRow=10,
       colIndex=c(1,3:5,7:9), colClasses=c("character",rep("numeric",6)) )
   
@@ -26,7 +26,7 @@
 # setCellValue writes an NA as "#N/A", add an argument to make it an 
 # empty cell.  This behavior is is visible with write.xlsx.
 #
-.test.issue6 <- function(DIR="C:/google/")
+.test.issue6 <- function()
 {
   cat(".test.issue6 ")
   require(xlsx)
@@ -59,11 +59,11 @@
 # Let's see if the new version of POI fixes this!
 # Not something I can fix!
 #
-.test.issue7 <- function(DIR="C:/google/")
+.test.issue7 <- function()
 {
   cat(".test.issue7 ")
   require(xlsx)
-  file <- paste(DIR, "rexcel/trunk/resources/issue7.xlsx", sep="")
+  file <- "resources/issue7.xlsx"
   res <- read.xlsx(file, sheetIndex=1, rowIndex=2:5, colIndex=2:3)
 
   wb <- loadWorkbook(file)
@@ -92,7 +92,7 @@
 # Problems with read.xlsx for tables that start in the middle of the
 # sheet.  I used to get an NPE.
 #
-.test.issue9 <- function(DIR="C:/google/")
+.test.issue9 <- function()
 {
   cat(".test.issue9 ")
   require(xlsx)
@@ -115,13 +115,11 @@
 # and return more rows than they actually exist. 
 # fixed in java, with rexcel_0.5.1.jar
 #
-.test.issue11 <- function(DIR="C:/google/")
+.test.issue11 <- function()
 {
   cat(".test.issue11 ")
   require(xlsx)
-  #file <- system.file("tests", "test_import.xlsx", package="xlsx")
-  #file <- "C:/temp/fca3_monthly_ob_v2.xls"
-  file <- paste(DIR, "rexcel/trunk/resources/read_xlsx2_example.xlsx", sep="")
+  file <-"resources/read_xlsx2_example.xlsx"
   res <- read.xlsx(file, sheetIndex=1, header=FALSE)
 
   if (class(res) != "try-error") {
@@ -138,7 +136,7 @@
 # read.xlsx2 doesn't evaluate formulas - values are NA
 # Not an issue if you specify the colClasses!
 #
-.test.issue12 <- function( DIR="C:/google/" )
+.test.issue12 <- function(  )
 {
   cat(".test.issue12 ")
   require(xlsx)
@@ -158,11 +156,11 @@
 # Get an NPE when reading .xls files when they are not properly constructed
 # and return more rows than they actually exist. 
 #
-.test.issue16 <- function( DIR="C:/google/" )
+.test.issue16 <- function(  )
 {
   cat(".test.issue16 ")
   require(xlsx)
-  file <- paste(DIR, "rexcel/trunk/resources/issue12.xlsx", sep="")
+  file <- "resources/issue12.xlsx"
   try(res <- read.xlsx2(file, sheetIndex=1, colIndex=1:3, startRow=3))
 
   if (class(res) != "try-error") {
@@ -178,7 +176,7 @@
 # CB.setMatrixData only accepts numeric matrices.  It should accept
 # character matrices too.
 #
-.test.issue19 <- function( DIR="C:/google/" )
+.test.issue19 <- function(  )
 {
   cat(".test.issue19 ")
   require(xlsx)
@@ -188,7 +186,7 @@
   mtx <- matrix(c("hello", "world", "check1", "check2"), ncol=2)
   cb <- CellBlock(sheet, 1, 1, 2, 2)
   CB.setMatrixData(cb, mtx, 1, 1)
-  fileName <- paste(OUTDIR, "/issue19.xlsx", sep="")
+  fileName <- "out/issue19.xlsx"
   saveWorkbook(wb, fileName)
 
   
@@ -200,7 +198,7 @@
 # Test Issue 21
 # Color black not set properly in Font
 #
-.test.issue21 <- function( DIR="C:/google/" )
+.test.issue21 <- function(  )
 {
   cat(".test.issue21 ")
   require(xlsx)
@@ -219,12 +217,12 @@
 # Preserve existing formats when you write data to the xlsx with
 # CellBlock construct
 #
-.test.issue22 <- function( DIR="C:/google/" )
+.test.issue22 <- function()
 {
   cat(".test.issue22 ")
   require(xlsx)
-  fileIn  <- paste(DIR, "rexcel/trunk/resources/issue22.xlsx", sep="")
-  fileOut <- paste(OUTDIR, "issue22_out.xlsx", sep="")
+  fileIn  <- "resources/issue22.xlsx"
+  fileOut <- "issue22_out.xlsx"
 
   wb <- loadWorkbook(fileIn)
   sheets <- getSheets(wb)
@@ -250,10 +248,10 @@
 # Test Issue 23
 # add an emf picture
 #
-.test.issue23 <- function( DIR="C:/google/" )
+.test.issue23 <- function()
 {
   cat(".test.issue23 ")
-  fileName <- paste(OUTDIR, "test_emf.emf", sep="")
+  fileName <- "out/test_emf.emf"
   require(devEMF)
   emf(file=fileName, bg="white")
   boxplot(rnorm(100))
@@ -264,7 +262,7 @@
   sheet <- createSheet(wb, "EMF_Sheet")
   
   addPicture(file=fileName, sheet)
-  saveWorkbook(wb, file=paste(OUTDIR, "/issue23_out.xlsx", sep=""))  
+  saveWorkbook(wb, file="issue23_out.xlsx")  
 
   # the spreadsheet saves but the emf picture is not there
   # used to work in previous versions of POI, not sure why not anymore
@@ -277,11 +275,11 @@
 # Test Issue 25.  Integers cells read as characters are not read
 # "cleanly" with RInterface, e.g. "12.0" instead of "12".
 #
-.test.issue25 <- function( DIR="C:/google/",  out="FAILED\n")
+.test.issue25 <- function(out="FAILED\n")
 {
   cat(".test.issue25 ")
   require(xlsx)
-  file <- paste(DIR, "rexcel/trunk/resources/issue25.xlsx", sep="")
+  file <- "resources/issue25.xlsx"
 
   # reads element [35,1] as a double and then transforms it to a factor
   res1 <- read.xlsx2(file, sheetIndex=1, header=TRUE, startRow=1,
@@ -301,7 +299,7 @@
 #####################################################################
 # Test Issue 26.  Customize the format of datetimes in the output
 #
-.test.issue26 <- function( DIR="C:/google/",  out="FAILED\n")
+.test.issue26 <- function(out="FAILED\n")
 {
   cat(".test.issue26 ")
   require(xlsx)
@@ -322,7 +320,7 @@
   options(oldOpt)
   
   
-  saveWorkbook(wb, file=paste(OUTDIR, "issue26_out.xlsx", sep=""))  
+  saveWorkbook(wb, file="issue26_out.xlsx")  
   cat("PASSED\n")
 }
 
@@ -330,11 +328,11 @@
 #####################################################################
 # Test Issue 28.  Don't fail with read.xlsx on empty sheets.
 #
-.test.issue28 <- function( DIR="C:/google/",  out="FAILED\n")
+.test.issue28 <- function( out="FAILED\n" )
 {
   cat(".test.issue28 ")
   require(xlsx)
-  file <- paste(DIR, "rexcel/trunk/resources/issue25.xlsx", sep="")
+  file <- "resources/issue25.xlsx"
 
   # reads Sheet2 which is empty
   res <- read.xlsx(file, sheetIndex=2)
@@ -350,11 +348,11 @@
 #####################################################################
 # Test Issue 31.  Don't fail when you have zero columns data.frames
 #
-.test.issue31 <- function( DIR="C:/google/",  out="FAILED\n")
+.test.issue31 <- function( out="FAILED\n")
 {
   cat(".test.issue31 ")
   require(xlsx)
-  file <- paste(DIR, "rexcel/trunk/resources/issue31.xlsx", sep="")
+  file <- "resources/issue31.xlsx"
 
   wb <- createWorkbook()
   sheet <- createSheet(wb)
@@ -371,57 +369,92 @@
 }
 
 #####################################################################
-# Test Issue 3X
-# richTextFormat
+# Test Issue 35.  readColumns, read.xlx2 don't read columns with formulas
+# correctly.  They are read as NA's
 #
-.test.issue3x <- function( DIR="C:/google/", out="FAILED\n" )
+.test.issue35 <- function( out="FAILED\n" )
 {
-  cat(".test.issue3x ")
- 
+  cat(".test.issue35 ")
   require(xlsx)
-  wb <- createWorkbook()
-  sheet <- createSheet(wb, "Sheet1")
+  file <- "resources/issue35.xlsx"
 
-  rows   <- createRow(sheet, rowIndex=1:24)         
-  cells  <- createCell(rows, colIndex=1:8)      
+  wb <- loadWorkbook(file)
+  sheets <- getSheets(wb)
+  sheet <- sheets[["Sheet1"]]
 
-  # see https://poi.apache.org/apidocs/index.html?org/apache/poi/xssf/usermodel/XSSFRichTextString.html 
-  rs <- .jnew("org/apache/poi/xssf/usermodel/XSSFRichTextString",
-     "test red bold words." )
-  .jcall(rs, "V", "applyFont", 5L, 13L, Font(wb, color="red", isBold=TRUE)$ref)
+  x1 <- readColumns(sheet, startColumn=1, endColumn=3, startRow=1,
+                    colClasses=c("character", "numeric", "numeric"))
+  x0 <- readColumns(sheet, startColumn=1, endColumn=3, startRow=1)  
+  x2 <- read.xlsx(file, 1)
+  x3 <- read.xlsx2(file, 1,
+          colClasses=c("character", "numeric", "numeric"))
+
+  if (as.character(x1[1,3]) != "NA") {
+     out <- "PASSED\n"
+  }
   
-  .jcall(cells[[2,1]], "V", "setCellValue",
-         .jcast(rs, "org/apache/poi/ss/usermodel/RichTextString"))
-  
-  fileOut <- paste(OUTDIR, "issue3x_out.xlsx", sep="")
-  saveWorkbook(wb, file=fileOut)  
 
-  cat("PASSED\n")
+  cat(out)
+    
 }
-
 
 
 #####################################################################
 # Register and run the specific tests
 #
-.run_test_issues <- function(SOURCEDIR)
+.run_test_issues <- function()
 {
-  source(paste(SOURCEDIR, "rexcel/trunk/inst/tests/lib_test_issues.R", sep=""))
-  DIR <- SOURCEDIR
-  .test.issue2(DIR)
-  .test.issue6(DIR)  
-  .test.issue7(DIR)  
-  .test.issue9(DIR)  
-  .test.issue11(DIR)  
-  .test.issue12(DIR)
-  .test.issue16(DIR)
-  .test.issue19(DIR)
-  .test.issue22(DIR)
-  .test.issue23(DIR)
-  .test.issue25(DIR)
-  .test.issue26(DIR)
-  .test.issue28(DIR)
-  .test.issue31(DIR)
+  source("inst/tests/lib_test_issues.R")
+  .test.issue2()
+  .test.issue6()  
+  .test.issue7()  
+  .test.issue9()  
+  .test.issue11()  
+  .test.issue12()
+  .test.issue16()
+  .test.issue19()
+  .test.issue22()
+  .test.issue23()
+  .test.issue25()
+  .test.issue26()
+  .test.issue28()
+  .test.issue31()
+  .test.issue35()
 
   
 }
+
+
+
+
+
+
+
+## #####################################################################
+## # Test Issue 3X
+## # richTextFormat
+## #
+## .test.issue3x <- function(out="FAILED\n" )
+## {
+##   cat(".test.issue3x ")
+ 
+##   require(xlsx)
+##   wb <- createWorkbook()
+##   sheet <- createSheet(wb, "Sheet1")
+
+##   rows   <- createRow(sheet, rowIndex=1:24)         
+##   cells  <- createCell(rows, colIndex=1:8)      
+
+##   # see https://poi.apache.org/apidocs/index.html?org/apache/poi/xssf/usermodel/XSSFRichTextString.html 
+##   rs <- .jnew("org/apache/poi/xssf/usermodel/XSSFRichTextString",
+##      "test red bold words." )
+##   .jcall(rs, "V", "applyFont", 5L, 13L, Font(wb, color="red", isBold=TRUE)$ref)
+  
+##   .jcall(cells[[2,1]], "V", "setCellValue",
+##          .jcast(rs, "org/apache/poi/ss/usermodel/RichTextString"))
+  
+##   fileOut <- paste(OUTDIR, "issue3x_out.xlsx", sep="")
+##   saveWorkbook(wb, file=fileOut)  
+
+##   cat("PASSED\n")
+## }

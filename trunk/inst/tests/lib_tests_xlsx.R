@@ -654,25 +654,13 @@ test.ranges <- function(wb)
   options(width=400)
   require(xlsx)
 
-  if (.Platform$OS.type == "windows") {
-    SOURCEDIR <- "C:/google/"
-    OUTDIR <<- "C:/temp/"
-  } else {
-    SOURCEDIR <- "/home/adrian/Documents/"
-    OUTDIR <<- "/tmp/"
-  }
-  thisFile <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/",
-    "lib_tests_xlsx.R", sep="")
-  #source(paste(SOURCEDIR, "rexcel/trunk/R/utilities.R", sep=""))
-  #source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
-  #source(paste(SOURCEDIR, "rexcel/trunk/R/readColumns.R", sep=""))
-  #source(paste(SOURCEDIR, "rexcel/trunk/R/read.xlsx2.R", sep=""))
-  #source(paste(SOURCEDIR, "rexcel/trunk/R/write.xlsx2.R", sep=""))
-  source(thisFile)
+  #source("R/utilities.R")
+  #source("R/addDataFrame.R")
+  source("inst/tests/lib_tests_xlsx.R")
 
 
-  source(paste(SOURCEDIR, "rexcel/trunk/inst/tests/lib_test_issues.R", sep=""))
-  .run_test_issues(SOURCEDIR)
+  source("inst/tests/lib_test_issues.R")
+  .run_test_issues()
 
   
   test.basicFunctions(ext="xlsx")
@@ -692,9 +680,9 @@ test.ranges <- function(wb)
 #  .main_speedtest_export(ext="xls")
  
 
-  allF <- list.files(paste(SOURCEDIR,"rexcel/trunk/R/", sep=""),
-                     full.names=TRUE)
-  lapply(allF, function(fname){cat(fname); source(fname)})
+  ## allF <- list.files(paste(SOURCEDIR,"rexcel/trunk/R/", sep=""),
+  ##                    full.names=TRUE)
+  ## lapply(allF, function(fname){cat(fname); source(fname)})
 
   
 
@@ -705,12 +693,6 @@ test.ranges <- function(wb)
 
 
 
-
-
-
-  # source(paste(SOURCEDIR, "rexcel/trunk/R/utilities.R", sep=""))
-
-  ## source(paste(SOURCEDIR, "rexcel/trunk/R/addDataFrame.R", sep=""))
 
 
 ##   cat("Test memory ...\n")
