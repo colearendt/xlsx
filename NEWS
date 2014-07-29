@@ -1,5 +1,13 @@
 NEWS for package xlsx
 
+Changes in version 0.5.7 (released 2014-08-01)
+
+ o Fixed issue 41.  There was a bug in the '+' method for CellStyle
+ that was triggered when Font + Fill was not working properly. 
+
+
+
+
 Changes in version 0.5.6 (released 2014-04-01)
 
  o Functions read.xlsx, read.xlsx2 crashed when trying to read empty

@@ -395,7 +395,6 @@
   
 
   cat(out)
-    
 }
 
 
@@ -404,6 +403,7 @@
 #
 .run_test_issues <- function()
 {
+  library(xlsx)  
   source("inst/tests/lib_test_issues.R")
   .test.issue2()
   .test.issue6()  
@@ -420,6 +420,7 @@
   .test.issue28()
   .test.issue31()
   .test.issue35()
+  .test.issue41()
 
   
 }
