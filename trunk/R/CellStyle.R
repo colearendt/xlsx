@@ -147,7 +147,7 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
   } else if (is.Fill(object)) {
     CellStyle.default(cs1$wb, dataFormat=cs1$dataFormat,
       alignment=cs1$alignment, border=cs1$border, fill=object,
-      font=cs1$fill, cellProtection=cs1$cellProtection)
+      font=cs1$font, cellProtection=cs1$cellProtection)
   } else if (is.Font(object)) {
     CellStyle.default(cs1$wb, dataFormat=cs1$dataFormat,
       alignment=cs1$alignment, border=cs1$border, fill=cs1$fill,
