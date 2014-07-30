@@ -62,6 +62,23 @@ removeRow <- function(sheet, rows=NULL)
 }
 
 
+######################################################################
+# set the Row height
+#
+setRowHeight <- function(rows, inPoints, multiplier=NULL)
+{
+  if ( !is.null(multiplier) ) {
+    sheet <- rows[[1]]$getSheet()   # get the sheet
+    inPoints <- multiplier * sheet$getDefaultRowHeightInPoints()
+  }
+
+  lapply(rows, function(row) {
+    row$setHeightInPoints( .jfloat(inPoints) )  
+  })
+
+  invisible()
+}
+
 
 
 

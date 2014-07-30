@@ -370,7 +370,8 @@
 
 #####################################################################
 # Test Issue 35.  readColumns, read.xlx2 don't read columns with formulas
-# correctly.  They are read as NA's
+# correctly.  They are read as NA's.  Not an issue (user did not specify
+# colClasses as suggested)
 #
 .test.issue35 <- function( out="FAILED\n" )
 {
@@ -396,6 +397,54 @@
 
   cat(out)
 }
+
+
+
+#####################################################################
+# Test Issue 41.  Font + Fill did not set the font
+#
+#
+.test.issue41 <- function( out="FAILED\n" )
+{
+  cat(".test.issue41")
+  require(xlsx)
+
+  wb <- createWorkbook()
+  cs <- CellStyle(wb) +
+    Font(wb, heightInPoints=25, isBold=TRUE, isItalic=TRUE, color="red", name="Arial") + 
+    Fill(backgroundColor="lavender", foregroundColor="lavender", pattern="SOLID_FOREGROUND") +
+    Alignment(h="ALIGN_RIGHT")
+
+
+  if (!is.null(cs$font$ref))
+      out <- "PASSED\n"
+  
+  cat(out)
+}
+
+
+#####################################################################
+# Test Issue 43.  set cell height
+#
+#
+.test.issue43 <- function( out="FAILED\n" )
+{
+  cat(".test.issue43")
+  require(xlsx)
+
+  wb <- createWorkbook()
+  sheet  <- createSheet(wb, sheetName="Sheet1")
+  rows  <- createRow(sheet, rowIndex=1:5)
+  cells <- createCell(rows, colIndex=1:5) 
+  setRowHeight( rows, multiplier=3)
+  
+  saveWorkbook(wb, "out/issue43.xlsx")  
+  out <- "PASSED\n"
+
+  
+  cat(out)    
+}
+
 
 
 #####################################################################

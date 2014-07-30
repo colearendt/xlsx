@@ -58,9 +58,11 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
   
   \item{create}{ If \code{TRUE} cells will be created if they don't
     exist, if \code{FALSE} only existing cells will be used.  If cells
-    don't exist, you have to use \code{TRUE}.  Use \code{TRUE} if you
+    don't exist (on a new sheet for example), you have to use
+    \code{TRUE}.  On an existing sheet with data, use \code{TRUE} if you
     want to blank out an existing cell block.  Use \code{FALSE} if you
-    want to reuse/restyle existing cells.}
+    want to keep the styling of existing cells, but just modify the
+    value of the cell.}
   
   \item{cellBlock}{ a cell block object as returned by
     \code{\link{CellBlock}}. }
@@ -77,9 +79,11 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
 
   \item{font}{a Font object, as returned by \code{\link{Font}}.}
 
-  \item{colIndex}{a numeric vector specifiying the columns you want.}
+  \item{colIndex}{a numeric vector specifiying the columns you want
+  relative to the \code{startColumn}.}
 
-  \item{rowIndex}{a numeric vector specifiying the rows you want.}
+  \item{rowIndex}{a numeric vector specifiying the rows you want
+  relative to the \code{startRow}.}
 
   \item{x}{the data you want to add to the cell block, a vector or a
     matrix depending on the function.}

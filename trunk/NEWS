@@ -1,10 +1,11 @@
 NEWS for package xlsx
 
-Changes in version 0.5.7 (released 2014-08-01)
+Changes in version 0.5.7 (released 2014-08-XX)
 
  o Fixed issue 41.  There was a bug in the '+' method for CellStyle
  that was triggered when Font + Fill was not working properly. 
 
+ o Added a new function called setRowHeight (wish of Sven Neulinger). 
 
 
 
