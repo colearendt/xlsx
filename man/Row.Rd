@@ -15,6 +15,8 @@ getRows(sheet, rowIndex=NULL)
 
 removeRow(sheet, rows=NULL)
 
+setRowHeight(rows, inPoints, multiplier=NULL)
+
 }
 \arguments{
   \item{sheet}{a worksheet object as returned by \code{createSheet} or
@@ -23,6 +25,11 @@ removeRow(sheet, rows=NULL)
     create.  For \code{getRows}, a \code{NULL} value will return all
     non empty rows.}
   \item{rows}{a list of \code{Row} objects.}
+  \item{inPoints}{a numeric value to specify the height of the row in
+    points.}
+  \item{multiplier}{a numeric value to specify the multiple of default
+    row height in points.  If this value is set, it takes precedence
+    over the \code{inPoints} argument.}
 }
 \details{
   \code{removeRow} is just a convenience wrapper to remove the rows from
@@ -51,6 +58,12 @@ rows  <- getRows(sheet)  # get all the rows
 rows[[1]]$getRowNum()   # zero based index in Java
 
 removeRow(sheet, rows)  # remove them all
+
+# create some row
+rows  <- createRow(sheet, rowIndex=1:5)
+setRowHeight( rows, multiplier=3)  # 3 times bigger rows than the default
+
+
 
 }
 
