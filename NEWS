@@ -5,7 +5,12 @@ Changes in version 0.5.7 (released 2014-08-XX)
  o Fixed issue 41.  There was a bug in the '+' method for CellStyle
  that was triggered when Font + Fill was not working properly. 
 
- o Added a new function called setRowHeight (wish of Sven Neulinger). 
+ o Added a new function called setRowHeight (wish of Sven Neulinger).
+ See issue 43. 
+
+ o Function write.xlsx did not check properly for POSIXct column
+ classes and this resulted in spreadsheets not properly formatted.
+ See issue 45. 
 
 
 

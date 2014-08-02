@@ -63,10 +63,12 @@ into a vector of type \code{list} by preserving the data type.  If
 rectangular shape.  Special care is needed for worksheets with ragged
 data.   
 
-The class type of the variable corresponding to one column in the
-worksheet is taken from the class of the first non empty cell in that
-column.  If you need to impose a specific class type on a variable, use
-the \code{colClasses} argument.  
+An attempt is made to guess the class type of the variable corresponding
+to each column in the worksheet from the type of the first non empty
+cell in that column.  If you need to impose a specific class type on a
+variable, use the \code{colClasses} argument.  It is recommended to
+specify the column classes and not rely on \code{R} to guess them,
+unless in very simple cases.
 
 Excel internally stores dates and datetimes as numeric values, and does
 not keep track of time zones and DST.  When a datetime column is 
@@ -74,7 +76,8 @@ brought into \R, it is converted to \code{POSIXct} class with a
 \emph{GMT} timezone.  Occasional rounding errors may appear and the \R
 and Excel string representation my differ by one second.  For
 \code{read.xlsx2} bring in a datetime column as a numeric one and then
-convert to class \code{POSIXct} or \code{Date}.   
+convert to class \code{POSIXct} or \code{Date}.  Also rounding the
+\code{POSIXct} column in R usually does the trick too.  
 
 The \code{read.xlsx2} function does more work in Java so it achieves
 better performance (an order of magnitude faster on sheets with

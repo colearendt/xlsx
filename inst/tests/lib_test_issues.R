@@ -222,7 +222,7 @@
   cat(".test.issue22 ")
   require(xlsx)
   fileIn  <- "resources/issue22.xlsx"
-  fileOut <- "issue22_out.xlsx"
+  fileOut <- "out/issue22_out.xlsx"
 
   wb <- loadWorkbook(fileIn)
   sheets <- getSheets(wb)
@@ -262,7 +262,7 @@
   sheet <- createSheet(wb, "EMF_Sheet")
   
   addPicture(file=fileName, sheet)
-  saveWorkbook(wb, file="issue23_out.xlsx")  
+  saveWorkbook(wb, file="out/issue23_out.xlsx")  
 
   # the spreadsheet saves but the emf picture is not there
   # used to work in previous versions of POI, not sure why not anymore
@@ -320,7 +320,7 @@
   options(oldOpt)
   
   
-  saveWorkbook(wb, file="issue26_out.xlsx")  
+  saveWorkbook(wb, file="out/issue26_out.xlsx")  
   cat("PASSED\n")
 }
 
@@ -406,7 +406,7 @@
 #
 .test.issue41 <- function( out="FAILED\n" )
 {
-  cat(".test.issue41")
+  cat(".test.issue41 ")
   require(xlsx)
 
   wb <- createWorkbook()
@@ -429,7 +429,7 @@
 #
 .test.issue43 <- function( out="FAILED\n" )
 {
-  cat(".test.issue43")
+  cat(".test.issue43 ")
   require(xlsx)
 
   wb <- createWorkbook()
@@ -439,13 +439,40 @@
   setRowHeight( rows, multiplier=3)
   
   saveWorkbook(wb, "out/issue43.xlsx")  
-  out <- "PASSED\n"
+  out <- "PASSED.  Check out/issue43.xlsx by hand.\n"
 
-  
+
   cat(out)    
 }
 
+#####################################################################
+# Test Issue 45.  Issue when testing for DateTime classes in
+# write.xlsx.
+# 
+#
+.test.issue45 <- function( out="FAILED\n" )
+{
+  cat(".test.issue45 ")
+  require(xlsx)
+  file <- system.file("tests", "test_import.xlsx", package="xlsx")
+  
+  #source("R/write.xlsx.R")
+  hours <- seq(as.POSIXct("2011-01-01 01:00:00", tz="GMT"),
+      as.POSIXct("2011-01-01 10:00:00", tz="GMT"), by="1 hour")
+  df <- data.frame(x=1:10, datetime=hours)
 
+  write.xlsx(df, "out/issue45.xlsx")
+  
+  df.in <- read.xlsx2("out/issue45.xlsx", sheetIndex=1,
+   colClasses=c("numeric", "numeric", "POSIXct"))
+  df.in$datetime <- round(df.in$datetime)
+
+  if (identical(as.numeric(df.in$datetime), as.numeric(hours)))
+    out <- "PASSED.\n"
+
+  
+  cat(out)        
+}
 
 #####################################################################
 # Register and run the specific tests
@@ -470,8 +497,8 @@
   .test.issue31()
   .test.issue35()
   .test.issue41()
-
-  
+  .test.issue43()
+  .test.issue45()
 }
 
 
