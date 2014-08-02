@@ -222,7 +222,7 @@
   cat(".test.issue22 ")
   require(xlsx)
   fileIn  <- "resources/issue22.xlsx"
-  fileOut <- "out/issue22_out.xlsx"
+  fileOut <- "issue22_out.xlsx"
 
   wb <- loadWorkbook(fileIn)
   sheets <- getSheets(wb)
@@ -262,7 +262,7 @@
   sheet <- createSheet(wb, "EMF_Sheet")
   
   addPicture(file=fileName, sheet)
-  saveWorkbook(wb, file="out/issue23_out.xlsx")  
+  saveWorkbook(wb, file="issue23_out.xlsx")  
 
   # the spreadsheet saves but the emf picture is not there
   # used to work in previous versions of POI, not sure why not anymore
@@ -320,7 +320,7 @@
   options(oldOpt)
   
   
-  saveWorkbook(wb, file="out/issue26_out.xlsx")  
+  saveWorkbook(wb, file="issue26_out.xlsx")  
   cat("PASSED\n")
 }
 
@@ -368,47 +368,9 @@
   cat(out)
 }
 
-
-#####################################################################
-# Test Issue 32.  Formating applied to whole columns get lost 
-# when additional formatting is done with cellBlock. 
-#
-.test.issue32 <- function( out="FAILED\n")
-{
-  cat(".test.issue32 ")
-  require(xlsx)
-  
-  #using formatting on entire columns (A to L)
-  wb <- loadWorkbook("resources/issue32_bad.xlsx") 
-  sh <- getSheets(wb)
-  s1 <- sh[[1]]
-
-  cb <- CellBlock(sheet = s1, startRow = 1, startCol = 1,
-                  noRows = 11, noColumns = 50, create = FALSE)
-  # some of the formatting is lost (col I to L, rows 1 to 11)
-  saveWorkbook(wb, "out/issue32_format_lost.xlsx") 
-
-  # the formatting is kept
-  # using cells formatting only (columns A to L rows 1 to 10,000)
-  wb <- loadWorkbook("resources/issues32_good.xlsx") 
-  sh <- getSheets(wb)
-  s1 <- sh[[1]]
-
-  cb <- CellBlock(sheet = s1, startRow = 1, startCol = 1,
-                  noRows = 11, noColumns = 50, create = FALSE)
-  saveWorkbook(wb, "out/issue32_format_kept.xlsx") 
-  
-  #out <- "PASSED\n"
-
-  cat(out)
-}
-
-
-
 #####################################################################
 # Test Issue 35.  readColumns, read.xlx2 don't read columns with formulas
-# correctly.  They are read as NA's.  Not an issue (user did not specify
-# colClasses as suggested)
+# correctly.  They are read as NA's
 #
 .test.issue35 <- function( out="FAILED\n" )
 {
@@ -433,106 +395,7 @@
   
 
   cat(out)
-}
-
-
-
-#####################################################################
-# Test Issue 41.  Font + Fill did not set the font
-#
-#
-.test.issue41 <- function( out="FAILED\n" )
-{
-  cat(".test.issue41 ")
-  require(xlsx)
-
-  wb <- createWorkbook()
-  cs <- CellStyle(wb) +
-    Font(wb, heightInPoints=25, isBold=TRUE, isItalic=TRUE, color="red", name="Arial") + 
-    Fill(backgroundColor="lavender", foregroundColor="lavender", pattern="SOLID_FOREGROUND") +
-    Alignment(h="ALIGN_RIGHT")
-
-
-  if (!is.null(cs$font$ref))
-      out <- "PASSED\n"
-  
-  cat(out)
-}
-
-
-#####################################################################
-# Test Issue 43.  set cell height
-#
-#
-.test.issue43 <- function( out="FAILED\n" )
-{
-  cat(".test.issue43 ")
-  require(xlsx)
-
-  wb <- createWorkbook()
-  sheet  <- createSheet(wb, sheetName="Sheet1")
-  rows  <- createRow(sheet, rowIndex=1:5)
-  cells <- createCell(rows, colIndex=1:5) 
-  setRowHeight( rows, multiplier=3)
-  
-  saveWorkbook(wb, "out/issue43.xlsx")  
-  out <- "PASSED.  Check out/issue43.xlsx by hand.\n"
-
-
-  cat(out)    
-}
-
-#####################################################################
-# Test Issue 45.  Issue when testing for DateTime classes in
-# write.xlsx.
-# 
-#
-.test.issue45 <- function( out="FAILED\n" )
-{
-  cat(".test.issue45 ")
-  require(xlsx)
-   
-  #source("R/write.xlsx.R")
-  hours <- seq(as.POSIXct("2011-01-01 01:00:00", tz="GMT"),
-      as.POSIXct("2011-01-01 10:00:00", tz="GMT"), by="1 hour")
-  df <- data.frame(x=1:10, datetime=hours)
-
-  write.xlsx(df, "out/issue45.xlsx")
-  
-  df.in <- read.xlsx2("out/issue45.xlsx", sheetIndex=1,
-   colClasses=c("numeric", "numeric", "POSIXct"))
-  df.in$datetime <- round(df.in$datetime)
-
-  if (identical(as.numeric(df.in$datetime), as.numeric(hours)))
-    out <- "PASSED.\n"
-
-  
-  cat(out)        
-}
-
-
-#####################################################################
-# Test Issue 47.  Add auto filter
-# 
-#
-.test.issue47 <- function( out="FAILED\n" )
-{
-  cat(".test.issue47 ")
-  require(xlsx)
-
-  hours <- seq(as.POSIXct("2011-01-01 01:00:00", tz="GMT"),
-      as.POSIXct("2011-01-01 10:00:00", tz="GMT"), by="1 hour")
-  data <- data.frame(x=1:10, type=rep(c("A", "B"), 5), datetime=hours)
-  
-  
-  wb <- createWorkbook(type="xlsx")
-  sheet  <- createSheet(wb, sheetName="Sheet1")
-  addDataFrame(data, sheet, startRow=3, startColumn=2)
-  addAutoFilter(sheet, "C3:E3")
-  saveWorkbook(wb, "out/issue47.xlsx")
-  out <- "PASSED.\n"                 
-  
-  cat(out)         
+    
 }
 
 
@@ -541,10 +404,7 @@
 #
 .run_test_issues <- function()
 {
-  library(xlsx)  
   source("inst/tests/lib_test_issues.R")
-  file.remove(list.files("out", full.names=TRUE))
-  
   .test.issue2()
   .test.issue6()  
   .test.issue7()  
@@ -559,12 +419,7 @@
   .test.issue26()
   .test.issue28()
   .test.issue31()
-  #.test.issue32()
   .test.issue35()
-  .test.issue41()
-  .test.issue43()
-  .test.issue45()
-  .test.issue47()
 
   
 }

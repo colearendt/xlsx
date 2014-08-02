@@ -1,7 +1,5 @@
 # .guess_cell_type
-# .onAttach
 # .onLoad
-# .Rcolor2XLcolor
 # .splitBlocks
 # .hssfcolor
 # .xssfcolor  

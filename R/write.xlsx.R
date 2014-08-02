@@ -18,15 +18,14 @@
     mapply(setCellValue, cells[seq_len(nrow(cells)), colIndex[ic]], y[,ic], FALSE, showNA)
 
   # Date and POSIXct classes need to be formatted
-  indDT <- which(sapply(y, function(x) inherits(x, "Date")))
+  indDT <- which(sapply(y, class) == "Date")
   if (length(indDT) > 0) {
     dateFormat <- CellStyle(wb) + DataFormat(getOption("xlsx.date.format"))
     for (ic in indDT){
       lapply(cells[seq_len(nrow(cells)),colIndex[ic]], setCellStyle, dateFormat)
     }
   }
-
-  indDT <- which(sapply(y, function(x) inherits(x, "POSIXct")))
+  indDT <- which(sapply(y, class) == "POSIXct")
   if (length(indDT) > 0) {
     datetimeFormat <- CellStyle(wb) + DataFormat(getOption("xlsx.datetime.format"))
     for (ic in indDT){

@@ -193,7 +193,7 @@ test.cellStyles <- function(wb)
 test.cellBlock2 <- function()
 {
   ext <- "xls"
-  outfile <- paste("out/test_cellBlock.", ext, sep="")
+  outfile <- paste(OUTDIR, "test_cellBlock.", ext, sep="")
   if (file.exists(outfile)) unlink(outfile)
    
   wb <- createWorkbook(type=ext)
@@ -215,6 +215,8 @@ test.cellBlock2 <- function()
   ind  <- which(x < 0, arr.ind=TRUE)
   CB.setFill(cb, fill, ind[,1]+9, ind[,2]+3)  # note the indices offset
 
+  source(paste(SOURCEDIR, "rexcel/trunk/R/CellBlock.R", sep=""))
+  
   # set the border on the top row of the Cell Block
   border <-  Border(color="blue", position=c("TOP", "BOTTOM"),
     pen=c("BORDER_THIN", "BORDER_THICK"))
@@ -454,7 +456,7 @@ test.ranges <- function(wb)
 .main_highlevel_import <- function(ext="xlsx")
 {
   fname <- paste("test_import.", ext, sep="")
-  file <- paste("inst/tests/", fname, sep="")
+  file <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/", fname, sep="")
 
   cat("Testing high level import read.xls\n")
   cat("  read data from mixedTypes\n")
@@ -525,7 +527,7 @@ test.ranges <- function(wb)
 # 
 .main_highlevel_export <- function(ext="xlsx")
 {
-  outfile <- paste("out/test_highlevel_export.", ext, sep="")
+  outfile <- paste(OUTDIR, "test_highlevel_export.", ext, sep="")
   if (file.exists(outfile)) unlink(outfile)  
   
   cat("Testing high level export ... \n")  
@@ -533,19 +535,19 @@ test.ranges <- function(wb)
     date=seq(as.Date("2009-01-01"), by="1 month", length.out=10),
     bool=ifelse(1:10 %% 2, TRUE, FALSE))
 
-  file <- paste("out/test_highlevel_export.", ext, sep="")
+  file <- paste(OUTDIR, "test_highlevel_export.", ext, sep="")
   cat("  write an xlsx file with char, int, double, date, bool columns ...\n")
   write.xlsx(x, file, sheetName="writexlsx")
   
   write.xlsx2(x, file, sheetName="writexlsx2", append=TRUE, row.names=FALSE) 
 
   cat("  test the append argument by adding another sheet ... \n")
-  file <- paste("out/test_highlevel_export.", ext, sep="")
+  file <- paste(OUTDIR, "test_highlevel_export.", ext, sep="")
   write.xlsx(USArrests, file, sheetName="usarrests", append=TRUE)
   cat("Wrote file ", file, "\n\n")
 
   cat("  test writing/reading data.frames with NA values ... \n") 
-  file <- paste("out/test_writeread_NA.", ext, sep="")
+  file <- paste(OUTDIR, "test_writeread_NA.", ext, sep="")
   x <- data.frame(matrix(c(1.0, 2.0, 3.0, NA), 2, 2))
   write.xlsx(x, file, row.names=FALSE)
   xx <- read.xlsx(file, 1)
@@ -562,7 +564,7 @@ test.ranges <- function(wb)
 {
   cat("Testing low level import ...\n")
   fname  <- paste("test_import.", ext, sep="")
-  file   <- paste("inst/tests/", fname, sep="")
+  file   <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/", fname, sep="")
   wb     <- loadWorkbook(file)
   sheets <- getSheets(wb)
 
@@ -601,7 +603,7 @@ test.ranges <- function(wb)
 #
 .main_lowlevel_export <- function(ext="xlsx")
 {
-  outfile <- paste("out/test_export.", ext, sep="")
+  outfile <- paste(OUTDIR, "test_export.", ext, sep="")
   if (file.exists(outfile)) unlink(outfile)
    
   wb <- createWorkbook(type=ext)
@@ -629,7 +631,7 @@ test.ranges <- function(wb)
 {
   cat("Speed test export ... \n")  
 
-  file <- paste("out/test_exportSpeed.", ext, sep="")
+  file <- paste(OUTDIR, "test_exportSpeed.", ext, sep="")
   x <- expand.grid(ind=1:60, letters=letters, months=month.abb)
   x <- cbind(x, val=runif(nrow(x)))
   cat("  writing a data.frame with dim", nrow(x), "x", ncol(x), "\n")
