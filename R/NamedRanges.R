@@ -1,3 +1,32 @@
+# Functions to deal with ranges.
+#
+# createRange
+# getRanges
+# readRange
+# 
+
+#############################################################################
+# Set an area of a sheet to a contiguous range
+#
+createRange <- function(rangeName, firstCell, lastCell)
+{
+  sheet <- firstCell$getSheet()
+  sheetName <- sheet$getSheetName()
+  firstCellRef <- .jnew("org/apache/poi/ss/util/CellReference",
+    as.integer(firstCell$getRowIndex()), as.integer(firstCell$getColumnIndex()))
+  lastCellRef <- .jnew("org/apache/poi/ss/util/CellReference",
+    as.integer(lastCell$getRowIndex()), as.integer(lastCell$getColumnIndex()))
+  
+  nameFormula <- paste(sheetName, "!", firstCellRef$formatAsString(), ":",
+    lastCellRef$formatAsString(), sep="")
+
+  wb <- sheet$getWorkbook()
+  range <- wb$createName()
+  range$setNameName(rangeName)
+  range$setRefersToFormula( nameFormula )
+
+  range
+}
 
 #############################################################################
 # get info about ranges in the spreadsheet, similar to getSheets
@@ -85,28 +114,6 @@ readRange <- function(range, sheet, colClasses = "character")
 }
 
 
-#############################################################################
-# Set an area of a sheet to a contiguous range
-#
-createRange <- function(rangeName, firstCell, lastCell)
-{
-  sheet <- firstCell$getSheet()
-  sheetName <- sheet$getSheetName()
-  firstCellRef <- .jnew("org/apache/poi/ss/util/CellReference",
-    as.integer(firstCell$getRowIndex()), as.integer(firstCell$getColumnIndex()))
-  lastCellRef <- .jnew("org/apache/poi/ss/util/CellReference",
-    as.integer(lastCell$getRowIndex()), as.integer(lastCell$getColumnIndex()))
-  
-  nameFormula <- paste(sheetName, "!", firstCellRef$formatAsString(), ":",
-    lastCellRef$formatAsString(), sep="")
-
-  wb <- sheet$getWorkbook()
-  range <- wb$createName()
-  range$setNameName(rangeName)
-  range$setRefersToFormula( nameFormula )
-
-  range
-}
 
 
   ## firstCellRef <- .jnew("org/apache/poi/hssf/util/CellReference", firstCell)
