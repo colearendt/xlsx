@@ -3,6 +3,7 @@
 \alias{createRow}
 \alias{getRows}
 \alias{removeRow}
+\alias{setRowHeight}
 \title{Functions to manipulate rows of a worksheet.}
 \description{
 Functions to manipulate rows of a worksheet. 

@@ -1,5 +1,6 @@
 \name{OtherEffects}
 \alias{OtherEffects}
+\alias{addAutoFilter}
 \alias{addMergedRegion}
 \alias{removeMergedRegion}
 \alias{autoSizeColumn}
@@ -129,7 +130,7 @@ setZoom(sheet, numerator=100, denominator=100)
   setColumnWidth(sheet1, 1, 25)
 
   # add a filter on the 3rd row, columns C:E
-  addAutoFilter(sheet, "C3:E3")
+  addAutoFilter(sheet1, "C3:E3")
 
   # Don't forget to save the workbook ...  
  
