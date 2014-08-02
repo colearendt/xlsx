@@ -14,6 +14,8 @@ Functions to do various spreadsheets effects.
 }
 \usage{
 
+addAutoFilter(sheet, cellRange)
+
 addMergedRegion(sheet, startRow, endRow, startColumn, endColumn)
 
 removeMergedRegion(sheet, ind)
@@ -34,6 +36,11 @@ setPrintArea(wb, sheetIndex, startColumn, endColumn, startRow,
 setZoom(sheet, numerator=100, denominator=100)
 }
 \arguments{
+  \item{cellRange}{a string specifying the cell range.  For example a
+  standard area ref (e.g. "B1:D8"). May be a single cell ref (e.g. "B5")
+  in which case the result is a 1 x 1 cell range. May also be a whole
+  row range (e.g. "3:5"), or a whole column range (e.g. "C:F")}
+  
   \item{colIndex}{a numeric vector specifiying the columns you want to
     auto size.}
 
@@ -120,6 +127,9 @@ setZoom(sheet, numerator=100, denominator=100)
 
   # set the column width of first column to 25 characters wide
   setColumnWidth(sheet1, 1, 25)
+
+  # add a filter on the 3rd row, columns C:E
+  addAutoFilter(sheet, "C3:E3")
 
   # Don't forget to save the workbook ...  
  

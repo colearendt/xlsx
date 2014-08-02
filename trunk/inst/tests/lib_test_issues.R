@@ -368,6 +368,43 @@
   cat(out)
 }
 
+
+#####################################################################
+# Test Issue 32.  Formating applied to whole columns get lost 
+# when additional formatting is done with cellBlock. 
+#
+.test.issue32 <- function( out="FAILED\n")
+{
+  cat(".test.issue32 ")
+  require(xlsx)
+  
+  #using formatting on entire columns (A to L)
+  wb <- loadWorkbook("resources/issue32_bad.xlsx") 
+  sh <- getSheets(wb)
+  s1 <- sh[[1]]
+
+  cb <- CellBlock(sheet = s1, startRow = 1, startCol = 1,
+                  noRows = 11, noColumns = 50, create = FALSE)
+  # some of the formatting is lost (col I to L, rows 1 to 11)
+  saveWorkbook(wb, "out/issue32_format_lost.xlsx") 
+
+  # the formatting is kept
+  # using cells formatting only (columns A to L rows 1 to 10,000)
+  wb <- loadWorkbook("resources/issues32_good.xlsx") 
+  sh <- getSheets(wb)
+  s1 <- sh[[1]]
+
+  cb <- CellBlock(sheet = s1, startRow = 1, startCol = 1,
+                  noRows = 11, noColumns = 50, create = FALSE)
+  saveWorkbook(wb, "out/issue32_format_kept.xlsx") 
+  
+  #out <- "PASSED\n"
+
+  cat(out)
+}
+
+
+
 #####################################################################
 # Test Issue 35.  readColumns, read.xlx2 don't read columns with formulas
 # correctly.  They are read as NA's.  Not an issue (user did not specify
@@ -454,8 +491,7 @@
 {
   cat(".test.issue45 ")
   require(xlsx)
-  file <- system.file("tests", "test_import.xlsx", package="xlsx")
-  
+   
   #source("R/write.xlsx.R")
   hours <- seq(as.POSIXct("2011-01-01 01:00:00", tz="GMT"),
       as.POSIXct("2011-01-01 10:00:00", tz="GMT"), by="1 hour")
@@ -474,6 +510,32 @@
   cat(out)        
 }
 
+
+#####################################################################
+# Test Issue 47.  Add auto filter
+# 
+#
+.test.issue47 <- function( out="FAILED\n" )
+{
+  cat(".test.issue47 ")
+  require(xlsx)
+
+  hours <- seq(as.POSIXct("2011-01-01 01:00:00", tz="GMT"),
+      as.POSIXct("2011-01-01 10:00:00", tz="GMT"), by="1 hour")
+  data <- data.frame(x=1:10, type=rep(c("A", "B"), 5), datetime=hours)
+  
+  
+  wb <- createWorkbook(type="xlsx")
+  sheet  <- createSheet(wb, sheetName="Sheet1")
+  addDataFrame(data, sheet, startRow=3, startColumn=2)
+  addAutoFilter(sheet, "C3:E3")
+  saveWorkbook(wb, "out/issue47.xlsx")
+  out <- "PASSED.\n"                 
+  
+  cat(out)         
+}
+
+
 #####################################################################
 # Register and run the specific tests
 #
@@ -481,6 +543,8 @@
 {
   library(xlsx)  
   source("inst/tests/lib_test_issues.R")
+  file.remove(list.files("out", full.names=TRUE))
+  
   .test.issue2()
   .test.issue6()  
   .test.issue7()  
@@ -495,10 +559,14 @@
   .test.issue26()
   .test.issue28()
   .test.issue31()
+  #.test.issue32()
   .test.issue35()
   .test.issue41()
   .test.issue43()
   .test.issue45()
+  .test.issue47()
+
+  
 }
 
 

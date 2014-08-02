@@ -1,3 +1,4 @@
+# addAutoFilter
 # addHyperlink
 # addMergedRegion
 # autoSizeColumn
@@ -9,6 +10,19 @@
 # setZoom
 #
 #
+
+######################################################################
+# Add autofilter to a cell range 
+# @param sheet a Sheet object
+# @param cellRange a string, "C5:F200", or one row "C1:F1",
+#   a column range "C:F", a singe cell "B5", or a row range "3:5"
+#
+addAutoFilter <- function(sheet, cellRange)
+{
+  cellRangeAddress <- J("org/apache/poi/ss/util/CellRangeAddress")$valueOf(cellRange) 
+  invisible(sheet$setAutoFilter(cellRangeAddress))     
+}
+
 
 ######################################################################
 # Add hyperlink
