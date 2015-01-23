@@ -543,7 +543,11 @@
 {
   library(xlsx)  
   source("inst/tests/lib_test_issues.R")
-  file.remove(list.files("out", full.names=TRUE))
+  if (!file.exists("out")) {
+      dir.create("out")
+  } else {
+      file.remove(list.files("out", full.names=TRUE))
+  }
   
   .test.issue2()
   .test.issue6()  
@@ -567,6 +571,7 @@
   .test.issue47()
 
   
+  unlink("out", recursive=TRUE)
 }
 
 

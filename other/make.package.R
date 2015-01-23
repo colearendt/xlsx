@@ -24,7 +24,7 @@
     outdir  <<- "H:/"
     Rcmd    <<- "S:/All/Risk/Software/R/R-2.15.2/bin/i386/Rcmd"
   } else if (computer == "LAPTOP") {
-    pkgdir    <<- "/home/adrian/Documents/rexcel/trunk/"
+    pkgdir    <<- "/home/adrian/Documents/repos/google/rexcel/trunk/"
     outdir    <<- "/tmp/"
     Rcmd      <<- "R CMD"
   } else if (computer == "HOME") {
@@ -46,9 +46,9 @@
 ##################################################################
 ##################################################################
 
-version    <- "0.5.7"      
+version    <- "0.5.8"      
 package.gz <- paste("xlsx_", version, ".tar.gz", sep="")
-computer <- "HOME" #"WORK2" "LAPTOP"
+computer <- "LAPTOP" #"WORK2" "LAPTOP"
 .setEnv(computer)   
 
 .build.java() 
