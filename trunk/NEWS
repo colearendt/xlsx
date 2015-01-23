@@ -1,5 +1,10 @@
 NEWS for package xlsx
 
+Changes in version 0.5.8 (released 2015-02-01)
+
+ o 
+
+
 Changes in version 0.5.7 (released 2014-08-01)
 
  o Fixed issue 41.  There was a bug in the '+' method for CellStyle
