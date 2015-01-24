@@ -408,32 +408,32 @@
 #####################################################################
 # Test Issue 35.  readColumns, read.xlx2 don't read columns with formulas
 # correctly.  They are read as NA's.  Not an issue (user did not specify
-# colClasses as suggested)
+# colClasses as suggested).  So NO testing is needed.
 #
-.test.issue35 <- function( out="FAILED\n" )
-{
-  cat(".test.issue35 ")
-  require(xlsx)
-  file <- "resources/issue35.xlsx"
+## .test.issue35 <- function( out="FAILED\n" )
+## {
+##   cat(".test.issue35 ")
+##   require(xlsx)
+##   file <- "resources/issue35.xlsx"
 
-  wb <- loadWorkbook(file)
-  sheets <- getSheets(wb)
-  sheet <- sheets[["Sheet1"]]
+##   wb <- loadWorkbook(file)
+##   sheets <- getSheets(wb)
+##   sheet <- sheets[["Sheet1"]]
 
-  x1 <- readColumns(sheet, startColumn=1, endColumn=3, startRow=1,
-                    colClasses=c("character", "numeric", "numeric"))
-  x0 <- readColumns(sheet, startColumn=1, endColumn=3, startRow=1)  
-  x2 <- read.xlsx(file, 1)
-  x3 <- read.xlsx2(file, 1,
-          colClasses=c("character", "numeric", "numeric"))
+##   x1 <- readColumns(sheet, startColumn=1, endColumn=3, startRow=1,
+##                     colClasses=c("character", "numeric", "numeric"))
+##   x0 <- readColumns(sheet, startColumn=1, endColumn=3, startRow=1)  
+##   x2 <- read.xlsx(file, 1)
+##   x3 <- read.xlsx2(file, 1,
+##           colClasses=c("character", "numeric", "numeric"))
 
-  if (as.character(x1[1,3]) != "NA") {
-     out <- "PASSED\n"
-  }
+##   if (as.character(x1[1,3]) != "NA") {
+##      out <- "PASSED\n"
+##   }
   
 
-  cat(out)
-}
+##   cat(out)
+## }
 
 
 
@@ -537,6 +537,60 @@
 
 
 #####################################################################
+# Test Issue 49. 
+# Deal with password protected xlsx files
+#
+.test.issue49 <- function( out="FAILED\n" )
+{
+  cat(".test.issue49 ")
+  require(xlsx)
+
+  try(aux <- read.xlsx("resources/issue49.xlsx", sheetIndex=1))  
+  if (class(aux) != "try-error")
+      out <- "PASSED.\n"                 
+  
+  cat(out)         
+}
+
+
+
+#####################################################################
+# Test Issue 57. 
+# read.xlsx fails on empty row 
+#
+.test.issue57 <- function( out="FAILED\n" )
+{
+  cat(".test.issue57 ")
+  require(xlsx)
+
+  try(aux <- read.xlsx("resources/issue57.xlsx", sheetIndex=1))  
+  if (class(aux) != "try-error")
+      out <- "PASSED.\n"                 
+  
+  cat(out)         
+}
+
+
+#####################################################################
+# Test Issue 58. 
+# There is no argument rowIndex, and maybe it should be ...
+#
+.test.issue58 <- function( out="FAILED\n" )
+{
+  cat(".test.issue58 ")
+  require(xlsx)
+
+  #aux <- read.xlsx2("resources/issue58.xlsx", sheetIndex=1, endRow=8)
+  try(aux <- read.xlsx2("resources/issue58.xlsx", sheetIndex=1,
+                        rowIndex=1:8))
+  if (class(aux) == "try-error")
+      out <- "FAILED -- consider adding a rowIndex argument.\n"                 
+  
+  cat(out)         
+}
+
+
+#####################################################################
 # Register and run the specific tests
 #
 .run_test_issues <- function()
@@ -563,12 +617,14 @@
   .test.issue26()
   .test.issue28()
   .test.issue31()
-  #.test.issue32()
-  .test.issue35()
+  .test.issue32()
+  #.test.issue35()
   .test.issue41()
   .test.issue43()
   .test.issue45()
   .test.issue47()
+  .test.issue57()
+  .test.issue58()
 
   
   unlink("out", recursive=TRUE)

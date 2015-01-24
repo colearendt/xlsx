@@ -30,7 +30,8 @@ getCells <- function(row, colIndex=NULL, simplify=TRUE)
     if (is.null(colIndex)){                           # get all columns
       minColIx <- .jcall(row[[ir]], "T", "getFirstCellNum")   # 0-based
       maxColIx <- .jcall(row[[ir]], "T", "getLastCellNum")-1  # 0-based
-      colIx    <- seq.int(minColIx, maxColIx)        # actual col index
+      # actual col index; if the row is empty do nothing
+      colIx <- if (minColIx < 0) numeric(0) else seq.int(minColIx, maxColIx) 
     }
     nC <- length(colIx)
     rowCells <- vector("list", length=nC)
