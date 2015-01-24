@@ -17,7 +17,7 @@ readColumns <- function(sheet, startColumn, endColumn, startRow,
   }
   
   noColumns <- endColumn - startColumn + 1
-
+  
   Rintf <- .jnew("org/cran/rexcel/RInterface")  # create an interface object 
 
   if (header) {
