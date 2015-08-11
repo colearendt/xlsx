@@ -2,3 +2,4 @@ other/.*
 resources/.*
 out/.*
 .git/.*
+.gitignore
