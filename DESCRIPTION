@@ -1,8 +1,8 @@
 Package: xlsx
 Type: Package
 Title: Read, write, format Excel 2007 and Excel 97/2000/XP/2003 files
-Version: 0.5.8
-Date: 2015-02-01
+Version: 0.6.0
+Date: 2015-11-29
 Depends: rJava, xlsxjars
 LazyLoad: yes
 Author: Adrian A. Dragulescu
