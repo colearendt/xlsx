@@ -8,24 +8,8 @@ read.xlsx <- function(file, sheetIndex, sheetName=NULL,
 {
   if (is.null(sheetName) & missing(sheetIndex))
     stop("Please provide a sheet name OR a sheet index.")
-
-  if (!is.null(password)) {
-    if (!file.exists(file)) stop("file does not exist")
-    file <- .jnew("java/io/File", path.expand(file))
-    fileSystem <-new(J("org/apache/poi/poifs/filesystem/NPOIFSFileSystem"),
-                     file)
-    info <- new(J("org/apache/poi/poifs/crypt/EncryptionInfo"),
-                 fileSystem)
-    decryptor <- J(info, "getDecryptor")
-    verification <- J(decryptor, "verifyPassword", password)
-    if (!verification) stop("password does not verify")
-    dataStream <- J(decryptor, "getDataStream", fileSystem)
-    wb <- new(J("org/apache/poi/xssf/usermodel/XSSFWorkbook"),
-              dataStream)
-  } else {      
-    wb <- loadWorkbook(file)
-  }
-  
+    
+  wb <- loadWorkbook(file, password=password)
   sheets <- getSheets(wb)
   sheet  <- if (is.null(sheetName)) {
     sheets[[sheetIndex]]
@@ -97,6 +81,7 @@ read.xlsx <- function(file, sheetIndex, sheetName=NULL,
       }
       if (!is.na(colClasses[ic]))
         suppressWarnings(class(aux) <- colClasses[ic])  # if it gets specified
+      
       res[[ic]] <- aux
     }
 

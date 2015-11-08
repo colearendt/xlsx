@@ -28,7 +28,7 @@
     outdir    <<- "/tmp/"
     Rcmd      <<- "R CMD"
   } else if (computer == "HOME") {
-    pkgdir    <<- "/home/adrian/Documents/rexcel/trunk/"
+    pkgdir    <<- "/home/adrian/Documents/repos/github/dragua/xlsx/"
     outdir    <<- "/tmp"
     Rcmd      <<- "R CMD"
   } else if (computer == "WORK2") {
@@ -46,9 +46,9 @@
 ##################################################################
 ##################################################################
 
-version    <- "0.5.8"      
+version    <- "0.6.0"      
 package.gz <- paste("xlsx_", version, ".tar.gz", sep="")
-computer <- "LAPTOP" #"WORK2" "LAPTOP"
+computer <- "HOME" #"WORK2" "LAPTOP"
 .setEnv(computer)   
 
 .build.java() 

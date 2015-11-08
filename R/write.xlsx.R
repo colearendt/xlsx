@@ -41,7 +41,8 @@
 # High-level API
 #
 write.xlsx <- function(x, file, sheetName="Sheet1",
-  col.names=TRUE, row.names=TRUE, append=FALSE, showNA=TRUE)
+  col.names=TRUE, row.names=TRUE, append=FALSE, showNA=TRUE,
+  password=NULL)
 {
   if (!is.data.frame(x))
     x <- data.frame(x)    # just because the error message is too ugly
@@ -74,7 +75,7 @@ write.xlsx <- function(x, file, sheetName="Sheet1",
   rowIndex <- seq_len(nrow(x)) + iOffset
   
   .write_block(wb, sheet, x, rowIndex, colIndex, showNA)
-  saveWorkbook(wb, file)
+  saveWorkbook(wb, file, password=password)
 
   invisible()
 }

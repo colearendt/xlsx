@@ -32,4 +32,9 @@ To write a data.frame to a spreadsheet
 write.xlsx2(iris, file='C:/temp/iris.xlsx')
 ```
 
+## Mailing list
+
+Please ask questions on the dedicated mailing list [list]
+
+[list]: http://groups.google.com/group/R-package-xlsx
 
