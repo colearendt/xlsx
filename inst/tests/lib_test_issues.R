@@ -512,9 +512,13 @@
   cat(".test.issue49 ")
   require(xlsx)
 
-  try(aux <- read.xlsx("resources/issue49.xlsx", sheetIndex=1))  
-  if (class(aux) != "try-error")
-      out <- "PASSED.\n"                 
+  filename <- 'resources/issue49_password=test.xlsx'
+  try(df <- read.xlsx2(filename, sheetIndex=1, password='test'))
+  if (class(df) != "try-error")
+      out <- "PASSED.\n"          
+
+  x <- data.frame(values=c(1,2,3))
+  write.xlsx2(x, 'out/issue49.xlsx', password='test')
   
   cat(out)         
 }
@@ -560,23 +564,105 @@
 
 
 #####################################################################
-# Test Issue 63. 
-# 
+# Test Issue 64. 
+# An Excel Chart
 #
-## .test.issue63 <- function( out="FAILED\n" )
-## {
-##   cat(".test.issue63 ")
-##   require(xlsx)
+.test.issue64 <- function( out="FAILED\n" )
+{
+  cat(".test.issue64 ")
+  require(xlsx)
 
-##   aux <- read.xlsx("resources/issue63.xlsx", sheetIndex=1,
-##               colIndex=1:2, endRow=4, colClasses=rep("character", 2),
-##               stringsAsFactors=FALSE))
+  wb <- createWorkbook()
+  sheet <- createSheet(wb, "mtcars")
+
+  x <- 1:nrow(mtcars)
+  y <- sort(mtcars$mpg)
+
+  jDrawing <- sheet$createDrawingPatriarch();
+  anchor <- structure(c(0, 0, 0, 0, 0, 5, 10, 5),
+      names=c('dx1', 'dx2', 'dy1', 'dy2', 'col1', 'row1', 'col2', 'row2'))
+  jAnchor <- jDrawing$createAnchor(as.integer(anchor[1]),
+                                  as.integer(anchor[2]),
+                                  as.integer(anchor[3]),
+                                  as.integer(anchor[4]),
+                                  as.integer(anchor[5]),
+                                  as.integer(anchor[6]),
+                                  as.integer(anchor[7]),
+                                  as.integer(anchor[8]))
+  
+  jChart <- jDrawing$createChart(jAnchor)
+
+  # make the legend 
+  jLegend <- jChart$getOrCreateLegend()
+  jLegend$setPosition(J('org.apache.poi.ss.usermodel.charts.LegendPosition')$TOP_RIGHT)
+
+  # set up the data
+  jX <- .jcall('org.apache.poi.ss.usermodel.charts.DataSources',
+         "Lorg/apache/poi/ss/usermodel/charts/ChartDataSource;",
+         "fromArray",
+         .jcast(.jarray(x), '[Ljava/lang/Object;'))
+
+  jY <- .jcall('org.apache.poi.ss.usermodel.charts.DataSources',
+         "Lorg/apache/poi/ss/usermodel/charts/ChartDataSource;",
+         "fromArray",
+         .jcast(.jarray(y), '[Ljava/lang/Object;'))
+   
+  jData <- jChart$getChartDataFactory()$createScatterChartData()
+  jData$addSerie(jX, jY)
+
+  # now you can make axes
+  jXAxis <- jChart$createValueAxis(J('org.apache.poi.ss.usermodel.charts.AxisPosition')$BOTTOM)
+  jYAxis <- jChart$createValueAxis(J('org.apache.poi.ss.usermodel.charts.AxisPosition')$LEFT)
+
+  # plot the chart
+  #  [8] "public void org.apache.poi.xssf.usermodel.XSSFChart.plot(org.apache.poi.ss.usermodel.charts.ChartData,org.apache.poi.ss.usermodel.charts.ChartAxis[])"
+
+  jAxes <- .jarray(c(jXAxis, jYAxis)) 
+
+  # NOT WORKING YET!
+  .jcall(jChart,
+         "V",
+         "plot",
+         jData,
+         .jcast(jAxes, "[Lorg/apache/poi/ss/usermodel/charts/ChartAxis;"))
+
+  .jcall(jChart,
+         "V",
+         "plot",
+         jData,
+         jAxes)
 
   
- 
-##   cat(out)         
-## }
+  
+  jChart$plot(jData, .jcast(.jarray(c(jXAxis, jYAxis)), '[Lorg/apache/poi/ss/usermodel/charts/ChartAxis;'))
 
+  
+  
+  #addDataFrame(mtcars, sheet, row.names=FALSE)
+  
+  
+
+  
+  saveWorkbook(wb, "out/issue64.xlsx")              
+  out <- '??'
+  
+ 
+  cat(out)         
+}
+
+
+#####################################################################
+# Test Issue 65. 
+# 
+#
+.test.issue65 <- function( out="FAILED\n" )
+{
+  cat(".test.issue65 ")
+  require(xlsx)
+
+
+  cat(out)         
+}
 
 
 
@@ -615,6 +701,7 @@
   .test.issue49()
   .test.issue57()
   .test.issue62()
+  #.test.issue65()
 
   
   unlink("out", recursive=TRUE)

@@ -7,7 +7,7 @@ write.xlsx2 <- function(x, file, sheetName="Sheet1",
   password=NULL, ...)
 {
   if (append && file.exists(file)){
-    wb <- loadWorkbook(file)
+    wb <- loadWorkbook(file, password=password)
   } else {
     ext <- gsub(".*\\.(.*)$", "\\1", basename(file))
     wb  <- createWorkbook(type=ext)

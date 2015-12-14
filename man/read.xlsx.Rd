@@ -9,11 +9,11 @@ Read the contents of a worksheet into an R \code{data.frame}.
 read.xlsx(file, sheetIndex, sheetName=NULL, rowIndex=NULL,
   startRow=NULL, endRow=NULL, colIndex=NULL,
   as.data.frame=TRUE, header=TRUE, colClasses=NA,
-  keepFormulas=FALSE, encoding="unknown", ...)
+  keepFormulas=FALSE, encoding="unknown", password=NULL, ...)
 
 read.xlsx2(file, sheetIndex, sheetName=NULL, startRow=1,
   colIndex=NULL, endRow=NULL, as.data.frame=TRUE, header=TRUE,
-  colClasses="character", ...)
+  colClasses="character", password=NULL, ...)
 }
 \arguments{ 
   \item{file}{the path to the file to read.}
@@ -46,6 +46,7 @@ read.xlsx2(file, sheetIndex, sheetName=NULL, startRow=1,
 	\code{NULL}, read all the rows in the sheet.  For
     \code{read.xlsx} this argument is active only if
     \code{rowIndex} is \code{NULL}.}
+  \item{password}{a String with the password.}
   \item{\ldots}{other arguments to \code{data.frame}, for example
     \code{stringsAsFactors}} 
 }
@@ -86,6 +87,8 @@ general be different from \code{read.xlsx}, because internally
 \code{read.xlsx2} uses \code{readColumns} which is tailored for tabular
 data.  
 
+Reading of password protected workbooks is supported for Excel 2007
+OOXML format only.
 }
 \value{
   A data.frame or a list, depending on the \code{as.data.frame}
