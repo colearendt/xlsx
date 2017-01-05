@@ -1,5 +1,11 @@
 NEWS for package xlsx
 
+Changes in version 0.6.1 (unreleased)
+
+ o Export the S3 method for CellBlock
+
+ o Do not depend (just import) rJava and xlsxjars
+
 Changes in version 0.6.0 (released 2015-11-29)
 
  o Added support to read and write password protected xlsx files.
@@ -10,8 +16,6 @@ Changes in version 0.6.0 (released 2015-11-29)
 
  o Fixed a bug in read.xlsx when an empty rows was triggering an
  error.  Reported by maxnax, see issue 57.
-
- o Export the S3 method for CellBlock
 
  o TODO: implement a chart wrapper 
 
