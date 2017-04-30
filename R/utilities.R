@@ -56,7 +56,9 @@
 #
 .onLoad <- function(libname, pkgname)
 {
-  .jpackage("xlsxjars")
+  # no need to do this anymore as the related jars are now distributed 
+  # directly in this package
+  #.jpackage('xlsxjars')
   
   options(xlsx.date.format = "m/d/yyyy")   # e.g. 3/18/2013
   options(xlsx.datetime.format = "m/d/yyyy h:mm:ss")  # e.g. 3/18/2013 05:25:51
