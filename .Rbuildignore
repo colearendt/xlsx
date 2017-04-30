@@ -3,3 +3,5 @@ resources/.*
 out/.*
 .git/.*
 .gitignore
+^.*\.Rproj$
+^\.Rproj\.user$
