@@ -1,2 +1,5 @@
 .Rhistory
 out/
+.Rproj.user
+packrat/lib*/
+packrat/src/

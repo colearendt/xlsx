@@ -1,0 +1,110 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.8.1
+RVersion: 3.4.0
+Repos: CRAN=https://mirrors.nics.utk.edu/cran/
+
+Package: R6
+Source: CRAN
+Version: 2.2.1
+Hash: 530f0b839551f96ec991ce4f93156ee1
+
+Package: crayon
+Source: CRAN
+Version: 1.3.2
+Hash: 576a9d297a567d6a5ebd164ca5221590
+
+Package: curl
+Source: CRAN
+Version: 2.6
+Hash: 8162b82ca4809c0d63c30aedbd7348e0
+
+Package: devtools
+Source: CRAN
+Version: 1.13.2
+Hash: 1bcfefa7d2fad3f1a2f5367c9ceccd46
+Requires: digest, git2r, httr, jsonlite, memoise, rstudioapi, whisker,
+    withr
+
+Package: digest
+Source: CRAN
+Version: 0.6.12
+Hash: e53fb8c58673df868183697e39a6a4d6
+
+Package: git2r
+Source: CRAN
+Version: 0.18.0
+Hash: 9dfaafbcca68be29b89ef7783dc1dac0
+
+Package: httr
+Source: CRAN
+Version: 1.2.1
+Hash: 7de1f8f760441881804af7c1ff324340
+Requires: R6, curl, jsonlite, mime, openssl
+
+Package: jsonlite
+Source: CRAN
+Version: 1.5
+Hash: 9c51936d8dd00b2f1d4fe9d10499694c
+
+Package: magrittr
+Source: CRAN
+Version: 1.5
+Hash: bdc4d48c3135e8f3b399536ddf160df4
+
+Package: memoise
+Source: CRAN
+Version: 1.1.0
+Hash: 410fcd334bc626db100237cc1370f2e9
+Requires: digest
+
+Package: mime
+Source: CRAN
+Version: 0.5
+Hash: 463550cf44fb6f0a2359368f42eebe62
+
+Package: openssl
+Source: CRAN
+Version: 0.9.6
+Hash: 5f4711e142a44655dfea4d64fcf2f641
+
+Package: packrat
+Source: CRAN
+Version: 0.4.8-1
+Hash: 6ad605ba7b4b476d84be6632393f5765
+
+Package: praise
+Source: CRAN
+Version: 1.0.0
+Hash: 77da8f1df873a4b91e5c4a68fe2fb1b6
+
+Package: rJava
+Source: CRAN
+Version: 0.9-8
+Hash: 3e8627a2a5bd45c9bad6112acfc231d9
+
+Package: rstudioapi
+Source: CRAN
+Version: 0.6
+Hash: fd256f8bfb9a64cc35f98b0decb1a79f
+
+Package: testthat
+Source: CRAN
+Version: 1.0.2
+Hash: 88d5291104227f9dc2e7c7c1d0eb6c74
+Requires: R6, crayon, digest, magrittr, praise
+
+Package: whisker
+Source: CRAN
+Version: 0.3-2
+Hash: 803d662762e532705c2c066a82d066e7
+
+Package: withr
+Source: CRAN
+Version: 1.0.2
+Hash: 774eb7be9087cdc24b53b74e5359cfac
+
+Package: xlsxjars
+Source: CRAN
+Version: 0.6.1
+Hash: 3902149dad80bcb14fcd88d8c7fd7f3b
+Requires: rJava
