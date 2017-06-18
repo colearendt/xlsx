@@ -3,10 +3,40 @@ PackratVersion: 0.4.8.1
 RVersion: 3.4.0
 Repos: CRAN=https://mirrors.nics.utk.edu/cran/
 
+Package: BH
+Source: CRAN
+Version: 1.62.0-1
+Hash: 14dfb3e8ffe20996118306ff4de1fab2
+
 Package: R6
 Source: CRAN
 Version: 2.2.1
 Hash: 530f0b839551f96ec991ce4f93156ee1
+
+Package: Rcpp
+Source: CRAN
+Version: 0.12.11
+Hash: 2ee22f3b5e75dec80b1d8eca61cd96d8
+
+Package: assertthat
+Source: CRAN
+Version: 0.2.0
+Hash: e8805df54c65ac96d50235c44a82615c
+
+Package: backports
+Source: CRAN
+Version: 1.1.0
+Hash: 3f754426ca2b7dbbf63951fe5075373b
+
+Package: brew
+Source: CRAN
+Version: 1.0-6
+Hash: 931f9972deae0f205e1c78a51f33149b
+
+Package: commonmark
+Source: CRAN
+Version: 1.2
+Hash: 1290583b9d16fb60322126a8698fb729
 
 Package: crayon
 Source: CRAN
@@ -17,6 +47,12 @@ Package: curl
 Source: CRAN
 Version: 2.6
 Hash: 8162b82ca4809c0d63c30aedbd7348e0
+
+Package: desc
+Source: CRAN
+Version: 1.1.0
+Hash: 346d3477f87b89692dd1379eaed1a1be
+Requires: R6, assertthat, crayon, rprojroot
 
 Package: devtools
 Source: CRAN
@@ -82,10 +118,34 @@ Source: CRAN
 Version: 0.9-8
 Hash: 3e8627a2a5bd45c9bad6112acfc231d9
 
+Package: roxygen2
+Source: CRAN
+Version: 6.0.1
+Hash: 5ec390c33d6b969ceea50bf7456456f8
+Requires: R6, Rcpp, brew, commonmark, desc, digest, stringi, stringr,
+    xml2
+
+Package: rprojroot
+Source: CRAN
+Version: 1.2
+Hash: fdcac51a7f47decd60556ceefc3c26b1
+Requires: backports
+
 Package: rstudioapi
 Source: CRAN
 Version: 0.6
 Hash: fd256f8bfb9a64cc35f98b0decb1a79f
+
+Package: stringi
+Source: CRAN
+Version: 1.1.5
+Hash: b6308e49357a0b475f433599e0d8b5eb
+
+Package: stringr
+Source: CRAN
+Version: 1.2.0
+Hash: 25a86d7f410513ebb7c0bc6a5e16bdc3
+Requires: magrittr, stringi
 
 Package: testthat
 Source: CRAN
@@ -108,3 +168,9 @@ Source: CRAN
 Version: 0.6.1
 Hash: 3902149dad80bcb14fcd88d8c7fd7f3b
 Requires: rJava
+
+Package: xml2
+Source: CRAN
+Version: 1.1.1
+Hash: 35dbee121bb8d76347677290ba1c6a06
+Requires: BH, Rcpp
