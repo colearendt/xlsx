@@ -14,4 +14,5 @@ BugReports: https://github.com/dragua/rexcel/issues
 SystemRequirements: java (>= 1.6)
 Suggests: 
     rprojroot,
-    testthat
+    testthat,
+    covr
