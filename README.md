@@ -1,3 +1,5 @@
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/colearendt/xlsx?branch=master&svg=true)](https://ci.appveyor.com/project/colearendt/xlsx)
+[![Travis-CI Build Status](https://travis-ci.org/colearendt/xlsx.svg?branch=master)](https://travis-ci.org/colearendt/xlsx)
 xlsx
 ========
 

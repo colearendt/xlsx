@@ -7,3 +7,5 @@ out/.*
 ^\.Rproj\.user$
 ^packrat/
 ^\.Rprofile$
+^appveyor\.yml$
+^\.travis\.yml$
