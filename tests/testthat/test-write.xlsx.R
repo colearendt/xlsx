@@ -20,6 +20,23 @@ test_that('works in pipeline', {
   test_complex_export('xlsx')
 })
 
+context('write.xlsx2')
+
+test_that('write password protected workbook succeeds', {
+  ## issue #49
+  skip('Fails on UNIX at present')
+  x <- data.frame(values=c(1,2,3))
+  filename <- test_tmp('issue49.xlsx')
+  
+  ## write
+  write.xlsx2(x, filename, password='test')
+  
+  ## read
+  r <- read.xlsx2(filename, sheetIndex = 1, password='test')
+  
+  expect_identical(df, r)
+})
+
 context('low-level interface')
 
 test_that('works in pipeline', {

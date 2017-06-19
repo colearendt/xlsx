@@ -48,13 +48,6 @@ test_that('read does not fail on empty sheets', {
   expect_null(res2)
 })
 
-test_that('handle password protected excel files', {
-  ## issue #49
-  skip('do not have this workbook')
-  try(aux <- read.xlsx(test_ref("issue49.xlsx"), sheetIndex=1))  
-  expect_is(aux,'data.frame')
-})
-
 test_that('read.xlsx fails on empty row', {
   ## issue #57
   try(aux <- read.xlsx(test_ref("issue57.xlsx"), sheetIndex=1))  
@@ -116,6 +109,14 @@ test_that('no argument rowIndex, and maybe it should be', {
 test_that('works in complex pipeline', {
   test_complex_read.xlsx2('xls')
   test_complex_read.xlsx2('xlsx')
+})
+
+test_that('read password protected workbook succeeds', {
+  ## issue #49
+  filename <- test_ref('issue49_password=test.xlsx')
+  df <- read.xlsx2(filename, sheetIndex=1, password='test')
+  
+  expect_identical(df,data.frame(Values=c('1','2','3')))
 })
 
 context('low-level interface')

@@ -163,9 +163,10 @@ test_basic_import <- function(type="xlsx") {
   
   ## readColumns for ragged sheets
   sheet <- sheets[["ragged"]]
-  res <- readColumns(sheet, 1, 4, 1,  colClasses=c(rep("character", 3),
-                                                   "numeric"))
-  expect_identical(res[1,1],'')
+  res <- readColumns(sheet, 1, 4, 1
+                     ,  colClasses=c(rep("character", 3),"numeric")
+                     , stringsAsFactors=FALSE)
+  expect_equal(res[1,1],'')
   
   ## readRows
   sheet <- sheets[["all"]]
