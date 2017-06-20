@@ -15,5 +15,6 @@ SystemRequirements: java (>= 1.6)
 Suggests: 
   testthat,
   covr,
-  rprojroot
+  rprojroot,
+  tibble
 

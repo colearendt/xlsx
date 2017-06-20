@@ -9,3 +9,4 @@ out/.*
 ^\.Rprofile$
 ^appveyor\.yml$
 ^\.travis\.yml$
+^revdep$

@@ -5,3 +5,4 @@ packrat/lib*/
 packrat/src/
 .Rprofile
 tests/testthat/tmp
+/revdep/.cache.rds

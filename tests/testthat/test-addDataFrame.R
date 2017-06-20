@@ -46,3 +46,24 @@ test_that('does not fail with zero column data.frames', {
   
   expect_is(res,'CellBlock')
 })
+
+test_that('works with tibble', {
+  ## issue #73
+  skip('not presently working')
+  
+  skip_if_not_installed('tibble')
+  d <- tibble::as_tibble(iris)
+  
+  wb <- createWorkbook()
+  s <- createSheet(wb,'test')
+  
+  addDataFrame(d,s,row.names=FALSE)
+  
+  f <- test_tmp('issue73.xlsx')
+  saveWorkbook(wb,f)
+  
+  r <- read.xlsx2(f,1,stringsAsFactors=FALSE)
+  
+  expect_identical(r[c(1,150),1],c('5.1','5.9'))
+  expect_identical(r[c(1,75),2],c('3.5','2.9'))
+})
