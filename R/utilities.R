@@ -134,16 +134,31 @@
 
 
 
+#' @title Constants used in the project.
+#' 
+#' Document some Apache POI constants used in the project.
+#' 
+#' @return A named vector.
+#' @author Adrian Dragulescu
+#' @seealso \code{\link{CellStyle}} for using the \code{POI_constants}.
+#' @name POI_constants
+NULL
 
+  #' @rdname POI_constants
+  #' @export
   HALIGN_STYLES_ <- c(2,6,4,0,5,1,3)
   names(HALIGN_STYLES_) <- c('ALIGN_CENTER' ,'ALIGN_CENTER_SELECTION'
     ,'ALIGN_FILL' ,'ALIGN_GENERAL' ,'ALIGN_JUSTIFY' ,'ALIGN_LEFT'
     ,'ALIGN_RIGHT')
 
+  #' @rdname POI_constants
+  #' @export
   VALIGN_STYLES_<- c(2,1,3,0)
   names(VALIGN_STYLES_) <- c('VERTICAL_BOTTOM' ,'VERTICAL_CENTER',
                              'VERTICAL_JUSTIFY' ,'VERTICAL_TOP')
-              
+  
+  #' @rdname POI_constants
+  #' @export 
   BORDER_STYLES_ <- c(9,11,3,7,6,4,2,10,12,8,0,13,5,1)
   names(BORDER_STYLES_) <- c("BORDER_DASH_DOT", "BORDER_DASH_DOT_DOT",
     "BORDER_DASHED", "BORDER_DOTTED", "BORDER_DOUBLE", "BORDER_HAIR",
@@ -152,6 +167,8 @@
     "BORDER_NONE", "BORDER_SLANTED_DASH_DOT", "BORDER_THICK",
     "BORDER_THIN")
 
+  #' @rdname POI_constants
+  #' @export
   FILL_STYLES_<- c(3,9,10,16,2,18,17,0,1,4,15,7,8,5,6,13,14,11,12)
   names(FILL_STYLES_) <- c('ALT_BARS', 'BIG_SPOTS','BRICKS' ,'DIAMONDS'
     ,'FINE_DOTS' ,'LEAST_DOTS' ,'LESS_DOTS' ,'NO_FILL'
@@ -161,9 +178,13 @@
     ,'THIN_HORZ_BANDS' ,'THIN_VERT_BANDS')
 
   # from org.apache.poi.ss.usermodel.CellStyle  
+  #' @rdname POI_constants
+  #' @export
   CELL_STYLES_ <- c(HALIGN_STYLES_, VALIGN_STYLES_,
      BORDER_STYLES_, FILL_STYLES_)
 
+  #' @rdname POI_constants
+  #' @export
   INDEXED_COLORS_ <- c(8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,
     25,26,28,29,30,31,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,
     56,57,58,59,60,61,62,63,64)

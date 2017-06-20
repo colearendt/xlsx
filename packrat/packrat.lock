@@ -18,6 +18,12 @@ Source: CRAN
 Version: 0.12.11
 Hash: 2ee22f3b5e75dec80b1d8eca61cd96d8
 
+Package: Rd2roxygen
+Source: CRAN
+Version: 1.6.2
+Hash: 6821a91909697971b6da504e731e9e55
+Requires: formatR, roxygen2
+
 Package: assertthat
 Source: CRAN
 Version: 0.2.0
@@ -37,6 +43,11 @@ Package: commonmark
 Source: CRAN
 Version: 1.2
 Hash: 1290583b9d16fb60322126a8698fb729
+
+Package: covr
+Source: CRAN
+Version: 2.2.2
+Requires: crayon, jsonlite, withr, rex, httr
 
 Package: crayon
 Source: CRAN
@@ -66,6 +77,11 @@ Source: CRAN
 Version: 0.6.12
 Hash: e53fb8c58673df868183697e39a6a4d6
 
+Package: formatR
+Source: CRAN
+Version: 1.5
+Hash: 258cf79a8dbeedf1c981cdb53837d2af
+
 Package: git2r
 Source: CRAN
 Version: 0.18.0
@@ -81,6 +97,11 @@ Package: jsonlite
 Source: CRAN
 Version: 1.5
 Hash: 9c51936d8dd00b2f1d4fe9d10499694c
+
+Package: lazyeval
+Source: CRAN
+Version: 0.2.0
+Hash: 3d6e7608e65bbf5cb170dab1e3c9ed8b
 
 Package: magrittr
 Source: CRAN
@@ -117,6 +138,11 @@ Package: rJava
 Source: CRAN
 Version: 0.9-8
 Hash: 3e8627a2a5bd45c9bad6112acfc231d9
+
+Package: rex
+Source: CRAN
+Version: 1.1.1
+Requires: lazyeval, magrittr
 
 Package: roxygen2
 Source: CRAN

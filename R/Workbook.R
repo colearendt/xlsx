@@ -6,8 +6,55 @@
 # removeSheet
 
 
+#' Functions to manipulate Excel 2007 workbooks.
+#' 
+#' \code{createWorkbook} creates an empty workbook object.
+#' 
+#' \code{loadWorkbook} loads a workbook from a file.
+#' 
+#' \code{saveWorkbook} saves an existing workook to an Excel 2007 file.
+#' 
+#' Reading or writing of password protected workbooks is supported for Excel
+#' 2007 OOXML format only.  Note that in Linux, LibreOffice is not able to read
+#' password protected spreadsheets.
+#' 
+#' @param type a String, either \code{xlsx} for Excel 2007 OOXML format, or
+#' \code{xls} for Excel 95 binary format.
+#' @param file the path to the file you intend to read or write.  Can be an xls
+#' or xlsx format.
+#' @param wb a workbook object as returned by \code{createWorkbook} or
+#' \code{loadWorkbook}.
+#' @param password a String with the password.
+#' @return \code{createWorkbook} returns a java object reference pointing to an
+#' empty workbook object.
+#' 
+#' \code{loadWorkbook} creates a java object reference corresponding to the
+#' file to load.
+#' @author Adrian Dragulescu
+#' @seealso \code{\link{write.xlsx}} for writing a \code{data.frame} to an
+#' \code{xlsx} file.  \code{\link{read.xlsx}} for reading the content of a
+#' \code{xlsx} worksheet into a \code{data.frame}.  To extract worksheets and
+#' manipulate them, see \code{\link{Worksheet}}.
+#' @examples
+#' 
+#' 
+#' wb <- createWorkbook()
+#' 
+#' # see all the available java methods that you can call
+#' .jmethods(wb)
+#' 
+#' # for example
+#' wb$getNumberOfSheets()   # no sheet yet!
+#' 
+#' # loadWorkbook("C:/Temp/myFile.xls")
+#' 
+#' @name Workbook
+NULL
+
 ######################################################################
 # 
+#' @export
+#' @rdname Workbook
 createWorkbook <- function(type="xlsx")
 {
   if (type=="xls") {
@@ -23,6 +70,8 @@ createWorkbook <- function(type="xlsx")
 
 ######################################################################
 # 
+#' @export
+#' @rdname Workbook
 loadWorkbook <- function(file, password=NULL)
 {
   if (!file.exists(path.expand(file)))
@@ -54,6 +103,8 @@ loadWorkbook <- function(file, password=NULL)
 
 ######################################################################
 # 
+#' @export
+#' @rdname Workbook
 saveWorkbook <- function(wb, file, password=NULL)
 {
   jFile <- .jnew("java/io/File", file)
@@ -95,9 +146,46 @@ saveWorkbook <- function(wb, file, password=NULL)
 ## .jcall(wb, "V", "write", .jcast(fh, "java/io/OutputStream"))
 
 
+
+#' Functions to manipulate worksheets.
+#' 
+#' @aliases Worksheet
+#' 
+#' @param wb a workbook object as returned by \code{createWorksheet} or
+#' \code{loadWorksheet}.
+#' @param sheetName a character specifying the name of the worksheet to create,
+#' or remove.
+#' @return \code{createSheet} returns the created \code{Sheet} object.
+#' 
+#' \code{getSheets} returns a list of java object references each pointing to
+#' an worksheet.  The list is named with the sheet names.
+#' @author Adrian Dragulescu
+#' @seealso To extract rows from a given sheet, see \code{\link{Row}}.
+#' @examples
+#' 
+#' 
+#' file <- system.file("tests", "test_import.xlsx", package = "xlsx")
+#' 
+#' wb <- loadWorkbook(file)  
+#' sheets <- getSheets(wb)
+#' 
+#' sheet  <- sheets[[2]]  # extract the second sheet
+#' 
+#' # see all the available java methods that you can call
+#' .jmethods(sheet)
+#' 
+#' # for example
+#' sheet$getLastRowNum()
+#' 
+#' @name Sheet
+NULL
+
+
 ######################################################################
 # return the sheets
 #
+#' @export
+#' @rdname Sheet
 getSheets <- function(wb)
 {
   noSheets <- wb$getNumberOfSheets()
@@ -117,6 +205,8 @@ getSheets <- function(wb)
 
 ######################################################################
 # 
+#' @export
+#' @rdname Sheet
 createSheet <- function(wb, sheetName="Sheet1")
 {
   sheet <- .jcall(wb, "Lorg/apache/poi/ss/usermodel/Sheet;",
@@ -127,6 +217,8 @@ createSheet <- function(wb, sheetName="Sheet1")
 
 ######################################################################
 # 
+#' @export
+#' @rdname Sheet
 removeSheet <- function(wb, sheetName="Sheet1")
 {
   sheetInd <- wb$getSheetIndex(sheetName)

@@ -1,9 +1,54 @@
-#
-
+#' Functions to manipulate rows of a worksheet.
+#' 
+#' \code{removeRow} is just a convenience wrapper to remove the rows from the
+#' sheet (before saving).  Internally it calls \code{lapply}.
+#' 
+#' @param sheet a worksheet object as returned by \code{createSheet} or by
+#' subsetting \code{getSheets}.
+#' @param rowIndex a numeric vector specifying the index of rows to create.
+#' For \code{getRows}, a \code{NULL} value will return all non empty rows.
+#' @param rows a list of \code{Row} objects.
+#' @param inPoints a numeric value to specify the height of the row in points.
+#' @param multiplier a numeric value to specify the multiple of default row
+#' height in points.  If this value is set, it takes precedence over the
+#' \code{inPoints} argument.
+#' @return For \code{getRows} a list of java object references each pointing to
+#' a row.  The list is named with the row number.
+#' @author Adrian Dragulescu
+#' @seealso To extract the cells from a given row, see \code{\link{Cell}}.
+#' @examples
+#' 
+#' 
+#' file <- system.file("tests", "test_import.xlsx", package = "xlsx")
+#' 
+#' wb <- loadWorkbook(file)  
+#' sheets <- getSheets(wb)
+#' 
+#' sheet <- sheets[[2]]  
+#' rows  <- getRows(sheet)  # get all the rows
+#' 
+#' # see all the available java methods that you can call
+#' .jmethods(rows[[1]])
+#' 
+#' # for example
+#' rows[[1]]$getRowNum()   # zero based index in Java
+#' 
+#' removeRow(sheet, rows)  # remove them all
+#' 
+#' # create some row
+#' rows  <- createRow(sheet, rowIndex=1:5)
+#' setRowHeight( rows, multiplier=3)  # 3 times bigger rows than the default
+#' 
+#' 
+#' 
+#' @name Row
+NULL
 
 ######################################################################
 # Return a list of row objects.
 #
+#' @export
+#' @rdname Row
 createRow <- function(sheet, rowIndex=1:5)
 {
   rows <- vector("list", length(rowIndex))
@@ -21,6 +66,8 @@ createRow <- function(sheet, rowIndex=1:5)
 # You can specify which rows you want to return by provinding a vector of 
 # rowIndices with rowInd.
 #
+#' @export
+#' @rdname Row
 getRows <- function(sheet, rowIndex=NULL)
 {
   noRows <- sheet$getLastRowNum()+1
@@ -51,6 +98,8 @@ getRows <- function(sheet, rowIndex=NULL)
 ######################################################################
 # remove rows
 #
+#' @export
+#' @rdname Row
 removeRow <- function(sheet, rows=NULL)
 {
   if (is.null(rows))
@@ -65,6 +114,8 @@ removeRow <- function(sheet, rows=NULL)
 ######################################################################
 # set the Row height
 #
+#' @export
+#' @rdname Row
 setRowHeight <- function(rows, inPoints, multiplier=NULL)
 {
   if ( !is.null(multiplier) ) {

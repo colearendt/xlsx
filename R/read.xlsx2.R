@@ -1,6 +1,8 @@
 # One sheet extraction.  Similar to read.csv.
 #
 # 
+#' @export
+#' @rdname read.xlsx
 read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
   colIndex=NULL, endRow=NULL, as.data.frame=TRUE, header=TRUE,
   colClasses="character", password=NULL, ...)

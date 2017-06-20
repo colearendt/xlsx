@@ -51,6 +51,7 @@
 
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 \maketitle
 
