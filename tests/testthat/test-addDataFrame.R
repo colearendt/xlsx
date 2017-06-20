@@ -5,21 +5,36 @@ test_that('can customize the format of datetimes in the output', {
   wb <- createWorkbook()
   sheet <- createSheet(wb, "Sheet1")
   
+  oldOpt <- options()
+  
+  format1 <- 'm/d/yyyy'
+  format2 <- "dd MMM, yyyy"
+  
   days <- seq(as.Date("2013-01-01"), by="1 day", length.out=5)
-  # use the default
+  
+  options(xlsx.date.format=format1)
   addDataFrame(data.frame(days=days), sheet, startColumn=1,
                col.names=FALSE, row.names=FALSE)
   
-  # change the options temporarily
-  oldOpt <- options()
-  options(xlsx.date.format="dd MMM, yyyy")
+
+  options(xlsx.date.format=format2)
   addDataFrame(data.frame(days=days), sheet, startColumn=2,
                col.names=FALSE, row.names=FALSE)
+  
   options(oldOpt)
   
+  f <- test_tmp("issue26_out.xlsx")
+  saveWorkbook(wb, file=f)
   
-  saveWorkbook(wb, file=test_tmp("issue26_out.xlsx"))
-  expect_true(TRUE)
+  wb <- loadWorkbook(f)
+  sheets <- getSheets(wb)
+  r <- getRows(sheets[[1]])
+  cell1 <- getCells(r,1)
+  cell2 <- getCells(r,2)
+  
+  expect_identical(unique(as.character(lapply(cell1,read_data_format))),format1)
+  
+  expect_identical(unique(as.character(lapply(cell2,read_data_format))),format2)
 })
 
 test_that('does not fail with zero column data.frames', {

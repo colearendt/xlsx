@@ -11,7 +11,15 @@ test_that('accepts character matrix', {
   fileName <- test_tmp("issue19.xlsx")
   saveWorkbook(wb, fileName)
   
-  expect_true(TRUE)
+  r <- read.xlsx2(fileName,1,header=FALSE,stringsAsFactors=FALSE)
+  names(r) <- NULL
+  r <- as.matrix(r)
+  attr(r,'dimnames') <- NULL
+  
+  expect_identical(
+    as.matrix(r)
+    , mtx
+  )
 })
 
 test_that('preserves existing formats', {
@@ -35,12 +43,27 @@ test_that('preserves existing formats', {
   }
   saveWorkbook(wb, fileOut)
   
-  expect_true(TRUE)
+  wb <- loadWorkbook(fileOut)
+  sheets <- getSheets(wb)
+  
+  cell1 <- getCells(getRows(sheets[[1]]))
+  cell2 <- getCells(getRows(sheets[[2]]))
+  cell3 <- getCells(getRows(sheets[[3]]))
+  
+  expect_null(unlist(unique(lapply(cell1,read_fill_foreground))))
+  expect_identical(as.character(unique(lapply(cell2,read_fill_foreground))),'ffff00')
+  expect_identical(as.character(lapply(cell3,read_fill_foreground))
+                   , c('ffff00','NULL','ffff00'
+                       ,'NULL','ffff00','NULL'
+                       ,'NULL','NULL','ffff00')
+                   )
 })
 
 
 test_that('formating applied to whole columns should not get lost in cell block formatting', {
   ## issue #32
+  
+  skip('not presently addressed')
   
   #using formatting on entire columns (A to L)
   wb <- loadWorkbook(test_ref("issue32_bad.xlsx"))

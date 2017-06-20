@@ -84,21 +84,38 @@ test_complex_read.xlsx <- function(type="xlsx") {
 }
 
 test_complex_read.xlsx2 <- function(type='xlsx') {
-  filename <- paste("test_import.", type, sep="")
+  filename <- paste0("test_import.", type)
   file <- test_ref(filename)
   
-  res <- read.xlsx2(file, sheetName="mixedTypes")
+  res <- read.xlsx2(file, sheetName="mixedTypes", stringsAsFactors=FALSE)
+  expect_equal(as.character(lapply(res,typeof)),rep('character',6))
+  
   res <- read.xlsx2(file, sheetName="mixedTypes", colClasses=c(
-    "numeric", "character", rep("numeric", 4)))
+    "numeric", "character", rep("numeric", 4))
+    , stringsAsFactors=FALSE)
+  expect_equal(as.character(lapply(res,typeof)),c('double','character',rep('double',4)))
   
-  res <- read.xlsx2(file, sheetName="mixedTypes", startRow=2, noRows=3)
+  
+  res <- read.xlsx2(file, sheetName="mixedTypes", startRow=2, endRow=4
+                    , stringsAsFactors=FALSE
+                    , header = FALSE)
+  expect_equal(nrow(res),3)
   
   
-  ## Test read.xlsx2 ...
-  res <- read.xlsx2(file, sheetName="all", startRow=3)
+  res <- read.xlsx2(file, sheetName="all", startRow=3, stringsAsFactors=FALSE)
+  expect_equal(nrow(res),10)
+  expect_equal(ncol(res),8)
   
   ## read more columns than on the spreadsheet
-  res <- read.xlsx2(file, sheetName="all", startRow=3, noRows=6, colIndex=3:14)
+  res <- read.xlsx2(file
+                    , sheetName="all"
+                    , header=FALSE
+                    , startRow=3
+                    , endRow=6
+                    , colIndex=3:14
+                    , stringsAsFactors=FALSE)
+  expect_equal(nrow(res),4)
+  expect_equal(ncol(res),12)
   
   ## pass in some colClasses
   res <- read.xlsx2(file, sheetName="all", startRow=3, colIndex=3:10,
@@ -114,8 +131,14 @@ test_complex_read.xlsx2 <- function(type='xlsx') {
   expect_equal(nrow(res),10)
   
   ## read ragged data
-  res <- read.xlsx2(file, sheetName="ragged")
+  res <- read.xlsx2(file, sheetName="ragged", stringsAsFactors=FALSE)
   
+  res_tmp <- data.frame(Field1=c('','A1','','','')
+                    ,Field2=c('B2','','B4','','')
+                    ,Field3=c('','','','C5','')
+                    ,Value=c('','7','8','9','')
+                    , stringsAsFactors=FALSE)
+  expect_identical(res,res_tmp)
 }
 
 test_complex_cell <- function(type='xlsx') {
@@ -171,6 +194,9 @@ test_basic_import <- function(type="xlsx") {
   ## readRows
   sheet <- sheets[["all"]]
   res <- readRows(sheet, startRow=3, endRow=7, startColumn=2, endColumn=15)
+  
+  expect_equal(ncol(res),14)
+  expect_equal(nrow(res),5)
 }
 
 test_basic_export  <- function(type="xlsx") {
@@ -185,7 +211,6 @@ test_basic_export  <- function(type="xlsx") {
   wrapper_otherEffect(wb)
   wrapper_picture(wb)
   wrapper_addDataFrame(wb)
-  #test.pageBreaks(wb)    # not working with 3.7, fixed in 3.8
   wrapper_cellBlock(wb)
   
   saveWorkbook(wb, outfile)
@@ -291,5 +316,13 @@ test_addOnExistingWorkbook <- function(ext="xlsx") {
   
   dat <- data.frame(a=LETTERS, b=1:26)
   
-  addDataFrame(dat, sheets$mixedTypes, startColumn=20, startRow=5)
+  s <- sheets$mixedTypes
+  addDataFrame(dat, s, startColumn=20, startRow=5)
+  
+  expect_equal(
+    getCellValue(
+      getCells(getRows(s,25),colIndex=21)[[1]]
+      )
+    , 'T'
+  )
 }

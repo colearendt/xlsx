@@ -10,8 +10,8 @@ test_that('works in simple example', {
   wb <- createWorkbook(type="xlsx")
   sheet  <- createSheet(wb, sheetName="Sheet1")
   addDataFrame(data, sheet, startRow=3, startColumn=2)
-  addAutoFilter(sheet, "C3:E3")
+  af <- addAutoFilter(sheet, "C3:E3")
   saveWorkbook(wb, test_tmp("issue47.xlsx"))
   
-  expect_true(TRUE)
+  expect_true(.jinstanceof(af,'org/apache/poi/xssf/usermodel/XSSFAutoFilter'))
 })

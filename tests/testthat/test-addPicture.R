@@ -1,20 +1,13 @@
 context('addPicture')
 
-test_that('works with emf image', {
-  ## issue #23
-  ## known issue with 3.9
-  skip('spreadsheet saves but the emf picture is not there')
-  fileName <- "out/test_emf.emf"
-  require(devEMF)
-  emf(file=fileName, bg="white")
-  boxplot(rnorm(100))
-  dev.off()  
-  
+test_that('works with basic image', {
+
+  f <- test_ref('log_plot.jpeg')
   wb <- createWorkbook()
-  sheet <- createSheet(wb, "EMF_Sheet")
+  sheet <- createSheet(wb, "Image")
   
-  addPicture(file=fileName, sheet)
-  saveWorkbook(wb, file="out/issue23_out.xlsx")  
+  pic <- addPicture(file=f, sheet)
+  saveWorkbook(wb, file=test_tmp("addPicture.xlsx"))
   
-  expect_true(TRUE)
+  expect_true(.jinstanceof(pic,'org/apache/poi/xssf/usermodel/XSSFPicture'))
 })
