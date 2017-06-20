@@ -1,0 +1,2 @@
+ERROR: dependencies ‘Hmisc’, ‘SNPassoc’ are not available for package ‘compareGroups’
+* removing ‘/tmp/Rtmp4Y6r4W/R-lib/compareGroups’

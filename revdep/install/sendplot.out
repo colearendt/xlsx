@@ -1,0 +1,2 @@
+ERROR: dependency ‘rtiff’ is not available for package ‘sendplot’
+* removing ‘/tmp/Rtmp4Y6r4W/R-lib/sendplot’

@@ -1,0 +1,2 @@
+ERROR: dependency ‘rgdal’ is not available for package ‘geoSpectral’
+* removing ‘/tmp/Rtmp4Y6r4W/R-lib/geoSpectral’

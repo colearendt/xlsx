@@ -162,7 +162,7 @@ Use \code{Font} to set a font.
 \section{Conclusions}
 \label{Conclusions}
 
-By adding a lightweigth \R layer on top of the Apache project Java
+By adding a lightweight \R layer on top of the Apache project Java
 interface to Excel 2007 documents, we achieve a multi-platform
 solution for interacting with Excel 2007 file formats from \R.  
 

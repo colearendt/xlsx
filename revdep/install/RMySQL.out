@@ -1,0 +1,18 @@
+* installing *source* package ‘RMySQL’ ...
+** package ‘RMySQL’ successfully unpacked and MD5 sums checked
+Using PKG_CFLAGS=
+Using PKG_LIBS=-lmysqlclient
+------------------------- ANTICONF ERROR ---------------------------
+Configuration failed because libmysqlclient was not found. Try installing:
+ * deb: libmariadb-client-lgpl-dev (Debian, Ubuntu 16.04)
+        libmariadbclient-dev (Ubuntu 14.04)
+ * rpm: mariadb-devel | mysql-devel (Fedora, CentOS, RHEL)
+ * csw: mysql56_dev (Solaris)
+ * brew: mariadb-connector-c (OSX)
+If libmysqlclient is already installed, check that 'pkg-config' is in your
+PATH and PKG_CONFIG_PATH contains a libmysqlclient.pc file. If pkg-config
+is unavailable you can set INCLUDE_DIR and LIB_DIR manually via:
+R CMD INSTALL --configure-vars='INCLUDE_DIR=... LIB_DIR=...'
+--------------------------------------------------------------------
+ERROR: configuration failed for package ‘RMySQL’
+* removing ‘/tmp/Rtmp4Y6r4W/R-lib/RMySQL’

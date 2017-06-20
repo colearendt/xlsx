@@ -1,0 +1,13 @@
+* installing *source* package ‘tkrplot’ ...
+** package ‘tkrplot’ successfully unpacked and MD5 sums checked
+configure: creating ./config.status
+config.status: creating src/Makevars
+** libs
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG -I/usr/include/tcl8.6 -I/usr/include/tcl8.6     -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c tcltkimg.c -o tcltkimg.o
+tcltkimg.c:2:16: fatal error: tk.h: No such file or directory
+ #include <tk.h>
+                ^
+compilation terminated.
+make: *** [tcltkimg.o] Error 1
+ERROR: compilation failed for package ‘tkrplot’
+* removing ‘/tmp/Rtmp4Y6r4W/R-lib/tkrplot’

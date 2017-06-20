@@ -28,9 +28,9 @@ A collection of tests that can be used as examples are located in folder
 \code{/tests/}.  They are a good source of examples of how to use the
 package.
 
-Please see \url{http://code.google.com/p/rexcel/} for a Wiki and the
+Please see \url{https://github.com/dragua/xlsx/} for a Wiki and the
 development version.  To report a bug, use the Issues page at
-\url{https://code.google.com/p/rexcel/issues/list}.  Questions should be
+\url{https://github.com/dragua/xlsx/issues}.  Questions should be
 asked on the dedicated mailing list at
 \url{http://groups.google.com/group/R-package-xlsx}.
 
@@ -41,7 +41,7 @@ asked on the dedicated mailing list at
 
 \dontrun{
 
-require(xlsx)
+library(xlsx)
 
 # example of reading xlsx sheets
 file <- system.file("tests", "test_import.xlsx", package = "xlsx")

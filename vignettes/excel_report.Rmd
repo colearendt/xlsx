@@ -1,0 +1,25 @@
+---
+title: "Build Excel Reports from R"
+author: "Cole Arendt"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+Vignette: >
+  %\VignetteIndexEntry{Build Excel Reports from R}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo=TRUE, collapse=T, comment='#>')
+library(xlsx)
+```
+
+## Building Excel Reports in R
+
+Excel has a lot of buy-in.  This is generally pretty unfortunate, as there are much better tools for data analysis (i.e. \R).  Excel is also not platform-agnostic, so there are difficulties generating Excel reports on non-Windows systems.  However, Java is, and the excellent [Apache POI](https://poi.apache.org/) project provides a nice interface to Excel documents in a platform-agnostic manner.  Further, \R integrates nicely with this project through the `xlsx` package to provide a suite of tools to be used in data science and report generation on any operating system.
+
+# From Scratch
+
+The first step of any report generation from scratch is data preparation.  Suffice it to say that R has many tools to expedite that process.  For instance, the [`tidyverse`](http://tidyverse.org/) provides several packages for getting data into a nice, _tidy_ format for modeling and visualization.  We will presume that you have your data structured the way that you want and focus on getting that presentation into Excel.
+
+## Functional Cell Styles
