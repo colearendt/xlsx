@@ -3,10 +3,11 @@
 #
 
 write.xlsx2 <- function(x, file, sheetName="Sheet1",
-  col.names=TRUE, row.names=TRUE, append=FALSE, ...)
+  col.names=TRUE, row.names=TRUE, append=FALSE,
+  password=NULL, ...)
 {
   if (append && file.exists(file)){
-    wb <- loadWorkbook(file)
+    wb <- loadWorkbook(file, password=password)
   } else {
     ext <- gsub(".*\\.(.*)$", "\\1", basename(file))
     wb  <- createWorkbook(type=ext)
@@ -17,7 +18,7 @@ write.xlsx2 <- function(x, file, sheetName="Sheet1",
     startRow=1, startColumn=1, colStyle=NULL, colnamesStyle=NULL,
     rownamesStyle=NULL)
 
-  saveWorkbook(wb, file)  
+  saveWorkbook(wb, file, password=password)  
   
   invisible()
 }

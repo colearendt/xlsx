@@ -1,8 +1,8 @@
 Package: xlsx
 Type: Package
 Title: Read, write, format Excel 2007 and Excel 97/2000/XP/2003 files
-Version: 0.5.8
-Date: 2015-02-01
+Version: 0.6.0
+Date: 2015-11-29
 Depends: rJava, xlsxjars
 LazyLoad: yes
 Author: Adrian A. Dragulescu
@@ -12,4 +12,8 @@ License: GPL-3
 URL: https://github.com/dragua/rexcel, http://groups.google.com/group/R-package-xlsx
 BugReports: https://github.com/dragua/rexcel/issues
 SystemRequirements: java (>= 1.6)
+Suggests: 
+  testthat,
+  covr,
+  rprojroot
 

@@ -1,1 +1,7 @@
 .Rhistory
+out/
+.Rproj.user
+packrat/lib*/
+packrat/src/
+.Rprofile
+tests/testthat/tmp

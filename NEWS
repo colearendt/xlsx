@@ -1,15 +1,17 @@
 NEWS for package xlsx
 
-Changes in version 0.5.8 (released 2015-02-01)
+Changes in version 0.6.0 (released 2015-11-29)
 
  o Added support to read and write password protected xlsx files.
  Note that this is for xlsx format ONLY (no binary xls format).
- Thanks to Heather Turner for code contribution.  See issue 49.
+ Thanks to Heather Turner for code contribution.  Note that 
+ on Linux LibreOffice does not open password protected workbooks 
+ as of now.  See issue 49.
 
  o Fixed a bug in read.xlsx when an empty rows was triggering an
  error.  Reported by maxnax, see issue 57.
 
- o  
+ o TODO: implement a chart wrapper 
 
 
 Changes in version 0.5.7 (released 2014-08-01)

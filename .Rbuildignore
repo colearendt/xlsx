@@ -3,3 +3,9 @@ resources/.*
 out/.*
 .git/.*
 .gitignore
+^.*\.Rproj$
+^\.Rproj\.user$
+^packrat/
+^\.Rprofile$
+^appveyor\.yml$
+^\.travis\.yml$

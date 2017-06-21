@@ -7,10 +7,10 @@ Write a \code{data.frame} to an Excel workbook.
 }
 \usage{
 write.xlsx(x, file, sheetName="Sheet1", 
-  col.names=TRUE, row.names=TRUE, append=FALSE, showNA=TRUE)
+  col.names=TRUE, row.names=TRUE, append=FALSE, showNA=TRUE, password=NULL)
 
 write.xlsx2(x, file, sheetName="Sheet1",
-  col.names=TRUE, row.names=TRUE, append=FALSE, ...)
+  col.names=TRUE, row.names=TRUE, append=FALSE, password=NULL, ...)
 }
 \arguments{
   \item{x}{a \code{data.frame} to write to the workbook.}
@@ -27,7 +27,7 @@ write.xlsx2(x, file, sheetName="Sheet1",
     be left as empty cells. }
   \item{\ldots}{other arguments to \code{addDataFrame} in the case of
     \code{read.xlsx2}.} 
-
+  \item{password}{a String with the password.}
 }
 
 \details{
@@ -55,6 +55,9 @@ two package options \code{xlsx.date.format} and
 format
 \url{http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html}.
 
+Writing of password protected workbooks is supported for
+Excel 2007 OOXML format only.  Note that in Linux, LibreOffice is not
+able to read password protected spreadsheets. 
 }
 \author{ Adrian Dragulescu }
 \seealso{\code{\link{read.xlsx}} for reading \code{xlsx} documents.
