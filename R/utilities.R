@@ -118,6 +118,7 @@
 # @param Rcolor is a string returned from "colors()" or a hex string
 #   starting with #, e.g. "#FF0000" is red.
 #
+#' @importFrom grDevices col2rgb
 .xssfcolor <- function(Rcolor)
 {
   if (grepl("^#", Rcolor)) {
@@ -136,7 +137,7 @@
 
 #' @title Constants used in the project.
 #' 
-#' Document some Apache POI constants used in the project.
+#' @description Document some Apache POI constants used in the project.
 #' 
 #' @return A named vector.
 #' @author Adrian Dragulescu

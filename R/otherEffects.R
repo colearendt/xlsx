@@ -189,6 +189,9 @@ addMergedRegion <- function(sheet, startRow, endRow, startColumn,
     
   invisible(ind)  
 }
+
+#' @export
+#' @rdname OtherEffects
 removeMergedRegion <- function(sheet, ind)
   .jcall(sheet, "V", as.integer(ind))
 

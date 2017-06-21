@@ -1,6 +1,7 @@
 ######################################################################
 # Deal with Fonts
 #' @export
+#' @rdname Font
 is.Font <- function(x) inherits(x, "Font")
 
 
@@ -43,7 +44,6 @@ is.Font <- function(x) inherits(x, "Font")
 #' @param boldweight a numeric value indicating bold weight.  Normal is 400,
 #' regular bold is 700.
 #' @param x A Font object, as returned by \code{Font}.
-#' @param list() arguments get passed to \code{Font}.
 #' @return \code{Font} returns a list with a java reference to a \code{Font}
 #' object, and a class attribute "Font".
 #' 

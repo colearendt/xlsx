@@ -84,7 +84,7 @@
 #' an existing file.  If \code{TRUE} the file is read from disk.
 #' @param showNA a logical value.  If set to \code{FALSE}, NA values will be
 #' left as empty cells.
-#' @param list() other arguments to \code{addDataFrame} in the case of
+#' @param ... other arguments to \code{addDataFrame} in the case of
 #' \code{read.xlsx2}.
 #' @param password a String with the password.
 #' @author Adrian Dragulescu

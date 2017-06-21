@@ -35,7 +35,7 @@ the type of each column by reading the first row of data.  Only
 are accepted.  Anything else will be coverted to a \code{character} type.
 If the length is less than the number of columns requested, replicate it.}
 
-\item{list()}{other arguments to \code{data.frame}, for example
+\item{...}{other arguments to \code{data.frame}, for example
 \code{stringsAsFactors}}
 }
 \value{

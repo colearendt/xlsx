@@ -4,6 +4,7 @@
 \alias{OtherEffects}
 \alias{addAutoFilter}
 \alias{addMergedRegion}
+\alias{removeMergedRegion}
 \alias{autoSizeColumn}
 \alias{createFreezePane}
 \alias{createSplitPane}
@@ -15,6 +16,8 @@
 addAutoFilter(sheet, cellRange)
 
 addMergedRegion(sheet, startRow, endRow, startColumn, endColumn)
+
+removeMergedRegion(sheet, ind)
 
 autoSizeColumn(sheet, colIndex)
 
@@ -46,6 +49,9 @@ the result is a 1 x 1 cell range. May also be a whole row range (e.g.
 
 \item{endColumn}{a numeric value for the ending column.}
 
+\item{ind}{a numeric value indicating which merged region you want to
+remove.}
+
 \item{colIndex}{a numeric vector specifiying the columns you want to auto
 size.}
 
@@ -74,9 +80,6 @@ ratio.}
 
 \item{denominator}{a numeric value representing the denomiator of the zoom
 ratio.}
-
-\item{ind}{a numeric value indicating which merged region you want to
-remove.}
 }
 \value{
 \code{addMergedRegion} returns a numeric value to label the merged

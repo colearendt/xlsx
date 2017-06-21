@@ -47,7 +47,7 @@
 #' \code{numeric}, \code{character}, \code{Date}, \code{POSIXct}, column types
 #' are accepted.  Anything else will be coverted to a \code{character} type.
 #' If the length is less than the number of columns requested, replicate it.
-#' @param list() other arguments to \code{data.frame}, for example
+#' @param ... other arguments to \code{data.frame}, for example
 #' \code{stringsAsFactors}
 #' @return A data.frame or a list, depending on the \code{as.data.frame}
 #' argument.

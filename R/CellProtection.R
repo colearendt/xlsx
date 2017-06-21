@@ -1,5 +1,6 @@
 ######################################################################
 # Deal with CellProtection
+#' @rdname CellProtection
 #' @export
 is.CellProtection <- function(x) inherits(x, "CellProtection")
 

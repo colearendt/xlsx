@@ -32,7 +32,7 @@ left as empty cells.}
 
 \item{password}{a String with the password.}
 
-\item{list()}{other arguments to \code{addDataFrame} in the case of
+\item{...}{other arguments to \code{addDataFrame} in the case of
 \code{read.xlsx2}.}
 }
 \description{

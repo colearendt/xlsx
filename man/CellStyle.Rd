@@ -41,8 +41,6 @@ getCellStyle(cell)
 \item{cell}{a \code{\link{Cell}} object.}
 
 \item{cellStyle}{a \code{CellStyle} object.}
-
-\item{list()}{arguments to \code{CellStyle.default}.}
 }
 \value{
 \code{createCellStyle} creates a CellStyle object.

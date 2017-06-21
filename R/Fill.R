@@ -1,6 +1,7 @@
 ######################################################################
 # Deal with Fill properties for cells
 #' @export
+#' @rdname Fill
 is.Fill <- function(x) inherits(x, "Fill")
 
 

@@ -9,9 +9,7 @@
 \alias{FILL_STYLES_}
 \alias{CELL_STYLES_}
 \alias{INDEXED_COLORS_}
-\title{Constants used in the project.
-
-Document some Apache POI constants used in the project.}
+\title{Constants used in the project.}
 \format{An object of class \code{numeric} of length 7.}
 \usage{
 HALIGN_STYLES_
@@ -28,6 +26,9 @@ INDEXED_COLORS_
 }
 \value{
 A named vector.
+}
+\description{
+Document some Apache POI constants used in the project.
 }
 \seealso{
 \code{\link{CellStyle}} for using the \code{POI_constants}.

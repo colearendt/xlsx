@@ -57,7 +57,7 @@ shown as text in and not evaluated before bringing them in.}
 
 \item{password}{a String with the password.}
 
-\item{list()}{other arguments to \code{data.frame}, for example
+\item{...}{other arguments to \code{data.frame}, for example
 \code{stringsAsFactors}}
 }
 \value{

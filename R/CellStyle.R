@@ -29,7 +29,6 @@
 #' @param x a \code{CellStyle} object.
 #' @param cell a \code{\link{Cell}} object.
 #' @param cellStyle a \code{CellStyle} object.
-#' @param list() arguments to \code{CellStyle.default}.
 #' @return
 #' 
 #' \code{createCellStyle} creates a CellStyle object.

@@ -70,7 +70,7 @@
 #' \code{NULL}, read all the rows in the sheet.  For \code{read.xlsx} this
 #' argument is active only if \code{rowIndex} is \code{NULL}.
 #' @param password a String with the password.
-#' @param list() other arguments to \code{data.frame}, for example
+#' @param ... other arguments to \code{data.frame}, for example
 #' \code{stringsAsFactors}
 #' @return A data.frame or a list, depending on the \code{as.data.frame}
 #' argument.  If some of the columns are read as NA's it's an indication that
