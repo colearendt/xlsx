@@ -95,7 +95,7 @@
 #'   # set the border on the top row of the Cell Block
 #'   border <-  Border(color="blue", position=c("TOP", "BOTTOM"),
 #'     pen=c("BORDER_THIN", "BORDER_THICK"))
-#'   CB.setBorder(cb, border, 1:1000, 1)
+#'   CB.setBorder(cb, border, 1, 1:1000)
 #' 
 #' 
 #'   # Don't forget to save the workbook ...  

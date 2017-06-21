@@ -104,11 +104,11 @@ it in R.
   rows   <- createRow(sheet1, 1:10)              # 10 rows
   cells  <- createCell(rows, colIndex=1:8)       # 8 columns
 
-  cat("Merge cells \\n")
+  ## Merge cells
   setCellValue(cells[[1,1]], "A title that spans 3 columns")
   addMergedRegion(sheet1, 1, 1, 1, 3)
 
-  cat("Set zoom 2:1 \\n")
+  ## Set zoom 2:1
   setZoom(sheet1, 200, 100)
 
   sheet2 <- createSheet(wb, "Sheet2")

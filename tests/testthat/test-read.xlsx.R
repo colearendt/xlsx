@@ -60,6 +60,14 @@ test_that('works in complex pipeline', {
   test_complex_read.xlsx('xlsx')
 })
 
+test_that('read password protected workbook succeeds', {
+  ## issue #49
+  filename <- test_ref('issue49_password=test.xlsx')
+  df <- read.xlsx(filename, sheetIndex=1, password='test', stringsAsFactors=FALSE)
+  
+  expect_identical(df,data.frame(Values=c(1,2,3),stringsAsFactors=FALSE))
+})
+
 context('read.xlsx2')
 
 test_that('columns of data (as formulas) are not read in as NA', {
@@ -114,9 +122,9 @@ test_that('works in complex pipeline', {
 test_that('read password protected workbook succeeds', {
   ## issue #49
   filename <- test_ref('issue49_password=test.xlsx')
-  df <- read.xlsx2(filename, sheetIndex=1, password='test')
+  df <- read.xlsx2(filename, sheetIndex=1, password='test',stringsAsFactors=FALSE)
   
-  expect_identical(df,data.frame(Values=c('1','2','3')))
+  expect_identical(df,data.frame(Values=c('1','2','3'),stringsAsFactors=FALSE))
 })
 
 context('low-level interface')

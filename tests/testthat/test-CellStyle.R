@@ -36,5 +36,7 @@ test_that('set properly', {
   cells <- createCell(rows, colIndex=1:5) 
   setRowHeight( rows, multiplier=3)
   
+  expect_identical(as.numeric(lapply(rows,.jcall,'T','getHeight')),rep(900,5))
+  
   saveWorkbook(wb, test_tmp("issue43.xlsx"))
 })

@@ -119,7 +119,7 @@ saveWorkbook <- function(wb, file, password=NULL)
   if ( !is.null(password) ) {
     fs <- .jnew("org/apache/poi/poifs/filesystem/POIFSFileSystem")
     encMode <- J("org/apache/poi/poifs/crypt/EncryptionMode", "valueOf", "agile")
-    info <- .jnew("org/apache/poi/poifs/crypt/EncryptionInfo", encMode)
+    info <- .jnew("org/apache/poi/poifs/crypt/EncryptionInfo", fs, encMode)
 
     enc <- info$getEncryptor()
     enc$confirmPassword(password)
@@ -190,7 +190,7 @@ getSheets <- function(wb)
 {
   noSheets <- wb$getNumberOfSheets()
   if (noSheets==0){
-    cat("Workbook has no sheets!\n")
+    message("Workbook has no sheets!")
     return()
   }
   

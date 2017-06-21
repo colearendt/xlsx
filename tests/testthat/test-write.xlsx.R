@@ -24,17 +24,19 @@ context('write.xlsx2')
 
 test_that('write password protected workbook succeeds', {
   ## issue #49
-  skip('Fails on UNIX at present')
-  x <- data.frame(values=c(1,2,3))
+  
+  x <- data.frame(values=c(1,2,3),stringsAsFactors=FALSE)
   filename <- test_tmp('issue49.xlsx')
   
   ## write
-  write.xlsx2(x, filename, password='test')
+  write.xlsx2(x, filename, password='test', row.names=FALSE)
   
   ## read
-  r <- read.xlsx2(filename, sheetIndex = 1, password='test')
+  r <- read.xlsx2(filename, sheetIndex = 1, password='test'
+                  , stringsAsFactors=FALSE
+                  , colClasses = 'numeric')
   
-  expect_identical(df, r)
+  expect_identical(x, r)
 })
 
 context('low-level interface')
@@ -42,4 +44,18 @@ context('low-level interface')
 test_that('works in pipeline', {
   test_basic_export('xls')
   test_basic_export('xlsx')
+})
+
+test_that('password protecting workbook works', {
+  wb <- createWorkbook()
+  s <- createSheet(wb,'test123')
+  addDataFrame(iris,s)
+  
+  filename <- test_tmp('password_test.xlsx')
+  expect_null(saveWorkbook(wb,file=filename,password='test'))
+  
+  wb2 <- loadWorkbook(filename, password='test')
+  
+  expect_identical(names(getSheets(wb2))
+                   , names(getSheets(wb)))
 })

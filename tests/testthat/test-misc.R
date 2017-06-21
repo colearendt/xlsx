@@ -32,7 +32,7 @@ test_that('crashes with memory volume', {
     addDataFrame(x, sheet)
   }
   
-  saveWorkbook(wb, "out/junk.xlsx")
+  saveWorkbook(wb, test_tmp("junk.xlsx"))
   
   options(java.parameters = orig)
 })
