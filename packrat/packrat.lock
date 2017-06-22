@@ -1,22 +1,59 @@
 PackratFormat: 1.4
 PackratVersion: 0.4.8.1
 RVersion: 3.4.0
-Repos: CRAN=https://mirrors.nics.utk.edu/cran/
+Repos: BioCsoft=https://bioconductor.org/packages/3.5/bioc,
+    BioCann=https://bioconductor.org/packages/3.5/data/annotation,
+    BioCexp=https://bioconductor.org/packages/3.5/data/experiment,
+    BioCextra=https://bioconductor.org/packages/3.5/extra,
+    CRAN=https://mirrors.nics.utk.edu/cran/
 
 Package: BH
 Source: CRAN
 Version: 1.62.0-1
 Hash: 14dfb3e8ffe20996118306ff4de1fab2
 
+Package: BiocInstaller
+Source: Bioconductor
+Version: 1.26.0
+Hash: 972ea8eb76c583749fd0dc229f3de85b
+
 Package: R6
 Source: CRAN
 Version: 2.2.1
 Hash: 530f0b839551f96ec991ce4f93156ee1
 
+Package: RCurl
+Source: CRAN
+Version: 1.95-4.8
+Hash: 79c7d5a8684e44e0e3426d3093aa7d90
+Requires: bitops
+
+Package: RJSONIO
+Source: CRAN
+Version: 1.3-0
+Hash: fb672e20eb6f3010a3639f855d8ef6de
+
 Package: Rcpp
 Source: CRAN
 Version: 0.12.11
 Hash: 2ee22f3b5e75dec80b1d8eca61cd96d8
+
+Package: Rd2roxygen
+Source: CRAN
+Version: 1.6.2
+Hash: 6821a91909697971b6da504e731e9e55
+Requires: formatR, roxygen2
+
+Package: RefManageR
+Source: CRAN
+Version: 0.13.1
+Hash: 2b8293052338614c4391242bc59c88ef
+Requires: RCurl, RJSONIO, XML, bibtex, httr, lubridate, plyr, stringr
+
+Package: XML
+Source: CRAN
+Version: 3.98-1.9
+Hash: 02079c4025bbfa0f63400cc0bb414952
 
 Package: assertthat
 Source: CRAN
@@ -28,15 +65,42 @@ Source: CRAN
 Version: 1.1.0
 Hash: 3f754426ca2b7dbbf63951fe5075373b
 
+Package: base64enc
+Source: CRAN
+Version: 0.1-3
+Hash: c590d29e555926af053055e23ee79efb
+
+Package: bibtex
+Source: CRAN
+Version: 0.4.0
+Hash: 1884fc6fc10f47e9c6a77bfd9370b28a
+
+Package: bitops
+Source: CRAN
+Version: 1.0-6
+Hash: 67d0775189fd0041d95abca618c5c07e
+
 Package: brew
 Source: CRAN
 Version: 1.0-6
 Hash: 931f9972deae0f205e1c78a51f33149b
 
+Package: caTools
+Source: CRAN
+Version: 1.17.1
+Hash: 97cb6f6293cd18d17df77a6383cc6763
+Requires: bitops
+
 Package: commonmark
 Source: CRAN
 Version: 1.2
 Hash: 1290583b9d16fb60322126a8698fb729
+
+Package: covr
+Source: CRAN
+Version: 2.2.2
+Hash: 4b7aa8c6847719b64201de2562353c3f
+Requires: crayon, httr, jsonlite, rex, withr
 
 Package: crayon
 Source: CRAN
@@ -66,10 +130,38 @@ Source: CRAN
 Version: 0.6.12
 Hash: e53fb8c58673df868183697e39a6a4d6
 
+Package: evaluate
+Source: CRAN
+Version: 0.10
+Hash: c3601a10c987d439e0c63ec635234a76
+Requires: stringr
+
+Package: formatR
+Source: CRAN
+Version: 1.5
+Hash: 258cf79a8dbeedf1c981cdb53837d2af
+
 Package: git2r
 Source: CRAN
 Version: 0.18.0
 Hash: 9dfaafbcca68be29b89ef7783dc1dac0
+
+Package: highr
+Source: CRAN
+Version: 0.6
+Hash: aa3d5b7912b5fed4b546ed5cd2a1760b
+
+Package: htmltools
+Source: CRAN
+Version: 0.3.6
+Hash: eeba9fb36d4cb6cc66f060187102be41
+Requires: Rcpp, digest
+
+Package: htmlwidgets
+Source: CRAN
+Version: 0.8
+Hash: e7a3c80acddc2412f96d616949e40bb8
+Requires: htmltools, jsonlite, yaml
 
 Package: httr
 Source: CRAN
@@ -82,10 +174,33 @@ Source: CRAN
 Version: 1.5
 Hash: 9c51936d8dd00b2f1d4fe9d10499694c
 
+Package: knitr
+Source: CRAN
+Version: 1.16
+Hash: 3b8dc00d51027c6d041d56bc92136452
+Requires: digest, evaluate, highr, markdown, stringr, yaml
+
+Package: lazyeval
+Source: CRAN
+Version: 0.2.0
+Hash: 3d6e7608e65bbf5cb170dab1e3c9ed8b
+
+Package: lubridate
+Source: CRAN
+Version: 1.6.0
+Hash: b90f4cbefe0b3c545dd68b22c66a8a12
+Requires: stringr
+
 Package: magrittr
 Source: CRAN
 Version: 1.5
 Hash: bdc4d48c3135e8f3b399536ddf160df4
+
+Package: markdown
+Source: CRAN
+Version: 0.8
+Hash: 045d7c594d503b41f1c28946d076c8aa
+Requires: mime
 
 Package: memoise
 Source: CRAN
@@ -108,6 +223,12 @@ Source: CRAN
 Version: 0.4.8-1
 Hash: 6ad605ba7b4b476d84be6632393f5765
 
+Package: plyr
+Source: CRAN
+Version: 1.8.4
+Hash: ec0683cf0ab5494db2eff1f31591624e
+Requires: Rcpp
+
 Package: praise
 Source: CRAN
 Version: 1.0.0
@@ -117,6 +238,24 @@ Package: rJava
 Source: CRAN
 Version: 0.9-8
 Hash: 3e8627a2a5bd45c9bad6112acfc231d9
+
+Package: rex
+Source: CRAN
+Version: 1.1.1
+Hash: 69e208c6283398d235e507a658ba8079
+Requires: lazyeval, magrittr
+
+Package: rlang
+Source: CRAN
+Version: 0.1.1
+Hash: 86c53487ce7f82f0a7cc11c816060910
+
+Package: rmarkdown
+Source: CRAN
+Version: 1.6
+Hash: 40f4034a7b8e28edc2b384bdb0c4d537
+Requires: base64enc, caTools, evaluate, htmltools, jsonlite, knitr,
+    rprojroot, stringr, yaml
 
 Package: roxygen2
 Source: CRAN
@@ -147,11 +286,22 @@ Version: 1.2.0
 Hash: 25a86d7f410513ebb7c0bc6a5e16bdc3
 Requires: magrittr, stringi
 
+Package: survival
+Source: CRAN
+Version: 2.41-3
+Hash: db4930fd2dbaff5a78b71832aea4b50d
+
 Package: testthat
 Source: CRAN
 Version: 1.0.2
 Hash: 88d5291104227f9dc2e7c7c1d0eb6c74
 Requires: R6, crayon, digest, magrittr, praise
+
+Package: tibble
+Source: CRAN
+Version: 1.3.3
+Hash: cff4362530fb71e27b84a02054bcb315
+Requires: Rcpp, rlang
 
 Package: whisker
 Source: CRAN
@@ -174,3 +324,13 @@ Source: CRAN
 Version: 1.1.1
 Hash: 35dbee121bb8d76347677290ba1c6a06
 Requires: BH, Rcpp
+
+Package: xtable
+Source: CRAN
+Version: 1.8-2
+Hash: 7293235cfcc14cdff1ce7fd1a0212031
+
+Package: yaml
+Source: CRAN
+Version: 2.1.14
+Hash: c81230c3a7d9ba20607ad6b4331173d1
