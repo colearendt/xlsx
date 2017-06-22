@@ -2,58 +2,59 @@
 title: "Build Excel Reports from R"
 author: "Adrian A. Dragulescu"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: true
 Vignette: >
-  % \VignetteIndexEntry{Read, write, format Excel 2007 (xlsx) files} 
-  % \VignetteEngine{knitr::rmarkdown}
-  % \VignetteDepends{}
-  % \VignetteKeywords{spreadsheet, Excel 2007, java}
-  % \VignettePackage{xlsx}
+  %\VignetteIndexEntry{Read, write, format Excel 2007 (xlsx) files} 
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteKeywords{spreadsheet, Excel 2007, java}
+  %\VignettePackage{xlsx}
 abstract: The `xlsx` package provides tools neccessary to interact with 
-  Excel 2007 files from `R`.  The user can read and write xlsx files, and
+  Excel 2007 files from R.  The user can read and write xlsx files, and
   can control the appearance of the spreadsheet by setting data formats,
   fonts, colors, borders.  Set the print area, the zoom control, create 
   split and freeze panels, adding headers and footers.  The package uses
   a java library from the Apache POI project. 
-bibliography: xlsx.bib
 ---
 
 ```{r setup, echo=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo=TRUE, collapse=T, comment='#>')
-library(xlsx)
+library(RefManageR)
+bib <- ReadBib('xlsx.bib')
+BibOptions(check.entries = FALSE, style = "markdown", cite.style = "numeric",bib.style = "numeric")
 ```
 
 # Introduction
 
 The package `xlsx` makes possible to interact with Excel
-2007 files from [-@R].  While a power `R` user usually does not need to
+2007 files from R `r Cite(bib,'R-base')`.  While a power R user usually does not need to
 use Excel or even avoids it altogether, there are cases when being
-able to generate Excel output or read Excel files into `R` is a must.
+able to generate Excel output or read Excel files into R is a must.
 One such case is in an office environment when you need to collaborate
 with co-workers who use Excel as their primary tool.  Another case is
 to use Excel for basic reporting of results.  For moderate data sets,
 the formatting capabilities of Excel can prove useful.  A flexible way
-to manipulate Excel 2007 xlsx files from `R` would then be a nice
+to manipulate Excel 2007 xlsx files from R would then be a nice
 addition.
 
 The `xlsx` package focuses on Excel 2007 because for Excel 97
-there are already several solutions, `RODBC`\cite{RODBC},
-`xlsReadWrite`\cite{xlsReadWrite},
-`RExcelInstaller`\cite{RExcelInstaller}, etc.  While some of
+there are already several solutions, `RODBC` `r Cite(bib,'RODBC')`, `readxl``r Cite(bib,'readxl')`, etc.  While some of
 these packages work with Excel 2007 files too, the contribution of the
 `xlsx` package is different.
 
 The xlsx Excel 2007 file format is essentially a zipped set of xml
-files.  It is possible to interact directly with these files from `R`
-as shown by the package `RExcelXML`\cite{RExcelXML}.  All the
+files.  It is possible to interact directly with these files from R
+as shown by the package `RExcelXML``r Cite(bib,'RExcelXML')`.  All the
 functionality of the `xlsx` package can be replicated with
 `RExcelXML` package or by extending it.  Working directly with
 the zipped xml files, and using the xml schema to extract the useful
-information into `R` gives you ultimate control. 
+information into R gives you ultimate control. 
 
 The approach taken in the `xlsx` package is to use a proven,
 existing API between Java and Excel 2007 and use the `rJava`
-\cite{rJava} package to link Java and `R`.  The advantage of this
+`r Cite(bib,'rJava')` package to link Java and R.  The advantage of this
 approach is that the code on the R side is very compact, easy to
 maintain, and easy to extend even for people with little Java
 experience.  All the heavy lifting of parsing XML schemas is being
@@ -69,7 +70,7 @@ for manipulating various file formats based upon the Office Open XML
 standards (OOXML) and Microsoft's OLE 2 Compound Document format
 (OLE2).  These include Excel, Word, and PowerPoint documents.  While
 the focus of the `xlsx` package has been only on Excel files, if
-there is interest in the `R` community, it can be easily extended for
+there is interest in the R community, it can be easily extended for
 Word and PowerPoint documents. 
 
 # High level API
@@ -89,7 +90,7 @@ panels, set print area, set the zoom, etc.
 
 Use `PrintSetup` for customizing the settings for printing. 
 
-### Cell Formatting
+## Cell Formatting
 
 See `CellStyle` for how to format a particular cell. 
 
@@ -97,8 +98,12 @@ Use `Font` to set a font.
 
 # Conclusion
 
-By adding a lightweight `R` layer on top of the Apache project Java
+By adding a lightweight R layer on top of the Apache project Java
 interface to Excel 2007 documents, we achieve a multi-platform
-solution for interacting with Excel 2007 file formats from `R`.  
+solution for interacting with Excel 2007 file formats from R.  
 
 # References
+
+```{r results = "asis", echo = FALSE}
+PrintBibliography(bib, .opts = list(check.entries = FALSE, sorting = "ynt"))
+```
