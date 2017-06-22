@@ -2,6 +2,10 @@
 [![Travis-CI Build Status](https://travis-ci.org/colearendt/xlsx.svg?branch=master)](https://travis-ci.org/colearendt/xlsx)
 [![CRAN Version](http://www.r-pkg.org/badges/version-last-release/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
 
+[![codecov.io](https://codecov.io/github/colearendt/xlsx/coverage.svg?branch=master)](https://codecov.io/github/colearendt/xlsx?branch=master)
+[![CRAN Activity](http://cranlogs.r-pkg.org/badges/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
+[![CRAN History](http://cranlogs.r-pkg.org/badges/grand-total/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
+
 xlsx
 ========
 
@@ -10,7 +14,7 @@ xlsx
 The package provides R functions to read, write, and format Excel files.  It depends 
 on Java, but this makes it available on most operating systems. 
 
-### Install
+## Install
 
 Stable version from CRAN
 
@@ -23,6 +27,18 @@ Or development version from GitHub
 ```r
 devtools::install_github('dragua/xlsx')
 ```
+
+## Common Problems
+
+This package depends on Java and the [`rJava`](https://www.rforge.net/rJava/) package to make the connection between R and Java seamless.  In order to use the `xlsx` package, you will need to:
+
+- Ensure you have a `jdk` (Java Development Kit, version >= 1.5) installed for your Operating System.  More information can be found on [Oracle's website](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+
+- Ensure that the system environment variable `JAVA_HOME` is configured appropriately and points to your `jdk` of choice.  Typically, this will be included in your `PATH` environment variable as well.  Options and system environmental variables that are available from `R` can be seen with `Sys.getenv()`
+
+- Particularly on UNIX systems, if you continue experiencing issues, you may need to reconfigure `R`'s support for Java on your system.  From a terminal, use the command `R CMD javareconf`.  You may need to run this as root or prepended with `sudo` to ensure it has appropriate permission.
+
+More detail can be found in the [`rJava` docs](https://www.rforge.net/rJava/).
 
 ## Quick start
 
@@ -65,11 +81,9 @@ saveWorkbook(wb,'iris_pretty.xlsx')
 
 ## Issues/Mailing list
 
-To report a bug, use the Issues page at 
-[issues](https://github.com/dragua/xlsx/issues): https://github.com/dragua/xlsx/issues
+To report a bug, use the Issues page at: https://github.com/dragua/xlsx/issues
 
-Questions should be asked on the dedicated mailing
-[list](http://groups.google.com/group/R-package-xlsx): http://groups.google.com/group/R-package-xlsx
+Questions should be asked on the dedicated [mailing list](http://groups.google.com/group/R-package-xlsx)
 
 ## Acknowledgements
 
