@@ -12,9 +12,12 @@ License: GPL-3
 URL: https://github.com/dragua/xlsx, http://groups.google.com/group/R-package-xlsx
 BugReports: https://github.com/dragua/xlsx/issues
 SystemRequirements: java (>= 1.6)
-Suggests: 
+Suggests:
   testthat,
   covr,
   rprojroot,
-  tibble
+  tibble,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr

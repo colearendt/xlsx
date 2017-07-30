@@ -6,3 +6,4 @@ packrat/src/
 .Rprofile
 tests/testthat/tmp
 /revdep/.cache.rds
+inst/doc

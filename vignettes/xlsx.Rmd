@@ -9,6 +9,7 @@ output:
 Vignette: >
   %\VignetteIndexEntry{Read, write, format Excel 2007 (xlsx) files} 
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
   %\VignetteKeywords{spreadsheet, Excel 2007, java}
   %\VignettePackage{xlsx}
 abstract: The `xlsx` package provides tools neccessary to interact with 
