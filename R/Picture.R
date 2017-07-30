@@ -1,6 +1,3 @@
-# functions to work with binary plots
-#
-
 #' Functions to manipulate images in a spreadsheet.
 #' 
 #' For now, the following image types are supported: dib, emf, jpeg, pict, png,

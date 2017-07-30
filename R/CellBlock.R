@@ -1,9 +1,3 @@
-# Cell Block functionality.  This is to be used when writing to a spreadsheet. 
-#
-#
-
-
-
 #' Create and style a block of cells.
 #' 
 #' Functions to create and style (not read) a block of cells.  Use it to

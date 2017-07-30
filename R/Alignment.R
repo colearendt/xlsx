@@ -1,8 +1,3 @@
-######################################################################
-# Create an Alignment. 
-#
-
-
 #' Create an Alignment object.
 #' 
 #' Create an Alignment object, useful when working with cell styles.

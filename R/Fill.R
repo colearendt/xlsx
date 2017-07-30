@@ -1,14 +1,7 @@
-######################################################################
-# Deal with Fill properties for cells
+
 #' @export
 #' @rdname Fill
 is.Fill <- function(x) inherits(x, "Fill")
-
-
-######################################################################
-# Create a Fill.
-#  - colors is an R color string.
-#
 
 
 #' Create an Fill object.

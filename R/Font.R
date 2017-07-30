@@ -1,14 +1,6 @@
-######################################################################
-# Deal with Fonts
 #' @export
 #' @rdname Font
 is.Font <- function(x) inherits(x, "Font")
-
-
-######################################################################
-# Create a Font.  It needs a workbook object!
-#  - color is an R color string.
-#
 
 
 #' Create a Font object.

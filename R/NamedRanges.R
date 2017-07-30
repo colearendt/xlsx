@@ -1,4 +1,3 @@
-
 #' Functions to manipulate (contiguous) named ranges.
 #' 
 #' These functions are provided for convenience only.  Use directly the Java

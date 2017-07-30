@@ -1,4 +1,3 @@
-
 #' Functions to manipulate cells.
 #' 
 #' Functions to manipulate cells.

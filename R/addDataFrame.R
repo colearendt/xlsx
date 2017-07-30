@@ -1,13 +1,3 @@
-# Add a data.frame to a sheet
-#
-# colStyle can be a structure of CellStyle with names representing column
-#  index.  
-#
-# I shouldn't offer to change the data for the user, with characterNA="",
-# they should do it themselves.  It's not that hard!
-#
-
-
 #' Add a \code{data.frame} to a sheet.
 #' 
 #' Add a \code{data.frame} to a sheet, allowing for different column styles.

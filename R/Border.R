@@ -1,11 +1,3 @@
-
-
-######################################################################
-# Create a Border.  It needs a workbook object!
-#  - color is an R color string.
-#
-
-
 #' Create an Border object.
 #' 
 #' Create an Border object, useful when working with cell styles.
@@ -57,8 +49,6 @@ Border <- function(color="black", position="BOTTOM", pen="BORDER_THIN")
             class="Border")
 }
 
-######################################################################
-# Deal with Borders
 #' @export
 #' @rdname Border
 is.Border <- function(x) inherits(x, "Border")
