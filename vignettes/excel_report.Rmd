@@ -6,7 +6,9 @@ output: rmarkdown::html_vignette
 Vignette: >
   %\VignetteIndexEntry{Build Excel Reports from R}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteKeywords{spreadsheet, Excel, java, report}
+  %\VignettePackage{xlsx}
 ---
 
 ```{r setup, echo=FALSE, message=FALSE}
