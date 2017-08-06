@@ -100,7 +100,7 @@ addDataFrame(mydata, sh
              , row.names = FALSE
              , startRow = workrow
              , startColumn = 1 
-             , colStyle = NULL #setNames(cslist,1:10)
+             , colStyle = setNames(cslist,1:numbercol)
              , colnamesStyle = CellStyle(wb) + f$subtitle + alignCenter + fillPrimary
              )
 
@@ -113,7 +113,7 @@ addDataFrame(mydata[1,], sh
              , row.names=FALSE
              , startRow = workrow
              , startColumn = 1
-             , colStyle = setNames(lapply(cslist,function(x){x + fillSecondary}),1:10)
+             , colStyle = setNames(lapply(cslist,function(x){x + fillSecondary}),1:numbercol)
              )
 
 saveWorkbook(wb, 'excel_report.xlsx')
