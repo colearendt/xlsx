@@ -55,10 +55,15 @@ fillSecondary <- Fill('#ff6666','#ff6666','SOLID_FOREGROUND')
 
 Once we have defined such standard cell-styles, it is straightforward to use them with the additive CellStyle framework.
 
-```{r build_report}
+```{r prep_for_report, include=FALSE}
+## todo: fix the xlsx jars being available when generating vignette
+.jaddClassPath(rprojroot::is_r_package$find_file('inst/java/rexcel-0.5.1.jar'))
+```
+
+```{r build_report, results='hide'}
 ## The dataset
-numbercol <- 10
-mydata <- as.data.frame(lapply(1:numbercol,function(x){runif(30, 0,200)}))
+numbercol <- 9
+mydata <- as.data.frame(lapply(1:numbercol,function(x){runif(15, 0,200)}))
 mydata <- setNames(mydata,paste0('col',1:numbercol))
 
 ## Build report
@@ -90,19 +95,19 @@ cslist[1:2] <- lapply(cslist[1:2], function(x){x + alignLeft}) ## left align fir
 ## add data
 workrow <- 4
 
-## the xlsx jars are not available... need to fix
 addDataFrame(mydata, sh
              , col.names=TRUE
              , row.names = FALSE
              , startRow = workrow
              , startColumn = 1 
              , colStyle = NULL #setNames(cslist,1:10)
-             , colnamesStyle = NULL ## CellStyle(wb) + f$subtitle + alignCenter + fillPrimary
+             , colnamesStyle = CellStyle(wb) + f$subtitle + alignCenter + fillPrimary
              )
 
 workrow <- workrow + nrow(mydata) + 1 ## + 1 for header
 
-## add total row... sorta
+## add total row... sorta 
+## - (just the first row because I am lazy)
 addDataFrame(mydata[1,], sh
              , col.names=FALSE
              , row.names=FALSE
@@ -110,4 +115,13 @@ addDataFrame(mydata[1,], sh
              , startColumn = 1
              , colStyle = setNames(lapply(cslist,function(x){x + fillSecondary}),1:10)
              )
+
+saveWorkbook(wb, 'excel_report.xlsx')
+
 ```
+
+Once you get used to some of the verbosity, the elegance of automatically creating nicely formatted Excel reports on a UNIX platform from R begins to shine.  Further, with a bit of work implementing an R API, we get the benefit of a robust Java community debugging issues behind the scenes at Apache.  If you would like to contribute on improving the R API and adding functionality, you can do so [on github](https://github.com/dragua/xlsx).
+
+![Our Beautiful Report](`r rprojroot::is_r_package$find_file('vignettes/excel_report.png')`)
+
+Bonus: you can even customize print formatting and a whole host of other things!  There is more to come on that.
