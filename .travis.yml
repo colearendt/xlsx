@@ -22,6 +22,7 @@ before_script:
 - java -version
 - echo PATH=$PATH
 - echo JAVA_HOME=$JAVA_HOME
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo R CMD javareconf ; fi
 
 after_success:
 - Rscript -e 'covr::codecov()'
