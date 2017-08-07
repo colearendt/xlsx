@@ -1,6 +1,6 @@
 PackratFormat: 1.4
 PackratVersion: 0.4.8.1
-RVersion: 3.4.0
+RVersion: 3.4.1
 Repos: CRAN=https://mirrors.nics.utk.edu/cran/
 
 Package: BH

@@ -41,7 +41,7 @@
 #' wb <- createWorkbook()
 #' 
 #' # see all the available java methods that you can call
-#' .jmethods(wb)
+#' rJava::.jmethods(wb)
 #' 
 #' # for example
 #' wb$getNumberOfSheets()   # no sheet yet!
@@ -172,7 +172,7 @@ saveWorkbook <- function(wb, file, password=NULL)
 #' sheet  <- sheets[[2]]  # extract the second sheet
 #' 
 #' # see all the available java methods that you can call
-#' .jmethods(sheet)
+#' rJava::.jmethods(sheet)
 #' 
 #' # for example
 #' sheet$getLastRowNum()

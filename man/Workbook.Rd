@@ -50,7 +50,7 @@ password protected spreadsheets.
 wb <- createWorkbook()
 
 # see all the available java methods that you can call
-.jmethods(wb)
+rJava::.jmethods(wb)
 
 # for example
 wb$getNumberOfSheets()   # no sheet yet!

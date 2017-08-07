@@ -37,7 +37,7 @@
 #' ranges[[1]]$getNameName()  # get its name
 #' 
 #' # see all the available java methods that you can call
-#' .jmethods(ranges[[1]])
+#' rJava::.jmethods(ranges[[1]])
 #' 
 #' # create a new named range
 #' firstCell <- sheet$getRow(14L)$getCell(4L)

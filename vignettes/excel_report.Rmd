@@ -13,6 +13,7 @@ Vignette: >
 
 ```{r setup, echo=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo=TRUE, collapse=T, comment='#>')
+library(rJava)
 library(xlsx)
 ```
 
@@ -57,7 +58,7 @@ Once we have defined such standard cell-styles, it is straightforward to use the
 
 ```{r prep_for_report, include=FALSE}
 ## todo: fix the xlsx jars being available when generating vignette
-.jaddClassPath(rprojroot::is_r_package$find_file('inst/java/rexcel-0.5.1.jar'))
+#.jaddClassPath(rprojroot::is_r_package$find_file('inst/java/rexcel-0.5.1.jar'))
 ```
 
 ```{r build_report, results='hide'}

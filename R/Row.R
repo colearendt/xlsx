@@ -28,7 +28,7 @@
 #' rows  <- getRows(sheet)  # get all the rows
 #' 
 #' # see all the available java methods that you can call
-#' .jmethods(rows[[1]])
+#' rJava::.jmethods(rows[[1]])
 #' 
 #' # for example
 #' rows[[1]]$getRowNum()   # zero based index in Java
