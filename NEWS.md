@@ -2,6 +2,10 @@
 
 ## xlsx 0.6.0.9000
 
+- Export the S3 method for CellBlock
+
+- Do not depend (just import) rJava and xlsxjars
+
 ### Bug Fixes
 
 - Password protected files now work on Linux variants

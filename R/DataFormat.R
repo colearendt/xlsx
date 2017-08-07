@@ -47,4 +47,3 @@ DataFormat <- function(x)
 #' @rdname DataFormat
 is.DataFormat <- function(df) inherits(df, "DataFormat")
 
-

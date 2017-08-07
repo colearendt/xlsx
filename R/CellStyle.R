@@ -298,4 +298,3 @@ getCellStyle <- function(cell)
   cs
 }
 
-

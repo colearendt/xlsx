@@ -1,4 +1,3 @@
-
 #' @export
 #' @rdname Fill
 is.Fill <- function(x) inherits(x, "Fill")

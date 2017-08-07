@@ -1,5 +1,4 @@
 # .guess_cell_type
-# .onAttach
 # .onLoad
 # .Rcolor2XLcolor
 # .splitBlocks
@@ -37,9 +36,10 @@
 
 ####################################################################
 #
-.onAttach <- function(libname, pkgname)
+.onLoad <- function(libname, pkgname)
 {
-  .jpackage(pkgname)  # needed to load RInterface.java
+  rJava::.jpackage("xlsxjars")
+  rJava::.jpackage(pkgname)  # needed to load RInterface.java
   
   # what's your java  version?  Need > 1.5.0.
   jversion <- .jcall('java.lang.System','S','getProperty','java.version')
@@ -49,14 +49,6 @@
   
   wb <- createWorkbook()   # load/initialize jars here as it takes 
   rm(wb)                   # a few seconds ...
- }
-
-
-####################################################################
-#
-.onLoad <- function(libname, pkgname)
-{
-  .jpackage("xlsxjars")
   
   options(xlsx.date.format = "m/d/yyyy")   # e.g. 3/18/2013
   options(xlsx.datetime.format = "m/d/yyyy h:mm:ss")  # e.g. 3/18/2013 05:25:51
