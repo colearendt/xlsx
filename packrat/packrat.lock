@@ -1,12 +1,21 @@
 PackratFormat: 1.4
 PackratVersion: 0.4.8.1
 RVersion: 3.4.1
-Repos: CRAN=https://mirrors.nics.utk.edu/cran/
+Repos: BioCsoft=https://bioconductor.org/packages/3.5/bioc,
+    BioCann=https://bioconductor.org/packages/3.5/data/annotation,
+    BioCexp=https://bioconductor.org/packages/3.5/data/experiment,
+    BioCextra=https://bioconductor.org/packages/3.5/extra,
+    CRAN=https://mirrors.nics.utk.edu/cran/
 
 Package: BH
 Source: CRAN
 Version: 1.62.0-1
 Hash: 14dfb3e8ffe20996118306ff4de1fab2
+
+Package: BiocInstaller
+Source: Bioconductor
+Version: 1.26.0
+Hash: 972ea8eb76c583749fd0dc229f3de85b
 
 Package: R6
 Source: CRAN
@@ -148,6 +157,12 @@ Version: 0.3.6
 Hash: eeba9fb36d4cb6cc66f060187102be41
 Requires: Rcpp, digest
 
+Package: htmlwidgets
+Source: CRAN
+Version: 0.8
+Hash: e7a3c80acddc2412f96d616949e40bb8
+Requires: htmltools, jsonlite, yaml
+
 Package: httr
 Source: CRAN
 Version: 1.2.1
@@ -271,6 +286,11 @@ Version: 1.2.0
 Hash: 25a86d7f410513ebb7c0bc6a5e16bdc3
 Requires: magrittr, stringi
 
+Package: survival
+Source: CRAN
+Version: 2.41-3
+Hash: db4930fd2dbaff5a78b71832aea4b50d
+
 Package: testthat
 Source: CRAN
 Version: 1.0.2
@@ -304,6 +324,11 @@ Source: CRAN
 Version: 1.1.1
 Hash: 35dbee121bb8d76347677290ba1c6a06
 Requires: BH, Rcpp
+
+Package: xtable
+Source: CRAN
+Version: 1.8-2
+Hash: 7293235cfcc14cdff1ce7fd1a0212031
 
 Package: yaml
 Source: CRAN
