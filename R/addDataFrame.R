@@ -97,6 +97,13 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
       haveNA <- is.na(aux)
       if (any(haveNA))
         aux[haveNA] <- characterNA
+
+      # Excel max cell size limit 
+      if (max(nchar(aux)) > EXCEL_LIMIT_MAX_CHARS_IN_CELL) {
+          warning(sprintf("Some cells exceed Excel's limit of %d characters and they will be truncated", 
+                          EXCEL_LIMIT_MAX_CHARS_IN_CELL))
+          aux <- strtrim(aux, EXCEL_LIMIT_MAX_CHARS_IN_CELL)   
+      }
     }
 #browser()
    .jcall( cellBlock$ref, "V", setDataMethod,
