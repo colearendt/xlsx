@@ -70,10 +70,13 @@ write.xlsx <- function(x, file, sheetName="Sheet1",
   if (row.names)             # add rownames to data x                   
     x <- cbind(rownames=rownames(x), x)
   
-  colIndex <- seq_len(ncol(x))
-  rowIndex <- seq_len(nrow(x)) + iOffset
+  if (nrow(x) > 0) {
+    colIndex <- seq_len(ncol(x))
+    rowIndex <- seq_len(nrow(x)) + iOffset
+    
+    .write_block(wb, sheet, x, rowIndex, colIndex, showNA)
+  }
   
-  .write_block(wb, sheet, x, rowIndex, colIndex, showNA)
   saveWorkbook(wb, file)
 
   invisible()
