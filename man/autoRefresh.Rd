@@ -13,6 +13,8 @@ forcePivotTableRefresh(file, output = NULL, verbose = TRUE)
 \item{file}{the path of the source file where formulae/pivot table needs to be refreshed}
 
 \item{output}{the path of the output file.  If it is \code{NULL} then the source file will be overwritten}
+
+\item{verbose}{Whether to make logging more verbose}
 }
 \value{
 Does not return any results

@@ -30,6 +30,7 @@
 #' 
 #' @param file the path of the source file where formulae/pivot table needs to be refreshed
 #' @param output the path of the output file.  If it is \code{NULL} then the source file will be overwritten
+#' @param verbose Whether to make logging more verbose
 #' 
 #' @return Does not return any results
 #' 
