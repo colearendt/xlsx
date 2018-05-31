@@ -64,6 +64,8 @@
 #' 
 #' @import rJava
 #' @import xlsxjars
+#' @importFrom utils unzip
+#' @importFrom utils zip
 #' @name xlsx-package
 NULL
 
