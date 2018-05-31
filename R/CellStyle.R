@@ -180,42 +180,10 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
 ## setCellStyle <- function(x, cellStyle, ...)
 ##   UseMethod("setCellStyle", x)
   
-######################################################################
-# Set the cell style for one cell. 
-# Only one cell and one value.
-#
-#' @export
-#' @rdname CellStyle
-setCellStyle <- function(cell, cellStyle)
-{
-  .jcall(cell, "V", "setCellStyle", cellStyle$ref)
-  invisible(NULL)
-}
-
-## # for a CellBlock  - NOT USED FOR NOW
-## setCellStyle.CellBlock <- function(cellBlock, cellStyle, rowIndex=NULL,
-##   colIndex=NULL)
-## {
-##   if (is.null(rowIndex) & is.null(colIndex)) {
-##     cellBlock$setCellStyle( style )   # apply it to all the cells 
-##   } else {
-##     cellBlock$setCellStyle( style, .jarray( as.integer( rowIndex-1L ) ),
-##       .jarray( as.integer( colIndex-1L ) ) )
-##   }
     
 ##   invisible()
 ## }
 
-
-######################################################################
-# Get the cell style for one cell. 
-# Only one cell and one value.
-#' @export
-#' @rdname CellStyle
-getCellStyle <- function(cell)
-{ 
-  .jcall(cell,  "Lorg/apache/poi/ss/usermodel/CellStyle;", "getCellStyle")
-}
 
 
 
@@ -296,5 +264,38 @@ getCellStyle <- function(cell)
   }
   
   cs
+}
+
+######################################################################
+# Set the cell style for one cell. 
+# Only one cell and one value.
+#
+#' @export
+#' @rdname CellStyle
+setCellStyle <- function(cell, cellStyle)
+{
+  .jcall(cell, "V", "setCellStyle", cellStyle$ref)
+  invisible(NULL)
+}
+
+## # for a CellBlock  - NOT USED FOR NOW
+## setCellStyle.CellBlock <- function(cellBlock, cellStyle, rowIndex=NULL,
+##   colIndex=NULL)
+## {
+##   if (is.null(rowIndex) & is.null(colIndex)) {
+##     cellBlock$setCellStyle( style )   # apply it to all the cells 
+##   } else {
+##     cellBlock$setCellStyle( style, .jarray( as.integer( rowIndex-1L ) ),
+##       .jarray( as.integer( colIndex-1L ) ) )
+##   }
+
+######################################################################
+# Get the cell style for one cell. 
+# Only one cell and one value.
+#' @export
+#' @rdname CellStyle
+getCellStyle <- function(cell)
+{ 
+  .jcall(cell,  "Lorg/apache/poi/ss/usermodel/CellStyle;", "getCellStyle")
 }
 
