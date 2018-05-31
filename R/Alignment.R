@@ -1,3 +1,9 @@
+######################################################################
+# Deal with Alignment
+#' @export
+#' @rdname Alignment
+is.Alignment <- function(x) inherits(x, "Alignment")
+
 #' Create an Alignment object.
 #' 
 #' Create an Alignment object, useful when working with cell styles.
@@ -42,8 +48,3 @@ Alignment <- function(horizontal=NULL, vertical=NULL, wrapText=FALSE,
     class="Alignment")  
 }
 
-######################################################################
-# Deal with Alignment
-#' @export
-#' @rdname Alignment
-is.Alignment <- function(x) inherits(x, "Alignment")
