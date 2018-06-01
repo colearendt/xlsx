@@ -17,7 +17,6 @@ cache:
 
 before_build:
   - SET JAVA_HOME=C:\Program Files (x86)\Java\jdk1.8.0
-  - SET PATH=%PATH%:%JAVA_HOME%\bin:%JAVA_HOME%\jre\bin
   - echo JAVA_HOME=%JAVA_HOME%
   - echo PATH=%PATH%
 
@@ -30,6 +29,7 @@ test_script:
 on_failure:
   - travis-tool.sh dump_logs
   - 7z a failure.zip *.Rcheck\*
+  - appveyor PushArtifact failure.zip
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
