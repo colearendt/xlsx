@@ -1,0 +1,2 @@
+ERROR: dependency ‘Hmisc’ is not available for package ‘DESeq2’
+* removing ‘/tmp/RtmpfRswfl/R-lib/DESeq2’

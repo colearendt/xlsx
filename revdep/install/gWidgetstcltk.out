@@ -1,0 +1,13 @@
+* installing *source* package ‘gWidgetstcltk’ ...
+** package ‘gWidgetstcltk’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** tests
+** preparing package for lazy loading
+Warning in fun(libname, pkgname) : couldn't connect to display ":0"
+Error in structure(.External(.C_dotTclObjv, objv), class = "tclObj") : 
+  [tcl] invalid command name "font".
+
+Error : unable to load R code in package ‘gWidgetstcltk’
+ERROR: lazy loading failed for package ‘gWidgetstcltk’
+* removing ‘/tmp/RtmpfRswfl/R-lib/gWidgetstcltk’
