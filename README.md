@@ -32,4 +32,11 @@ To write a data.frame to a spreadsheet
 write.xlsx2(iris, file='C:/temp/iris.xlsx')
 ```
 
+## Issues/Mailing list
+
+To report a bug, use the Issues page at [issues]
+[issues]: https://github.com/dragua/xlsx/issues
+
+Questions should be asked on the dedicated mailing [list]
+[list]: http://groups.google.com/group/R-package-xlsx
 

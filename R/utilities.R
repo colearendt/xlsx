@@ -1,5 +1,4 @@
 # .guess_cell_type
-# .onAttach
 # .onLoad
 # .Rcolor2XLcolor
 # .splitBlocks
@@ -37,9 +36,10 @@
 
 ####################################################################
 #
-.onAttach <- function(libname, pkgname)
+.onLoad <- function(libname, pkgname)
 {
-  .jpackage(pkgname)  # needed to load RInterface.java
+  rJava::.jpackage("xlsxjars")
+  rJava::.jpackage(pkgname)  # needed to load RInterface.java
   
   # what's your java  version?  Need > 1.5.0.
   jversion <- .jcall('java.lang.System','S','getProperty','java.version')
@@ -49,14 +49,6 @@
   
   wb <- createWorkbook()   # load/initialize jars here as it takes 
   rm(wb)                   # a few seconds ...
- }
-
-
-####################################################################
-#
-.onLoad <- function(libname, pkgname)
-{
-  .jpackage("xlsxjars")
   
   options(xlsx.date.format = "m/d/yyyy")   # e.g. 3/18/2013
   options(xlsx.datetime.format = "m/d/yyyy h:mm:ss")  # e.g. 3/18/2013 05:25:51
@@ -180,92 +172,3 @@
     ,'AUTOMATIC')
   
                    
-
-
-
-# probably should use
-# .jfield("org.apache.poi.ss.usermodel.CellStyle", NULL, "ALIGN_CENTER") # 2
-## CELL_STYLES <- function(x) {
-## }
-
- 
-
-
-##   aux <- 
-##    "BLACK(8),
-##     WHITE(9),
-##     RED(10),
-##     BRIGHT_GREEN(11),
-##     BLUE(12),
-##     YELLOW(13),
-##     PINK(14),
-##     TURQUOISE(15),
-##     DARK_RED(16),
-##     GREEN(17),
-##     DARK_BLUE(18),
-##     DARK_YELLOW(19),
-##     VIOLET(20),
-##     TEAL(21),
-##     GREY_25_PERCENT(22),
-##     GREY_50_PERCENT(23),
-##     CORNFLOWER_BLUE(24),
-##     MAROON(25),
-##     LEMON_CHIFFON(26),
-##     ORCHID(28),
-##     CORAL(29),
-##     ROYAL_BLUE(30),
-##     LIGHT_CORNFLOWER_BLUE(31),
-##     SKY_BLUE(40),
-##     LIGHT_TURQUOISE(41),
-##     LIGHT_GREEN(42),
-##     LIGHT_YELLOW(43),
-##     PALE_BLUE(44),
-##     ROSE(45),
-##     LAVENDER(46),
-##     TAN(47),
-##     LIGHT_BLUE(48),
-##     AQUA(49),
-##     LIME(50),
-##     GOLD(51),
-##     LIGHT_ORANGE(52),
-##     ORANGE(53),
-##     BLUE_GREY(54),
-##     GREY_40_PERCENT(55),
-##     DARK_TEAL(56),
-##     SEA_GREEN(57),
-##     DARK_GREEN(58),
-##     OLIVE_GREEN(59),
-##     BROWN(60),
-##     PLUM(61),
-##     INDIGO(62),
-##     GREY_80_PERCENT(63),
-##     AUTOMATIC(64)"
-## bux <- gsub("^ *", "", strsplit(aux, ",\n")[[1]])
-## fields <- paste(gsub("(.*)\\([[:digit:]]+\\)", "\\1", bux), sep="",
-##   collapse="' ,'")
-## values <- paste(as.numeric(gsub(".*\\(([[:digit:]]+)\\)", "\\1", bux)),
-##   sep="", collapse=",")
-
-
-## aux <- "
-## public static final byte	ANSI_CHARSET	0
-## public static final short	BOLDWEIGHT_BOLD	700
-## public static final short	BOLDWEIGHT_NORMAL	400
-## public static final short	COLOR_NORMAL	32767
-## public static final short	COLOR_RED	10
-## public static final byte	DEFAULT_CHARSET	1
-## public static final short	SS_NONE	0
-## public static final short	SS_SUB	2
-## public static final short	SS_SUPER	1
-## public static final byte	SYMBOL_CHARSET	2
-## public static final byte	U_DOUBLE	2
-## public static final byte	U_DOUBLE_ACCOUNTING	34
-## public static final byte	U_NONE	0
-## public static final byte	U_SINGLE	1
-## public static final byte	U_SINGLE_ACCOUNTING	33"
-## bux <- strsplit(aux, " ")[[1]])
-## fields <- paste(gsub("(.*)\\([[:digit:]]+\\)", "\\1", bux), sep="",
-##   collapse="' ,'")
-## values <- paste(as.numeric(gsub(".*\\(([[:digit:]]+)\\)", "\\1", bux)),
-##   sep="", collapse=",")
-

@@ -3,12 +3,12 @@
 # 
 read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
   colIndex=NULL, endRow=NULL, as.data.frame=TRUE, header=TRUE,
-  colClasses="character", ...)
+  colClasses="character", password=NULL, ...)
 {
   if (is.null(sheetName) & missing(sheetIndex))
     stop("Please provide a sheet name OR a sheet index.")
 
-  wb <- loadWorkbook(file)
+  wb <- loadWorkbook(file, password=password)
   sheets <- getSheets(wb)
 
   if (is.null(sheetName)){

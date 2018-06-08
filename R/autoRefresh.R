@@ -18,7 +18,7 @@
 
 # Make Excel refresh all formula when the file is open
 # If output is NULL then overwrite the original file
-forceFormulaRefresh <- function(file, output=NULL, verbose=TRUE) {
+forceFormulaRefresh <- function(file, output=NULL, verbose=FALSE) {
   
   # redirect output to source location?
   if (is.null(output)) {
@@ -37,7 +37,7 @@ forceFormulaRefresh <- function(file, output=NULL, verbose=TRUE) {
   }
 }
 
-forcePivotTableRefresh <- function(file, output=NULL, verbose=TRUE) {
+forcePivotTableRefresh <- function(file, output=NULL, verbose=FALSE) {
   
   if (!file.exists(file)) {
     stop("File does not exist ", file)

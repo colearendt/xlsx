@@ -11,9 +11,9 @@ Functions to manipulate Excel 2007 workbooks.
 
 createWorkbook(type="xlsx")
 
-loadWorkbook(file)
+loadWorkbook(file, password=NULL)
 
-saveWorkbook(wb, file)
+saveWorkbook(wb, file, password=NULL)
 
 }
 \arguments{
@@ -23,6 +23,7 @@ saveWorkbook(wb, file)
 	Can be an xls or xlsx format.}
   \item{wb}{a workbook object as returned by \code{createWorkbook} or
     \code{loadWorkbook}.}
+  \item{password}{a String with the password.}
 }
 
 \details{
@@ -30,7 +31,11 @@ saveWorkbook(wb, file)
 
   \code{loadWorkbook} loads a workbook from a file.
 
-  \code{saveWorkbook} saves an existing workook to an Excel 2007 file. 
+  \code{saveWorkbook} saves an existing workook to an Excel 2007 file.
+
+  Reading or writing of password protected workbooks is supported for
+  Excel 2007 OOXML format only.  Note that in Linux, LibreOffice is not
+  able to read password protected spreadsheets. 
 }
 \value{
   \code{createWorkbook} returns a java object reference pointing to an 
@@ -50,7 +55,7 @@ saveWorkbook(wb, file)
 wb <- createWorkbook()
 
 # see all the available java methods that you can call
-.jmethods(wb)
+#.jmethods(wb)
 
 # for example
 wb$getNumberOfSheets()   # no sheet yet!
