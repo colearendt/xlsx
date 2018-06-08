@@ -1,10 +1,14 @@
 NEWS for package xlsx
 
-Changes in version 0.6.1 (unreleased)
+Changes in version 0.6.1 (released 2018-06-10)
 
  o Export S3 methods for CellBlock, CellStyle
 
  o Do not depend (just import) rJava and xlsxjars
+
+ o Minor fixes to pass CRAN again.
+
+ o Add Cole Arendt as an author
 
 Changes in version 0.6.0 (released 2015-11-29)
 
