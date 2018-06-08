@@ -47,16 +47,11 @@ Java API to access additional functionality.
 }
 \author{Adrian Dragulescu}
 \examples{
-
+\dontrun{
 file <- system.file("tests", "test_import.xlsx", package = "xlsx")
-
 wb <- loadWorkbook(file)
 sheet <- getSheets(wb)[["deletedFields"]]  
 ranges <- getRanges(wb)
-
-# the call below fails on cran tests for MacOS.  You should see the
-# FAQ: http://code.google.com/p/rexcel/wiki/FAQ
-#res  <- readRange(ranges[[1]], sheet, colClasses="numeric") # read it 
 
 ranges[[1]]$getNameName()  # get its name
 
@@ -67,9 +62,7 @@ ranges[[1]]$getNameName()  # get its name
 firstCell <- sheet$getRow(14L)$getCell(4L)
 lastCell  <- sheet$getRow(20L)$getCell(7L)
 rangeName <- "Test2"
-# same issue on MacOS
-#createRange(rangeName, firstCell, lastCell)
-
-
+createRange(rangeName, firstCell, lastCell)
+}
 }
 

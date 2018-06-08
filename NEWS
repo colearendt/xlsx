@@ -2,7 +2,7 @@ NEWS for package xlsx
 
 Changes in version 0.6.1 (unreleased)
 
- o Export the S3 method for CellBlock
+ o Export S3 methods for CellBlock, CellStyle
 
  o Do not depend (just import) rJava and xlsxjars
 
@@ -16,9 +16,6 @@ Changes in version 0.6.0 (released 2015-11-29)
 
  o Fixed a bug in read.xlsx when an empty rows was triggering an
  error.  Reported by maxnax, see issue 57.
-
- o TODO: implement a chart wrapper 
-
 
 Changes in version 0.5.7 (released 2014-08-01)
 

@@ -55,7 +55,7 @@ saveWorkbook(wb, file, password=NULL)
 wb <- createWorkbook()
 
 # see all the available java methods that you can call
-.jmethods(wb)
+#.jmethods(wb)
 
 # for example
 wb$getNumberOfSheets()   # no sheet yet!

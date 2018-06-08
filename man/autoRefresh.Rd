@@ -7,16 +7,16 @@ Functions to force formula calculation or refresh of pivot tables when the Excel
 }
 \usage{
 
-forcePivotTableRefresh(file)
-forcePivotTableRefresh(file, output)
+forcePivotTableRefresh(file, output=NULL, verbose=FALSE)
 
-forceFormulaRefresh(file)
-forceFormulaRefresh(file, output)
+forceFormulaRefresh(file, output=NULL, verbose=FALSE)
 
 }
 \arguments{
   \item{file}{the path of the source file where formulae/pivot table needs to be refreshed}
-  \item{output}{the path of the output file.  If it is \code{NULL} then the source file will be overwritten.}
+  \item{output}{the path of the output file.  If it is \code{NULL} then the source 
+    file will be overwritten.}
+  \item{verbose}{a boolean.  Set to \code{TRUE} if you want details.}
 }
 
 \details{
@@ -33,7 +33,7 @@ forceFormulaRefresh(file, output)
 }
 \author{Tom Kwong}
 \examples{
-
+\dontrun{
 # Patch a file where its pivot tables are not recalculated when the file is opened
 forcePivotTableRefresh("/tmp/file.xlsx")
 forcePivotTableRefresh("/tmp/file.xlsx", "/tmp/fixed_file.xlsx")
@@ -41,7 +41,7 @@ forcePivotTableRefresh("/tmp/file.xlsx", "/tmp/fixed_file.xlsx")
 # Patch a file where its formulae are not recalculated when the file is opened
 forceFormulaRefresh("/tmp/file.xlsx")
 forceFormulaRefresh("/tmp/file.xlsx", "/tmp/fixed_file.xlsx")
-
+}
 
 }
 

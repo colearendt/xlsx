@@ -41,7 +41,7 @@ Font <- function(wb, color=NULL, heightInPoints=NULL, name=NULL,
     .jcall(font, "V", "setUnderline", .jbyte(underline))
   
   if (!is.null(boldweight))
-    .jcall(font, "V", "setBoldweigth", .jshort(boldweight))
+    .jcall(font, "V", "setBoldweight", .jshort(boldweight))
 
   structure(list(ref=font), class="Font") 
 }

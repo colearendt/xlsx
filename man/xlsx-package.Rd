@@ -41,17 +41,16 @@
 \tabular{ll}{
 Package: \tab xlsx\cr
 Type: \tab Package\cr
-Version: \tab 0.6.0\cr
-Date: \tab 2015-11-29\cr
+Version: \tab 0.6.1\cr
+Date: \tab 2018-06-07\cr
 License: \tab GPL-3\cr
 }
 
 }
 \author{
-Adrian A. Dragulescu
+Adrian A. Dragulescu, Cole Arendt.
 
 Maintainer: Adrian A. Dragulescu <adrian.dragulescu@gmail.com>
-
 }
 \references{
   Apache POI project for Microsoft Excel format:

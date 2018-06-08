@@ -114,6 +114,7 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
     class="CellStyle")
 }
 
+
 ######################################################################
 #
 "+.CellStyle" <- function(cs1, object)
