@@ -132,7 +132,7 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
 }
 \author{Adrian Dragulescu}
 \examples{
-
+\dontrun{
   wb <- createWorkbook()
   sheet  <- createSheet(wb, sheetName="CellBlock")
 
@@ -158,5 +158,6 @@ CB.setBorder( cellBlock, border, rowIndex, colIndex)
 
   # Don't forget to save the workbook ...  
   # saveWorkbook(wb, file) 
+}
 }
 
