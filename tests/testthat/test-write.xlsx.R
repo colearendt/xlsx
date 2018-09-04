@@ -43,7 +43,7 @@ test_that('write password protected workbook succeeds', {
 context('low-level interface')
 
 test_that('works in pipeline', {
-  skip("failing on linux due to x11")
+  skip_on_os(c("linux"))
   test_basic_export('xls')
   test_basic_export('xlsx')
 })
