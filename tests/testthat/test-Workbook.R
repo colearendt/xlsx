@@ -10,5 +10,5 @@ test_that('returns null with no sheets', {
   wb <- createWorkbook()
   
   expect_null(suppressMessages(getSheets(wb)))
-  expect_message(getSheets(wb),'no sheets')
+  expect_output(getSheets(wb),'no sheets')
 })
