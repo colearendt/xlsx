@@ -4,7 +4,7 @@ test_that('fails on incorrect type', {
   expect_error(createWorkbook('mine'),'Unknown format')
 })
 
-test_that("saves a workbook", {
+test_that("save a workbook", {
   wb <- createWorkbook()
   tf <- fs::file_temp("save", ext = ".xlsx")
   
@@ -12,14 +12,19 @@ test_that("saves a workbook", {
   wb_read <- loadWorkbook(tf)
 })
 
-test_that("saves a workbook with password", {
-  skip("password currently broken")
+test_that('password protect workbook', {
+  skip("broken at present")
   wb <- createWorkbook()
-  pwd <- "password"
-
-  tf <- fs::file_temp("save-pass", ext = ".xlsx")
-  saveWorkbook(wb, tf, password = pwd)
-  wb_read <- loadWorkbook(tf, password = pwd)
+  s <- createSheet(wb,'test123')
+  addDataFrame(iris,s)
+  
+  filename <- test_tmp('password_test.xlsx')
+  expect_null(saveWorkbook(wb,file=filename,password='test'))
+  
+  wb2 <- loadWorkbook(filename, password='test')
+  
+  expect_identical(names(getSheets(wb2))
+                   , names(getSheets(wb)))
 })
 
 context('getSheets')

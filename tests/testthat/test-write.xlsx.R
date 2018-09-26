@@ -48,17 +48,3 @@ test_that('works in pipeline', {
   test_basic_export('xlsx')
 })
 
-test_that('password protecting workbook works', {
-  skip("broken at present")
-  wb <- createWorkbook()
-  s <- createSheet(wb,'test123')
-  addDataFrame(iris,s)
-  
-  filename <- test_tmp('password_test.xlsx')
-  expect_null(saveWorkbook(wb,file=filename,password='test'))
-  
-  wb2 <- loadWorkbook(filename, password='test')
-  
-  expect_identical(names(getSheets(wb2))
-                   , names(getSheets(wb)))
-})
