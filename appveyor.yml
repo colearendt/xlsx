@@ -17,6 +17,8 @@ cache:
 platform: x64
 
 environment:
+  global:
+    R_BUILD_ARGS: --no-multiarch
 
   matrix:
   - R_VERSION: devel
