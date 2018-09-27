@@ -20,7 +20,9 @@ before_build:
   - echo JAVA_HOME=%JAVA_HOME%
   - SET PATH=%PATH%:%JAVA_HOME%
   - echo PATH=%PATH%
+  - SET _JAVA_OPTIONS=-Xmx512M
   - java --version
+  - dir C:\Program Files\Java
 
 build_script:
   - travis-tool.sh install_deps
