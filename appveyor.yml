@@ -18,7 +18,7 @@ platform: x64
 
 environment:
   global:
-    R_CHECK_ARGS: --no-multiarch
+    R_CHECK_ARGS: --no-multiarch --no-manual
 
   matrix:
   - R_VERSION: devel
