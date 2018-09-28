@@ -52,7 +52,7 @@ test_that('works with tibble', {
   skip('not presently working')
   
   skip_if_not_installed('tibble')
-  d <- tibble::as_tibble(iris)
+  d <- as_tibble(iris)
   
   wb <- createWorkbook()
   s <- createSheet(wb,'test')
