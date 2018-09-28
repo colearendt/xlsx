@@ -1,5 +1,18 @@
 context('write.xlsx')
 
+test_that("can write to home directory", {
+  # issue #108
+  skip("broken at present")
+  skip_on_cran()
+  dat <- data.frame(1:10)
+  filepath <- "~/__xx__xlsx__test_homedir.xlsx"
+  
+  # how can you protect such an operation?
+  expect_null(write.xlsx(dat, file = filepath))
+  read.xlsx(filepath)
+  unlink(filepath)
+})
+
 test_that('DateTime classes work', {
   ## issue #45
   hours <- seq(as.POSIXct("2011-01-01 01:00:00", tz="GMT"),
