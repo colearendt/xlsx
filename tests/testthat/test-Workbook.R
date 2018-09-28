@@ -6,7 +6,7 @@ test_that('fails on incorrect type', {
 
 test_that("save a workbook", {
   wb <- createWorkbook()
-  tf <- fs::file_temp("save", ext = ".xlsx")
+  tf <- test_tmp("test_save.xlsx")
   
   saveWorkbook(wb, tf)
   wb_read <- loadWorkbook(tf)
