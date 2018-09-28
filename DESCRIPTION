@@ -13,4 +13,5 @@ URL: https://github.com/dragua/rexcel, http://groups.google.com/group/R-package-
 BugReports: https://github.com/dragua/rexcel/issues
 SystemRequirements: java (>= 1.6)
 Suggests: 
+    rprojroot,
     testthat
