@@ -7,3 +7,5 @@ out/.*
 .gitignore
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^packrat/
+^\.Rprofile$
