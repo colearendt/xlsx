@@ -36,7 +36,6 @@ test_that('works in pipeline', {
 context('write.xlsx2')
 
 test_that('write password protected workbook succeeds', {
-  skip("broken at present")
   ## issue #49
   
   x <- data.frame(values=c(1,2,3),stringsAsFactors=FALSE)
