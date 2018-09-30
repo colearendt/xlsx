@@ -13,7 +13,6 @@ test_that("save a workbook", {
 })
 
 test_that('password protect workbook', {
-  skip("broken at present")
   wb <- createWorkbook()
   s <- createSheet(wb,'test123')
   addDataFrame(iris,s)
