@@ -1,12 +1,20 @@
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/colearendt/xlsx?branch=master&svg=true)](https://ci.appveyor.com/project/colearendt/xlsx)
+[![Travis-CI Build Status](https://travis-ci.org/colearendt/xlsx.svg?branch=master)](https://travis-ci.org/colearendt/xlsx)
+[![CRAN Version](http://www.r-pkg.org/badges/version-last-release/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
+
+[![codecov.io](https://codecov.io/github/colearendt/xlsx/coverage.svg?branch=master)](https://codecov.io/github/colearendt/xlsx?branch=master)
+[![CRAN Activity](http://cranlogs.r-pkg.org/badges/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
+[![CRAN History](http://cranlogs.r-pkg.org/badges/grand-total/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
+
 xlsx
 ========
 
 **An R package to read, write, format Excel 2007 and Excel 97/2000/XP/2003 files**
 
-The package provides R functions to read, write, and format Excel files.  Depends 
-on Java, but this makes it available on most OS'es. 
+The package provides R functions to read, write, and format Excel files.  It depends 
+on Java, but this makes it available on most operating systems. 
 
-### Install
+## Install
 
 Stable version from CRAN
 
@@ -20,23 +28,64 @@ Or development version from GitHub
 devtools::install_github('dragua/xlsx')
 ```
 
+## Common Problems
+
+This package depends on Java and the [`rJava`](https://www.rforge.net/rJava/) package to make the connection between R and Java seamless.  In order to use the `xlsx` package, you will need to:
+
+- Ensure you have a `jdk` (Java Development Kit, version >= 1.5) installed for your Operating System.  More information can be found on [Oracle's website](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+
+- Ensure that the system environment variable `JAVA_HOME` is configured appropriately and points to your `jdk` of choice.  Typically, this will be included in your `PATH` environment variable as well.  Options and system environmental variables that are available from `R` can be seen with `Sys.getenv()`
+
+- Particularly on UNIX systems, if you continue experiencing issues, you may need to reconfigure `R`'s support for Java on your system.  From a terminal, use the command `R CMD javareconf`.  You may need to run this as root or prepended with `sudo` to ensure it has appropriate permission.
+
+More detail can be found in the [`rJava` docs](https://www.rforge.net/rJava/).
+
 ## Quick start
 
 To read the first sheet from spreadsheet into a data.frame 
 
 ```r
-read.xlsx2('C:/temp/file.xlsx', 1)
+read.xlsx2('file.xlsx', 1)
 ```
 To write a data.frame to a spreadsheet 
 ```r
-write.xlsx2(iris, file='C:/temp/iris.xlsx')
+write.xlsx2(iris, file='iris.xlsx')
+```
+
+The package has many functions that make it easy to style and
+formalize output into Excel, as well.
+
+```r
+wb <- createWorkbook()
+s <- createSheet(wb,'test')
+
+cs <- CellStyle(wb) + 
+  Font(wb,heightInPoints = 16, isBold = TRUE) +
+  Alignment(horizontal='ALIGN_CENTER')
+  
+
+r <- createRow(s,1)
+cell <- createCell(r,1:ncol(iris))
+
+setCellValue(cell[[1]],'Title for Iris')
+for (i in cell) {
+  setCellStyle(i,cs)
+}
+
+addMergedRegion(s, 1,1, 1,ncol(iris))
+
+addDataFrame(iris, s, row.names=FALSE, startRow=3)
+
+saveWorkbook(wb,'iris_pretty.xlsx')
 ```
 
 ## Issues/Mailing list
 
-To report a bug, use the Issues page at [issues]
-[issues]: https://github.com/dragua/xlsx/issues
+To report a bug, use the Issues page at: https://github.com/dragua/xlsx/issues
 
-Questions should be asked on the dedicated mailing [list]
-[list]: http://groups.google.com/group/R-package-xlsx
+Questions should be asked on the dedicated [mailing list](http://groups.google.com/group/R-package-xlsx)
 
+## Acknowledgements
+
+The package is made possible thanks to the excellent
+work on [Apache POI](https://poi.apache.org/spreadsheet/index.html).

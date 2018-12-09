@@ -35,7 +35,7 @@ is.DataFormat(df)
   for powers of 1000 with two decimal places, "m/d/yyyy" can be used to
   format dates and is the equivalent of \R's MM/DD/YYYY format.  To
   format datetimes use "m/d/yyyy h:mm:ss;@".  To show negative values in
-  red within parantheses with two decimals and commas after power of
+  red within parentheses with two decimals and commas after power of
   1000 use "#,##0.00_);[Red](#,##0.00)".  I am not aware of an official
   way to discover these strings.  I find them out by recording a macro
   that formats a specific cell and then checking out the resulting VBA
