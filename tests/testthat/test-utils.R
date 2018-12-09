@@ -7,6 +7,8 @@ test_java_version <- function(version){
   )
 }
 test_that("version comparison works", {
+  # the previous version comparison failed in some locales
+  test_java_version("1.6.0")
   test_java_version("1.7.0")
   test_java_version("1.9.0")
   test_java_version("7.0.0")
