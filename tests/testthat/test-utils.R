@@ -8,6 +8,11 @@ test_java_version <- function(version){
 }
 test_that("version comparison works", {
   # the previous version comparison failed in some locales
+  expect_error(test_java_version("0.99.0"))
+  expect_error(test_java_version("1.0.0"))
+  expect_error(test_java_version("1.4.0"))
+  expect_error(test_java_version("1.4.99"))
+  test_java_version("1.5.0")
   test_java_version("1.6.0")
   test_java_version("1.7.0")
   test_java_version("1.9.0")
