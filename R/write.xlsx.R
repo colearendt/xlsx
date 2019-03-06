@@ -45,7 +45,7 @@ write.xlsx <- function(x, file, sheetName="Sheet1",
   password=NULL)
 {
   if (!is.data.frame(x))
-    x <- data.frame(x)    # just because the error message is too ugly
+    x <- as.data.frame(x)    # just because the error message is too ugly
     
   iOffset <- jOffset <- 0
   if (col.names)
@@ -76,8 +76,7 @@ write.xlsx <- function(x, file, sheetName="Sheet1",
   
   .write_block(wb, sheet, x, rowIndex, colIndex, showNA)
   saveWorkbook(wb, file, password=password)
-
-  invisible()
+  return(invisible(x))
 }
 
 
