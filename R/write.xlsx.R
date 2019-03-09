@@ -44,7 +44,7 @@ write.xlsx <- function(x, file, sheetName="Sheet1",
   col.names=TRUE, row.names=TRUE, append=FALSE, showNA=TRUE,
   password=NULL)
 {
-  if (!is.data.frame(x))
+  if (!is.data.frame(x) | "tbl_df" %in% class(x))
     x <- as.data.frame(x)    # just because the error message is too ugly
     
   iOffset <- jOffset <- 0
