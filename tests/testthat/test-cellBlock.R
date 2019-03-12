@@ -87,3 +87,41 @@ test_that('formating applied to whole columns should not get lost in cell block 
   
   expect_true(TRUE)
 })
+
+test_that('correct elements are written by CB.setMatriData when showNA=FALSE', {
+
+  ## issue #123
+  m <- matrix(NA_real_, nrow = 20, ncol = 3)
+  nonNArows <- c(3, 9, 10, 15, 16)
+  m[nonNArows, ] <- seq(length(nonNArows) * ncol(m))
+
+  wb <- createWorkbook()
+  sheet <- createSheet(wb, "first-sheet")
+
+  cb <- CellBlock(sheet,
+                  startRow = 1L,
+                  startColumn = 1L,
+                  noRows = nrow(m) + 1L,
+                  noColumns = 3L)
+
+  CB.setMatrixData(cb,
+                   x = m,
+                   startColumn = 1L,
+                   startRow = 2L,
+                   showNA = FALSE)
+
+  file.xlsx <- tempfile(fileext = ".xlsx")
+  saveWorkbook(wb, file = file.xlsx)
+
+  df <- read.xlsx2(file.xlsx, sheetIndex = 1, startRow = 2L,
+                   endRow = 21L,
+                   header = FALSE,
+                   check.names = FALSE,
+                   stringsAsFactors = FALSE)
+
+  gotMtx <- data.matrix(df)
+  dimnames(gotMtx) <- dimnames(m)  ## don't compare these
+
+  expect_identical(object = gotMtx,
+                   expected = m)
+})
