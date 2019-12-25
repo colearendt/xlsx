@@ -1,5 +1,7 @@
 NEWS for package xlsx
 
+ o Fix bug in `saveWorkbook` with a password (#107)
+
 Changes in version 0.6.1 (released 2018-06-10)
 
  o Export S3 methods for CellBlock, CellStyle

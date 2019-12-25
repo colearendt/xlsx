@@ -1,2 +1,4 @@
 .Rhistory
 out/
+.Rproj.user
+tests/testthat/tmp

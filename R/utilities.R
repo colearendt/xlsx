@@ -39,11 +39,11 @@
 .onLoad <- function(libname, pkgname)
 {
   rJava::.jpackage("xlsxjars")
-  rJava::.jpackage(pkgname)  # needed to load RInterface.java
+  rJava::.jpackage(pkgname, lib.loc = libname)  # needed to load RInterface.java
   
   # what's your java  version?  Need > 1.5.0.
   jversion <- .jcall('java.lang.System','S','getProperty','java.version')
-  if (jversion < "1.5.0")
+  if (utils::compareVersion(jversion,"1.5.0") < 0)
     stop(paste("Your java version is ", jversion,
                  ".  Need 1.5.0 or higher.", sep=""))
   
@@ -170,5 +170,3 @@
     ,'GREY_40_PERCENT' ,'DARK_TEAL' ,'SEA_GREEN' ,'DARK_GREEN'
     ,'OLIVE_GREEN' ,'BROWN' ,'PLUM' ,'INDIGO' ,'GREY_80_PERCENT'
     ,'AUTOMATIC')
-  
-                   
