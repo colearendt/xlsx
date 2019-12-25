@@ -5,8 +5,10 @@ language: r
 os: 
   - linux
   - osx
-    env:
-    - JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-13.0.1.jdk/Contents/Home
+
+# this should break linux...
+env:
+  - JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-13.0.1.jdk/Contents/Home
   
 sudo: true
 cache: packages
