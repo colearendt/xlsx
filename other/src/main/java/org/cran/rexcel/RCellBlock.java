@@ -177,12 +177,13 @@ public class RCellBlock {
      */
     public void setMatrixData( int startRow, int endRow, int startColumn, 
     	int endColumn, double[] data, boolean showNA, CellStyle newStyle) { 
-    	
+
 		for (int j = startColumn; j <= endColumn; j++) {
 			for (int i = startRow; i <= endRow; i++) {
-				if (showNA || !RInterface.isNA(data[i])) {
-					cells[j][i].setCellValue(data[(endRow - startRow + 1)
-							* (j - startColumn) + (i - startRow)]);
+				int dataIndex = (endRow - startRow + 1) * (j - startColumn) + (i - startRow);
+                                double value = data[dataIndex];
+				if (showNA || !RInterface.isNA(value)) {
+				    cells[j][i].setCellValue(value);
 				} else {
 					cells[j][i].setCellType(Cell.CELL_TYPE_BLANK);
 				}
@@ -203,8 +204,9 @@ public class RCellBlock {
     	
         for (int j=startColumn; j<=endColumn; j++) {
         	for (int i=startRow; i<=endRow; i++) {
-        		if ( showNA || !RInterface.isNA(data[i])) {
-        			cells[j][i].setCellValue(data[(endRow-startRow+1)*(j-startColumn) + (i-startRow)]);
+		    int dataIndex = (endRow - startRow + 1) * (j - startColumn) + (i - startRow);
+        		if ( showNA || !RInterface.isNA(data[dataIndex])) {
+			    cells[j][i].setCellValue(data[dataIndex]);
         		} else {
         			cells[j][i].setCellType(Cell.CELL_TYPE_BLANK);
         		}
