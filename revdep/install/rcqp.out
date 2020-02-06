@@ -1,0 +1,6 @@
+* installing *source* package ‘rcqp’ ...
+** package ‘rcqp’ successfully unpacked and MD5 sums checked
+checking for pkg-config... /usr/bin/pkg-config
+ERROR: 'glib-2.0' library not found by pkg-config. Please install it.
+ERROR: configuration failed for package ‘rcqp’
+* removing ‘/tmp/Rtmp4Y6r4W/R-lib/rcqp’

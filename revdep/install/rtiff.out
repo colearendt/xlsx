@@ -1,0 +1,17 @@
+* installing *source* package ‘rtiff’ ...
+** package ‘rtiff’ successfully unpacked and MD5 sums checked
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking for TIFFOpen in -ltiff... no
+Try static libs needed on OS X
+checking for TIFFOpen in -ltiff... no
+Error: Could not find libtiff.
+ERROR: configuration failed for package ‘rtiff’
+* removing ‘/tmp/Rtmp4Y6r4W/R-lib/rtiff’

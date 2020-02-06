@@ -1,0 +1,25 @@
+* installing *source* package ‘Hmisc’ ...
+** package ‘Hmisc’ successfully unpacked and MD5 sums checked
+** libs
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c Hmisc.c -o Hmisc.o
+gfortran   -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4  -c cidxcn.f -o cidxcn.o
+gfortran   -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4  -c cidxcp.f -o cidxcp.o
+gfortran   -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4  -c hoeffd.f -o hoeffd.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gfortran   -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4  -c jacklins.f -o jacklins.o
+gfortran   -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4  -c largrec.f -o largrec.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c mChoice.c -o mChoice.o
+gfortran   -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4  -c maxempr.f -o maxempr.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c nstr.c -o nstr.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c ranksort.c -o ranksort.o
+gfortran   -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4  -c rcorr.f -o rcorr.o
+gcc -std=gnu99 -I/usr/share/R/include -DNDEBUG      -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -g  -c string_box.c -o string_box.o
+gfortran   -fpic  -g -O2 -fstack-protector --param=ssp-buffer-size=4  -c wclosest.f -o wclosest.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o Hmisc.so Hmisc.o cidxcn.o cidxcp.o hoeffd.o init.o jacklins.o largrec.o mChoice.o maxempr.o nstr.o ranksort.o rcorr.o string_box.o wclosest.o -lgfortran -lm -lquadmath -L/usr/lib/R/lib -lR
+installing to /tmp/Rtmp4Y6r4W/R-lib/Hmisc/libs
+** R
+** inst
+** preparing package for lazy loading
+Error : package ‘survival’ 2.39.4 was found, but >= 2.40.1 is required by ‘Hmisc’
+ERROR: lazy loading failed for package ‘Hmisc’
+* removing ‘/tmp/Rtmp4Y6r4W/R-lib/Hmisc’

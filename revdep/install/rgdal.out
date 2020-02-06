@@ -1,0 +1,12 @@
+* installing *source* package ‘rgdal’ ...
+** package ‘rgdal’ successfully unpacked and MD5 sums checked
+configure: CC: gcc -std=gnu99
+configure: CXX: g++
+configure: rgdal: 1.2-7
+checking for /usr/bin/svnversion... no
+configure: svn revision: 660
+checking for gdal-config... no
+no
+configure: error: gdal-config not found or not executable.
+ERROR: configuration failed for package ‘rgdal’
+* removing ‘/tmp/Rtmp4Y6r4W/R-lib/rgdal’

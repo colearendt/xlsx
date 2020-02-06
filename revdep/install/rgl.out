@@ -1,0 +1,29 @@
+* installing *source* package ‘rgl’ ...
+** package ‘rgl’ successfully unpacked and MD5 sums checked
+checking for gcc... gcc -std=gnu99
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc -std=gnu99 accepts -g... yes
+checking for gcc -std=gnu99 option to accept ISO C89... none needed
+checking how to run the C preprocessor... gcc -std=gnu99 -E
+checking for gcc... (cached) gcc -std=gnu99
+checking whether we are using the GNU C compiler... (cached) yes
+checking whether gcc -std=gnu99 accepts -g... (cached) yes
+checking for gcc -std=gnu99 option to accept ISO C89... (cached) none needed
+checking for libpng-config... yes
+configure: using libpng-config
+configure: using libpng dynamic linkage
+checking for X... libraries , headers 
+checking GL/gl.h usability... no
+checking GL/gl.h presence... no
+checking for GL/gl.h... no
+checking GL/glu.h usability... no
+checking GL/glu.h presence... no
+checking for GL/glu.h... no
+configure: error: missing required header GL/gl.h
+ERROR: configuration failed for package ‘rgl’
+* removing ‘/tmp/Rtmp4Y6r4W/R-lib/rgl’
