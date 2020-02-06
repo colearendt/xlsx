@@ -9,3 +9,6 @@ out/.*
 ^\.Rproj\.user$
 ^packrat/
 ^\.Rprofile$
+^xlsx\.Rcheck$
+^xlsx.*\.tar\.gz$
+^xlsx.*\.tgz$
