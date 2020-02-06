@@ -16,3 +16,4 @@ Suggests:
     rprojroot,
     testthat,
     covr
+RoxygenNote: 7.0.2
