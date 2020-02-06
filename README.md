@@ -25,7 +25,7 @@ install.packages('xlsx')
 Or development version from GitHub
 
 ```r
-devtools::install_github('dragua/xlsx')
+devtools::install_github('colearendt/xlsx')
 ```
 
 ## Common Problems
@@ -81,9 +81,15 @@ saveWorkbook(wb,'iris_pretty.xlsx')
 
 ## Issues/Mailing list
 
-To report a bug, use the Issues page at: https://github.com/dragua/xlsx/issues
+To report a bug, use the Issues page at: https://github.com/colearendt/xlsx/issues
 
-Questions should be asked on the dedicated [mailing list](http://groups.google.com/group/R-package-xlsx)
+If you are wrestling with the Java dependency, there are some very good
+alternatives that do not require Java. Your choice will vary depending on what
+you are trying to accomplish.
+
+- [openxlsx](https://github.com/awalker89/openxlsx)
+- [readxl](https://readxl.tidyverse.org/)
+- [writexl](https://docs.ropensci.org/writexl/)
 
 ## Acknowledgements
 
