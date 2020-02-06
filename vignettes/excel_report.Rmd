@@ -121,7 +121,7 @@ saveWorkbook(wb, 'excel_report.xlsx')
 
 ```
 
-Once you get used to some of the verbosity, the elegance of automatically creating nicely formatted Excel reports on a UNIX platform from R begins to shine.  Further, with a bit of work implementing an R API, we get the benefit of a robust Java community debugging issues behind the scenes at Apache.  If you would like to contribute on improving the R API and adding functionality, you can do so [on github](https://github.com/dragua/xlsx).
+Once you get used to some of the verbosity, the elegance of automatically creating nicely formatted Excel reports on a UNIX platform from R begins to shine.  Further, with a bit of work implementing an R API, we get the benefit of a robust Java community debugging issues behind the scenes at Apache.  If you would like to contribute on improving the R API and adding functionality, you can do so [on github](https://github.com/colearendt/xlsx).
 
 ![Our Beautiful Report](`r rprojroot::is_r_package$find_file('vignettes/excel_report.png')`)
 
