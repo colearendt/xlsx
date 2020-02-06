@@ -19,15 +19,31 @@ library(xlsx)
 
 ## Building Excel Reports in R
 
-Excel has a lot of buy-in.  This is generally pretty unfortunate, as there are much better tools for data analysis (i.e. \R).  Excel is also not platform-agnostic, so there are difficulties generating Excel reports on non-Windows systems.  However, Java is, and the excellent [Apache POI](https://poi.apache.org/) project provides a nice interface to Excel documents in a platform-agnostic manner.  Further, \R integrates nicely with this project through the `xlsx` package to provide a suite of tools to be used in data science and report generation on any operating system.
+Excel has a lot of buy-in.  This is generally pretty unfortunate, as there are
+much better tools for data analysis (i.e. \R).  Excel is also not
+platform-agnostic, so there are difficulties generating Excel reports on
+non-Windows systems.  However, Java is, and the excellent [Apache
+POI](https://poi.apache.org/) project provides a nice interface to Excel
+documents in a platform-agnostic manner.  Further, \R integrates nicely with
+this project through the `xlsx` package to provide a suite of tools to be used
+in data science and report generation on any operating system.
 
 # From Scratch
 
-The first step of any report generation from scratch is data preparation.  Suffice it to say that R has many tools to expedite that process.  For instance, the [`tidyverse`](http://tidyverse.org/) provides several packages for getting data into a nice, _tidy_ format for modeling and visualization.  We will presume that you have your data structured the way that you want and focus on getting that presentation into Excel.
+The first step of any report generation from scratch is data preparation.
+Suffice it to say that R has many tools to expedite that process.  For instance,
+the [`tidyverse`](http://tidyverse.org/) provides several packages for getting
+data into a nice, _tidy_ format for modeling and visualization.  We will presume
+that you have your data structured the way that you want and focus on getting
+that presentation into Excel.
 
 ## Functional Cell Styles
 
-The `CellStyle` class in the `xlsx` package makes possible many of the desirable traits of a good Excel report - Borders, DataFormats, Alignment, Font, and Fill.  While a bit verbose to type at times, the `+` operator is implemented to make *building* these styles more natural.  For instance, we might define a theme which has a standard selection of fonts, colors, and formats.
+The `CellStyle` class in the `xlsx` package makes possible many of the desirable
+traits of a good Excel report - Borders, DataFormats, Alignment, Font, and Fill.
+While a bit verbose to type at times, the `+` operator is implemented to make
+*building* these styles more natural.  For instance, we might define a theme
+which has a standard selection of fonts, colors, and formats.
 
 ```{r theme}
 
@@ -54,7 +70,8 @@ fillSecondary <- Fill('#ff6666','#ff6666','SOLID_FOREGROUND')
 
 ```
 
-Once we have defined such standard cell-styles, it is straightforward to use them with the additive CellStyle framework.
+Once we have defined such standard cell-styles, it is straightforward to use
+them with the additive CellStyle framework.
 
 ```{r prep_for_report, include=FALSE}
 ## todo: fix the xlsx jars being available when generating vignette
@@ -121,8 +138,14 @@ saveWorkbook(wb, 'excel_report.xlsx')
 
 ```
 
-Once you get used to some of the verbosity, the elegance of automatically creating nicely formatted Excel reports on a UNIX platform from R begins to shine.  Further, with a bit of work implementing an R API, we get the benefit of a robust Java community debugging issues behind the scenes at Apache.  If you would like to contribute on improving the R API and adding functionality, you can do so [on github](https://github.com/colearendt/xlsx).
+Once you get used to some of the verbosity, the elegance of automatically
+creating nicely formatted Excel reports on a UNIX platform from R begins to
+shine.  Further, with a bit of work implementing an R API, we get the benefit of
+a robust Java community debugging issues behind the scenes at Apache.  If you
+would like to contribute on improving the R API and adding functionality, you
+can do so [on github](https://github.com/colearendt/xlsx).
 
 ![Our Beautiful Report](`r rprojroot::is_r_package$find_file('vignettes/excel_report.png')`)
 
-Bonus: you can even customize print formatting and a whole host of other things!  There is more to come on that.
+Bonus: you can even customize print formatting and a whole host of other things!
+There is more to come on that.
