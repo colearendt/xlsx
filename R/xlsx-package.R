@@ -30,9 +30,7 @@
 #'
 #' @aliases xlsx-package xlsx
 #' @docType package
-#' @author Adrian A. Dragulescu
 #'
-#' Maintainer: Adrian A. Dragulescu <adrian.dragulescu@@gmail.com>
 #' @seealso \code{\link{Workbook}} for ways to work with \code{Workbook}
 #' objects.
 #' @references Apache POI project for Microsoft Excel format:
