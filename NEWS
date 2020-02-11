@@ -6,8 +6,6 @@ Changes in verison 0.6.2 (released 2020-02)
 
  o Switch to roxygen based documentation
 
- o Fix bug writing a tibble to a data frame
-
  o Fix bug in version comparison for Java 10+
 
 Changes in version 0.6.1 (released 2018-06-10)
