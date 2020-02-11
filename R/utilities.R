@@ -43,7 +43,13 @@
 
   # what's your java  version?  Need > 1.5.0.
   jversion <- .jcall('java.lang.System','S','getProperty','java.version')
-  if (utils::compareVersion(jversion,"1.5.0") < 0)
+
+  parse_version <- regexpr("[0-9]+\\.[0-9]+\\.[0-9]+", jversion)
+  clean_version <- substr(jversion, parse_version, attr(parse_version, "match.length"))
+  if (!identical(clean_version, jversion)) {
+    message(paste("Your (cleaned) java version for comparison is", clean_version))
+  }
+  if (utils::compareVersion(clean_version,"1.5.0") < 0)
     stop(paste("Your java version is ", jversion,
                  ".  Need 1.5.0 or higher.", sep=""))
 
