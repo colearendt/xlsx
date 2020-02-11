@@ -3,7 +3,7 @@
 [![CRAN Version](http://www.r-pkg.org/badges/version-last-release/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
 
 [![codecov.io](https://codecov.io/github/colearendt/xlsx/coverage.svg?branch=master)](https://codecov.io/github/colearendt/xlsx?branch=master)
-[![CRAN Activity](http://cranlogs.r-pkg.org/badges/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
+[![CRAN Activity](http://cranlogs.r-pkg.org/badges/xlsx)](https://CRAN.R-project.org/package=xlsx)
 [![CRAN History](http://cranlogs.r-pkg.org/badges/grand-total/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
 
 xlsx
