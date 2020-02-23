@@ -1,8 +1,8 @@
 ^appveyor\.yml$
 ^\.travis\.yml$
-other/.*
-resources/.*
-out/.*
+^other$
+^resources$
+^out$
 .git/.*
 .gitignore
 ^.*\.Rproj$
@@ -12,3 +12,4 @@ out/.*
 ^xlsx\.Rcheck$
 ^xlsx.*\.tar\.gz$
 ^xlsx.*\.tgz$
+^revdep$

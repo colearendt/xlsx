@@ -20,4 +20,5 @@ test_that("version comparison works", {
   test_java_version("10.0.2")
   test_java_version("14.0.4")
   test_java_version("100.0.4")
+  test_java_version("1.8.0_121")
 })

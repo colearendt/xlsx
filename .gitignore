@@ -6,3 +6,4 @@ xlsx.Rcheck/
 xlsx*.tar.gz
 xlsx*.tgz
 project.Rproj
+.RData*
