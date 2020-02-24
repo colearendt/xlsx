@@ -25,13 +25,13 @@ test_that("version comparison works", {
 
 
 test_that("set_java_tmp_dir works", {
-  new_tmp_dir <- fs::file_temp("java_tmp_dir")
-  fs::dir_create(new_tmp_dir)
+  new_tmp_dir <- tempfile("java_tmp_dir_")
+  dir.create(new_tmp_dir, recursive = TRUE)
 
   current_tmp_dir <- get_java_tmp_dir()
 
   expect_equal(set_java_tmp_dir(new_tmp_dir), current_tmp_dir)
-  expect_equal(get_java_tmp_dir(), as.character(new_tmp_dir))
+  expect_equal(get_java_tmp_dir(), new_tmp_dir)
 
   # set back
   set_java_tmp_dir(current_tmp_dir)
