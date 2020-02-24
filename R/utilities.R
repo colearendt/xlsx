@@ -41,6 +41,8 @@
   rJava::.jpackage("xlsxjars")
   rJava::.jpackage(pkgname, lib.loc = libname)  # needed to load RInterface.java
 
+  set_java_tmp_dir(getOption("xlsx.tempdir", tempdir()))
+
   # what's your java  version?  Need > 1.5.0.
   jversion <- .jcall('java.lang.System','S','getProperty','java.version')
 
