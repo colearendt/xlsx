@@ -142,7 +142,7 @@
 #' @param tmp_dir optional. The new temp directory. Defaults to the R temp
 #'   directory
 #'
-#' @return Previous temp directory
+#' @return The previous java temp directory (prior to any changes).
 #'
 #' @export
 set_java_tmp_dir <- function(tmp_dir = tempdir()) {
@@ -151,6 +151,17 @@ set_java_tmp_dir <- function(tmp_dir = tempdir()) {
     "Ljava/lang/String;",
     "setProperty",
     "java.io.tmpdir", tmp_dir
+  )
+}
+
+#' @rdname set_java_tmp_dir
+#' @export
+get_java_tmp_dir <- function() {
+  rJava::.jcall(
+    "java/lang/System",
+    "Ljava/lang/String;",
+    "getProperty",
+    "java.io.tmpdir"
   )
 }
 
