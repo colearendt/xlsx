@@ -31,7 +31,7 @@ test_that("set_java_tmp_dir works", {
   current_tmp_dir <- get_java_tmp_dir()
 
   expect_equal(set_java_tmp_dir(new_tmp_dir), current_tmp_dir)
-  expect_equal(get_java_tmp_dir(), new_tmp_dir)
+  expect_equal(get_java_tmp_dir(), as.character(new_tmp_dir))
 
   # set back
   set_java_tmp_dir(current_tmp_dir)
