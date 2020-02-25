@@ -109,7 +109,7 @@ write.xlsx <- function(x, file, sheetName="Sheet1",
   password=NULL)
 {
   if (!is.data.frame(x) | "tbl_df" %in% class(x))
-    x <- as.data.frame(x)    # just because the error message is too ugly
+    x <- as.data.frame(x, stringsAsFactors = FALSE)    # just because the error message is too ugly
 
   iOffset <- jOffset <- 0
   if (col.names)
