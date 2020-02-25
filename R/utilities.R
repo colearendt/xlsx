@@ -41,6 +41,8 @@
   rJava::.jpackage("xlsxjars")
   rJava::.jpackage(pkgname, lib.loc = libname)  # needed to load RInterface.java
 
+  set_java_tmp_dir(getOption("xlsx.tempdir", tempdir()))
+
   # what's your java  version?  Need > 1.5.0.
   jversion <- .jcall('java.lang.System','S','getProperty','java.version')
 
@@ -128,6 +130,42 @@
   .jnew("org.apache.poi.xssf.usermodel.XSSFColor", jcol)
 }
 
+
+#' Set Java Temp Directory
+#'
+#' Java sets the java temp directory to `/tmp` by default. However, this is
+#' usually not desirable in R. As a result, this function allows changing that
+#' behavior. Further, this function is fired on package load to ensure all
+#' temp files are written to the R temp directory.
+#'
+#' On package load, we use `getOption("xlsx.tempdir", tempdir())` for the
+#' default value, in case you want to have this value set by an option.
+#'
+#' @param tmp_dir optional. The new temp directory. Defaults to the R temp
+#'   directory
+#'
+#' @return The previous java temp directory (prior to any changes).
+#'
+#' @export
+set_java_tmp_dir <- function(tmp_dir = tempdir()) {
+  rJava::.jcall(
+    "java/lang/System",
+    "Ljava/lang/String;",
+    "setProperty",
+    "java.io.tmpdir", tmp_dir
+  )
+}
+
+#' @rdname set_java_tmp_dir
+#' @export
+get_java_tmp_dir <- function() {
+  rJava::.jcall(
+    "java/lang/System",
+    "Ljava/lang/String;",
+    "getProperty",
+    "java.io.tmpdir"
+  )
+}
 
 #' @title Constants used in the project.
 #'

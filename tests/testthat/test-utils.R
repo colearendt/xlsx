@@ -22,3 +22,18 @@ test_that("version comparison works", {
   test_java_version("100.0.4")
   test_java_version("1.8.0_121")
 })
+
+
+test_that("set_java_tmp_dir works", {
+  new_tmp_dir <- tempfile("java_tmp_dir_")
+  dir.create(new_tmp_dir, recursive = TRUE)
+
+  current_tmp_dir <- get_java_tmp_dir()
+
+  expect_equal(set_java_tmp_dir(new_tmp_dir), current_tmp_dir)
+  expect_equal(get_java_tmp_dir(), new_tmp_dir)
+
+  # set back
+  set_java_tmp_dir(current_tmp_dir)
+
+})

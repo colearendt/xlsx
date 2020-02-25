@@ -28,11 +28,9 @@ A collection of tests that can be used as examples are located in folder
 \code{/tests/}.  They are a good source of examples of how to use the
 package.
 
-Please see \url{https://github.com/dragua/xlsx/} for a Wiki and the
+Please see \url{https://github.com/colearendt/xlsx/} for a Wiki and the
 development version.  To report a bug, use the Issues page at
-\url{https://github.com/dragua/xlsx/issues}.  Questions should be
-asked on the dedicated mailing list at
-\url{http://groups.google.com/group/R-package-xlsx}.
+\url{https://github.com/colearendt/xlsx/issues}.
 
 \tabular{ll}{ Package: \tab xlsx\cr Type: \tab Package\cr Version: \tab
 0.6.0\cr Date: \tab 2015-11-29\cr License: \tab GPL-3\cr }
@@ -67,10 +65,5 @@ this package can show you how to do it (even if you are Java shy.)
 \seealso{
 \code{\link{Workbook}} for ways to work with \code{Workbook}
 objects.
-}
-\author{
-Adrian A. Dragulescu
-
-Maintainer: Adrian A. Dragulescu <adrian.dragulescu@gmail.com>
 }
 \keyword{package}

@@ -98,8 +98,8 @@ They need to be specified in Java date format
   # options(xlsx.date.format="dd MMM, yyyy")
 
 
-  # Don't forget to save the workbook ...  
-  # saveWorkbook(wb, file) 
+  # Don't forget to save the workbook ...
+  # saveWorkbook(wb, file)
 
 }
 \author{
