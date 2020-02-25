@@ -1,6 +1,8 @@
 # One sheet extraction.  Similar to read.csv.
 #
-# 
+#
+#' @export
+#' @rdname read.xlsx
 read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
   colIndex=NULL, endRow=NULL, as.data.frame=TRUE, header=TRUE,
   colClasses="character", password=NULL, ...)
@@ -19,10 +21,10 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
   if (is.null(sheet))
       stop("Cannot find the sheet you requested in the file!")
 
-  if (is.null(endRow)) {  # get it from the sheet 
+  if (is.null(endRow)) {  # get it from the sheet
       endRow <- sheet$getLastRowNum() + 1
   }
-  
+
   if (is.null(colIndex)){  # get it from the startRow
       row <- sheet$getRow(as.integer(startRow-1))
       if (is.null(row)) {
@@ -31,7 +33,7 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
           stop(paste("Row with index startRow is EMPTY! ",
                      "Specify a different startRow value."))
       }
-      startColumn  <- .jcall(row, "T", "getFirstCellNum") + 1   
+      startColumn  <- .jcall(row, "T", "getFirstCellNum") + 1
       endColumn    <- .jcall(row, "T", "getLastCellNum")
       colIndex     <- startColumn:endColumn
       listColIndex <- list(startColumn:endColumn)
@@ -40,9 +42,9 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
   }
 
   # if the colIndex is not contiguous, split into contiguous blocks
-  # and then cbind the blocks together. 
+  # and then cbind the blocks together.
   res <- NULL
-  for (b in seq_along(listColIndex)) { 
+  for (b in seq_along(listColIndex)) {
     startColumn <- listColIndex[[b]][1]
     endColumn <- tail(listColIndex[[b]],1)
     res[[b]] <- readColumns(sheet, startColumn, endColumn, startRow,
@@ -53,4 +55,4 @@ read.xlsx2 <- function(file, sheetIndex, sheetName=NULL, startRow=1,
   do.call(cbind, res)
 }
 
-  
+

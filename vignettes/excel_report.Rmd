@@ -1,0 +1,151 @@
+---
+title: "Build Excel Reports from R"
+author: "Cole Arendt"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+Vignette: >
+  %\VignetteIndexEntry{Build Excel Reports from R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteKeywords{spreadsheet, Excel, java, report}
+  %\VignettePackage{xlsx}
+---
+
+```{r setup, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo=TRUE, collapse=T, comment='#>')
+library(rJava)
+library(xlsx)
+```
+
+## Building Excel Reports in R
+
+Excel has a lot of buy-in.  This is generally pretty unfortunate, as there are
+much better tools for data analysis (i.e. \R).  Excel is also not
+platform-agnostic, so there are difficulties generating Excel reports on
+non-Windows systems.  However, Java is, and the excellent [Apache
+POI](https://poi.apache.org/) project provides a nice interface to Excel
+documents in a platform-agnostic manner.  Further, \R integrates nicely with
+this project through the `xlsx` package to provide a suite of tools to be used
+in data science and report generation on any operating system.
+
+# From Scratch
+
+The first step of any report generation from scratch is data preparation.
+Suffice it to say that R has many tools to expedite that process.  For instance,
+the [`tidyverse`](http://tidyverse.org/) provides several packages for getting
+data into a nice, _tidy_ format for modeling and visualization.  We will presume
+that you have your data structured the way that you want and focus on getting
+that presentation into Excel.
+
+## Functional Cell Styles
+
+The `CellStyle` class in the `xlsx` package makes possible many of the desirable
+traits of a good Excel report - Borders, DataFormats, Alignment, Font, and Fill.
+While a bit verbose to type at times, the `+` operator is implemented to make
+*building* these styles more natural.  For instance, we might define a theme
+which has a standard selection of fonts, colors, and formats.
+
+```{r theme}
+
+## fonts require a workbook
+createFonts <- function(wb) {
+  list(
+    data = Font(wb, heightInPoints = 11, name='Arial')
+    , title = Font(wb, heightInPoints = 16, name='Arial', isBold = TRUE)
+    , subtitle = Font(wb, heightInPoints = 13, name='Arial', isBold = FALSE, isItalic = TRUE)
+  )
+}
+
+## alignment
+alignLeft <- Alignment(horizontal='ALIGN_LEFT', vertical='VERTICAL_CENTER', wrapText = TRUE)
+alignCenter <- Alignment(horizontal='ALIGN_CENTER', vertical='VERTICAL_CENTER', wrapText=TRUE)
+
+## data formats
+dataFormatDate <- DataFormat('m/d/yyyy')
+dataFormatNumberD <- DataFormat('0.0')
+
+## fill
+fillPrimary <- Fill('#cc0000','#cc0000','SOLID_FOREGROUND')
+fillSecondary <- Fill('#ff6666','#ff6666','SOLID_FOREGROUND')
+
+```
+
+Once we have defined such standard cell-styles, it is straightforward to use
+them with the additive CellStyle framework.
+
+```{r prep_for_report, include=FALSE}
+## todo: fix the xlsx jars being available when generating vignette
+#.jaddClassPath(rprojroot::is_r_package$find_file('inst/java/rexcel-0.5.1.jar'))
+```
+
+```{r build_report, results='hide'}
+## The dataset
+numbercol <- 9
+mydata <- as.data.frame(lapply(1:numbercol,function(x){runif(15, 0,200)}))
+mydata <- setNames(mydata,paste0('col',1:numbercol))
+
+## Build report
+wb <- createWorkbook()
+sh <- createSheet(wb, 'Report')
+f <- createFonts(wb)
+
+headerrow <- createRow(sh, 1:2)
+headercell <- createCell(headerrow, 1:ncol(mydata))
+
+## title
+addMergedRegion(sh,1,1,1,ncol(mydata))
+lapply(headercell[1,],function(cell) {
+  setCellValue(cell, 'Title of Report')
+  setCellStyle(cell, CellStyle(wb) + f$title + alignCenter)
+})
+
+## subtitle
+addMergedRegion(sh, 2,2, 1,ncol(mydata))
+lapply(headercell[2,],function(cell) {
+  setCellValue(cell, 'A fantastic report about nothing')
+  setCellStyle(cell, CellStyle(wb) + f$subtitle + alignCenter )
+})
+
+## cell styles for data
+cslist <- lapply(1:ncol(mydata), function(x){CellStyle(wb) + f$data + alignCenter + dataFormatNumberD})
+cslist[1:2] <- lapply(cslist[1:2], function(x){x + alignLeft}) ## left align first two columns
+
+## add data
+workrow <- 4
+
+addDataFrame(mydata, sh
+             , col.names=TRUE
+             , row.names = FALSE
+             , startRow = workrow
+             , startColumn = 1 
+             , colStyle = setNames(cslist,1:numbercol)
+             , colnamesStyle = CellStyle(wb) + f$subtitle + alignCenter + fillPrimary
+             )
+
+workrow <- workrow + nrow(mydata) + 1 ## + 1 for header
+
+## add total row... sorta 
+## - (just the first row because I am lazy)
+addDataFrame(mydata[1,], sh
+             , col.names=FALSE
+             , row.names=FALSE
+             , startRow = workrow
+             , startColumn = 1
+             , colStyle = setNames(lapply(cslist,function(x){x + fillSecondary}),1:numbercol)
+             )
+
+saveWorkbook(wb, 'excel_report.xlsx')
+
+```
+
+Once you get used to some of the verbosity, the elegance of automatically
+creating nicely formatted Excel reports on a UNIX platform from R begins to
+shine.  Further, with a bit of work implementing an R API, we get the benefit of
+a robust Java community debugging issues behind the scenes at Apache.  If you
+would like to contribute on improving the R API and adding functionality, you
+can do so [on github](https://github.com/colearendt/xlsx).
+
+![Our Beautiful Report](`r rprojroot::is_r_package$find_file('vignettes/excel_report.png')`)
+
+Bonus: you can even customize print formatting and a whole host of other things!
+There is more to come on that.

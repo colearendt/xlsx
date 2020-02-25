@@ -5,7 +5,9 @@ language: r
 os: 
   - linux
   - osx
-  
+
+osx_image: xcode9.3
+
 sudo: true
 cache: packages
 
@@ -23,6 +25,8 @@ before_script:
 - echo PATH=$PATH
 - echo JAVA_HOME=$JAVA_HOME
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo R CMD javareconf ; fi
+- R -e 'Sys.getenv("JAVA_HOME")'
+- R -e 'library(rJava); .jinit()'
 
 after_success:
 - Rscript -e 'covr::codecov()'

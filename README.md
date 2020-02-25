@@ -1,10 +1,10 @@
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/colearendt/xlsx?branch=master&svg=true)](https://ci.appveyor.com/project/colearendt/xlsx)
 [![Travis-CI Build Status](https://travis-ci.org/colearendt/xlsx.svg?branch=master)](https://travis-ci.org/colearendt/xlsx)
-[![CRAN Version](http://www.r-pkg.org/badges/version-last-release/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
+[![CRAN Version](http://www.r-pkg.org/badges/version-last-release/xlsx)](https://CRAN.R-project.org/package=xlsx)
 
 [![codecov.io](https://codecov.io/github/colearendt/xlsx/coverage.svg?branch=master)](https://codecov.io/github/colearendt/xlsx?branch=master)
-[![CRAN Activity](http://cranlogs.r-pkg.org/badges/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
-[![CRAN History](http://cranlogs.r-pkg.org/badges/grand-total/xlsx)](https://cran.r-project.org/web/packages/xlsx/index.html)
+[![CRAN Activity](http://cranlogs.r-pkg.org/badges/xlsx)](https://CRAN.R-project.org/package=xlsx)
+[![CRAN History](http://cranlogs.r-pkg.org/badges/grand-total/xlsx)](https://CRAN.R-project.org/package=xlsx)
 
 xlsx
 ========
@@ -25,7 +25,7 @@ install.packages('xlsx')
 Or development version from GitHub
 
 ```r
-devtools::install_github('dragua/xlsx')
+devtools::install_github('colearendt/xlsx')
 ```
 
 ## Common Problems
@@ -81,9 +81,15 @@ saveWorkbook(wb,'iris_pretty.xlsx')
 
 ## Issues/Mailing list
 
-To report a bug, use the Issues page at: https://github.com/dragua/xlsx/issues
+To report a bug, use the Issues page at: https://github.com/colearendt/xlsx/issues
 
-Questions should be asked on the dedicated [mailing list](http://groups.google.com/group/R-package-xlsx)
+If you are wrestling with the Java dependency, there are some very good
+alternatives that do not require Java. Your choice will vary depending on what
+you are trying to accomplish.
+
+- [openxlsx](https://github.com/awalker89/openxlsx)
+- [readxl](https://readxl.tidyverse.org/)
+- [writexl](https://docs.ropensci.org/writexl/)
 
 ## Acknowledgements
 

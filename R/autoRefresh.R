@@ -18,6 +18,38 @@
 
 # Make Excel refresh all formula when the file is open
 # If output is NULL then overwrite the original file
+#' @title Force Refresh Pivot Tables and Formulae
+#' 
+#' @description Functions to force formula calculation or refresh of pivot 
+#' tables when the Excel file is opened.
+#' 
+#' @details   
+#' \code{forcePivotTableRefresh} forces pivot tables to be refreshed when the Excel file is opened.
+#' \code{forceFormulaRefresh} forces formulae to be recalculated when the Excel file is opened.
+#' 
+#' @param file the path of the source file where formulae/pivot table needs to be refreshed
+#' @param output the path of the output file.  If it is \code{NULL} then the source file will be overwritten
+#' @param verbose Whether to make logging more verbose
+#' 
+#' @return Does not return any results
+#' 
+#' @examples 
+#' # Patch a file where its pivot tables are not recalculated when the file is opened
+#' \dontrun{
+#' forcePivotTableRefresh("/tmp/file.xlsx")
+#' forcePivotTableRefresh("/tmp/file.xlsx", "/tmp/fixed_file.xlsx")
+#' }
+#' # Patch a file where its formulae are not recalculated when the file is opened
+#' \dontrun{
+#' forceFormulaRefresh("/tmp/file.xlsx")
+#' forceFormulaRefresh("/tmp/file.xlsx", "/tmp/fixed_file.xlsx")
+#' }
+#' 
+#' 
+#' @author Tom Kwong
+#' 
+#' @export
+#' @rdname autoRefresh
 forceFormulaRefresh <- function(file, output=NULL, verbose=FALSE) {
   
   # redirect output to source location?
@@ -37,6 +69,8 @@ forceFormulaRefresh <- function(file, output=NULL, verbose=FALSE) {
   }
 }
 
+#' @export
+#' @rdname autoRefresh
 forcePivotTableRefresh <- function(file, output=NULL, verbose=FALSE) {
   
   if (!file.exists(file)) {

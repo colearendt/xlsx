@@ -2,3 +2,8 @@
 out/
 .Rproj.user
 tests/testthat/tmp
+xlsx.Rcheck/
+xlsx*.tar.gz
+xlsx*.tgz
+project.Rproj
+.RData*
