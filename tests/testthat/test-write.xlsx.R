@@ -51,12 +51,32 @@ test_that("works with a tibble", {
   skip("have not devised a test yet")
 })
 
+awkward_rownames <- function(.data) {
+  cbind(rownames = row.names(.data), .data)
+}
+
+test_that("output data matches input (for a tibble", {
+  local_tbl <- tibble::tibble(
+    id = c(1,2,3),
+    name = c("one", "two", "three"),
+    again = c("do", "re", "mi")
+  )
+
+  tmp_xlsx <- tempfile(pattern = "tibble_output", fileext = ".xlsx")
+
+  output_tbl <- write.xlsx(local_tbl, tmp_xlsx)
+  expect_equal(output_tbl, awkward_rownames(local_tbl))
+
+  unlink(tmp_xlsx)
+})
+
 test_that("output data matches input (for a data.frame)", {
-  local_df <- data.frame(id = c(1,2,3), name = c("one", "two", "three"))
+  local_df <- data.frame(id = c(1,2,3), name = c("one", "two", "three"), stringsAsFactors = FALSE)
 
   tmp_xlsx <- tempfile(pattern = "output", fileext = ".xlsx")
 
-  expect_equal(write.xlsx(local_df, tmp_xlsx), local_df)
+  output_df <- write.xlsx(local_df, tmp_xlsx)
+  expect_equal(output_df, awkward_rownames(local_df))
 
   unlink(tmp_xlsx)
 })
