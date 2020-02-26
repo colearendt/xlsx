@@ -141,7 +141,7 @@ character matrix.
 }
 \examples{
 
-
+\donttest{
   wb <- createWorkbook()
   sheet  <- createSheet(wb, sheetName="CellBlock")
 
@@ -167,6 +167,7 @@ character matrix.
 
   # Don't forget to save the workbook ...
   # saveWorkbook(wb, file)
+}
 
 }
 \author{
