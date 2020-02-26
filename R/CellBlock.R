@@ -72,7 +72,7 @@
 #' @author Adrian Dragulescu
 #' @examples
 #'
-#'
+#' \donttest{
 #'   wb <- createWorkbook()
 #'   sheet  <- createSheet(wb, sheetName="CellBlock")
 #'
@@ -98,6 +98,7 @@
 #'
 #'   # Don't forget to save the workbook ...
 #'   # saveWorkbook(wb, file)
+#' }
 #'
 #' @export
 CellBlock <- function(sheet, startRow, startColumn, noRows, noColumns,
