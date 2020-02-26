@@ -1,5 +1,13 @@
 NEWS for package xlsx
 
+Changes in version 0.6.3 (released 2020-02)
+
+ o Add `set_java_tmp_dir` and `get_java_tmp_dir` to address CRAN feedback
+
+ o Change default Java temp directory to be under the R temp directory by default
+
+ o Move a time/CPU consuming example to `\donttest{}` to comply with CRAN feedback
+
 Changes in verison 0.6.2 (released 2020-02)
 
  o Fix bug in `saveWorkbook` with a password (#107)
