@@ -10,13 +10,13 @@
 |collate  |en_US.UTF-8                  |
 |ctype    |en_US.UTF-8                  |
 |tz       |Etc/UTC                      |
-|date     |2020-02-10                   |
+|date     |2020-02-27                   |
 
 # Dependencies
 
 |package |old   |new   |Δ  |
 |:-------|:-----|:-----|:--|
-|xlsx    |0.6.1 |0.6.2 |*  |
+|xlsx    |0.6.2 |0.6.3 |*  |
 
 # Revdeps
 

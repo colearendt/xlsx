@@ -1,3 +1,4 @@
 checks/
 data.sqlite
 library/
+.nfs*
