@@ -7,6 +7,7 @@ test_java_version <- function(version){
   )
 }
 test_that("version comparison works", {
+  skip("no longer checking version")
   # the previous version comparison failed in some locales
   expect_error(test_java_version("0.99.0"))
   expect_error(test_java_version("1.0.0"))
