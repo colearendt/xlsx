@@ -49,7 +49,7 @@
   parse_version <- regexpr("[0-9]+\\.[0-9]+\\.[0-9]+", jversion)
   clean_version <- substr(jversion, parse_version, attr(parse_version, "match.length"))
   if (utils::compareVersion(clean_version,"1.5.0") < 0)
-    stop(paste("Your java version is ", jversion,
+    warning(paste("Your java version is ", jversion,
                  ".  Need 1.5.0 or higher.", sep=""))
 
   wb <- createWorkbook()   # load/initialize jars here as it takes
