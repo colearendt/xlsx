@@ -13,3 +13,5 @@
 ^xlsx.*\.tar\.gz$
 ^xlsx.*\.tgz$
 ^revdep$
+^renv$
+^renv\.lock$
