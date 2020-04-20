@@ -106,6 +106,7 @@ loadWorkbook <- function(file, password=NULL)
 #' @rdname Workbook
 saveWorkbook <- function(wb, file, password=NULL)
 {
+  nfile <- normalizePath(file, mustWork = FALSE)
   jFile <- .jnew("java/io/File", file)
   fh <- .jnew("java/io/FileOutputStream", jFile)
 
