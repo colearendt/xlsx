@@ -2,7 +2,7 @@
 
 language: r
 
-os: 
+os:
   - linux
   - osx
 
@@ -19,6 +19,11 @@ r:
 matrix:
   allow_failures:
   - r: devel
+  - r: oldrel
+    os: osx
+
+before_install:
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo R CMD javareconf ; fi
 
 before_script:
 - java -version
