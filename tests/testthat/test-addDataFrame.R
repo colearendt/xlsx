@@ -71,7 +71,12 @@ test_that('works with tibble', {
 test_that("works with characterNA = NA", {
   wb <- createWorkbook()
   s1 <- createSheet(wb)
-  addDataFrame(data.frame(a = c(NA,"hi"), b = c("ho","hum"), c = c(NA_character_, NA_character_)), s1, characterNA = NA)
+
+  addDataFrame(
+    data.frame(a = c(NA,"hi"), b = c("ho","hum"), c = c(NA_character_, NA_character_)),
+    s1,
+    characterNA = NA
+    )
 
   read_dat <- readRows(s1, 1,3, 1)
   alt_dat <- readColumns(s1, 1,4, 1)
