@@ -160,7 +160,7 @@ addDataFrame <- function(x, sheet, col.names=TRUE, row.names=TRUE,
         aux[haveNA] <- characterNA
 
       # Excel max cell size limit
-      if (max(nchar(aux), na.rm = TRUE) > .EXCEL_LIMIT_MAX_CHARS_IN_CELL) {
+      if (!all(is.na(aux)) && max(nchar(aux), na.rm = TRUE) > .EXCEL_LIMIT_MAX_CHARS_IN_CELL) {
           warning(sprintf("Some cells exceed Excel's limit of %d characters and they will be truncated",
                           .EXCEL_LIMIT_MAX_CHARS_IN_CELL))
           aux <- strtrim(aux, .EXCEL_LIMIT_MAX_CHARS_IN_CELL)
