@@ -107,14 +107,6 @@ loadWorkbook <- function(file, password=NULL)
 saveWorkbook <- function(wb, file, password=NULL)
 {
   nfile <- normalizePath(file, mustWork = FALSE)
-  jFile <- .jnew("java/io/File", file)
-  fh <- .jnew("java/io/FileOutputStream", jFile)
-
-  # write the workbook to the file
-  wb$write(fh)
-
-  # close the filehandle
-  .jcall(fh, "V", "close")
 
   if ( !is.null(password) ) {
     fs <- .jnew("org/apache/poi/poifs/filesystem/POIFSFileSystem")
@@ -130,9 +122,18 @@ saveWorkbook <- function(wb, file, password=NULL)
     opc$save(outputStream)
     opc$close()
 
-    fos <- .jnew("java/io/FileOutputStream", file)
+    fos <- .jnew("java/io/FileOutputStream", nfile)
     fs$writeFilesystem(fos)
     fos$close()
+  } else {
+    jFile <- .jnew("java/io/File", nfile)
+    fh <- .jnew("java/io/FileOutputStream", jFile)
+
+    # write the workbook to the file
+    wb$write(fh)
+
+    # close the filehandle
+    .jcall(fh, "V", "close")
   }
 
   invisible()
