@@ -1,5 +1,11 @@
 NEWS for package xlsx
 
+Changes in development
+
+ o Fix path expanding for `saveWorkbook`, `write.xlsx`, `write.xlsx2` for home directories / `~` (#108)
+
+ o Remove Java version checks, to avoid collisions with Java 14 (#154, #156, #159)
+
 Changes in version 0.6.3 (released 2020-02)
 
  o Add `set_java_tmp_dir` and `get_java_tmp_dir` to address CRAN feedback
