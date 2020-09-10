@@ -63,7 +63,7 @@ many developers, test suites, and users that report issues on the Java
 side.  In principle, this should make the maintainance of the
 `xlsx` package easy.  The Java API used by the `xlsx` is one
 project of the Apache Software Foundation, called Apache POI and can
-be found at [http://poi.apache.org/](http://poi.apache.org/).
+be found at [https://poi.apache.org/](https://poi.apache.org/).
 
 The Apache POI Project's mission is to create and maintain Java APIs
 for manipulating various file formats based upon the Office Open XML

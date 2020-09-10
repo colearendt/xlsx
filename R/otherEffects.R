@@ -134,7 +134,7 @@ addAutoFilter <- function(sheet, cellRange)
 #'
 #'   ## Add hyperlinks to a cell
 #'   cell <- cells[[1,1]]
-#'   address <- "http://poi.apache.org/"
+#'   address <- "https://poi.apache.org/"
 #'   setCellValue(cell, "click me!")
 #'   addHyperlink(cell, address)
 #'

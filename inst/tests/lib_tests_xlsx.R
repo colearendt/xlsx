@@ -22,8 +22,8 @@
 
 
 #####################################################################
-# Test adding a df to an existing workbook using addDataFrame 
-# 
+# Test adding a df to an existing workbook using addDataFrame
+#
 test.addOnExistingWorkbook <- function(ext="xlsx")
 {
   cat("Test adding a df to an existing workbook ... ")
@@ -37,17 +37,17 @@ test.addOnExistingWorkbook <- function(ext="xlsx")
 
   addDataFrame(dat, sheets$mixedTypes, startColumn=20, startRow=5)
   #saveWorkbook(wb, paste(OUTDIR, "addOnExistingWorkbook.xlsx", sep=""))
-  
+
   cat("Done.\n")
 }
 
 #####################################################################
-# Test add 
-# 
+# Test add
+#
 test.addDataFrame <- function(wb)
 {
   cat("Testing addDataFrame ... \n")
-  
+
   cat("  custom styles\n")
   sheet1 <- createSheet(wb, sheetName="addDataFrame1")
   data0 <- data.frame(mon=month.abb[1:10], day=1:10, year=2000:2009,
@@ -61,9 +61,9 @@ test.addDataFrame <- function(wb)
   cs3 <- CellStyle(wb) + Font(wb, isBold=TRUE) + Border()
   addDataFrame(data0, sheet1, startRow=3, startColumn=2, colnamesStyle=cs3,
     rownamesStyle=cs1, colStyle=list(`2`=cs2, `3`=cs2))
-  
+
   cat("  NA treatment, with defaults\n")
-  sheet2 <- createSheet(wb, sheetName="addDataFrame2")  
+  sheet2 <- createSheet(wb, sheetName="addDataFrame2")
   data <- data.frame(mon=month.abb, index=1:12, double=seq(1.23, by=1,
     length.out=12), stringsAsFactors=FALSE)
   data$mon[3:4] <- NA; data$mon[12] <- "defaults, showNA=FALSE"
@@ -80,23 +80,23 @@ test.addDataFrame <- function(wb)
   cells <- getCells(row)
   c1.10 <- createCell(row, 10)
   setCellValue(c1.10[[1,1]], "rbind and cbind some df with addDataFrame")
-  
+
   cat("  stack another data.frame on a sheet\n")
   addDataFrame(data0, sheet3, startRow=17, startColumn=5)
 
   cat("  put another data.frame on a sheet side by side\n")
   addDataFrame(data0, sheet3, startRow=17, startColumn=17)
-  
+
   cat("Done.\n")
 }
 
 #####################################################################
-# 
-# 
+#
+#
 test.basicFunctions <- function(ext)
 {
   cat("Testing basic workbook functions\n")
-  cat("Create an empty workbook ... ") 
+  cat("Create an empty workbook ... ")
   wb <- createWorkbook(type=ext)
 
   cat("  create a sheet called 'Sheet1'\n")
@@ -104,16 +104,16 @@ test.basicFunctions <- function(ext)
 
   cat("  create another sheet called 'Sheet2'\n")
   sheet2 <- createSheet(wb, sheetName="Sheet2")
-  
+
   cat("  get sheets\n")
   sheets <- getSheets(wb)
   stopifnot(length(sheets) == 2)
 
   cat("  remove sheet named 'Sheet2'\n")
   removeSheet(wb, sheetName="Sheet2")
-  sheets <- getSheets(wb)  
+  sheets <- getSheets(wb)
   stopifnot(length(sheets) == 1)
- 
+
   cat("  add rows 6:10 on Sheet1\n")
   rows <- createRow(sheet1, 6:10)
   stopifnot(length(rows) == 5)
@@ -121,9 +121,9 @@ test.basicFunctions <- function(ext)
   cat("  remove rows 1:10 on Sheet1 of test_import.xlsx\n")
   filename <- paste("test_import.", ext, sep="")
   file <- system.file("tests", filename, package="xlsx")
-  wb <- loadWorkbook(file)  
+  wb <- loadWorkbook(file)
   sheets <- getSheets(wb)
-  sheet <- sheets[[1]]  
+  sheet <- sheets[[1]]
   rows  <- getRows(sheet)           # get all the rows
   removeRow(sheet, rows[1:10])
   rows  <- getRows(sheet)           # get all the rows
@@ -133,14 +133,14 @@ test.basicFunctions <- function(ext)
 }
 
 #####################################################################
-# Test Borders, Fonts, Colors, etc. 
-# 
+# Test Borders, Fonts, Colors, etc.
+#
 test.cellStyles <- function(wb)
 {
   cat("Testing cell styles ...\n")
   sheet  <- createSheet(wb, sheetName="cellStyles")
-  rows   <- createRow(sheet, rowIndex=1:12)         
-  cells  <- createCell(rows, colIndex=1:8)      
+  rows   <- createRow(sheet, rowIndex=1:12)
+  cells  <- createCell(rows, colIndex=1:8)
 
   mapply(setCellValue, cells[,1], month.name)
 
@@ -150,24 +150,24 @@ test.cellStyles <- function(wb)
   borders <- Border(color=c("red","blue"), position=c("BOTTOM", "TOP"),
                     pen=c("BORDER_THICK", "BORDER_THIN"))
   cs1 <- CellStyle(wb) + borders
-  setCellStyle(cells[[2,1]], cs1)   
+  setCellStyle(cells[[2,1]], cs1)
 
-  
+
   cat("  Check fills.\n")
   setCellValue(cells[[4,2]], "<-- Solid lavender fill.")
   cs2 <- CellStyle(wb) + Fill(backgroundColor="lavender",
     foregroundColor="lavender", pattern="SOLID_FOREGROUND")
-  setCellStyle(cells[[4,1]], cs2) 
+  setCellStyle(cells[[4,1]], cs2)
 
-    
-  cat("  Check fonts.\n") 
+
+  cat("  Check fonts.\n")
   setCellValue(cells[[6,2]], "<-- Courier New, Italicised, in orange, size 20 and bold")
   font <- Font(wb, heightInPoints=20, isBold=TRUE, isItalic=TRUE,
     name="Courier New", color="orange")
   cs3 <- CellStyle(wb) + font
-  setCellStyle(cells[[6,1]], cs3)   
+  setCellStyle(cells[[6,1]], cs3)
 
-  
+
   cat("  Check alignment.\n")
   setCellValue(cells[[8,2]], "<-- Right aligned")
   cs4 <- CellStyle(wb) + Alignment(h="ALIGN_RIGHT")
@@ -180,8 +180,8 @@ test.cellStyles <- function(wb)
   cs5 <- CellStyle(wb) + DataFormat("#,##0.00_);[Red](#,##0.00)")
   setCellStyle(cells[[10,1]], cs5)
 
-  
-  cat("  Autosize first, second column.\n") 
+
+  cat("  Autosize first, second column.\n")
   autoSizeColumn(sheet, 1)
   autoSizeColumn(sheet, 2)
   setCellValue(cells[[1,4]], "First and second columns are autosized.")
@@ -195,7 +195,7 @@ test.cellBlock2 <- function()
   ext <- "xls"
   outfile <- paste("out/test_cellBlock.", ext, sep="")
   if (file.exists(outfile)) unlink(outfile)
-   
+
   wb <- createWorkbook(type=ext)
 
   sheet  <- createSheet(wb, sheetName="CellBlock")
@@ -208,9 +208,9 @@ test.cellBlock2 <- function()
   # add a matrix, and style it
   cs <- CellStyle(wb) + DataFormat("#,##0.00")
   x  <- matrix(rnorm(40*45), nrow=40)
-  CB.setMatrixData(cb, x, 10, 4, cellStyle=cs)  
+  CB.setMatrixData(cb, x, 10, 4, cellStyle=cs)
 
-  # highlight the negative numbers in red 
+  # highlight the negative numbers in red
   fill <- Fill(foregroundColor = "red", backgroundColor="red")
   ind  <- which(x < 0, arr.ind=TRUE)
   CB.setFill(cb, fill, ind[,1]+9, ind[,2]+3)  # note the indices offset
@@ -220,7 +220,7 @@ test.cellBlock2 <- function()
     pen=c("BORDER_THIN", "BORDER_THICK"))
   CB.setBorder(cb, border, 1:50, 1)
 
-  saveWorkbook(wb, outfile)  
+  saveWorkbook(wb, outfile)
   cat("Wrote file", outfile, "\n\n")
 }
 
@@ -228,7 +228,7 @@ test.cellBlock2 <- function()
 
 #####################################################################
 # Test CellBlock
-# 
+#
 test.cellBlock <- function(wb)
 {
   cat("Testing the CellBlock functionality ...\n")
@@ -242,9 +242,9 @@ test.cellBlock <- function(wb)
   # add a matrix, and style it
   cs <- CellStyle(wb) + DataFormat("#,##0.00")
   x  <- matrix(rnorm(900*45), nrow=900)
-  CB.setMatrixData(cb, x, 10, 4, cellStyle=cs)  
+  CB.setMatrixData(cb, x, 10, 4, cellStyle=cs)
 
-  # highlight the negative numbers in red 
+  # highlight the negative numbers in red
   fill <- Fill(foregroundColor = "red", backgroundColor="red")
   ind  <- which(x < 0, arr.ind=TRUE)
   CB.setFill(cb, fill, ind[,1]+9, ind[,2]+3)  # note the indices offset
@@ -263,14 +263,14 @@ test.cellBlock <- function(wb)
   ind <- expand.grid(1:5, 1:5)
   CB.setFont(cb, font, ind[,1], ind[,2])
 
-  
+
   cat("Done.\n")
 }
 
 
 #####################################################################
 # Test comments
-# 
+#
 test.comments <- function(wb)
 {
   cat("Testing comments ... ")
@@ -293,7 +293,7 @@ test.comments <- function(wb)
 
 #####################################################################
 # Test dataFormats
-# 
+#
 test.dataFormats <- function(wb)
 {
   cat("Testing dataFormats ... ")
@@ -312,7 +312,7 @@ test.dataFormats <- function(wb)
 
   # or do them all by looping over columns
   for (ic in 1:ncol(data))
-    mapply(setCellValue, cells[,ic], data[,ic]) 
+    mapply(setCellValue, cells[,ic], data[,ic])
 
   setCellValue(cells[[1,10]], 'format "log" column with two decimals')
   cellStyle1 <- CellStyle(wb) + DataFormat("#,##0.00")
@@ -328,7 +328,7 @@ test.dataFormats <- function(wb)
   #cellStyle2$getDataFormat()
   lapply(cells[,8], setCellStyle, cellStyle3)
 
-  setCellValue(cells[[4,10]], 
+  setCellValue(cells[[4,10]],
     'format "rnorm" column with two decimals, comma separator, red')
   cellStyle4 <- CellStyle(wb) + DataFormat("#,##0.00_);[Red](#,##0.00)")
   lapply(cells[,7], setCellStyle, cellStyle4)
@@ -338,7 +338,7 @@ test.dataFormats <- function(wb)
 
 #####################################################################
 # Test other effects
-# 
+#
 test.evalFormulasOnOpen <- function()
 {
   require(xlsx)
@@ -353,16 +353,16 @@ test.evalFormulasOnOpen <- function()
   setCellValue(cells[["2.1"]], 2)
 
   #wb$getCreationHelper()$createFormulaEvaluator()$evaluateAll()
-  
+
   wb$setForceFormulaRecalculation(TRUE)
-  
+
   saveWorkbook(wb, "C:/temp/junk.xlsx")
-  
+
 }
 
 #####################################################################
 # Test other effects
-# 
+#
 test.otherEffects <- function(wb)
 {
   cat("Testing other effects ... \n")
@@ -379,7 +379,7 @@ test.otherEffects <- function(wb)
   setColumnWidth(sheet1, 1, 25)
   setCellValue(cells[[5,1]], paste("<-- the width of this column",
     "is 20 characters wide."))
-  
+
   cat("  set zoom\n")
   setCellValue(cells[[3,1]], "<-- the zoom on this sheet is 2:1.")
   setZoom(sheet1, 200, 100)
@@ -392,23 +392,23 @@ test.otherEffects <- function(wb)
   setCellValue(cells[[3,3]], "<-- a freeze pane")
 
   cat("  add hyperlinks to a cell\n")
-  address <- "http://poi.apache.org/"
-  setCellValue(cells[[1,1]], "click me!")  
+  address <- "https://poi.apache.org/"
+  setCellValue(cells[[1,1]], "click me!")
   addHyperlink(cells[[1,1]], address)
-  
+
   sheet3 <- createSheet(wb, "otherEffects3")
   rows  <- createRow(sheet3, 1:10)              # 10 rows
   cells <- createCell(rows, colIndex=1:8)       # 8 columns
   createSplitPane(sheet3, 2000, 2000, 1, 1, "PANE_LOWER_LEFT")
   setCellValue(cells[[3,3]], "<-- a split pane")
-  
+
   cat("Done.\n")
 }
 
-  
+
 #####################################################################
 # Test pictures
-# 
+#
 test.picture <- function(wb)
 {
   cat("Test embedding an R picture ...\n")
@@ -420,25 +420,25 @@ test.picture <- function(wb)
   addPicture(picname, sheet)
 
   xlsx:::.write_block(wb, sheet, iris)
-  cat("Done.\n")  
+  cat("Done.\n")
 }
 
-  
+
 #####################################################################
 # Test Ranges
-# 
+#
 test.ranges <- function(wb)
 {
   cat("Testing ranges ... ")
   sheets <- getSheets(wb)
   sheet <- sheets[["dataFormats"]]
-  
+
   cat("  make a new range")
   firstCell <- sheet$getRow(2L)$getCell(2L)
   lastCell  <- sheet$getRow(6L)$getCell(5L)
   rangeName <- "Test2"
   createRange(rangeName, firstCell, lastCell)
-  
+
   ranges <- getRanges(wb)
   range <- ranges[[1]]
   res <- readRange(range, sheet, colClasses="numeric")
@@ -450,7 +450,7 @@ test.ranges <- function(wb)
 
 #####################################################################
 # Test imports
-# 
+#
 .main_highlevel_import <- function(ext="xlsx")
 {
   fname <- paste("test_import.", ext, sep="")
@@ -471,7 +471,7 @@ test.ranges <- function(wb)
   cat("  import keeping formulas\n")
   res <- read.xlsx(file, sheetName="mixedTypes", keepFormulas=TRUE)
   stopifnot(res$Double[4]=="SQRT(2)")
-  
+
   cat("  import with colClasses\n")
   cat("  force conversion of boolean column to numeric\n")
   colClasses <- rep(NA, length=6); colClasses[4] <- "numeric"
@@ -484,15 +484,15 @@ test.ranges <- function(wb)
 
   cat("Test you can read string formulas ... \n")
   res <- read.xlsx(file, "formulas", keepFormulas=FALSE)
-  stopifnot(res[1,3]=="2010-1") 
+  stopifnot(res[1,3]=="2010-1")
 
   cat("Test you can read #N/A's ... \n")
   res <- read.xlsx(file, "NAs")
-  stopifnot(all.equal(which(is.na(res)), c(6,28,29,59,69))) 
+  stopifnot(all.equal(which(is.na(res)), c(6,28,29,59,69)))
 
   cat("Test read.xlsx2 ... \n")
   res <- read.xlsx2(file, sheetName="all", startRow=3)
-  
+
   cat("  read more columns than on the spreadsheet")
   res <- read.xlsx2(file, sheetName="all", startRow=3, noRows=6, colIndex=3:14)
 
@@ -501,34 +501,34 @@ test.ranges <- function(wb)
     colClasses=c("character", rep("numeric", 2), "Date", "character",
       "numeric", "numeric", "POSIXct"))
   stopifnot(class(res[,4])=="Date", class(res[,8])=="POSIXct")
-    
-  cat("  read non contiguos blocks\n") 
+
+  cat("  read non contiguos blocks\n")
   res <- read.xlsx2(file, sheetName="all", startRow=3,
     colIndex=c(3,4,6,8,9,10))
   stopifnot(ncol(res) == 6)
 
-  cat("  read ragged data\n") 
+  cat("  read ragged data\n")
   res2 <- read.xlsx2(file, sheetName="ragged")
-  res  <- read.xlsx(file, sheetName="ragged", colIndex=1:4)  
+  res  <- read.xlsx(file, sheetName="ragged", colIndex=1:4)
 
   cat("  read rowIndex with read.xlsx\n")
   # reported bug in 0.5.1, fixed on 6/20/2013
   res <- read.xlsx(file, sheetName="all", colIndex=3:6, rowIndex=3:7)
   if (nrow(res) != 4) stop("read rowIndex with read.xlsx failed")
 
-  
+
   cat("Done.\n")
 }
 
 #####################################################################
 # test highlevel export
-# 
+#
 .main_highlevel_export <- function(ext="xlsx")
 {
   outfile <- paste("out/test_highlevel_export.", ext, sep="")
-  if (file.exists(outfile)) unlink(outfile)  
-  
-  cat("Testing high level export ... \n")  
+  if (file.exists(outfile)) unlink(outfile)
+
+  cat("Testing high level export ... \n")
   x <- data.frame(mon=month.abb[1:10], day=1:10, year=2000:2009,
     date=seq(as.Date("2009-01-01"), by="1 month", length.out=10),
     bool=ifelse(1:10 %% 2, TRUE, FALSE))
@@ -536,20 +536,20 @@ test.ranges <- function(wb)
   file <- paste("out/test_highlevel_export.", ext, sep="")
   cat("  write an xlsx file with char, int, double, date, bool columns ...\n")
   write.xlsx(x, file, sheetName="writexlsx")
-  
-  write.xlsx2(x, file, sheetName="writexlsx2", append=TRUE, row.names=FALSE) 
+
+  write.xlsx2(x, file, sheetName="writexlsx2", append=TRUE, row.names=FALSE)
 
   cat("  test the append argument by adding another sheet ... \n")
   file <- paste("out/test_highlevel_export.", ext, sep="")
   write.xlsx(USArrests, file, sheetName="usarrests", append=TRUE)
   cat("Wrote file ", file, "\n\n")
 
-  cat("  test writing/reading data.frames with NA values ... \n") 
+  cat("  test writing/reading data.frames with NA values ... \n")
   file <- paste("out/test_writeread_NA.", ext, sep="")
   x <- data.frame(matrix(c(1.0, 2.0, 3.0, NA), 2, 2))
   write.xlsx(x, file, row.names=FALSE)
   xx <- read.xlsx(file, 1)
-  if (!identical(x,xx)) 
+  if (!identical(x,xx))
     stop("Fix me!")
 
   cat("Done.\n")
@@ -591,7 +591,7 @@ test.ranges <- function(wb)
   cat("  readRows\n")
   sheet <- sheets[["all"]]
   res <- readRows(sheet, startRow=3, endRow=7, startColumn=2, endColumn=15)
-  
+
   cat("Done.\n")
 }
 
@@ -603,7 +603,7 @@ test.ranges <- function(wb)
 {
   outfile <- paste("out/test_export.", ext, sep="")
   if (file.exists(outfile)) unlink(outfile)
-   
+
   wb <- createWorkbook(type=ext)
 
   test.cellStyles(wb)
@@ -615,9 +615,9 @@ test.ranges <- function(wb)
   test.addDataFrame(wb)
   #test.pageBreaks(wb)    # not working with 3.7, fixed in 3.8
   test.cellBlock(wb)
-   
+
   saveWorkbook(wb, outfile)
-  
+
   cat("Wrote file", outfile, "\n\n")
 }
 
@@ -627,7 +627,7 @@ test.ranges <- function(wb)
 #
 .main_speedtest_export <- function(ext="xlsx")
 {
-  cat("Speed test export ... \n")  
+  cat("Speed test export ... \n")
 
   file <- paste("out/test_exportSpeed.", ext, sep="")
   x <- expand.grid(ind=1:60, letters=letters, months=month.abb)
@@ -636,7 +636,7 @@ test.ranges <- function(wb)
   cat("  timing write.xlsx:", system.time(write.xlsx(x, file)), "\n")   # 99s
   cat("  timing write.xlsx2:", system.time(write.xlsx2(x, file)), "\n") #  9s
   cat("  wrote file ", file, "\n")
-  
+
   cat("Done.\n")
 }
 
@@ -660,29 +660,29 @@ test.ranges <- function(wb)
   source("inst/tests/lib_test_issues.R")
   .run_test_issues()
 
-  
+
   test.basicFunctions(ext="xlsx")
-  test.addOnExistingWorkbook(ext="xlsx")  
+  test.addOnExistingWorkbook(ext="xlsx")
   .main_lowlevel_export(ext="xlsx")
   .main_highlevel_export(ext="xlsx")
   .main_highlevel_import(ext="xlsx")
   .main_lowlevel_import(ext="xlsx")  # readColumns, readRows
 #  .main_speedtest_export(ext="xlsx")
-  
+
   test.basicFunctions(ext="xls")
   test.addOnExistingWorkbook(ext="xls")
-  .main_lowlevel_export(ext="xls")  
-  .main_highlevel_export(ext="xls")  
+  .main_lowlevel_export(ext="xls")
+  .main_highlevel_export(ext="xls")
   .main_highlevel_import(ext="xls")
   .main_lowlevel_import(ext="xls")
 #  .main_speedtest_export(ext="xls")
- 
+
 
   ## allF <- list.files(paste(SOURCEDIR,"rexcel/trunk/R/", sep=""),
   ##                    full.names=TRUE)
   ## lapply(allF, function(fname){cat(fname); source(fname)})
 
-  
+
 
 }
 
@@ -707,10 +707,10 @@ test.ranges <- function(wb)
 
 ## #####################################################################
 ## # Test basic Java POI functionality - a bit redundant now
-## # 
+## #
 ## test.basicJavaPOI <- function(wb)
 ## {
-##   cat("Create an empty workbook ...\n") 
+##   cat("Create an empty workbook ...\n")
 ##   wb <- .jnew("org/apache/poi/xssf/usermodel/XSSFWorkbook")
 ##   #if (class(wb)=="jobjRef") cat("OK.\n")
 ##   #.jmethods(wb)
@@ -719,7 +719,7 @@ test.ranges <- function(wb)
 ##   sheet2 <- .jcall(wb, "Lorg/apache/poi/ss/usermodel/Sheet;",
 ##     "createSheet", "Sheet2")
 ##   #if (.jinstanceof(sheet2, "org.apache.poi.ss.usermodel.Sheet"))
-##   #  cat("OK.\n")  
+##   #  cat("OK.\n")
 ##   #.jmethods(sheet2)
 
 ##   cat("Create row 1 ...\n")
@@ -752,12 +752,12 @@ test.ranges <- function(wb)
 
 
 #####################################################################
-# Test mixture.  You cannot convert one hssf to xssf on the fly. 
-# 
+# Test mixture.  You cannot convert one hssf to xssf on the fly.
+#
 ## test.mixtureHSSFXSSF <- function(wb)
 ## {
 ##   cat("Test mixture of HSSF and XSSF")
-  
+
 ##   fname <- "test_import.xls"
 ##   file <- paste(SOURCEDIR, "rexcel/trunk/inst/tests/", fname, sep="")
 
@@ -768,7 +768,7 @@ test.ranges <- function(wb)
 
 ##   wb2 <- .jcast(wb, "org/apache/poi/ss/usermodel/Workbook")
 
-##   saveWorkbook(wb2, paste(OUTDIR, "modify_existing_hssf.xlsx", sep=""))  
+##   saveWorkbook(wb2, paste(OUTDIR, "modify_existing_hssf.xlsx", sep=""))
 ## }
 
 
