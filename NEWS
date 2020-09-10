@@ -1,6 +1,6 @@
 NEWS for package xlsx
 
-Changes in version 0.6.4 (released 2020-09)
+Changes in version 0.6.4.1 (released 2020-09)
 
  o Fix path expanding for `saveWorkbook`, `write.xlsx`, `write.xlsx2` for home directories / `~` (#108)
 
