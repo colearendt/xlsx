@@ -20,7 +20,7 @@ forcePivotTableRefresh(file, output = NULL, verbose = FALSE)
 Does not return any results
 }
 \description{
-Functions to force formula calculation or refresh of pivot 
+Functions to force formula calculation or refresh of pivot
 tables when the Excel file is opened.
 }
 \details{

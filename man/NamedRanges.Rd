@@ -54,7 +54,7 @@ sheet <- getSheets(wb)[["deletedFields"]]
 ranges <- getRanges(wb)
 
 # the call below fails on cran tests for MacOS.  You should see the
-# FAQ: http://code.google.com/p/rexcel/wiki/FAQ
+# FAQ: https://code.google.com/p/rexcel/wiki/FAQ
 #res  <- readRange(ranges[[1]], sheet, colClasses="numeric") # read it
 
 ranges[[1]]$getNameName()  # get its name
