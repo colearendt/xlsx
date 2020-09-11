@@ -34,7 +34,7 @@
 #' @seealso \code{\link{Workbook}} for ways to work with \code{Workbook}
 #' objects.
 #' @references Apache POI project for Microsoft Excel format:
-#' \url{https://poi.apache.org/spreadsheet/index.html}.
+#' \url{https://poi.apache.org/components/spreadsheet/index.html}.
 #'
 #' The Java Doc detailing the classes:
 #' \url{https://poi.apache.org/apidocs/index.html}.  This can be useful if you
