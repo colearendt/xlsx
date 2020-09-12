@@ -75,7 +75,7 @@ spreadsheets (with more than 100,000 cells).
 The default formats for Date and DateTime columns can be changed via the two
 package options \code{xlsx.date.format} and \code{xlsx.datetime.format}.
 They need to be specified in Java date format
-\url{http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html}.
+\url{https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html}.
 
 Writing of password protected workbooks is supported for Excel 2007 OOXML
 format only.  Note that in Linux, LibreOffice is not able to read password

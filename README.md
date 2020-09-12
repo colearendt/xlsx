@@ -1,10 +1,10 @@
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/colearendt/xlsx?branch=master&svg=true)](https://ci.appveyor.com/project/colearendt/xlsx)
 [![Travis-CI Build Status](https://travis-ci.org/colearendt/xlsx.svg?branch=master)](https://travis-ci.org/colearendt/xlsx)
-[![CRAN Version](http://www.r-pkg.org/badges/version-last-release/xlsx)](https://CRAN.R-project.org/package=xlsx)
+[![CRAN Version](https://www.r-pkg.org/badges/version-last-release/xlsx)](https://CRAN.R-project.org/package=xlsx)
 
 [![codecov.io](https://codecov.io/github/colearendt/xlsx/coverage.svg?branch=master)](https://codecov.io/github/colearendt/xlsx?branch=master)
-[![CRAN Activity](http://cranlogs.r-pkg.org/badges/xlsx)](https://CRAN.R-project.org/package=xlsx)
-[![CRAN History](http://cranlogs.r-pkg.org/badges/grand-total/xlsx)](https://CRAN.R-project.org/package=xlsx)
+[![CRAN Activity](https://cranlogs.r-pkg.org/badges/xlsx)](https://CRAN.R-project.org/package=xlsx)
+[![CRAN History](https://cranlogs.r-pkg.org/badges/grand-total/xlsx)](https://CRAN.R-project.org/package=xlsx)
 
 xlsx
 ========
@@ -32,7 +32,7 @@ devtools::install_github('colearendt/xlsx')
 
 This package depends on Java and the [`rJava`](https://www.rforge.net/rJava/) package to make the connection between R and Java seamless.  In order to use the `xlsx` package, you will need to:
 
-- Ensure you have a `jdk` (Java Development Kit, version >= 1.5) installed for your Operating System.  More information can be found on [Oracle's website](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- Ensure you have a `jdk` (Java Development Kit, version >= 1.5) installed for your Operating System.  More information can be found on [Oracle's website](https://www.oracle.com/java/technologies/javase-downloads.html)
 
 - Ensure that the system environment variable `JAVA_HOME` is configured appropriately and points to your `jdk` of choice.  Typically, this will be included in your `PATH` environment variable as well.  Options and system environmental variables that are available from `R` can be seen with `Sys.getenv()`
 
@@ -94,4 +94,4 @@ you are trying to accomplish.
 ## Acknowledgements
 
 The package is made possible thanks to the excellent
-work on [Apache POI](https://poi.apache.org/spreadsheet/index.html).
+work on [Apache POI](https://poi.apache.org/components/spreadsheet/index.html).

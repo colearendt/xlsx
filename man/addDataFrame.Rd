@@ -75,7 +75,7 @@ means "NA".
 The default formats for Date and DateTime columns can be changed via the two
 package options \code{xlsx.date.format} and \code{xlsx.datetime.format}.
 They need to be specified in Java date format
-\url{http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html}.
+\url{https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html}.
 }
 \examples{
 

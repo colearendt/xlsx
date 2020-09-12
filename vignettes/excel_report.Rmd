@@ -32,7 +32,7 @@ in data science and report generation on any operating system.
 
 The first step of any report generation from scratch is data preparation.
 Suffice it to say that R has many tools to expedite that process.  For instance,
-the [`tidyverse`](http://tidyverse.org/) provides several packages for getting
+the [`tidyverse`](https://www.tidyverse.org/) provides several packages for getting
 data into a nice, _tidy_ format for modeling and visualization.  We will presume
 that you have your data structured the way that you want and focus on getting
 that presentation into Excel.

@@ -180,7 +180,7 @@ setRowHeight <- function(rows, inPoints, multiplier=NULL)
 ## getWorksheets <- function(xls, ...)
 ## {
 ##   id <- .getUniqueId(xls@id)[[1]]
-##   worksheetId <- paste("http://spreadsheets.google.com/feeds/spreadsheets/",
+##   worksheetId <- paste("https://spreadsheets.google.com/feeds/spreadsheets/",
 ##                        id, sep="")
 
 ##   msg <- xls@con@ref$getWorksheetEntries(worksheetId)
@@ -392,7 +392,7 @@ setRowHeight <- function(rows, inPoints, multiplier=NULL)
 ## addWorksheet <- function(xls, title, nrow=100, ncol=20)
 ## {
 ##   key <- gsub("spreadsheet%3A(.*)", "\\1", xls@key)
-##   id <- paste("http://spreadsheets.google.com/feeds/spreadsheets/", key,
+##   id <- paste("https://spreadsheets.google.com/feeds/spreadsheets/", key,
 ##               sep="")
 ##   xls@con@ref$addWorksheet(title, as.integer(nrow), as.integer(ncol), id)
 

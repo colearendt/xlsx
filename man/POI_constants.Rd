@@ -10,7 +10,19 @@
 \alias{CELL_STYLES_}
 \alias{INDEXED_COLORS_}
 \title{Constants used in the project.}
-\format{An object of class \code{numeric} of length 7.}
+\format{
+An object of class \code{numeric} of length 7.
+
+An object of class \code{numeric} of length 4.
+
+An object of class \code{numeric} of length 14.
+
+An object of class \code{numeric} of length 19.
+
+An object of class \code{numeric} of length 44.
+
+An object of class \code{numeric} of length 48.
+}
 \usage{
 HALIGN_STYLES_
 
