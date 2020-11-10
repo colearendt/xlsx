@@ -29,7 +29,6 @@ Suggests:
     covr,
     tibble,
     knitr,
-    rmarkdown,
-    RefManageR
+    rmarkdown
 RoxygenNote: 7.1.0
 VignetteBuilder: knitr
