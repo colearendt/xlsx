@@ -108,8 +108,8 @@ write.xlsx <- function(x, file, sheetName="Sheet1",
   col.names=TRUE, row.names=TRUE, append=FALSE, showNA=TRUE,
   password=NULL)
 {
-  if (!is.data.frame(x))
-    x <- data.frame(x)    # just because the error message is too ugly
+  if (!is.data.frame(x) | "tbl_df" %in% class(x))
+    x <- as.data.frame(x, stringsAsFactors = FALSE)    # just because the error message is too ugly
 
   iOffset <- jOffset <- 0
   if (col.names)
@@ -140,8 +140,7 @@ write.xlsx <- function(x, file, sheetName="Sheet1",
 
   .write_block(wb, sheet, x, rowIndex, colIndex, showNA)
   saveWorkbook(wb, file, password=password)
-
-  invisible()
+  return(invisible(x))
 }
 
 
