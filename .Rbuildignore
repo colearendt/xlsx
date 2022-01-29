@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^appveyor\.yml$
 ^\.travis\.yml$
 ^other$
@@ -13,3 +15,6 @@
 ^xlsx.*\.tar\.gz$
 ^xlsx.*\.tgz$
 ^revdep$
+^codecov\.yml$
+^\.github$
+^CODE_OF_CONDUCT\.md$
