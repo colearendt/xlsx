@@ -106,11 +106,21 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
   # the alignment
   if (!is.null(alignment)) {
     if (!is.null(alignment$horizontal)) {
-      halign <- .jcast(style_horizontal_all[[alignment$horizontal]], "org.apache.poi.ss.usermodel.HorizontalAlignment")
+      halign <- alignment$horizontal
+      if (is.character(halign)) {
+        halign <- style_horizontal_all[[halign]]
+      }
+      halign <- .jcast(halign, "org.apache.poi.ss.usermodel.HorizontalAlignment")
+
       .jcall(cellStyle, "V", "setAlignment", halign)
     }
     if (!is.null(alignment$vertical)) {
-      valign <- .jcast(style_vertical_all[[alignment$vertical]], "org.apache.poi.ss.usermodel.VerticalAlignment")
+      valign <- alignment$vertical
+      if (is.character(valign)) {
+        valign <- style_vertical_all[[valign]]
+      }
+      valign <- .jcast(valign, "org.apache.poi.ss.usermodel.VerticalAlignment")
+
       .jcall(cellStyle, "V", "setVerticalAlignment", valign)
     }
     if (alignment$wrapText) {
@@ -187,7 +197,12 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
        .jcall(cellStyle, "V", "setFillBackgroundColor",
          .jshort(INDEXED_COLORS_[toupper(fill$backgroundColor)]))
     }
-    fill_pattern <- .jcast(style_fill_pattern[[fill$pattern]], "org.apache.poi.ss.usermodel.FillPatternType")
+
+    fill_pattern <- fill$pattern
+    if (is.character(fill_pattern)) {
+      fill_pattern <- style_fill_pattern[[fill$pattern]]
+    }
+    fill_pattern <- .jcast(fill_pattern, "org.apache.poi.ss.usermodel.FillPatternType")
     .jcall(cellStyle, "V", "setFillPattern", fill_pattern)
   }
 
