@@ -187,30 +187,61 @@ NULL
 
 # Vertical Alignment ---------------------------------------
 
-  #' @rdname POI_constants
-  #' @export
-  VALIGN_STYLES_<- c(2,1,3,0)
-  names(VALIGN_STYLES_) <- c('VERTICAL_BOTTOM' ,'VERTICAL_CENTER',
-                             'VERTICAL_JUSTIFY' ,'VERTICAL_TOP')
-  #' @rdname POI_constants
-  #' @export
-  BORDER_STYLES_ <- c(9,11,3,7,6,4,2,10,12,8,0,13,5,1)
-  names(BORDER_STYLES_) <- c("BORDER_DASH_DOT", "BORDER_DASH_DOT_DOT",
-    "BORDER_DASHED", "BORDER_DOTTED", "BORDER_DOUBLE", "BORDER_HAIR",
-    "BORDER_MEDIUM", "BORDER_MEDIUM_DASH_DOT",
-    "BORDER_MEDIUM_DASH_DOT_DOT", "BORDER_MEDIUM_DASHED",
-    "BORDER_NONE", "BORDER_SLANTED_DASH_DOT", "BORDER_THICK",
-    "BORDER_THIN")
+  valign_styles_raw <- .jcall(
+    .jfindClass("org.apache.poi.ss.usermodel.VerticalAlignment"),
+    "[Ljava/lang/Object;",
+    "getEnumConstants"
+  )
+
+  valign_styles_names <- as.character(lapply(valign_styles_raw, function(.x) .jstrVal(.x)))
+  valign_styles_names_old <- paste0("VERTICAL_", valign_styles_names)
 
   #' @rdname POI_constants
   #' @export
-  FILL_STYLES_<- c(3,9,10,16,2,18,17,0,1,4,15,7,8,5,6,13,14,11,12)
-  names(FILL_STYLES_) <- c('ALT_BARS', 'BIG_SPOTS','BRICKS' ,'DIAMONDS'
-    ,'FINE_DOTS' ,'LEAST_DOTS' ,'LESS_DOTS' ,'NO_FILL'
-    ,'SOLID_FOREGROUND' ,'SPARSE_DOTS' ,'SQUARES'
-    ,'THICK_BACKWARD_DIAG' ,'THICK_FORWARD_DIAG' ,'THICK_HORZ_BANDS'
-    ,'THICK_VERT_BANDS' ,'THIN_BACKWARD_DIAG' ,'THIN_FORWARD_DIAG'
-    ,'THIN_HORZ_BANDS' ,'THIN_VERT_BANDS')
+  VALIGN_STYLES_ <- setNames(valign_styles_raw, valign_styles_names_old)
+
+  #' @rdname POI_constants
+  #' @export
+  style_vertical <- setNames(valign_styles_raw, valign_styles_names)
+
+# Border Styles ---------------------------------------
+
+  border_styles_raw <- .jcall(
+    .jfindClass("org.apache.poi.ss.usermodel.BorderStyle"),
+    "[Ljava/lang/Object;",
+    "getEnumConstants"
+  )
+
+  border_styles_names <- as.character(lapply(border_styles_raw, function(.x) .jstrVal(.x)))
+  border_styles_names_old <- paste0("BORDER_", border_styles_names)
+
+  #' @rdname POI_constants
+  #' @export
+  BORDER_STYLES_ <- setNames(border_styles_raw, border_styles_names_old)
+
+  #' @rdname POI_constants
+  #' @export
+  style_border <- setNames(border_styles_raw, border_styles_names)
+
+# Fill Pattern Styles ---------------------------------------
+
+  fill_pattern_styles_raw <- .jcall(
+    .jfindClass("org.apache.poi.ss.usermodel.FillPatternType"),
+    "[Ljava/lang/Object;",
+    "getEnumConstants"
+  )
+
+  fill_pattern_styles_names <- as.character(lapply(fill_pattern_styles_raw, function(.x) .jstrVal(.x)))
+
+  #' @rdname POI_constants
+  #' @export
+  FILL_STYLES_ <- setNames(fill_pattern_styles_raw, fill_pattern_styles_names)
+
+  #' @rdname POI_constants
+  #' @export
+  style_fill_pattern <- setNames(fill_pattern_styles_raw, fill_pattern_styles_names)
+
+# Fill Pattern Styles ---------------------------------------
 
   # from org.apache.poi.ss.usermodel.CellStyle
   #' @rdname POI_constants
