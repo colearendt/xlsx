@@ -118,7 +118,9 @@
   }
   jcol <- .jnew("java.awt.Color", rgb[1], rgb[2], rgb[3])
 
-  .jnew("org.apache.poi.xssf.usermodel.XSSFColor", jcol)
+  # default_map <- .jnew("org.apache.poi.xssf.usermodel.DefaultIndexedColorMap")
+
+  .jnew("org.apache.poi.xssf.usermodel.XSSFColor", .jarray(.jbyte(rgb[1]), .jbyte(rgb[2]), .jbyte(rgb[3])))
 }
 
 
