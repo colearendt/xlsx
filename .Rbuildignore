@@ -15,4 +15,5 @@
 ^xlsx.*\.tar\.gz$
 ^xlsx.*\.tgz$
 ^revdep$
-.github/.*
+^codecov\.yml$
+^\.github$
