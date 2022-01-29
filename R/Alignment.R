@@ -44,16 +44,28 @@ Alignment <- function(horizontal=NULL, vertical=NULL, wrapText=FALSE,
   if (
     !is.null(horizontal) &&
     !(horizontal %in% names(style_horizontal))
+    # !.jinherits(horizontal, "org.apache.poi.ss.usermodel.HorizontalAlignment")
     ) {
+    # TODO: figure out a way to allow java objects to be passed...
     if (horizontal %in% names(HALIGN_STYLES_)) {
-      lifecycle::deprecate_warn("0.7.0", "HALIGN_STYLES_", "style_horizontal")
+      lifecycle::deprecate_soft("0.7.0", "HALIGN_STYLES_()", "style_horizontal()", "Try removing the 'ALIGN_' prefix")
     } else {
-      stop("Not a valid horizontal value.  See help page.")
+      stop("Not a valid horizontal value. See `style_horizontal` or `?POI_constants`")
     }
   }
 
-  if (!is.null(vertical) && !(vertical %in% names(VALIGN_STYLES_)))
-    stop("Not a valid vertical value.  See help page.")
+  if (
+    !is.null(vertical) &&
+    !(vertical %in% names(style_vertical))
+    # !.jinherits(vertical, "org.apache.poi.ss.usermodel.VerticalAlignment")
+  ) {
+    # TODO: figure out a way to allow java objects to be passed...
+    if (vertical %in% names(VALIGN_STYLES_)) {
+      lifecycle::deprecate_soft("0.7.0", "VALIGN_STYLES_()", "style_vertical()")
+    } else {
+      stop("Not a valid vertical value.  See `style_vertical` or `?POI_constants`")
+    }
+  }
 
   structure(list(horizontal=horizontal, vertical=vertical,
     wrapText=wrapText, rotation=rotation, indent=0),
