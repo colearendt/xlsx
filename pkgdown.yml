@@ -1,0 +1,7 @@
+pandoc: 2.7.3
+pkgdown: 2.0.2
+pkgdown_sha: ~
+articles:
+  excel_report: excel_report.html
+last_built: 2022-01-29T05:33Z
+
