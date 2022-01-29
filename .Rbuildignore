@@ -15,3 +15,6 @@
 ^xlsx.*\.tar\.gz$
 ^xlsx.*\.tgz$
 ^revdep$
+^codecov\.yml$
+^\.github$
+^CODE_OF_CONDUCT\.md$
