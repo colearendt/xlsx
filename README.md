@@ -95,3 +95,7 @@ you are trying to accomplish.
 
 The package is made possible thanks to the excellent
 work on [Apache POI](https://poi.apache.org/components/spreadsheet/index.html).
+ 
+## Code of Conduct
+
+Please note that the xlsx project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
