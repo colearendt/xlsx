@@ -1,10 +1,10 @@
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/colearendt/xlsx?branch=master&svg=true)](https://ci.appveyor.com/project/colearendt/xlsx)
-[![Travis-CI Build Status](https://travis-ci.org/colearendt/xlsx.svg?branch=master)](https://travis-ci.org/colearendt/xlsx)
-[![CRAN Version](https://www.r-pkg.org/badges/version-last-release/xlsx)](https://CRAN.R-project.org/package=xlsx)
-
-[![codecov.io](https://codecov.io/github/colearendt/xlsx/coverage.svg?branch=master)](https://codecov.io/github/colearendt/xlsx?branch=master)
-[![CRAN Activity](https://cranlogs.r-pkg.org/badges/xlsx)](https://CRAN.R-project.org/package=xlsx)
-[![CRAN History](https://cranlogs.r-pkg.org/badges/grand-total/xlsx)](https://CRAN.R-project.org/package=xlsx)
+  <!-- badges: start -->
+  [![CRAN Version](https://www.r-pkg.org/badges/version-last-release/xlsx)](https://CRAN.R-project.org/package=xlsx)
+  [![Codecov test coverage](https://codecov.io/gh/colearendt/xlsx/branch/main/graph/badge.svg)](https://codecov.io/gh/colearendt/xlsx?branch=main)
+  [![R-CMD-check](https://github.com/colearendt/xlsx/workflows/R-CMD-check/badge.svg)](https://github.com/colearendt/xlsx/actions)
+  [![CRAN Activity](https://cranlogs.r-pkg.org/badges/xlsx)](https://CRAN.R-project.org/package=xlsx)
+  [![CRAN History](https://cranlogs.r-pkg.org/badges/grand-total/xlsx)](https://CRAN.R-project.org/package=xlsx)
+  <!-- badges: end -->
 
 xlsx
 ========
