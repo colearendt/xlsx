@@ -185,6 +185,8 @@ NULL
   #' @export
   HALIGN_STYLES_ <- setNames(halign_styles_raw, halign_styles_names_old)
 
+  style_horizontal_all <- c(style_horizontal, HALIGN_STYLES_)
+
 # Vertical Alignment ---------------------------------------
 
   valign_styles_raw <- .jcall(
@@ -203,6 +205,8 @@ NULL
   #' @rdname POI_constants
   #' @export
   style_vertical <- setNames(valign_styles_raw, valign_styles_names)
+
+  style_vertical_all <- c(style_vertical, VALIGN_STYLES_)
 
 # Border Styles ---------------------------------------
 
@@ -223,6 +227,8 @@ NULL
   #' @export
   style_border <- setNames(border_styles_raw, border_styles_names)
 
+  style_border_all <- c(style_border, BORDER_STYLES_)
+
 # Fill Pattern Styles ---------------------------------------
 
   fill_pattern_styles_raw <- .jcall(
@@ -241,13 +247,19 @@ NULL
   #' @export
   style_fill_pattern <- setNames(fill_pattern_styles_raw, fill_pattern_styles_names)
 
-# Fill Pattern Styles ---------------------------------------
+# All Cell Styles ---------------------------------------
 
   # from org.apache.poi.ss.usermodel.CellStyle
   #' @rdname POI_constants
   #' @export
-  CELL_STYLES_ <- c(HALIGN_STYLES_, VALIGN_STYLES_,
-     BORDER_STYLES_, FILL_STYLES_)
+  CELL_STYLES_ <- c(
+    HALIGN_STYLES_, style_horizontal,
+    VALIGN_STYLES_, style_vertical,
+    BORDER_STYLES_, style_border,
+    FILL_STYLES_, style_fill_pattern
+    )
+
+# Indexed Colors ---------------------------------------
 
   #' @rdname POI_constants
   #' @export
