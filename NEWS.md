@@ -5,6 +5,8 @@
 
 ## Changes in version 0.6.5 (released 2020-11)
 
+ - Remove dependency on `RefManageR` (it was archived, and we only used it for a vignette)
+
 ## Changes in version 0.6.4.2 (released 2020-09)
 
  - Fix path expanding for `saveWorkbook`, `write.xlsx`, `write.xlsx2` for home directories / `~` (#108)
