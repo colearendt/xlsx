@@ -103,11 +103,10 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
            .jshort(fmt$getFormat(dataFormat$dataFormat)))
   }
 
-
   # the alignment
   if (!is.null(alignment)) {
     if (!is.null(alignment$horizontal))
-      .jcall(cellStyle, "V", "setAlignment", .jshort(CS[alignment$horizontal]))
+      .jcall(cellStyle, "V", "setAlignment", CS[alignment$horizontal])
     if (!is.null(alignment$vertical))
       .jcall(cellStyle, "V", "setVerticalAlignment", .jshort(CS[alignment$vertical]))
     if (alignment$wrapText)

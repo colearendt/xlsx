@@ -165,17 +165,27 @@ get_java_tmp_dir <- function() {
 #' @description Document some Apache POI constants used in the project.
 #'
 #' @return A named vector.
-#' @author Adrian Dragulescu
 #' @seealso \code{\link{CellStyle}} for using the \code{POI_constants}.
 #' @name POI_constants
 NULL
 
+
+# Horizontal Alignment ---------------------------------------
+
+  halign_styles_raw <- .jcall(.jfindClass("org.apache.poi.ss.usermodel.HorizontalAlignment"), "[Ljava/lang/Object;", "getEnumConstants")
+
+  halign_styles_names <- as.character(lapply(halign_styles_raw, function(.x) .jstrVal(.x)))
+  halign_styles_names_old <- paste0("ALIGN_", halign_styles_names)
+
   #' @rdname POI_constants
   #' @export
-  HALIGN_STYLES_ <- c(2,6,4,0,5,1,3)
-  names(HALIGN_STYLES_) <- c('ALIGN_CENTER' ,'ALIGN_CENTER_SELECTION'
-    ,'ALIGN_FILL' ,'ALIGN_GENERAL' ,'ALIGN_JUSTIFY' ,'ALIGN_LEFT'
-    ,'ALIGN_RIGHT')
+  style_horizontal <- setNames(halign_styles_raw, halign_styles_names)
+
+  #' @rdname POI_constants
+  #' @export
+  HALIGN_STYLES_ <- setNames(halign_styles_raw, halign_styles_names_old)
+
+# Vertical Alignment ---------------------------------------
 
   #' @rdname POI_constants
   #' @export
