@@ -48,6 +48,6 @@ Alignment <- function(horizontal=NULL, vertical=NULL, wrapText=FALSE,
     stop("Not a valid vertical value.  See help page.")
   
   structure(list(horizontal=horizontal, vertical=vertical,
-    wrapText=wrapText, rotation=rotation, indent=0),
+    wrapText=wrapText, rotation=rotation, indent=indent),
     class="Alignment")  
 }
