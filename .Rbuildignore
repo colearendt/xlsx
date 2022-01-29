@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^appveyor\.yml$
 ^\.travis\.yml$
 ^other$
