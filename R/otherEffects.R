@@ -165,6 +165,12 @@ addHyperlink <- function(cell, address, linkType=c("URL", "DOCUMENT",
   }
   type <- .jcast(type, "org.apache.ss.usermodel.HyperlinkType")
 
+  # TODO: why is this lookup failing? the method says it exists...
+  # to test:
+  # s1 <- xlsx::createSheet(xlsx::createWorkbook())
+  # rs <- xlsx::createRow(s1)
+  # hm <- xlsx::createCell(rs[1])
+  # addHyperlink(hm[[1]])
   link <- .jcall(creationHelper, "Lorg/apache/poi/ss/usermodel/Hyperlink;",
     "createHyperlink", type)
   .jcall(link, "V", "setAddress", address)
