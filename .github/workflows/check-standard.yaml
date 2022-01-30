@@ -44,6 +44,8 @@ jobs:
           extra-packages: rcmdcheck
 
       - uses: r-lib/actions/check-r-package@v2
+        # including defaults from https://github.com/r-lib/actions/tree/v2/check-r-package
+        args: 'c("--no-manual", "--as-cran", "--no-multiarch")'
 
       - name: Show testthat output
         if: always()
