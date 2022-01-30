@@ -259,6 +259,20 @@ NULL
     FILL_STYLES_, style_fill_pattern
     )
 
+# Hyperlink Types
+
+  hyperlink_types_raw <- .jcall(
+    .jfindClass("org.apache.poi.common.usermodel.HyperlinkType"),
+    "[Ljava/lang/Object;",
+    "getEnumConstants"
+  )
+
+  hyperlink_types_names <- as.character(lapply(hyperlink_types_raw, function (.x) .jstrVal(.x)))
+
+  #' @rdname POI_constants
+  #' @export
+  types_hyperlink <- setNames(hyperlink_types_raw, hyperlink_types_names)
+
 # Indexed Colors ---------------------------------------
 
   #' @rdname POI_constants
