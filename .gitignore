@@ -8,3 +8,4 @@ xlsx*.tgz
 project.Rproj
 .RData*
 .Rprofile*
+.Rproj.user
