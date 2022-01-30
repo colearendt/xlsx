@@ -158,7 +158,13 @@ addHyperlink <- function(cell, address, linkType=c("URL", "DOCUMENT",
   # create the link
   creationHelper <- .jcall(wb, "Lorg/apache/poi/ss/usermodel/CreationHelper;",
                            "getCreationHelper")
-  type <- switch(linkType, URL=1L, DOCUMENT=2L, EMAIL=3L, FILE=4L)
+
+  type <- linkType
+  if (is.character(type)) {
+    type <- types_hyperlink[[type]]
+  }
+  type <- .jcast(type, "org.apache.ss.usermodel.HyperlinkType")
+
   link <- .jcall(creationHelper, "Lorg/apache/poi/ss/usermodel/Hyperlink;",
     "createHyperlink", type)
   .jcall(link, "V", "setAddress", address)
@@ -283,8 +289,9 @@ setPrintArea <- function(wb, sheetIndex, startColumn, endColumn, startRow,
 #' @rdname OtherEffects
 setZoom <- function(sheet, numerator=100, denominator=100)
 {
-  .jcall(sheet, "V", "setZoom", as.integer(numerator),
-         as.integer(denominator))
+  # TODO: figure out a better API here for usage...
+  pct <- as.integer(100 * numerator / denominator)
+  .jcall(sheet, "V", "setZoom", pct)
 
   invisible()
 }
