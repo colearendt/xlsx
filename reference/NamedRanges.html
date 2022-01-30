@@ -36,6 +36,9 @@ API to access additional functionality."><!-- mathjax --><script src="https://cd
       <a href="../articles/excel_report.html">Build Excel Reports from R</a>
     </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/colearendt/xlsx/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
@@ -121,23 +124,23 @@ details.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># see all the available java methods that you can call</span></span>
 <span class="r-in"><span class="fu">rJava</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rJava/man/jreflection.html" class="external-link">.jmethods</a></span><span class="op">(</span><span class="va">ranges</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "public java.lang.String org.apache.poi.xssf.usermodel.XSSFName.getNameName()"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "public java.lang.String org.apache.poi.xssf.usermodel.XSSFName.getRefersToFormula()"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "public void org.apache.poi.xssf.usermodel.XSSFName.setRefersToFormula(java.lang.String)"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "public boolean org.apache.poi.xssf.usermodel.XSSFName.isFunctionName()"                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "public boolean org.apache.poi.xssf.usermodel.XSSFName.isDeleted()"                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "public void org.apache.poi.xssf.usermodel.XSSFName.setSheetIndex(int)"                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "public void org.apache.poi.xssf.usermodel.XSSFName.setFunction(boolean)"                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "public void org.apache.poi.xssf.usermodel.XSSFName.setNameName(java.lang.String)"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "public boolean org.apache.poi.xssf.usermodel.XSSFName.isDeleted()"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "public void org.apache.poi.xssf.usermodel.XSSFName.setSheetIndex(int)"                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "public void org.apache.poi.xssf.usermodel.XSSFName.setFunction(boolean)"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "public int org.apache.poi.xssf.usermodel.XSSFName.getSheetIndex()"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "public java.lang.String org.apache.poi.xssf.usermodel.XSSFName.getSheetName()"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "public void org.apache.poi.xssf.usermodel.XSSFName.setNameName(java.lang.String)"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "public boolean org.apache.poi.xssf.usermodel.XSSFName.isFunctionName()"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "public void org.apache.poi.xssf.usermodel.XSSFName.setComment(java.lang.String)"           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "public boolean org.apache.poi.xssf.usermodel.XSSFName.equals(java.lang.Object)"            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [10] "public int org.apache.poi.xssf.usermodel.XSSFName.hashCode()"                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [11] "public boolean org.apache.poi.xssf.usermodel.XSSFName.getFunction()"                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "public int org.apache.poi.xssf.usermodel.XSSFName.getSheetIndex()"                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "public java.lang.String org.apache.poi.xssf.usermodel.XSSFName.getSheetName()"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "public int org.apache.poi.xssf.usermodel.XSSFName.getFunctionGroupId()"                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "public void org.apache.poi.xssf.usermodel.XSSFName.setFunctionGroupId(int)"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "public java.lang.String org.apache.poi.xssf.usermodel.XSSFName.getComment()"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "public void org.apache.poi.xssf.usermodel.XSSFName.setComment(java.lang.String)"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "public java.lang.String org.apache.poi.xssf.usermodel.XSSFName.getNameName()"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "public java.lang.String org.apache.poi.xssf.usermodel.XSSFName.getRefersToFormula()"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "public void org.apache.poi.xssf.usermodel.XSSFName.setRefersToFormula(java.lang.String)"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "public int org.apache.poi.xssf.usermodel.XSSFName.getFunctionGroupId()"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "public void org.apache.poi.xssf.usermodel.XSSFName.setFunctionGroupId(int)"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "public java.lang.String org.apache.poi.xssf.usermodel.XSSFName.getComment()"               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [18] "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [19] "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException"   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [20] "public final void java.lang.Object.wait() throws java.lang.InterruptedException"           </span>
