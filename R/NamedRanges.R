@@ -93,6 +93,7 @@ getRanges <- function(wb)
   }
 
   res <- list()
+  # TODO: need to use `getAllNames()` (returns list of Name) and loop through
   for (i in 1:noRanges) {
     aRange <- .jcall(wb, "Lorg/apache/poi/ss/usermodel/Name;", "getNameAt",
       as.integer(i-1))
