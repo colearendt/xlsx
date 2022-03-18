@@ -18,6 +18,11 @@
 #' They need to be specified in Java date format
 #' \url{https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html}.
 #'
+#'Changes to the xlsx date/time formats need to be passed to the R session using the
+#'R session function \code{option()} not as an xlsx package parameter. 
+#'
+#'An example of this syntax is shown below as a comment.
+#'
 #' @param x a \code{data.frame}.
 #' @param sheet a \code{\link{Sheet}} object.
 #' @param col.names a logical value indicating if the column names of \code{x}
@@ -44,6 +49,12 @@
 #' @author Adrian Dragulescu
 #' @examples
 #'
+#'  # to change the default date format use something like this
+#'  # options(
+#'  #       xlsx.date.format = 'dd/MM/YYYY',
+#'  #       xlsx.datetime.format = 'dd/MM/YYYY HH:mm:ss'
+#'  #)
+#'
 #'
 #'   wb <- createWorkbook()
 #'   sheet  <- createSheet(wb, sheetName="addDataFrame1")
@@ -59,8 +70,6 @@
 #'   addDataFrame(data, sheet, startRow=3, startColumn=2, colnamesStyle=cs3,
 #'     rownamesStyle=cs1, colStyle=list(`2`=cs2, `3`=cs2))
 #'
-#'   # to change the default date format use something like this
-#'   # options(xlsx.date.format="dd MMM, yyyy")
 #'
 #'
 #'   # Don't forget to save the workbook ...
