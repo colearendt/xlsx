@@ -270,15 +270,6 @@
             <goals>
               <goal>site</goal>
             </goals>
-            <configuration>
-              <outputDirectory>../target/site</outputDirectory>
-              <reportPlugins>
-                <reportPlugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-project-info-reports-plugin</artifactId>
-                </reportPlugin>
-              </reportPlugins>
-            </configuration>
           </execution>
           <execution>
             <id>default-deploy</id>
@@ -297,15 +288,6 @@
             </configuration>
           </execution>
         </executions>
-        <configuration>
-          <outputDirectory>../target/site</outputDirectory>
-          <reportPlugins>
-            <reportPlugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-project-info-reports-plugin</artifactId>
-            </reportPlugin>
-          </reportPlugins>
-        </configuration>
       </plugin>
     </plugins>
   </build>
