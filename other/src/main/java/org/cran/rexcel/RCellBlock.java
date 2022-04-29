@@ -14,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
 
 /**
  * A rectangular block of Excel sheet cells.
@@ -63,7 +64,7 @@ public class RCellBlock {
 
 			for (int j = 0; j < nCols; j++) {
 				cells[j][i] = create ? r.createCell(startColIndex+j)
-                        : r.getCell(startColIndex+j, Row.CREATE_NULL_AS_BLANK);
+                        : r.getCell(startColIndex+j, MissingCellPolicy.CREATE_NULL_AS_BLANK);
 			}
 		}
 	}
@@ -115,12 +116,7 @@ public class RCellBlock {
         final Cell[] colCells = cells[colIndex];
         for (int i=0; i<data.length; i++) {
             if ( showNA || !RInterface.isNA(data[i])) {
-                if (data[i] instanceof Integer) {
-                  float val = data[i];
-                  colCells[rowOffset+i].setCellValue(val);
-                } else {
-                  colCells[rowOffset+i].setCellValue(data[i]);
-                }
+                colCells[rowOffset+i].setCellValue(data[i]);
             } else {
                 colCells[rowOffset+i].setBlank();
             }
@@ -135,12 +131,8 @@ public class RCellBlock {
         final Cell[] colCells = cells[colIndex];
         for (int i=0; i<data.length; i++) {
             if ( showNA || !RInterface.isNA(data[i])) {
-                if (data[i] instanceof Integer) {
-                  float val = data[i];
-                  colCells[rowOffset+i].setCellValue(val);
-                } else {
-                  colCells[rowOffset+i].setCellValue(data[i]);
-                }
+                double val = data[i];
+                colCells[rowOffset+i].setCellValue(val);
             } else {
                 colCells[rowOffset+i].setBlank();
             }
@@ -155,12 +147,7 @@ public class RCellBlock {
         final Cell[] colCells = cells[colIndex];
         for (int i=0; i<data.length; i++) {
             if ( showNA || !RInterface.isNA(data[i])) {
-                if (data[i] instanceof Integer) {
-                  float val = data[i];
-                  colCells[rowOffset+i].setCellValue(val);
-                } else {
-                  colCells[rowOffset+i].setCellValue(data[i]);
-                }
+                colCells[rowOffset+i].setCellValue(data[i]);
             } else {
                 colCells[rowOffset+i].setBlank();
             }
@@ -177,12 +164,7 @@ public class RCellBlock {
     public void setRowData( int rowIndex, int colOffset, String[] data, boolean showNA, CellStyle style ){
         for (int i=0; i<data.length; i++) {
             if ( showNA || !RInterface.isNA(data[i])) {
-                if (data[i] instanceof Integer) {
-                  float val = data[i];
-                  cells[colOffset+i][rowIndex].setCellValue(val);
-                } else {
-                  cells[colOffset+i][rowIndex].setCellValue(data[i]);
-                }
+                cells[colOffset+i][rowIndex].setCellValue(data[i]);
             } else {
                 cells[colOffset+i][rowIndex].setBlank();
             }
@@ -416,19 +398,19 @@ public class RCellBlock {
     {
         modifyCellStyle(rowIndices, colIndices, new CellStyleModifier() {
             public void modify( CellStyle style ) {
-                if ( borderTop != CellStyle.BORDER_NONE ) {
+                if ( borderTop != BorderStyle.NONE ) {
                     style.setBorderTop( borderTop );
                     style.setTopBorderColor( topBorderColor );
                 }
-                if ( borderBottom != CellStyle.BORDER_NONE ) {
+                if ( borderBottom != BorderStyle.NONE ) {
                     style.setBorderBottom( borderBottom );
                     style.setBottomBorderColor( bottomBorderColor );
                 }
-                if ( borderLeft != CellStyle.BORDER_NONE ) {
+                if ( borderLeft != BorderStyle.NONE ) {
                     style.setBorderLeft( borderLeft );
                     style.setLeftBorderColor( leftBorderColor );
                 }
-                if ( borderRight != CellStyle.BORDER_NONE ) {
+                if ( borderRight != BorderStyle.NONE ) {
                     style.setBorderRight( borderRight );
                     style.setRightBorderColor( rightBorderColor );
                 }
@@ -454,19 +436,19 @@ public class RCellBlock {
             public void modify( CellStyle style ) {
                 if ( style instanceof XSSFCellStyle ) {
                     XSSFCellStyle xssfStyle = (XSSFCellStyle)style;
-                    if ( borderTop != CellStyle.BORDER_NONE ) {
+                    if ( borderTop != BorderStyle.NONE ) {
                         xssfStyle.setBorderTop( borderTop );
                         xssfStyle.setTopBorderColor( topBorderColor );
                     }
-                    if ( borderBottom != CellStyle.BORDER_NONE ) {
+                    if ( borderBottom != BorderStyle.NONE ) {
                         xssfStyle.setBorderBottom( borderBottom );
                         xssfStyle.setBottomBorderColor( bottomBorderColor );
                     }
-                    if ( borderLeft != CellStyle.BORDER_NONE ) {
+                    if ( borderLeft != BorderStyle.NONE ) {
                         xssfStyle.setBorderLeft( borderLeft );
                         xssfStyle.setLeftBorderColor( leftBorderColor );
                     }
-                    if ( borderRight != CellStyle.BORDER_NONE ) {
+                    if ( borderRight != BorderStyle.NONE ) {
                         xssfStyle.setBorderRight( borderRight );
                         xssfStyle.setRightBorderColor( rightBorderColor );
                     }
