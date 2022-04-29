@@ -118,7 +118,9 @@
   }
   jcol <- .jnew("java.awt.Color", rgb[1], rgb[2], rgb[3])
 
-  .jnew("org.apache.poi.xssf.usermodel.XSSFColor", jcol)
+  # default_map <- .jnew("org.apache.poi.xssf.usermodel.DefaultIndexedColorMap")
+
+  .jnew("org.apache.poi.xssf.usermodel.XSSFColor", .jarray(.jbyte(rgb[1]), .jbyte(rgb[2]), .jbyte(rgb[3])))
 }
 
 
@@ -163,48 +165,115 @@ get_java_tmp_dir <- function() {
 #' @description Document some Apache POI constants used in the project.
 #'
 #' @return A named vector.
-#' @author Adrian Dragulescu
 #' @seealso \code{\link{CellStyle}} for using the \code{POI_constants}.
 #' @name POI_constants
 NULL
 
-  #' @rdname POI_constants
-  #' @export
-  HALIGN_STYLES_ <- c(2,6,4,0,5,1,3)
-  names(HALIGN_STYLES_) <- c('ALIGN_CENTER' ,'ALIGN_CENTER_SELECTION'
-    ,'ALIGN_FILL' ,'ALIGN_GENERAL' ,'ALIGN_JUSTIFY' ,'ALIGN_LEFT'
-    ,'ALIGN_RIGHT')
+
+# Horizontal Alignment ---------------------------------------
+
+  halign_styles_raw <- .jcall(.jfindClass("org.apache.poi.ss.usermodel.HorizontalAlignment"), "[Ljava/lang/Object;", "getEnumConstants")
+
+  halign_styles_names <- as.character(lapply(halign_styles_raw, function(.x) .jstrVal(.x)))
+  halign_styles_names_old <- paste0("ALIGN_", halign_styles_names)
 
   #' @rdname POI_constants
   #' @export
-  VALIGN_STYLES_<- c(2,1,3,0)
-  names(VALIGN_STYLES_) <- c('VERTICAL_BOTTOM' ,'VERTICAL_CENTER',
-                             'VERTICAL_JUSTIFY' ,'VERTICAL_TOP')
-  #' @rdname POI_constants
-  #' @export
-  BORDER_STYLES_ <- c(9,11,3,7,6,4,2,10,12,8,0,13,5,1)
-  names(BORDER_STYLES_) <- c("BORDER_DASH_DOT", "BORDER_DASH_DOT_DOT",
-    "BORDER_DASHED", "BORDER_DOTTED", "BORDER_DOUBLE", "BORDER_HAIR",
-    "BORDER_MEDIUM", "BORDER_MEDIUM_DASH_DOT",
-    "BORDER_MEDIUM_DASH_DOT_DOT", "BORDER_MEDIUM_DASHED",
-    "BORDER_NONE", "BORDER_SLANTED_DASH_DOT", "BORDER_THICK",
-    "BORDER_THIN")
+  style_horizontal <- setNames(halign_styles_raw, halign_styles_names)
 
   #' @rdname POI_constants
   #' @export
-  FILL_STYLES_<- c(3,9,10,16,2,18,17,0,1,4,15,7,8,5,6,13,14,11,12)
-  names(FILL_STYLES_) <- c('ALT_BARS', 'BIG_SPOTS','BRICKS' ,'DIAMONDS'
-    ,'FINE_DOTS' ,'LEAST_DOTS' ,'LESS_DOTS' ,'NO_FILL'
-    ,'SOLID_FOREGROUND' ,'SPARSE_DOTS' ,'SQUARES'
-    ,'THICK_BACKWARD_DIAG' ,'THICK_FORWARD_DIAG' ,'THICK_HORZ_BANDS'
-    ,'THICK_VERT_BANDS' ,'THIN_BACKWARD_DIAG' ,'THIN_FORWARD_DIAG'
-    ,'THIN_HORZ_BANDS' ,'THIN_VERT_BANDS')
+  HALIGN_STYLES_ <- setNames(halign_styles_raw, halign_styles_names_old)
+
+  style_horizontal_all <- c(style_horizontal, HALIGN_STYLES_)
+
+# Vertical Alignment ---------------------------------------
+
+  valign_styles_raw <- .jcall(
+    .jfindClass("org.apache.poi.ss.usermodel.VerticalAlignment"),
+    "[Ljava/lang/Object;",
+    "getEnumConstants"
+  )
+
+  valign_styles_names <- as.character(lapply(valign_styles_raw, function(.x) .jstrVal(.x)))
+  valign_styles_names_old <- paste0("VERTICAL_", valign_styles_names)
+
+  #' @rdname POI_constants
+  #' @export
+  VALIGN_STYLES_ <- setNames(valign_styles_raw, valign_styles_names_old)
+
+  #' @rdname POI_constants
+  #' @export
+  style_vertical <- setNames(valign_styles_raw, valign_styles_names)
+
+  style_vertical_all <- c(style_vertical, VALIGN_STYLES_)
+
+# Border Styles ---------------------------------------
+
+  border_styles_raw <- .jcall(
+    .jfindClass("org.apache.poi.ss.usermodel.BorderStyle"),
+    "[Ljava/lang/Object;",
+    "getEnumConstants"
+  )
+
+  border_styles_names <- as.character(lapply(border_styles_raw, function(.x) .jstrVal(.x)))
+  border_styles_names_old <- paste0("BORDER_", border_styles_names)
+
+  #' @rdname POI_constants
+  #' @export
+  BORDER_STYLES_ <- setNames(border_styles_raw, border_styles_names_old)
+
+  #' @rdname POI_constants
+  #' @export
+  style_border <- setNames(border_styles_raw, border_styles_names)
+
+  style_border_all <- c(style_border, BORDER_STYLES_)
+
+# Fill Pattern Styles ---------------------------------------
+
+  fill_pattern_styles_raw <- .jcall(
+    .jfindClass("org.apache.poi.ss.usermodel.FillPatternType"),
+    "[Ljava/lang/Object;",
+    "getEnumConstants"
+  )
+
+  fill_pattern_styles_names <- as.character(lapply(fill_pattern_styles_raw, function(.x) .jstrVal(.x)))
+
+  #' @rdname POI_constants
+  #' @export
+  FILL_STYLES_ <- setNames(fill_pattern_styles_raw, fill_pattern_styles_names)
+
+  #' @rdname POI_constants
+  #' @export
+  style_fill_pattern <- setNames(fill_pattern_styles_raw, fill_pattern_styles_names)
+
+# All Cell Styles ---------------------------------------
 
   # from org.apache.poi.ss.usermodel.CellStyle
   #' @rdname POI_constants
   #' @export
-  CELL_STYLES_ <- c(HALIGN_STYLES_, VALIGN_STYLES_,
-     BORDER_STYLES_, FILL_STYLES_)
+  CELL_STYLES_ <- c(
+    HALIGN_STYLES_, style_horizontal,
+    VALIGN_STYLES_, style_vertical,
+    BORDER_STYLES_, style_border,
+    FILL_STYLES_, style_fill_pattern
+    )
+
+# Hyperlink Types
+
+  hyperlink_types_raw <- .jcall(
+    .jfindClass("org.apache.poi.common.usermodel.HyperlinkType"),
+    "[Ljava/lang/Object;",
+    "getEnumConstants"
+  )
+
+  hyperlink_types_names <- as.character(lapply(hyperlink_types_raw, function (.x) .jstrVal(.x)))
+
+  #' @rdname POI_constants
+  #' @export
+  types_hyperlink <- setNames(hyperlink_types_raw, hyperlink_types_names)
+
+# Indexed Colors ---------------------------------------
 
   #' @rdname POI_constants
   #' @export

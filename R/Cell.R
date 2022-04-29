@@ -1,15 +1,15 @@
 #' Functions to manipulate cells.
-#' 
+#'
 #' Functions to manipulate cells.
-#' 
+#'
 #' \code{setCellValue} writes the content of an R variable into the cell.
 #' \code{Date} and \code{POSIXct} objects are passed in as numerical values.
 #' To format them as dates in Excel see \code{\link{CellStyle}}.
-#' 
+#'
 #' These functions are not vectorized and should be used only for small
 #' spreadsheets.  Use \code{CellBlock} functionality to efficiently read/write
 #' parts of a spreadsheet.
-#' 
+#'
 #' @param row a list of row objects. See \code{Row}.
 #' @param colIndex a numeric vector specifying the index of columns.
 #' @param simplify a logical value.  If \code{TRUE}, the result will be
@@ -25,59 +25,59 @@
 #' @param encoding A character value to set the encoding, for example "UTF-8".
 #' @param cell a \code{Cell} object.
 #' @return
-#' 
+#'
 #' \code{createCell} creates a matrix of lists, each element of the list being
 #' a java object reference to an object of type Cell representing an empty
 #' cell.  The dimnames of this matrix are taken from the names of the rows and
 #' the \code{colIndex} variable.
-#' 
+#'
 #' \code{getCells} returns a list of java object references for all the cells
 #' in the row if \code{colIndex} is \code{NULL}.  If you want to extract only a
 #' specific columns, set \code{colIndex} to the column indices you are
 #' interested.
-#' 
+#'
 #' \code{getCellValue} returns the value in the cell as an R object.  Type
 #' conversions are done behind the scene.  This function is not vectorized.
 #' @author Adrian Dragulescu
 #' @seealso To format cells, see \code{\link{CellStyle}}.  For rows see
 #' \code{\link{Row}}, for sheets see \code{\link{Sheet}}.
 #' @examples
-#' 
-#' 
+#'
+#'
 #' file <- system.file("tests", "test_import.xlsx", package = "xlsx")
-#' 
-#' wb <- loadWorkbook(file)  
+#'
+#' wb <- loadWorkbook(file)
 #' sheets <- getSheets(wb)
-#' 
+#'
 #' sheet <- sheets[['mixedTypes']]      # get second sheet
 #' rows  <- getRows(sheet)   # get all the rows
-#' 
+#'
 #' cells <- getCells(rows)   # returns all non empty cells
-#' 
+#'
 #' values <- lapply(cells, getCellValue) # extract the values
-#' 
+#'
 #' # write the months of the year in the first column of the spreadsheet
 #' ind <- paste(2:13, ".2", sep="")
 #' mapply(setCellValue, cells[ind], month.name)
-#' 
+#'
 #' ####################################################################
 #' # make a new workbook with one sheet and 5x5 cells
 #' wb <- createWorkbook()
 #' sheet <- createSheet(wb, "Sheet1")
 #' rows  <- createRow(sheet, rowIndex=1:5)
-#' cells <- createCell(rows, colIndex=1:5) 
-#' 
+#' cells <- createCell(rows, colIndex=1:5)
+#'
 #' # populate the first column with Dates
 #' days <- seq(as.Date("2013-01-01"), by="1 day", length.out=5)
 #' mapply(setCellValue, cells[,1], days)
-#' 
-#'  
-#' 
+#'
+#'
+#'
 #' @name Cell
 NULL
 
 ######################################################################
-# Create some cells in the row object.  "cell" is the index of columns. 
+# Create some cells in the row object.  "cell" is the index of columns.
 # You can pass in a list of rows.
 # Return a matrix of lists.  Each element is a cell object.
 #' @export
@@ -86,19 +86,19 @@ createCell <- function(row, colIndex=1:5)
 {
   cells <- matrix(list(), nrow=length(row), ncol=length(colIndex),
     dimnames=list(names(row), colIndex))
-  
+
   for (ir in seq_along(row))
     for (ic in seq_along(colIndex))
       cells[[ir,ic]] <- .jcall(row[[ir]], "Lorg/apache/poi/ss/usermodel/Cell;",
         "createCell", as.integer(colIndex[ic]-1))
-    
+
   cells
 }
 
 ######################################################################
 # Get the cells for a list of rows.  Users who want basic things only
-# don't need to use this function. 
-# 
+# don't need to use this function.
+#
 #' @export
 #' @rdname Cell
 getCells <- function(row, colIndex=NULL, simplify=TRUE)
@@ -106,14 +106,14 @@ getCells <- function(row, colIndex=NULL, simplify=TRUE)
   nC  <- length(colIndex)
   if (!is.null(colIndex))
     colIx <- as.integer(colIndex-1)     # ugly, have to do it here
- 
+
   res <- row
   for (ir in seq_along(row)){
     if (is.null(colIndex)){                           # get all columns
       minColIx <- .jcall(row[[ir]], "T", "getFirstCellNum")   # 0-based
       maxColIx <- .jcall(row[[ir]], "T", "getLastCellNum")-1  # 0-based
       # actual col index; if the row is empty do nothing
-      colIx <- if (minColIx < 0) numeric(0) else seq.int(minColIx, maxColIx) 
+      colIx <- if (minColIx < 0) numeric(0) else seq.int(minColIx, maxColIx)
     }
     nC <- length(colIx)
     rowCells <- vector("list", length=nC)
@@ -132,15 +132,15 @@ getCells <- function(row, colIndex=NULL, simplify=TRUE)
 
   if (simplify)
     res <- unlist(res)
-  
+
   res
 }
 
 
 ######################################################################
-# Only one cell and one value.  
+# Only one cell and one value.
 # You vectorize outside this function if you want.
-# 
+#
 #    Date    = .jnew("java/text/SimpleDateFormat",
 #      "yyyy-MM-dd")$parse(as.character(value)),     # does not format it!
 #
@@ -153,18 +153,18 @@ setCellValue <- function(cell, value, richTextString=FALSE, showNA=TRUE)
       return(invisible(.jcall(cell, "V", "setCellErrorValue", .jbyte(42))))
     } else { return(invisible()) }
   }
-  
+
   value <- switch(class(value)[1],
     integer = as.numeric(value),
-    numeric = value,              
+    numeric = value,
     Date    = as.numeric(value) + 25569,             # add Excel origin
-    POSIXct = as.numeric(value)/86400 + 25569,               
+    POSIXct = as.numeric(value)/86400 + 25569,
     as.character(value))  # for factors and other types
 
   if (richTextString)
     value <- .jnew("org/apache/poi/sf/usermodel/RichTextString",
       as.character(value))  # do I need to convert to as.character ?!!
-  
+
   invisible(.jcall(cell, "V", "setCellValue", value))
 }
 
@@ -178,36 +178,55 @@ setCellValue <- function(cell, value, richTextString=FALSE, showNA=TRUE)
 #' @rdname Cell
 getCellValue <- function(cell, keepFormulas=FALSE, encoding="unknown")
 {
-  cellType <- .jcall(cell, "I", "getCellType") + 1
-  value <- switch(cellType,
-    .jcall(cell, "D", "getNumericCellValue"),        # 1 = numeric
-                  
-    {strVal <- .jcall(.jcall(cell,                   # 2 = string
-      "Lorg/apache/poi/ss/usermodel/RichTextString;",
-      "getRichStringCellValue"), "S", "toString");
-     if (encoding=="unknown") {strVal} else {Encoding(strVal) <- encoding; strVal}
-   },  
-                  
-    ifelse(keepFormulas, .jcall(cell, "S", "getCellFormula"),   # if a formula
-      tryCatch(.jcall(cell, "D", "getNumericCellValue"),        # try to extract  
-        error=function(e){                                      # contents  
-          tryCatch(.jcall(cell, "S", "getStringCellValue"),     
-            error=function(e){
-              tryCatch(.jcall(cell, "Z", "getBooleanCellValue"),
-                error=function(e)e,
-                finally=NA)
-            }, finally=NA)
-        }, finally=NA)
-    ),
-                  
-    NA,                                              # blank cell
-                  
-    .jcall(cell, "Z", "getBooleanCellValue"),        # boolean
-                  
-    NA, #ifelse(keepErrors, .jcall(cell, "B", "getErrorCellValue"), NA), # error
-                  
-    "Error"                                          # catch all
-  ) 
+  cellType <- .jcall(cell, "Lorg/apache/poi/ss/usermodel/CellType;", "getCellType")
+  cellTypeStr <- .jstrVal(cellType)
+
+  if (cellTypeStr == "NUMERIC") {
+    value <- .jcall(cell, "D", "getNumericCellValue")
+  } else if (cellTypeStr == "STRING") {
+    strVal <- .jcall(.jcall(cell,                   # 2 = string
+                             "Lorg/apache/poi/ss/usermodel/RichTextString;",
+                             "getRichStringCellValue"), "S", "toString");
+    if (encoding=="unknown") {
+      value <- strVal
+    } else {
+      Encoding(strVal) <- encoding
+      value <- strVal
+    }
+  } else if (cellTypeStr == "FORMULA") {
+    value <- ifelse(
+      keepFormulas,
+        .jcall(cell, "S", "getCellFormula"),   # if a formula
+        tryCatch(
+          .jcall(cell, "D", "getNumericCellValue"),        # try to extract
+          error=function(e){                                      # contents
+            tryCatch(
+              .jcall(cell, "S", "getStringCellValue"),
+              error=function(e){
+                tryCatch(
+                  .jcall(cell, "Z", "getBooleanCellValue"),
+                  error=function(e)e,
+                    finally=NA
+                  )
+                },
+              finally=NA
+              )
+            },
+          finally=NA
+          )
+    )
+  } else if (cellTypeStr == "BLANK") {
+    value <- NA
+  } else if (cellTypeStr == "BOOLEAN") {
+    value <- .jcall(cell, "Z", "getBooleanCellValue")
+  } else if (cellTypeStr == "ERROR") {
+    # previous attempt to capture error data
+    # ifelse(keepErrors, .jcall(cell, "B", "getErrorCellValue"), NA), # error
+    value <- NA
+  } else {
+    # catch all for other cases
+    value <- "Error"
+  }
 
   value
 }

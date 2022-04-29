@@ -103,19 +103,35 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
            .jshort(fmt$getFormat(dataFormat$dataFormat)))
   }
 
-
   # the alignment
   if (!is.null(alignment)) {
-    if (!is.null(alignment$horizontal))
-      .jcall(cellStyle, "V", "setAlignment", .jshort(CS[alignment$horizontal]))
-    if (!is.null(alignment$vertical))
-      .jcall(cellStyle, "V", "setVerticalAlignment", .jshort(CS[alignment$vertical]))
-    if (alignment$wrapText)
+    if (!is.null(alignment$horizontal)) {
+      halign <- alignment$horizontal
+      if (is.character(halign)) {
+        halign <- style_horizontal_all[[halign]]
+      }
+      halign <- .jcast(halign, "org.apache.poi.ss.usermodel.HorizontalAlignment")
+
+      .jcall(cellStyle, "V", "setAlignment", halign)
+    }
+    if (!is.null(alignment$vertical)) {
+      valign <- alignment$vertical
+      if (is.character(valign)) {
+        valign <- style_vertical_all[[valign]]
+      }
+      valign <- .jcast(valign, "org.apache.poi.ss.usermodel.VerticalAlignment")
+
+      .jcall(cellStyle, "V", "setVerticalAlignment", valign)
+    }
+    if (alignment$wrapText) {
       .jcall(cellStyle, "V", "setWrapText", TRUE)
-    if (alignment$rotation != 0)
+    }
+    if (alignment$rotation != 0) {
       .jcall(cellStyle, "V", "setRotation", .jshort(alignment$rotation))
-    if (alignment$indent != 0)
+    }
+    if (alignment$indent != 0) {
       .jcall(cellStyle, "V", "setIndention", .jshort(alignment$indent))
+    }
   }
 
   # the border
@@ -129,19 +145,38 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
       }
       switch(border$position[i],
           BOTTOM = {
-            .jcall(cellStyle, "V", "setBorderBottom",.jshort(CS[border$pen[i]]))
+            border_bottom <- border$pen[i]
+            if (is.character(border_bottom)) {
+              border_bottom <- style_border_all[[border_bottom]]
+            }
+            border_bottom <- .jcast(border_bottom, "org.apache.poi.ss.usermodel.BorderStyle")
+            .jcall(cellStyle, "V", "setBorderBottom", border_bottom)
             .jcall(cellStyle, "V", "setBottomBorderColor", bcolor)
             },
           LEFT = {
-            .jcall(cellStyle, "V", "setBorderLeft", .jshort(CS[border$pen[i]]))
+            border_left <- border$pen[i]
+            if (is.character(border_left)) {
+              border_left <- style_border_all[[border_left]]
+            }
+            border_left <- .jcast(border_left, "org.apache.poi.ss.usermodel.BorderStyle")
+            .jcall(cellStyle, "V", "setBorderLeft", border_left)
             .jcall(cellStyle, "V", "setLeftBorderColor", bcolor)
            },
           TOP = {
-            .jcall(cellStyle, "V", "setBorderTop", .jshort(CS[border$pen[i]]))
+            border_top <- border$pen[i]
+            if (is.character(border_top)) {
+              border_top <- style_border_all[[border_top]]
+            }
+            border_top <- .jcast(border_top, "org.apache.poi.ss.usermodel.BorderStyle")
+            .jcall(cellStyle, "V", "setBorderTop", border_top)
             .jcall(cellStyle, "V", "setTopBorderColor", bcolor)
             },
           RIGHT = {
-            .jcall(cellStyle, "V", "setBorderRight",.jshort(CS[border$pen[i]]))
+            if (is.character(border$pen[i])) {
+              border_right <- style_border_all[[border$pen[i]]]
+            }
+            border_right <- .jcast(border_right, "org.apache.poi.ss.usermodel.BorderStyle")
+            .jcall(cellStyle, "V", "setBorderRight", border_right)
             .jcall(cellStyle, "V", "setRightBorderColor", bcolor)
           }
        )
@@ -162,7 +197,13 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
        .jcall(cellStyle, "V", "setFillBackgroundColor",
          .jshort(INDEXED_COLORS_[toupper(fill$backgroundColor)]))
     }
-    .jcall(cellStyle, "V", "setFillPattern", .jshort(CS[fill$pattern]))
+
+    fill_pattern <- fill$pattern
+    if (is.character(fill_pattern)) {
+      fill_pattern <- style_fill_pattern[[fill$pattern]]
+    }
+    fill_pattern <- .jcast(fill_pattern, "org.apache.poi.ss.usermodel.FillPatternType")
+    .jcall(cellStyle, "V", "setFillPattern", fill_pattern)
   }
 
 

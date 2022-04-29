@@ -13,11 +13,11 @@ is.Fill <- function(x) inherits(x, "Fill")
 #'
 #' Create an Fill object, useful when working with cell styles.
 #'
-#' @param foregroundColor a character vector specifiying the foreground color.
+#' @param foregroundColor a character vector specifying the foreground color.
 #' Any color names as returned by \code{\link[grDevices]{colors}} can be used.
 #' Or, a hex character, e.g. "#FF0000" for red.  For Excel 95 workbooks, only a
 #' subset of colors is available, see the constant \code{INDEXED_COLORS_}.
-#' @param backgroundColor a character vector specifiying the foreground color.
+#' @param backgroundColor a character vector specifying the foreground color.
 #' Any color names as returned by \code{\link[grDevices]{colors}} can be used.
 #' Or, a hex character, e.g. "#FF0000" for red.  For Excel 95 workbooks, only a
 #' subset of colors is available, see the constant \code{INDEXED_COLORS_}.
@@ -30,7 +30,6 @@ is.Fill <- function(x) inherits(x, "Fill")
 #'
 #' \code{is.Fill} returns \code{TRUE} if the argument is of class "Fill" and
 #' \code{FALSE} otherwise.
-#' @author Adrian Dragulescu
 #' @seealso \code{\link{CellStyle}} for using the a \code{Fill} object.
 #' @examples
 #'
@@ -40,10 +39,17 @@ is.Fill <- function(x) inherits(x, "Fill")
 Fill <- function(foregroundColor="lightblue", backgroundColor="lightblue",
   pattern="SOLID_FOREGROUND")
 {
-  if (!(pattern %in% names(FILL_STYLES_)))
+  if (!(pattern %in% names(style_fill_pattern))) {
+    # TODO: allow java objects to be passed...
     stop("Not a valid pattern value.  See help page.")
+  }
 
-  structure(list(foregroundColor=foregroundColor,
-    backgroundColor=backgroundColor, pattern=pattern),
-    class="Fill")
+  structure(
+    list(
+      foregroundColor=foregroundColor,
+      backgroundColor=backgroundColor,
+      pattern=pattern
+      ),
+    class="Fill"
+    )
 }

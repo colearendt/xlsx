@@ -203,6 +203,7 @@ CB.setFill <- function( cellBlock, fill, rowIndex, colIndex)
 
 
   if ( cellBlock$ref$isXSSF() ) {
+    # TODO: let cellBlock take enums
     .jcall( cellBlock$ref, 'V', 'setFill',
       .xssfcolor( fill$foregroundColor ),
       .xssfcolor( fill$backgroundColor ),
@@ -210,6 +211,7 @@ CB.setFill <- function( cellBlock, fill, rowIndex, colIndex)
       .jarray( as.integer( rowIndex-1 ) ),
       .jarray( as.integer( colIndex-1 ) ) )
   } else {
+    # TODO: let cellBlock take enums
     .jcall( cellBlock$ref, 'V', 'setFill',
       .hssfcolor( fill$foregroundColor ),
       .hssfcolor( fill$backgroundColor ),

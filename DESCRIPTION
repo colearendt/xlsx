@@ -2,7 +2,7 @@ Type: Package
 Package: xlsx
 Title: Read, Write, Format Excel 2007 and Excel 97/2000/XP/2003
     Files
-Version: 0.6.5.9000
+Version: 0.6.5.9100
 Authors@R: 
     c(person(given = "Adrian",
              family = "Dragulescu",
@@ -21,7 +21,7 @@ Imports:
     grDevices,
     rJava,
     utils,
-    xlsxjars
+    xlsxjars (>= 0.8.0.9000)
 Suggests: 
     covr,
     knitr,
@@ -35,3 +35,5 @@ Encoding: UTF-8
 LazyLoad: yes
 RoxygenNote: 7.1.0
 SystemRequirements: java (>= 1.6)
+Remotes:
+    colearendt/xlsxjars@bump-poi
