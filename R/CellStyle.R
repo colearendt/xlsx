@@ -58,7 +58,7 @@
 #'       pattern="SOLID_FOREGROUND") +
 #'     Alignment(h="ALIGN_RIGHT")
 #'
-#'   setCellStyle(cell.1, cellStyle1)
+#'   setCellStyle(cell.1, cs)
 #'
 #'   # you need to save the workbook now if you want to see this art
 #' }
@@ -207,7 +207,7 @@ CellStyle.default <- function(wb, dataFormat=NULL, alignment=NULL,
 #'       pattern="SOLID_FOREGROUND") +
 #'     Alignment(h="ALIGN_RIGHT")
 #'
-#'   setCellStyle(cell.1, cellStyle1)
+#'   setCellStyle(cell.1, cs)
 #'
 #'   # you need to save the workbook now if you want to see this art
 #' }
